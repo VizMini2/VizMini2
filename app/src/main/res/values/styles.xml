@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Estilos comunes para que todas las pestañas sigan la estética del Home -->
+<resources>
+
+    <!-- Tarjeta de sección (como las del Home) -->
+    <style name="Widget.VizMini2.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">20dp</item>
+        <item name="contentPadding">18dp</item>
+    </style>
+
+    <!-- Franja de controles arriba de una pestaña (estado + acciones) -->
+    <style name="Widget.VizMini2.Strip" parent="Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">18dp</item>
+        <item name="contentPaddingLeft">14dp</item>
+        <item name="contentPaddingRight">6dp</item>
+        <item name="contentPaddingTop">4dp</item>
+        <item name="contentPaddingBottom">4dp</item>
+    </style>
+
+    <!-- Título de tarjeta con icono a la izquierda -->
+    <style name="TextAppearance.VizMini2.CardTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.VizMini2.CardTitle" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">@style/TextAppearance.VizMini2.CardTitle</item>
+        <item name="drawableTint">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Texto de ayuda pequeño -->
+    <style name="Widget.VizMini2.Hint" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Píldora de estado (color de fondo con backgroundTint) -->
+    <style name="Widget.VizMini2.Pill" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_pill</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Campos de texto redondeados -->
+    <style name="Widget.VizMini2.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+    </style>
+
+    <style name="Widget.VizMini2.TextInput.Dense" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+    </style>
+
+    <!-- Etiquetas de la barra de pestañas -->
+    <style name="TextAppearance.VizMini2.Tab" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

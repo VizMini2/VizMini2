@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<resources>
+    <!-- Documentación (inglés; la española cuelga de es/) y correo de contacto -->
+    <string name="docs_url" translatable="false">https://juancams.github.io/vizmini2/</string>
+    <string name="contact_email" translatable="false">jc.manzanares.serrano@gmail.com</string>
+    <!-- Autor: "by Juancams" en el pie de Inicio, con enlace a su LinkedIn -->
+    <string name="author_name" translatable="false">Juancams</string>
+    <string name="author_url" translatable="false">https://www.linkedin.com/in/juancams/</string>
+    <!-- Tarjeta "GitHub" de Inicio: solo el perfil, sin pedir donaciones (Google Play no las admite fuera de su sistema de pago) -->
+    <string name="author_github_url" translatable="false">https://github.com/Juancams</string>
+    <!-- "Apoya el proyecto" (solo en el APK; en Google Play no se pueden pedir donaciones con un pago externo) -->
+    <string name="donate_url" translatable="false">https://github.com/sponsors/Juancams</string>
+</resources>

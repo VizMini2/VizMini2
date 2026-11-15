@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- A view that exists in layout/ but not in layout-land/ makes findViewById return null and the tab
+         close when the phone is rotated (happened with moreToolsButton and cameraGrid in 0.18). -->
+    <issue id="InconsistentLayout" severity="error" />
+</lint>

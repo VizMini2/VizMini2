@@ -1,0 +1,27 @@
+{#- Selector de idioma abajo en la barra lateral (donde docs.ros.org pone la versión). Las dos
+    versiones tienen las mismas páginas: el inglés en la raíz y el español en es/. -#}
+{%- set root = pathto(root_doc)[:-(root_doc|length + 5)] -%}
+{%- if vm_lang == 'es' -%}
+  {%- set en_url = root ~ '../' ~ pagename ~ '.html' -%}
+  {%- set es_url = pagename.split('/')[-1] ~ '.html' -%}
+{%- else -%}
+  {%- set en_url = pagename.split('/')[-1] ~ '.html' -%}
+  {%- set es_url = root ~ 'es/' ~ pagename ~ '.html' -%}
+{%- endif -%}
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Language">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-language"></span> {{ 'Español' if vm_lang == 'es' else 'English' }}
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>{{ 'Idioma' if vm_lang == 'es' else 'Language' }}</dt>
+      <dd>{% if vm_lang == 'en' %}<strong>English</strong>{% else %}<a href="{{ en_url }}">English</a>{% endif %}</dd>
+      <dd>{% if vm_lang == 'es' %}<strong>Español</strong>{% else %}<a href="{{ es_url }}">Español</a>{% endif %}</dd>
+    </dl>
+    <dl>
+      <dt>VizMini2</dt>
+      <dd>v{{ release }}</dd>
+    </dl>
+  </div>
+</div>

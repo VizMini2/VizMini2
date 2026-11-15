@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VizMini2 · Política de privacidad / Privacy policy</title>
+<style>
+  :root { --bg: #f7f8fa; --card: #ffffff; --text: #1b1f24; --muted: #5b6470; --accent: #0b7f86; --line: #e1e5ea; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #15181c; --card: #1e2227; --text: #e8eaed; --muted: #a2aab4; --accent: #6fd0d6; --line: #2e343b; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0; }
+  h2 { font-size: 1.15rem; margin: 28px 0 8px; }
+  p, li { color: var(--text); }
+  .muted { color: var(--muted); font-size: .95rem; }
+  .langs a { color: var(--accent); text-decoration: none; font-weight: 600; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; }
+  .langs a.on { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  section.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 20px 16px; margin-top: 16px; }
+  ul { padding-left: 1.2em; }
+  a { color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-top: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  .lang { display: none; }
+  .lang.on { display: block; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 id="title">VizMini2</h1>
+    <nav class="langs"><a href="#es" data-lang="es">Español</a> <a href="#en" data-lang="en">English</a></nav>
+  </header>
+
+  <!-- ============================================================ ESPAÑOL -->
+  <div class="lang" id="es" lang="es">
+    <p class="muted">Política de privacidad · Última actualización: 4 de noviembre de 2026</p>
+
+    <section class="card">
+      <h2>Resumen</h2>
+      <ul>
+        <li>No necesitas cuenta para usar la app. Solo si vinculas una (Google, Microsoft o GitHub) para tener tus perfiles en todos tus móviles, guardamos tu correo y esos perfiles.</li>
+        <li>Los datos de tus robots (mapas, cámaras, láser, topics…) van directamente entre tu móvil y tus robots por tu red. <strong>Nunca nos llegan.</strong></li>
+        <li>Si la app se cierra de forma inesperada, se envía un informe técnico del error para poder arreglarlo.</li>
+        <li>La app no muestra anuncios, no usa analítica de uso y no vendemos tus datos.</li>
+        <li>Puedes pedir en cualquier momento una copia de tus datos o que borremos tu cuenta.</li>
+      </ul>
+    </section>
+
+    <h2>1. Responsable</h2>
+    <p>Juan Carlos Manzanares Serrano, desarrollador de VizMini2 (España).<br>
+    Contacto para cualquier cuestión de privacidad: <a href="mailto:jc.manzanares.serrano@gmail.com">jc.manzanares.serrano@gmail.com</a></p>
+
+    <h2>2. Qué datos tratamos y para qué</h2>
+    <table>
+      <tr><th>Datos</th><th>Para qué</th><th>Base legal</th></tr>
+      <tr><td><strong>Cuenta</strong> (opcional, solo si la vinculas): al entrar con Google, Microsoft o GitHub, ese servicio nos da tu nombre, tu correo y un identificador de tu cuenta allí, y guardamos qué formas de entrar tienes vinculadas. No recibimos tu contraseña de esos servicios ni accedemos a nada más de tu cuenta. Las cuentas creadas con versiones anteriores pueden tener además correo y contraseña (la guarda cifrada Firebase Authentication; nosotros no la vemos).</td>
+          <td>Identificar tu cuenta para sincronizar tus perfiles y vincular otras formas de entrar.</td>
+          <td>Ejecución del servicio que pides (art. 6.1.b RGPD).</td></tr>
+      <tr><td><strong>Perfiles de robot en la nube</strong> (solo si los guardas): nombre del perfil, ajustes de conexión ROS 2 (dominio, nombre del nodo, IPs o nombres de equipos para el descubrimiento, Discovery Server, interfaces) y tus pestañas.</td>
+          <td>Que tus perfiles aparezcan en todos tus móviles.</td>
+          <td>Ejecución del servicio (art. 6.1.b).</td></tr>
+      <tr><td><strong>Informes de errores</strong> (Firebase Crashlytics): traza del error, modelo de móvil, versión de Android y de la app, un identificador aleatorio de la instalación, tu identificador de usuario de Firebase si has iniciado sesión, el número de dominio ROS en uso y si estabas en modo demo.</td>
+          <td>Detectar y arreglar cierres inesperados de la app.</td>
+          <td>Interés legítimo en que la app funcione (art. 6.1.f).</td></tr>
+    </table>
+
+    <h2>3. Lo que se queda en tu móvil</h2>
+    <ul>
+      <li><strong>Datos de los robots</strong>: lo que la app recibe y envía por ROS 2 (topics, cámaras, mapas, órdenes de movimiento, servicios, acciones…) viaja directamente entre tu móvil y los equipos de tu red. No pasa por nuestros servidores.</li>
+      <li><strong>Grabaciones (bags)</strong>, ajustes, pestañas, robots recordados de tu red y avisos: se guardan solo en el móvil. Si compartes una grabación o exportas un perfil, eres tú quien decide a quién se envía.</li>
+      <li><strong>Sin cuenta</strong>: si no vinculas ninguna, no se guarda ningún dato personal fuera del móvil; solo pueden enviarse informes de errores. El modo demo funciona igual: el robot simulado vive solo dentro del móvil.</li>
+      <li><strong>Códigos QR</strong>: el escáner lo proporciona Google Play Services; la app no tiene permiso de cámara y solo recibe el texto del código leído.</li>
+    </ul>
+
+    <h2>4. Quién trata los datos por nosotros</h2>
+    <p>Usamos Firebase (Google): Authentication para las cuentas, Cloud Firestore para los perfiles en la nube, y Crashlytics para los informes de errores. Google actúa como encargado del tratamiento. Sus servidores pueden estar fuera del Espacio Económico Europeo; esas transferencias se amparan en el Marco de Privacidad de Datos UE-EE. UU. y en las cláusulas contractuales tipo de la Comisión Europea. Más información: <a href="https://firebase.google.com/support/privacy">privacidad de Firebase</a>.</p>
+    <p>Si entras con Google, Microsoft o GitHub, el inicio de sesión se hace en la página de ese servicio, que aplica su propia política de privacidad.</p>
+    <p>Si usas una pestaña <strong>Mapa GPS</strong>, el móvil descarga las imágenes del mapa directamente de los servidores de <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, que reciben tu dirección IP y qué zona del mapa se pide (como al ver cualquier mapa en internet), según su <a href="https://osmfoundation.org/wiki/Privacy_Policy">política de privacidad</a>. Nosotros no recibimos ninguno de esos datos. Las imágenes se guardan en el móvil para no pedirlas de nuevo.</p>
+    <p>No cedemos tus datos a nadie más, salvo obligación legal.</p>
+    <p>Si decides apoyar el proyecto, el pago se hace en GitHub Sponsors, fuera de la app, y lo gestiona GitHub con su propia política de privacidad. Nosotros solo vemos lo que GitHub muestra a quien recibe el patrocinio: tu usuario de GitHub y el importe, salvo que elijas patrocinar de forma privada.</p>
+
+    <h2>5. Cuánto tiempo</h2>
+    <ul>
+      <li>Datos de la cuenta y perfiles en la nube: mientras tengas la cuenta. Si la borras desde la app, se eliminan al momento; si nos pides por correo que la borremos, en un máximo de 30 días.</li>
+      <li>Informes de errores: Crashlytics los borra automáticamente a los 90 días.</li>
+    </ul>
+
+    <h2 id="es-delete">6. Borrar tu cuenta</h2>
+    <p>Desde la app: en <strong>Inicio → Eliminar mi cuenta</strong>, volviendo a entrar con Google, Microsoft o GitHub (o con tu contraseña, si la cuenta es de una versión anterior). Se borran al momento tu cuenta y tus perfiles en la nube, y puedes seguir usando la app sin cuenta.</p>
+    <p>Si no puedes entrar en la app, escribe a <a href="mailto:jc.manzanares.serrano@gmail.com?subject=Borrar%20mi%20cuenta%20de%20VizMini2">jc.manzanares.serrano@gmail.com</a> desde el correo de tu cuenta con el asunto «Borrar mi cuenta de VizMini2». Eliminaremos tu cuenta y tus perfiles en la nube en un máximo de 30 días y te lo confirmaremos. Los datos guardados solo en tu móvil se borran al desinstalar la app.</p>
+
+    <h2>7. Tus derechos</h2>
+    <p>Puedes pedir acceso a tus datos, rectificarlos, borrarlos, limitar u oponerte a su tratamiento y recibirlos en un formato portable, escribiendo al correo de contacto. Si crees que no hemos atendido bien tu solicitud, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es">www.aepd.es</a>).</p>
+    <p><strong>Si vives en Estados Unidos</strong> (por ejemplo, en California, Virginia o Colorado): no vendemos ni compartimos tus datos personales para publicidad. Puedes pedir acceso a tus datos o que los borremos escribiendo al correo de contacto, y no te trataremos de forma distinta por hacerlo.</p>
+    <p><strong>En otros países</strong> (por ejemplo, Brasil o Canadá) tienes los derechos que te reconozca tu ley de protección de datos; escríbenos al correo de contacto para ejercerlos.</p>
+
+    <h2>8. Menores</h2>
+    <p>La app no está dirigida a menores de 14 años, que no deben vincular una cuenta.</p>
+
+    <h2>9. Seguridad</h2>
+    <p>Las comunicaciones con Firebase van cifradas y el acceso a los datos está limitado por reglas: cada cuenta solo puede leer y modificar sus propios perfiles.</p>
+
+    <h2>10. Cambios</h2>
+    <p>Si cambiamos esta política, actualizaremos la fecha de arriba y, si el cambio es importante, lo avisaremos en la app.</p>
+  </div>
+
+  <!-- ============================================================ ENGLISH -->
+  <div class="lang" id="en" lang="en">
+    <p class="muted">Privacy policy · Last updated: 4 November 2026</p>
+
+    <section class="card">
+      <h2>Summary</h2>
+      <ul>
+        <li>You don't need an account to use the app. Only if you link one (Google, Microsoft or GitHub) to have your profiles on all your phones do we store your email and those profiles.</li>
+        <li>Your robots' data (maps, cameras, laser, topics…) goes straight between your phone and your robots over your network. <strong>It never reaches us.</strong></li>
+        <li>If the app crashes, a technical crash report is sent so we can fix it.</li>
+        <li>The app shows no ads and uses no usage analytics, and we never sell your data.</li>
+        <li>You can ask for a copy of your data or for your account to be deleted at any time.</li>
+      </ul>
+    </section>
+
+    <h2>1. Who is responsible</h2>
+    <p>Juan Carlos Manzanares Serrano, developer of VizMini2 (Spain).<br>
+    Contact for any privacy question: <a href="mailto:jc.manzanares.serrano@gmail.com">jc.manzanares.serrano@gmail.com</a></p>
+
+    <h2>2. What data we process and why</h2>
+    <table>
+      <tr><th>Data</th><th>Purpose</th><th>Legal basis</th></tr>
+      <tr><td><strong>Account</strong> (optional, only if you link one): when you sign in with Google, Microsoft or GitHub, that service gives us your name, your email and an identifier of your account there, and we store which sign-in methods you have linked. We never receive your password for those services or access anything else in your account. Accounts created with earlier versions may also have an email and password (stored encrypted by Firebase Authentication; we never see it).</td>
+          <td>Identify your account to sync your profiles and link other sign-in methods.</td>
+          <td>Providing the service you ask for (Art. 6(1)(b) GDPR).</td></tr>
+      <tr><td><strong>Cloud robot profiles</strong> (only if you save them): profile name, ROS 2 connection settings (domain, node name, IPs or host names for discovery, Discovery Server, interfaces) and your tabs.</td>
+          <td>Make your profiles available on all your phones.</td>
+          <td>Providing the service (Art. 6(1)(b)).</td></tr>
+      <tr><td><strong>Crash reports</strong> (Firebase Crashlytics): stack trace, phone model, Android and app version, a random installation identifier, your Firebase user ID if you are signed in, the ROS domain number in use and whether demo mode was on.</td>
+          <td>Find and fix crashes.</td>
+          <td>Legitimate interest in keeping the app working (Art. 6(1)(f)).</td></tr>
+    </table>
+
+    <h2>3. What stays on your phone</h2>
+    <ul>
+      <li><strong>Robot data</strong>: what the app sends and receives over ROS 2 (topics, cameras, maps, motion commands, services, actions…) travels directly between your phone and the computers on your network. It does not go through our servers.</li>
+      <li><strong>Recordings (bags)</strong>, settings, tabs, robots remembered on your network and alerts are stored only on the phone. If you share a recording or export a profile, you decide who receives it.</li>
+      <li><strong>Without an account</strong>: if you don't link one, no personal data is stored outside the phone; only crash reports may be sent. Demo mode works the same: the simulated robot runs only inside the phone.</li>
+      <li><strong>QR codes</strong>: the scanner is provided by Google Play Services; the app has no camera permission and only receives the text of the scanned code.</li>
+    </ul>
+
+    <h2>4. Who processes data on our behalf</h2>
+    <p>We use Firebase (Google): Authentication for accounts, Cloud Firestore for cloud profiles, and Crashlytics for crash reports. Google acts as a data processor. Its servers may be outside the European Economic Area; those transfers rely on the EU-US Data Privacy Framework and the European Commission's Standard Contractual Clauses. More information: <a href="https://firebase.google.com/support/privacy">Firebase privacy</a>.</p>
+    <p>If you sign in with Google, Microsoft or GitHub, you do so on that service's own page, under its own privacy policy.</p>
+    <p>If you use a <strong>GPS map</strong> tab, the phone downloads the map images directly from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'s servers, which receive your IP address and which area of the map is requested (as when viewing any map on the internet), under their <a href="https://osmfoundation.org/wiki/Privacy_Policy">privacy policy</a>. We don't receive any of that data. The images are cached on the phone so they aren't requested again.</p>
+    <p>We do not share your data with anyone else unless required by law.</p>
+    <p>If you choose to support the project, payment happens on GitHub Sponsors, outside the app, and GitHub handles it under its own privacy policy. We only see what GitHub shows to the sponsored person: your GitHub username and the amount, unless you choose to sponsor privately.</p>
+
+    <h2>5. How long</h2>
+    <ul>
+      <li>Account data and cloud profiles: while you have an account. If you delete it from the app, they are erased right away; if you ask us by email to delete it, within 30 days.</li>
+      <li>Crash reports: Crashlytics deletes them automatically after 90 days.</li>
+    </ul>
+
+    <h2 id="en-delete">6. Delete your account</h2>
+    <p>From the app: <strong>Home → Delete my account</strong>, by signing in again with Google, Microsoft or GitHub (or with your password, if the account is from an earlier version). Your account and your cloud profiles are deleted right away, and you can keep using the app without an account.</p>
+    <p>If you can't get into the app, email <a href="mailto:jc.manzanares.serrano@gmail.com?subject=Delete%20my%20VizMini2%20account">jc.manzanares.serrano@gmail.com</a> from your account's email address with the subject "Delete my VizMini2 account". We will delete your account and your cloud profiles within 30 days and confirm it to you. Data stored only on your phone is removed when you uninstall the app.</p>
+
+    <h2>7. Your rights</h2>
+    <p>You can ask to access, correct or delete your data, to restrict or object to its processing, and to receive it in a portable format, by writing to the contact email. If you think we have not handled your request properly, you can complain to the Spanish Data Protection Agency (<a href="https://www.aepd.es">www.aepd.es</a>) or the authority in your country.</p>
+    <p><strong>If you live in the United States</strong> (for example, in California, Virginia or Colorado): we do not sell or share your personal data for advertising. You can ask to access or delete your data by writing to the contact email, and we will not treat you differently for doing so.</p>
+    <p><strong>In other countries</strong> (for example, Brazil or Canada) you have the rights your data protection law gives you; write to the contact email to exercise them.</p>
+
+    <h2>8. Children</h2>
+    <p>The app is not intended for children under 14, who must not link an account.</p>
+
+    <h2>9. Security</h2>
+    <p>Communication with Firebase is encrypted and access to data is limited by rules: each account can only read and change its own profiles.</p>
+
+    <h2>10. Changes</h2>
+    <p>If we change this policy, we will update the date above and, for important changes, let you know in the app.</p>
+  </div>
+</main>
+<script>
+  // Idioma: el del enlace (#es / #en) o el del navegador.
+  function show(lang) {
+    document.querySelectorAll('.lang').forEach(function (d) { d.classList.toggle('on', d.id === lang); });
+    document.querySelectorAll('.langs a').forEach(function (a) { a.classList.toggle('on', a.dataset.lang === lang); });
+    document.documentElement.lang = lang;
+    document.getElementById('title').textContent = lang === 'es' ? 'VizMini2 · Política de privacidad' : 'VizMini2 · Privacy policy';
+  }
+  function pick() {
+    var h = location.hash.replace('#', '');
+    if (h.indexOf('es') === 0) return 'es';
+    if (h.indexOf('en') === 0) return 'en';
+    return (navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
+  }
+  window.addEventListener('hashchange', function () { show(pick()); });
+  show(pick());
+</script>
+</body>
+</html>

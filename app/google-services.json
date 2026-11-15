@@ -1,0 +1,109 @@
+{
+  "project_info": {
+    "project_number": "354498918221",
+    "firebase_url": "https://ros-2-viz-mini-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ros-2-viz-mini",
+    "storage_bucket": "ros-2-viz-mini.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354498918221:android:3f2c296c2c23e1ee006904",
+        "android_client_info": {
+          "package_name": "com.juancams.rviz2mini"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354498918221-j6fvhr4q0vguap6aomtnrg344770ali1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juancams.rviz2mini",
+            "certificate_hash": "e1d7fe456f41f80951a8d10945797e1490bf2f60"
+          }
+        },
+        {
+          "client_id": "354498918221-o035429b6dlgeh4050h3iv69jlldgmtc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juancams.rviz2mini",
+            "certificate_hash": "1f0524784c38d177ddf430e5268e10c8b2e8430f"
+          }
+        },
+        {
+          "client_id": "354498918221-re68bbo3otumf5tgemokgthlee7qvsnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr0t-RDx3Ma8bZVv1zZfHw3LP7VvntfzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354498918221-re68bbo3otumf5tgemokgthlee7qvsnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354498918221:android:5b31509975d45f61006904",
+        "android_client_info": {
+          "package_name": "com.juancams.vizmini2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354498918221-2gf2lrfkkmld7m5dq6skapivm8g3oi8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juancams.vizmini2",
+            "certificate_hash": "e1d7fe456f41f80951a8d10945797e1490bf2f60"
+          }
+        },
+        {
+          "client_id": "354498918221-ji32gp81bgf0vqgb1m105i86j9oh96st.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juancams.vizmini2",
+            "certificate_hash": "1f0524784c38d177ddf430e5268e10c8b2e8430f"
+          }
+        },
+        {
+          "client_id": "354498918221-o5b9o5fsksroman7ca8elfk5alj0egto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juancams.vizmini2",
+            "certificate_hash": "18d1dcb362667440913ec58d1cf45b262507e779"
+          }
+        },
+        {
+          "client_id": "354498918221-re68bbo3otumf5tgemokgthlee7qvsnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr0t-RDx3Ma8bZVv1zZfHw3LP7VvntfzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354498918221-re68bbo3otumf5tgemokgthlee7qvsnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

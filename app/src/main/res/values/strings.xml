@@ -1,0 +1,493 @@
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<resources>
+    <string name="app_name">VizMini2</string>
+    <string name="rviz_loading">Preparing the 3D viewer…\n(first launch after install only)</string>
+
+    <!-- Comunes (botones y textos repetidos) -->
+    <string name="common_brand" translatable="false">VizMini2</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_save">Save</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_rename">Rename</string>
+    <string name="common_ok">OK</string>
+    <string name="common_done">Done</string>
+    <string name="common_close">Close</string>
+    <string name="common_create">Create</string>
+    <string name="common_load">Load</string>
+    <string name="common_back">Back</string>
+    <string name="common_refresh">Refresh</string>
+    <string name="common_name">Name</string>
+    <string name="common_password">Password</string>
+    <string name="common_sign_out">Sign out</string>
+    <string name="common_new_tab">New tab</string>
+    <string name="common_delete_named">Delete \"%1$s\"?</string>
+    <string name="common_no_connection">No connection to the server. Check your network.</string>
+    <string name="common_version_label">v%1$s</string>
+    <string name="common_ros_connection">ROS 2 connection</string>
+    <string name="common_domain_node">Domain %1$d · node %2$s</string>
+    <string name="common_peers_suffix">" · peers %1$s"</string>
+    <string name="common_status_connected">● Connected</string>
+    <string name="common_status_connecting">● Connecting…</string>
+    <string name="common_status_disconnected">● Disconnected</string>
+    <string name="common_status_error">● Error</string>
+    <plurals name="common_tabs_count">
+        <item quantity="one">%1$d tab</item>
+        <item quantity="other">%1$d tabs</item>
+    </plurals>
+
+    <!-- MainActivity -->
+    <string name="main_domain_badge">● Domain %1$d</string>
+    <string name="main_tab_home">Home</string>
+    <string name="main_tab_config">Config</string>
+    <string name="main_title_config">Configuration</string>
+    <string name="main_duplicate_tab">Duplicate</string>
+    <string name="main_share_tab">Share…</string>
+    <string name="add_tab_import">Import a tab, an RViz file or a layout…</string>
+    <string name="add_tab_import_bad">That file is not a VizMini2 tab</string>
+    <string name="main_rename_tab">Rename tab</string>
+    <string name="main_delete_tab_message">Its configuration will be lost.</string>
+
+    <!-- Acceso: login, registro y espera -->
+    <string name="login_enter_password">Enter your password</string>
+
+    <!-- Pestaña Config -->
+    <string name="config_restart">Restart ROS 2</string>
+    <string name="config_network">Network</string>
+    <string name="config_network_hint">Changes apply when you tap “Apply and reconnect”.</string>
+    <string name="config_domain_id">Domain ID</string>
+    <string name="config_node_name">Node name</string>
+    <string name="config_domain_range">ROS_DOMAIN_ID: 0–232</string>
+    <string name="config_peers">Discovery peers (optional)</string>
+    <string name="config_peers_helper">Robot or PC IPs, comma-separated, like ROS_STATIC_PEERS. Use it when topics don\'t show up: many Wi-Fi networks drop multicast.</string>
+    <string name="config_server">Discovery Server (optional)</string>
+    <string name="config_server_helper">ip or ip:port (11811 by default), like ROS_DISCOVERY_SERVER. For large networks, 4G or VPN: the robot must use the same server.</string>
+    <string name="config_bridge">foxglove_bridge (optional)</string>
+    <string name="config_zenoh">Zenoh router (optional)</string>
+    <string name="config_zenoh_helper">tcp/ip:7447. For robots that use rmw_zenoh_cpp: the app connects to their Zenoh router (ros2 run rmw_zenoh_cpp rmw_zenohd) instead of DDS.</string>
+    <string name="config_zenoh_and_bridge">Use either foxglove_bridge or Zenoh, not both</string>
+    <string name="config_service_format">Service format</string>
+    <string name="config_service_format_helper">How service calls (and actions, parameters, lifecycle) are packed. Automatic picks Fast DDS or Cyclone DDS for each service from its server. Change it only if services do not answer.</string>
+    <string name="config_service_format_auto">Automatic</string>
+    <string name="config_service_format_fastdds">Fast DDS (rmw_fastrtps_cpp)</string>
+    <string name="config_service_format_cyclone">Cyclone DDS (rmw_cyclonedds_cpp)</string>
+    <string name="config_bridge_helper">ws://ip:8765. When set, the app connects to that bridge by WebSocket instead of DDS: it works over the internet or mobile data. Services and parameters work through it too; actions need the bridge started with include_hidden:=true.</string>
+    <string name="main_bridge_badge">Bridge</string>
+    <string name="main_zenoh_badge">● Zenoh · domain %1$d</string>
+    <string name="home_bridge_detail">foxglove_bridge · %1$s</string>
+    <string name="config_interfaces">Allowed network interfaces (optional)</string>
+    <string name="config_interfaces_helper">Comma-separated IPs or names, e.g. wlan0. Empty = all.</string>
+    <string name="config_apply">Apply and reconnect</string>
+    <string name="config_keep_alive">Keep connection alive in background</string>
+    <string name="config_keep_alive_hint">While the app is in the background the node stays on the network (with a notification). Tabs are still paused: teleop never publishes in the background.</string>
+    <string name="config_alerts">Robot alerts</string>
+    <string name="config_alerts_hint">Notifications while the app is open (or in the background with the option above).</string>
+    <string name="config_alert_connection">Lost contact with the robot</string>
+    <string name="config_alert_diagnostics">Diagnostics in ERROR or STALE</string>
+    <string name="config_alert_warnings">Also warnings (WARN)</string>
+    <string name="config_alert_lifecycle">Lifecycle nodes lost, finalized or in error</string>
+    <string name="config_alert_test">Send a test notification</string>
+    <string name="config_profiles">Robot profiles</string>
+    <string name="config_profile_none_placeholder">Profile: (none)</string>
+    <string name="config_profiles_hint">A profile stores the connection (domain, node, interfaces, peers) and every tab with its settings.</string>
+    <string name="config_sync_now">Sync now</string>
+    <string name="config_save_as">Save as…</string>
+    <string name="config_load">Load…</string>
+    <string name="config_export">Export…</string>
+    <string name="config_import">Import…</string>
+    <string name="config_share_qr">Share as QR</string>
+    <string name="config_scan_qr">Scan QR</string>
+    <string name="config_notifications_blocked">Notifications are blocked: alerts won\'t be shown</string>
+    <string name="config_version">Version %1$s</string>
+    <string name="config_reconnecting">Reconnecting on domain %1$d…</string>
+    <string name="config_load_profile">Load profile</string>
+    <string name="config_export_profile">Export profile</string>
+    <string name="config_allow_notifications">Allow notifications for VizMini2 first</string>
+    <string name="config_test_alert_title">Test alert</string>
+    <string name="config_test_alert_text">Robot alerts will look like this.</string>
+    <string name="config_profile_summary">Profile: %1$s · %2$d saved</string>
+    <string name="config_profile_none">(none)</string>
+    <string name="config_profile_name_hint">e.g. TurtleBot 4</string>
+    <string name="config_save_profile">Save profile</string>
+    <string name="config_domain_tabs">Domain %1$d · %2$s</string>
+    <string name="config_profile_saved">Profile \"%1$s\" saved</string>
+    <string name="config_no_profiles">No saved profiles</string>
+    <string name="config_profile_item">%1$s  ·  domain %2$d · %3$s</string>
+    <string name="config_load_message">Reconnects on domain %1$d (node %2$s) and replaces your current tabs with: %3$s.</string>
+    <string name="config_load_no_tabs">none</string>
+    <string name="config_profile_exported">Profile exported</string>
+    <string name="config_write_failed">Could not write the file</string>
+    <string name="config_open_failed">Could not open the file</string>
+    <string name="config_import_failed">Import failed: %1$s</string>
+    <string name="config_import_title">Import \"%1$s\"</string>
+    <string name="config_import_replaces">A profile with this name already exists and will be replaced.\n\n</string>
+    <string name="config_save_and_load">Save and load</string>
+    <string name="config_qr_current">Current setup (this phone)</string>
+    <string name="config_qr_item">%1$s  ·  domain %2$d</string>
+    <string name="config_qr_part">Part %1$d of %2$d · keep the camera on it: they change by themselves</string>
+    <string name="config_qr_part_read">Part %1$d of %2$d read. Scan the next one.</string>
+    <string name="config_qr_full">Full profile</string>
+    <string name="config_qr_connection_only">Connection only</string>
+    <string name="config_qr_full_too_big">Full (too big)</string>
+    <string name="config_qr_peers">\npeers %1$s</string>
+    <string name="config_qr_scan_to_connect">\nScan it from Config → Scan QR on another phone to connect.</string>
+    <string name="config_qr_caption_full">\"%1$s\" · domain %2$d · %3$s\nScan it from Config → Scan QR on another phone.</string>
+    <string name="config_qr_scanner_failed">Could not open the QR scanner: %1$s</string>
+    <string name="config_connect_title">Connect to \"%1$s\"?</string>
+    <string name="config_connect_peers">\nPeers: %1$s</string>
+    <string name="config_connect_server">\nDiscovery Server: %1$s</string>
+    <string name="config_connect_tabs_stay">\n\nYour tabs stay as they are.</string>
+    <string name="config_connect">Connect</string>
+
+    <!-- Perfiles en la nube -->
+    <string name="cloud_not_synced">Cloud: not synced yet</string>
+    <string name="cloud_syncing">Cloud: syncing…</string>
+    <string name="cloud_signed_out">Cloud: link an account in Home to sync profiles</string>
+    <string name="cloud_synced">Cloud: synced with your account · %1$s</string>
+    <string name="cloud_failed">Cloud: %1$s</string>
+    <string name="cloud_permission_denied">The server doesn\'t allow cloud profiles for this account (Firestore rules for users/{uid}/profiles).</string>
+    <string name="cloud_unavailable">No connection to the server. Profiles will sync later.</string>
+    <string name="cloud_unknown_error">Unknown error</string>
+
+    <!-- Pestaña Home -->
+    <string name="home_demo_title">Demo mode</string>
+    <string name="home_demo_text">A simulated robot is running on this phone only. Drive it from the Drive tab and watch it in Demo RViz.</string>
+    <string name="home_demo_exit">Exit demo</string>
+    <string name="home_reconnect">Reconnect</string>
+    <string name="home_settings">Settings</string>
+    <string name="home_on_network">On the network</string>
+    <string name="home_graph_hint">Tap a number to see the list.</string>
+    <string name="home_graph_demo">Everything here comes from the simulated robot, inside this phone. Tap a number to see the list.</string>
+    <string name="home_graph_alone">Only this device is visible. If your robot is on this network, add its IP in Config → Discovery peers.</string>
+    <string name="home_node_graph">Node graph</string>
+    <string name="home_tf_tree">TF tree</string>
+    <string name="home_workspace">Workspace</string>
+    <string name="home_try_demo">Try demo</string>
+    <string name="home_signed_in_as">Signed in as</string>
+    <string name="home_account_optional">Account (optional)</string>
+    <string name="home_account_why">Link an account to have your robot profiles on all your devices. The app works the same without one.</string>
+    <string name="home_footer">VizMini2 %1$s</string>
+    <string name="home_demo_confirm_title">Try the demo?</string>
+    <string name="home_demo_confirm_message">A simulated robot will run on this phone only (it never reaches your real network). Your tabs and connection settings are saved and come back when you exit the demo.</string>
+    <string name="home_start_demo">Start demo</string>
+    <string name="home_status_error">● Connection error</string>
+    <string name="home_via_suffix">" · via %1$s"</string>
+    <string name="home_stat_topics">Topics</string>
+    <string name="home_stat_services">Services</string>
+    <string name="home_stat_actions">Actions</string>
+    <string name="home_stat_nodes">Nodes</string>
+    <string name="home_stat_lifecycle">Lifecycle</string>
+    <string name="home_topic_detail">%1$s · %2$d pub / %3$d sub</string>
+    <string name="home_service_no_server">" · no server"</string>
+    <string name="home_lifecycle_tag">lifecycle</string>
+    <string name="home_node_detail">%1$d pub · %2$d sub · %3$d srv</string>
+    <string name="home_lifecycle_node">lifecycle node</string>
+    <string name="home_list_title">%1$s (%2$d)</string>
+    <string name="home_nothing_found">Nothing found on domain %1$d.</string>
+    <string name="home_no_tabs">No tabs yet. Create one to start.</string>
+    <plurals name="home_tabs_summary">
+        <item quantity="one">%1$d tab: %2$s</item>
+        <item quantity="other">%1$d tabs: %2$s</item>
+    </plurals>
+    <string name="home_type_count">%1$s ×%2$d</string>
+    <string name="home_workspace_profile">\nProfile: %1$s · %2$d saved</string>
+    <string name="home_profile_none">none</string>
+    <string name="home_sign_out_title">Sign out?</string>
+    <string name="home_sign_out_message">Your tabs and profiles stay on this device, but they will no longer sync with the cloud.</string>
+    <string name="home_tip_long_press">Tip: long-press a tab to rename or delete it.</string>
+    <string name="home_tip_import_rviz">Tip: import an .rviz file from a RViz tab to bring your displays along.</string>
+    <string name="home_tip_profiles">Tip: save your setup as a robot profile and share it with your team.</string>
+    <string name="home_tip_lifecycle">Tip: the Lifecycle tab lets you configure and activate managed nodes.</string>
+    <string name="home_tip_gamepad">Tip: a physical gamepad works in teleop tabs.</string>
+    <string name="home_tip_buttons">Tip: buttons can call services and send action goals, not just publish.</string>
+
+    <!-- Changelog -->
+    <string name="changelog_title">Changelog</string>
+    <string name="home_changelog_text">Every version up to %1$s</string>
+    <string name="changelog_subtitle">VizMini2 %1$s</string>
+    <string name="changelog_unavailable">The changelog is not available.</string>
+    <string name="changelog_latest">Latest</string>
+
+    <!-- Tour (onboarding) -->
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_start_demo">Start demo mode</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get started</string>
+    <string name="onboarding_welcome_title">Welcome to VizMini2</string>
+    <string name="onboarding_welcome_text">RViz and the everyday ROS 2 tools, in your pocket. Here are the basics in under a minute.</string>
+    <string name="onboarding_connect_title">Connect to your robot</string>
+    <string name="onboarding_connect_text">In Config, set the same ROS_DOMAIN_ID as your robot. If topics don\'t show up, add the robot\'s IP under Discovery peers and run Network check. Robots you\'ve seen are remembered for next time.</string>
+    <string name="onboarding_workspace_title">Build your workspace</string>
+    <string name="onboarding_workspace_text">Tap + to add tabs: 3D view, cameras, teleop, buttons, diagnostics… or build a Dashboard with several of them on one screen. Long-press a tab to rename or delete it.</string>
+    <string name="onboarding_drive_title">Drive and control</string>
+    <string name="onboarding_drive_text">Drive with the joystick or a gamepad, make buttons that call services or send goals, and configure or activate lifecycle nodes.</string>
+    <string name="onboarding_inspect_title">Inspect the network</string>
+    <string name="onboarding_inspect_text">List nodes, topics, services and actions, see how they connect in the node graph and browse the TF tree. Edit parameters, echo topics and call services, like the ros2 CLI.</string>
+    <string name="onboarding_record_title">Record and get alerts</string>
+    <string name="onboarding_record_text">Record topics to MCAP and play them back. Turn on alerts in Config to get notified when something goes wrong.</string>
+    <string name="onboarding_profile_title">Save your setup</string>
+    <string name="onboarding_profile_text">Save everything as a robot profile: it syncs with your account, and you can export it to a file or share it with a QR code.</string>
+    <string name="onboarding_demo_title">Try it without a robot</string>
+    <string name="onboarding_demo_text">Demo mode runs a simulated robot on this phone. Drive it and watch it in RViz, without touching your real network.</string>
+
+    <!-- Catálogo de pestañas -->
+    <string name="tab_catalog_group_visualize">Visualize</string>
+    <string name="tab_catalog_group_control">Control</string>
+    <string name="tab_catalog_group_inspect">Inspect the network</string>
+    <string name="tab_catalog_group_record">Record</string>
+    <string name="tab_catalog_rviz_summary">3D view of your robot: TF, maps, lasers, point clouds, markers…</string>
+    <string name="tab_catalog_rviz_detail1">The same displays as RViz: Grid, TF, RobotModel, Map, LaserScan, PointCloud2, Path, Pose, Odometry, Markers and more.</string>
+    <string name="tab_catalog_rviz_detail2">Orbit, top-down, first person and follow views.</string>
+    <string name="tab_catalog_rviz_detail3">Send Nav2 goals and initial poses by dragging on the floor.</string>
+    <string name="tab_catalog_rviz_detail4">Import your existing .rviz files.</string>
+    <string name="tab_catalog_camera_summary">Live image from any camera topic.</string>
+    <string name="tab_catalog_camera_detail1">Raw (sensor_msgs/Image) and compressed (CompressedImage) topics.</string>
+    <string name="tab_catalog_camera_detail2">Finds the image topics on the network for you.</string>
+    <string name="tab_catalog_camera_detail3">Shows resolution, encoding and frame rate.</string>
+    <string name="tab_catalog_teleop_summary">Drive the robot with an on-screen joystick.</string>
+    <string name="tab_catalog_teleop_detail1">Publishes geometry_msgs/Twist (or TwistStamped) at a steady rate.</string>
+    <string name="tab_catalog_teleop_detail2">Speed limits, presets and axis inversion.</string>
+    <string name="tab_catalog_teleop_detail3">Safety stop if the network, the gamepad or the app stops responding.</string>
+    <string name="tab_catalog_teleop_detail4">Works with a physical gamepad too.</string>
+    <string name="tab_catalog_teleop_dual_summary">Two joysticks: for holonomic robots and drones.</string>
+    <string name="tab_catalog_teleop_dual_detail1">Left stick moves, right stick turns (or any mapping you choose).</string>
+    <string name="tab_catalog_teleop_dual_detail2">Same safety stop and limits as the single joystick.</string>
+    <string name="tab_catalog_buttons_summary">Your own buttons that publish, call services or send action goals.</string>
+    <string name="tab_catalog_buttons_detail1">A grid of buttons, each with its own message, request or goal.</string>
+    <string name="tab_catalog_buttons_detail2">Hold-to-repeat publishing, confirmation before sending and colors.</string>
+    <string name="tab_catalog_buttons_detail3">Feedback and result of actions, with cancel.</string>
+    <string name="tab_catalog_sliders_summary">Sliders that publish a number: a speed, an angle, a brightness, a setpoint…</string>
+    <string name="tab_catalog_sliders_detail1">Each slider moves one numeric field of any message (std_msgs/Float64 data, Twist linear.x…); the other fields keep fixed values.</string>
+    <string name="tab_catalog_sliders_detail2">Publishes while you drag (at the rate you choose) or only when you let go. Tap the value to type an exact one.</string>
+    <string name="tab_catalog_sliders_detail3">Optionally springs back to its initial value when released, and never keeps publishing when the tab is hidden.</string>
+    <string name="tab_catalog_indicators_summary">Numbers, gauges, bars, lights and tables with live values from any topic.</string>
+    <string name="tab_catalog_indicators_detail1">Each indicator shows one field of any message (a battery level, a temperature, a mode, a flag…), or every field in a table.</string>
+    <string name="tab_catalog_indicators_detail2">Gauges and bars go from a minimum to a maximum; a light turns on when the value is true or crosses a threshold.</string>
+    <string name="tab_catalog_indicators_detail3">Marks the values as stale when the topic stops publishing. Works great as dashboard widgets.</string>
+    <string name="tab_catalog_plot_summary">Plots: several panels, series from any topic, XY plots and bags.</string>
+    <string name="tab_catalog_plot_detail1">Up to 3 panels share the time axis: pinch to zoom in time, drag to go back and tap to see every value at that instant.</string>
+    <string name="tab_catalog_plot_detail2">Each series is a numeric field of any message, with derivative, moving average, scale and offset. A panel can show x against y (a trajectory).</string>
+    <string name="tab_catalog_plot_detail3">Open a recorded MCAP bag to plot it whole with a timeline, without publishing anything, and export everything to CSV.</string>
+    <string name="tab_catalog_gps_summary">Your robot on a street map, from a GPS (sensor_msgs/NavSatFix).</string>
+    <string name="tab_catalog_gps_detail1">Shows the position, its accuracy circle and the track on OpenStreetMap maps.</string>
+    <string name="tab_catalog_gps_detail2">Follows the robot, or move and zoom the map freely. Shows latitude, longitude, altitude and the fix type.</string>
+    <string name="tab_catalog_behavior_tree_summary">Watch a behavior tree run live, like Groot2: which node is running, what succeeded and what failed.</string>
+    <string name="tab_catalog_behavior_tree_detail1">Connects to a BehaviorTree.CPP 4 Groot2Publisher (port 1667): the full tree, subtrees included, with the state of every node.</string>
+    <string name="tab_catalog_behavior_tree_detail2">Or listens to Nav2\'s /behavior_tree_log. Tap a node for its ports; tap a SubTree to fold it.</string>
+    <string name="tab_catalog_message_summary">The latest message of any topic as a tree you can unfold.</string>
+    <string name="tab_catalog_message_detail1">Write a path to see only part of it: pose.position, poses[-1], status{name==motor}.</string>
+    <string name="tab_catalog_message_detail2">Rate and age of the messages; pause it, or copy what you see as JSON.</string>
+    <string name="tab_catalog_parameters_summary">The parameters of a node, at hand to change them.</string>
+    <string name="tab_catalog_parameters_detail1">Pick a node on the network: its parameters with their types, ranges and descriptions.</string>
+    <string name="tab_catalog_parameters_detail2">Tap one to change it. Add it to a dashboard next to the plots to tune a controller.</string>
+    <string name="tab_catalog_diagnostics_summary">Logs, /diagnostics, topic echo and live plots.</string>
+    <string name="tab_catalog_diagnostics_detail1">Log: /rosout with level and text filters, like rqt_console.</string>
+    <string name="tab_catalog_diagnostics_detail2">Diagnostics: grouped by level, like rqt_robot_monitor.</string>
+    <string name="tab_catalog_diagnostics_detail3">Echo and Plot: any topic, with numeric fields plotted live.</string>
+    <string name="tab_catalog_lifecycle_summary">See and change the state of managed (lifecycle) nodes.</string>
+    <string name="tab_catalog_lifecycle_detail1">Finds lifecycle nodes on the network.</string>
+    <string name="tab_catalog_lifecycle_detail2">Live state of each node and buttons for the transitions it allows: configure, activate, deactivate, cleanup and shutdown.</string>
+    <string name="tab_catalog_nodes_summary">Every node on the network, with its parameters.</string>
+    <string name="tab_catalog_nodes_detail1">Like ros2 node list. Tap a node to see and edit its parameters,</string>
+    <string name="tab_catalog_nodes_detail2">and what it publishes, subscribes to and the services it offers.</string>
+    <string name="tab_catalog_topics_summary">Every topic, with live echo and rate.</string>
+    <string name="tab_catalog_topics_detail1">Like ros2 topic list. Tap a topic to see its last message, its rate (Hz) and who publishes and subscribes to it.</string>
+    <string name="tab_catalog_services_summary">Every service, and call any of them.</string>
+    <string name="tab_catalog_services_detail1">Like ros2 service list. Tap a service to fill in a request and see the response.</string>
+    <string name="tab_catalog_actions_summary">Every action, and send goals with live feedback.</string>
+    <string name="tab_catalog_actions_detail1">Like ros2 action list. Tap an action to send a goal, follow its feedback and cancel it.</string>
+    <string name="tab_catalog_bags_summary">Record topics to MCAP and play them back.</string>
+    <string name="tab_catalog_bags_detail1">Files compatible with ros2 bag.</string>
+    <string name="tab_catalog_bags_detail2">Play back at 0.5×, 1× or 2×, in a loop.</string>
+    <string name="tab_catalog_bags_detail3">Share recordings or import bags recorded on the robot.</string>
+
+    <!-- Crear pestaña -->
+    <string name="add_tab_subtitle">Choose what you want to add</string>
+    <string name="add_tab_not_allowed">Your account can\'t create tabs yet. Ask your administrator.</string>
+    <string name="account_continue_with">Continue with %1$s</string>
+    <string name="account_email">Email</string>
+    <string name="account_sign_in">Sign in</string>
+    <string name="account_create">Create account</string>
+    <string name="account_forgot">Forgot your password?</string>
+    <string name="account_reset_sent">We sent an email to reset the password</string>
+    <string name="account_browser_hint">Your browser opens to sign in. Then come back here.</string>
+    <string name="account_waiting_browser">Waiting for the browser…</string>
+    <string name="cloud_sync_now">Sync now</string>
+    <string name="account_not_configured">This build has no cloud configuration.</string>
+    <string name="diagnosis_not_connected">Not connected to ROS 2.</string>
+    <string name="diagnosis_no_topic">Nobody publishes %1$s.</string>
+    <string name="diagnosis_no_publisher">%1$s exists but nobody publishes it (%2$d subscriber(s)).</string>
+    <string name="diagnosis_similar">There is %1$s: is it that one?</string>
+    <string name="diagnosis_wrong_type">%1$s is %2$s, and this needs %3$s.</string>
+    <string name="diagnosis_qos_latched">%1$s has %2$d publisher(s) but nothing arrives: it is usually published once and latched (Transient Local).</string>
+    <string name="diagnosis_qos_reliable">%1$s has %2$d publisher(s) but nothing arrives: the publisher is probably Best Effort and this asks for Reliable.</string>
+    <string name="diagnosis_qos_transient">%1$s has %2$d publisher(s) but nothing arrives: this asks for Transient Local and the publisher is Volatile.</string>
+    <string name="diagnosis_publisher_silent">%1$s has %2$d publisher(s) but nothing arrives: it may not be sending right now, or it is on another network interface.</string>
+    <string name="diagnosis_fix_topic">Use %1$s</string>
+    <string name="diagnosis_fix_qos">Use %1$s</string>
+    <string name="template_group">Ready-made dashboards</string>
+    <string name="template_navigation">Navigation</string>
+    <string name="template_navigation_summary">3D with map, laser, plan and footprint, joystick, speed and diagnostics.</string>
+    <string name="template_camera_robot">Camera robot</string>
+    <string name="template_camera_robot_summary">Big camera, joystick to drive, small 3D view and status.</string>
+    <string name="template_monitoring">Monitoring</string>
+    <string name="template_monitoring_summary">Diagnostics, speed plots, indicators, node graph and TF tree.</string>
+    <string name="template_showcase">Showcase</string>
+    <string name="template_showcase_summary">Almost everything the app can do, on one screen. Try it with the demo robot.</string>
+    <string name="template_manipulation">Manipulation (MoveIt)</string>
+    <string name="template_manipulation_summary">A robot arm with MoveIt: the 3D with the robot and its planned path, and the panel to plan and execute.</string>
+    <string name="template_uses_topics">Uses the topics found on the network when there are any.</string>
+    <string name="playback_play">Play</string>
+    <string name="playback_pause">Pause</string>
+    <string name="playback_stop">Stop the recording</string>
+    <string name="playback_pause_all">Pause everything</string>
+    <string name="playback_resume_all">Resume everything</string>
+    <string name="find_robots_button">Find robots</string>
+    <string name="find_robots_title">Robots on the network</string>
+    <string name="find_robots_searching">Listening on every ROS 2 domain…</string>
+    <string name="find_robots_none">Nobody found on any domain. The network may block multicast: then put the robot\'s IP in Discovery peers.</string>
+    <string name="find_robots_pick">Tap a domain to connect to it.</string>
+    <string name="find_robots_domain">Domain %1$d</string>
+    <string name="find_robots_current">current</string>
+    <string name="find_robots_this_device">this device</string>
+    <string name="find_robots_again">Search again</string>
+    <string name="variables_title">Topic variables</string>
+    <string name="variables_hint">Write ${name} in any topic (e.g. ${ns}/scan) and change it here: every tab and widget follows. Handy with several robots.</string>
+    <string name="variables_name">Name (e.g. ns)</string>
+    <string name="variables_value">Value (e.g. /robot1)</string>
+    <string name="profiles_no_qr_in_image">No QR code found in that image</string>
+    <string name="add_tab_watch_video">Watch the video</string>
+    <string name="add_tab_what_it_does">What it does</string>
+    <string name="add_tab_set_up">Set up</string>
+    <string name="add_tab_name_helper">Optional · \"%1$s\" if empty</string>
+    <string name="add_tab_fixed_frame">Fixed frame</string>
+    <string name="add_tab_fixed_frame_helper">Empty = automatic (map, odom… or the TF root)</string>
+    <string name="add_tab_common_displays">Add map, laser, robot model and path displays</string>
+    <string name="add_tab_image_topic">Image topic</string>
+    <string name="add_tab_image_topic_helper">Optional: you can also search from the tab</string>
+    <string name="add_tab_velocity_topic">Velocity topic</string>
+    <string name="add_tab_velocity_topic_helper">geometry_msgs/Twist · /cmd_vel by default</string>
+    <string name="add_tab_start_with">Start with</string>
+    <string name="add_tab_mode_log">Log</string>
+    <string name="add_tab_mode_diagnostics">Diagnostics</string>
+    <string name="add_tab_mode_echo">Echo</string>
+    <string name="add_tab_mode_plot">Plot</string>
+    <string name="add_tab_lifecycle_none">No lifecycle nodes found right now (you can add them later)</string>
+    <string name="add_tab_lifecycle_found">Add the %1$d lifecycle node(s) found now</string>
+    <string name="add_tab_no_settings">No extra settings needed.</string>
+
+    <!-- Notificación del servicio en primer plano -->
+    <string name="notif_channel_name">ROS 2 connection</string>
+    <string name="notif_channel_description">Shown while the connection is kept alive in the background</string>
+    <string name="notif_title">VizMini2 · ROS 2 in background</string>
+    <string name="notif_connected">Connected · domain %1$d · node %2$s</string>
+    <string name="notif_connecting">Connecting…</string>
+    <string name="notif_disconnected">Disconnected</string>
+    <string name="notif_error">Error: %1$s</string>
+    <string name="notif_stop">Stop keeping alive</string>
+    <string name="common_just_now">just now</string>
+    <string name="tab_catalog_node_graph_summary">Nodes and topics of the network as a graph, like rqt_graph.</string>
+    <string name="tab_catalog_node_graph_detail1">Who publishes and who subscribes to each topic, updated live.</string>
+    <string name="tab_catalog_node_graph_detail2">Search, hide debug topics and dead ends, pinch to zoom.</string>
+    <string name="tab_catalog_node_graph_detail3">Tap a node to highlight its connections; tap it again to open its parameters.</string>
+    <string name="tab_catalog_tf_tree_summary">The TF tree of your robot, like rqt_tf_tree.</string>
+    <string name="tab_catalog_tf_tree_detail1">Every frame with its parent; static frames dashed and stale ones highlighted.</string>
+    <string name="tab_catalog_tf_tree_detail2">Tap a frame to see its parent and when it was last updated.</string>
+    <string name="tab_catalog_dashboard_summary">Your own screen: mix 3D views, cameras, joysticks, buttons and more.</string>
+    <string name="tab_catalog_dashboard_detail1">Add any tab as a widget: RViz, several cameras, a joystick, buttons, diagnostics, lifecycle nodes…</string>
+    <string name="tab_catalog_dashboard_detail2">Tap Edit to move widgets by dragging, resize them from the corner or remove them.</string>
+    <string name="tab_catalog_dashboard_detail3">Widgets snap to a grid and rearrange themselves so nothing overlaps, or float on top of the others, like a joystick over the 3D view.</string>
+    <string name="add_tab_widget_title">Add widget</string>
+    <string name="dashboard_edit">Edit</string>
+    <string name="dashboard_done">Done</string>
+    <string name="dashboard_add_widget">Widget</string>
+    <string name="dashboard_count">%1$d widget(s)</string>
+    <string name="dashboard_empty">Your dashboard is empty.\n\nTap Edit and then “Widget” to add 3D views, cameras, joysticks, buttons and more.</string>
+    <string name="dashboard_remove">Remove widget</string>
+    <string name="dashboard_resize">Resize</string>
+    <string name="dashboard_bring_front">Bring to front</string>
+    <string name="rviz_enable">Enable</string>
+    <string name="rviz_disable">Disable</string>
+    <string name="dashboard_undo">Undo</string>
+    <string name="dashboard_zoom_reset">Back to 100 %</string>
+    <string name="dashboard_add_item">Add to this widget</string>
+    <string name="dashboard_float">Float on top of the others</string>
+    <string name="dashboard_unfloat">Put back in the grid</string>
+    <string name="config_known_robots">Remember robots on this network</string>
+    <string name="config_known_robots_none">Robots you connect to are remembered and reached directly next time, even if the Wi-Fi drops multicast traffic.</string>
+    <string name="config_known_robots_list">Known on domain %1$d (tap to forget): %2$s</string>
+    <string name="config_known_robots_forget_title">Forget a robot</string>
+    <string name="config_network_check">Network check</string>
+    <string name="config_network_check_title">Network check</string>
+    <string name="config_network_ok">Everything looks fine: %1$d other ROS 2 participant(s) are visible on domain %2$d.</string>
+    <string name="config_network_alone">This phone doesn\'t see any other ROS 2 participant on domain %1$d.\n\nCheck that the robot uses the same ROS_DOMAIN_ID. If it does, the Wi-Fi is probably dropping multicast (common on office, guest and mesh networks): add the robot\'s IP under Discovery peers, or ask for IGMP snooping/client isolation to be turned off on the router.</string>
+    <string name="config_network_not_connected">ROS 2 is not connected yet.</string>
+    <string name="config_network_details">Phone IP: %1$s\nPeers in use: %2$s\nVisible: %3$s</string>
+    <string name="common_minutes_ago">%1$d min ago</string>
+    <string name="common_hours_ago">%1$d h ago</string>
+
+    <!-- Privacidad -->
+    <string name="privacy_policy">Privacy policy</string>
+
+    <!-- Inicio: recorrido y privacidad -->
+    <string name="home_tour_title">Quick tour</string>
+    <string name="home_tour_text">The app in a minute</string>
+    <string name="home_privacy_text">What we store and why</string>
+
+    <!-- Inicio: apoyar el proyecto -->
+    <string name="home_github_title">GitHub</string>
+    <string name="home_github_text">My other projects</string>
+
+    <!-- Borrar la cuenta -->
+    <string name="account_delete">Delete my account</string>
+    <string name="account_delete_title">Delete your account?</string>
+    <string name="account_delete_message">Your account and your cloud robot profiles will be deleted. This can\'t be undone. You can keep using the app without an account: tabs, profiles, recordings and settings stored on this phone stay until you uninstall it.</string>
+    <string name="account_delete_prompt">Enter your password to confirm.</string>
+    <string name="account_delete_confirm">Delete</string>
+    <string name="account_deleted">Your account has been deleted</string>
+    <string name="account_delete_failed">Could not delete the account: %1$s</string>
+    <string name="account_wrong_password">Incorrect password</string>
+
+    <!-- Inicio: documentación y contacto -->
+    <string name="home_docs_title">Documentation</string>
+    <string name="home_docs_text">Guides, videos and tutorials</string>
+    <string name="home_contact_title">Contact and bug reports</string>
+    <string name="home_contact_text">Bugs, ideas or questions</string>
+    <string name="home_contact_subject">VizMini2 %1$s</string>
+    <string name="home_contact_body">\n\n(What happened, or what would you like the app to do?)\n\n---\nVizMini2 %1$s\nAndroid %2$s (SDK %3$d)\n%4$s %5$s</string>
+    <string name="home_contact_no_app">No email app found. Write to %1$s</string>
+
+    <!-- Entrar con Google, Microsoft o GitHub y vincular cuentas -->
+    <string name="social_account_exists_message">There is already an account with this email, linked with another provider. Link that one first and then add this method from Home so you can use either one.</string>
+    <string name="social_no_google_account">There is no Google account on this phone. Add one in the system settings.</string>
+    <string name="social_failed">Could not sign in: %1$s</string>
+    <string name="provider_google">Google</string>
+    <string name="provider_microsoft">Microsoft</string>
+    <string name="provider_github">GitHub</string>
+    <string name="account_delete_prompt_provider">To confirm, sign in again with %1$s.</string>
+    <string name="linked_title">Sign-in methods</string>
+    <string name="linked_password">Email and password</string>
+    <string name="linked_link">Link</string>
+    <string name="linked_unlink">Unlink</string>
+    <string name="linked_done">%1$s linked. You can now sign in with it too.</string>
+    <string name="account_linked">%1$s linked. Your profiles will sync with this account.</string>
+    <string name="linked_in_use">That %1$s account already belongs to another VizMini2 account. Sign in with it, delete that account from Home, and try again.</string>
+    <string name="linked_unlink_title">Unlink %1$s?</string>
+    <string name="linked_unlink_message">You will no longer be able to sign in with %1$s. You can link it again whenever you want.</string>
+
+    <!-- Copia reempaquetada (firma distinta) -->
+    <string name="integrity_tampered_title">Invalid copy</string>
+    <string name="integrity_tampered_message">This copy of VizMini2 was not signed by its developer and may have been modified. Install it from the official source.</string>
+
+    <!-- Sin conexión: perfiles en la nube y plazo para usar la app sin internet -->
+    <string name="cloud_offline">Cloud: no internet connection</string>
+    <string name="cloud_offline_pending">Cloud: no internet connection · your changes will be uploaded when you are back online</string>
+    <string name="cloud_offline_sync">No internet: profiles can\'t be synced right now</string>
+    <string name="cloud_offline_saved">No internet: saved on this phone for now</string>
+    <string name="cloud_offline_deleted">No internet: deleted from this phone for now</string>
+
+    <!-- "Apoya el proyecto" (APK) -->
+    <string name="home_support_title">Support the project</string>
+    <string name="home_support_text">Help me keep improving it</string>
+    <string name="desktop_tab_not_yet">This tab is not available on this platform yet: %1$s</string>
+</resources>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Textos visibles de las pestañas visuales: RViz, cámara, teleoperación y grafo de red. -->
+<resources>
+
+    <!-- ===================================================== RViz: barra superior y vista 3D -->
+    <string name="rviz_fixed_frame">Fixed Frame</string>
+    <string name="rviz_tool_goal">Goal</string>
+    <string name="rviz_tool_pose">Pose</string>
+    <string name="rviz_view_orbit">Orbit</string>
+    <string name="rviz_reset_view">Reset view</string>
+    <string name="rviz_more_options">More options</string>
+    <string name="rviz_setup_failed">Couldn\'t set up the 3D viewer: %1$s</string>
+    <string name="rviz_no_tf">(no TF)</string>
+    <string name="rviz_chip_description">%1$s: %2$s</string>
+
+    <!-- Acciones comunes de los diálogos de RViz -->
+    <string name="rviz_action_cancel">Cancel</string>
+    <string name="rviz_action_save">Save</string>
+    <string name="rviz_action_ok">OK</string>
+    <string name="rviz_frame_auto">(fixed frame)</string>
+    <string name="rviz_frames_all_shown">All shown</string>
+    <string name="rviz_frames_some_hidden">%1$d hidden</string>
+    <string name="rviz_menu_export">Export .rviz…</string>
+    <string name="rviz_export_done">Saved as .rviz: open it with rviz2 -d</string>
+    <string name="rviz_views">Saved views</string>
+    <string name="rviz_views_save">Save view</string>
+    <string name="rviz_views_none">No saved views yet: move the camera and save it.</string>
+    <string name="rviz_views_default_name">View %1$d</string>
+    <string name="rviz_views_delete">Delete a view</string>
+    <string name="rviz_add_all">Add all (%1$d)</string>
+    <string name="rviz_frames_title">Frames</string>
+    <string name="rviz_frames_hint">Untick a frame to hide its axes, name and arrow. Type a pattern with * (e.g. *wheel*) to hide several at once.</string>
+    <string name="rviz_frames_search">Search or pattern (*wheel*)</string>
+    <string name="rviz_frames_hide_pattern">Hide pattern</string>
+    <string name="rviz_frames_none">No frames received yet</string>
+    <string name="rviz_frames_show_all">Show all</string>
+    <string name="rviz_frames_hide_all">Hide all</string>
+    <string name="rviz_frames_by_pattern">(hidden by pattern)</string>
+    <string name="rviz_show_displays">Show the displays</string>
+    <string name="rviz_hide_displays">Hide the displays</string>
+    <string name="rviz_action_add">Add</string>
+    <string name="rviz_action_remove">Remove</string>
+    <string name="rviz_action_import">Import</string>
+
+    <!-- Tipo de vista -->
+    <string name="rviz_view_title">View</string>
+    <string name="rviz_view_item">%1$s — %2$s</string>
+    <string name="rviz_target_frame">Target Frame</string>
+
+    <!-- Color de fondo -->
+    <string name="rviz_background_title">Background Color</string>
+    <string name="rviz_bg_dark">Dark (default)</string>
+    <string name="rviz_bg_rviz_gray">RViz gray</string>
+    <string name="rviz_bg_black">Black</string>
+    <string name="rviz_bg_light_gray">Light gray</string>
+    <string name="rviz_bg_white">White</string>
+    <string name="rviz_bg_midnight_blue">Midnight blue</string>
+
+    <!-- Menú de opciones -->
+    <string name="rviz_menu_view_type">View type…</string>
+    <string name="rviz_menu_background">Background color…</string>
+    <string name="rviz_menu_tool_topics">Tool topics…</string>
+    <string name="rviz_menu_import">Import .rviz file…</string>
+    <string name="rviz_menu_restart_ros">Restart ROS 2</string>
+
+    <!-- Herramientas de Nav2 (2D Goal Pose / 2D Pose Estimate) -->
+    <string name="rviz_tool_hint">Tap the ground and drag to set the heading (%1$s)</string>
+    <string name="rviz_tool_sent">%1$s sent: x=%2$.2f y=%3$.2f θ=%4$.0f° (%5$s)</string>
+    <string name="rviz_tool_topics_title">Tool topics</string>
+    <string name="rviz_tool_goal_label">2D Goal Pose (geometry_msgs/PoseStamped)</string>
+    <string name="rviz_tool_pose_label">2D Pose Estimate (PoseWithCovarianceStamped)</string>
+    <string name="rviz_tool_point_label">Publish Point (geometry_msgs/PointStamped)</string>
+    <string name="rviz_tool_point">Point</string>
+    <string name="rviz_tool_measure">Measure</string>
+    <string name="rviz_tool_point_menu">Publish Point (%1$s)</string>
+    <string name="rviz_tool_point_hint">Tap the ground to publish a point (%1$s)</string>
+    <string name="rviz_tool_measure_hint">Drag on the ground from one point to another to measure</string>
+    <string name="rviz_tool_point_sent">Point sent: x=%1$.2f y=%2$.2f z=%3$.2f (%4$s) on %5$s</string>
+    <string name="rviz_more_tools">More tools</string>
+    <string name="rviz_tool_interact">Interact</string>
+    <string name="rviz_tool_interact_menu">Interact (interactive markers)</string>
+    <string name="rviz_tool_interact_hint">Drag the arrows and rings of the interactive markers, or tap their buttons and menus. Elsewhere the view moves as usual.</string>
+
+    <!-- Importar un fichero .rviz -->
+    <string name="rviz_no_file_picker">No file picker available</string>
+    <string name="rviz_import_open_error">Couldn\'t open the file</string>
+    <string name="rviz_import_failed">Import failed</string>
+    <string name="rviz_import_title">Import RViz configuration</string>
+    <string name="rviz_import_displays">Displays (%1$d): %2$s</string>
+    <string name="rviz_import_none">none</string>
+    <string name="rviz_import_fixed_frame">Fixed Frame: %1$s</string>
+    <string name="rviz_import_view">View: %1$s</string>
+    <string name="rviz_import_tools">Tools: %1$s</string>
+    <string name="rviz_import_skipped">Not supported here: %1$s</string>
+    <string name="rviz_import_replace_warning">This will replace the current configuration of this tab.</string>
+
+    <!-- Editor de un display -->
+    <string name="rviz_status_line">● %1$s</string>
+    <string name="rviz_status_ok">OK</string>
+    <string name="rviz_editor_name_hint">Name (shown in the strip)</string>
+    <string name="rviz_topic_hint">Topic</string>
+    <string name="rviz_remove_display_title">Remove \"%1$s\"?</string>
+    <string name="rviz_invalid_topic">Invalid topic name</string>
+    <string name="rviz_property_value">%1$s: %2$s %3$s</string>
+    <string name="rviz_property_with_unit">%1$s (%2$s)</string>
+    <string name="rviz_property_range">Between %1$s and %2$s</string>
+    <string name="rviz_frame_property_hint">%1$s (empty = fixed frame)</string>
+    <string name="rviz_pick_tf">TF…</string>
+    <string name="rviz_choose_frame">Choose frame</string>
+
+    <!-- Nombres de las opciones de las propiedades de tipo elección -->
+    <string name="rviz_option_intensity">Intensity</string>
+    <string name="rviz_option_range">Range</string>
+    <string name="rviz_option_flat">Flat</string>
+    <string name="rviz_option_auto">Auto</string>
+    <string name="rviz_option_rgb">RGB</string>
+    <string name="rviz_option_height_z">Height (Z)</string>
+    <string name="rviz_option_arrow">Arrow</string>
+    <string name="rviz_option_axes">Axes</string>
+    <string name="rviz_option_none">None</string>
+    <string name="rviz_option_arrows">Arrows</string>
+    <string name="rviz_option_map">Map</string>
+    <string name="rviz_option_costmap">Costmap</string>
+    <string name="rviz_option_raw">Raw</string>
+    <string name="rviz_option_x_axis">X axis</string>
+    <string name="rviz_option_y_axis">Y axis</string>
+    <string name="rviz_option_lines">Lines</string>
+    <string name="rviz_option_billboards">Billboards</string>
+    <string name="rviz_option_squares">Squares</string>
+    <string name="rviz_option_circles">Circles</string>
+
+    <!-- Añadir display -->
+    <string name="rviz_add_display_title">Add display</string>
+    <string name="rviz_add_by_type">By display type</string>
+    <string name="rviz_add_by_topic">By topic</string>
+    <string name="rviz_default_topic">Default topic: %1$s</string>
+    <string name="rviz_search_topics">Search topics</string>
+    <string name="rviz_search_intro">Lists every topic on the network whose type can be displayed.</string>
+    <string name="rviz_ros_not_connected">ROS 2 is not connected</string>
+    <string name="rviz_searching">Searching…</string>
+    <string name="rviz_search_none_displayable">%1$d topic(s) on the network, none with a displayable type. Add one manually below.</string>
+    <string name="rviz_search_no_topics">No topics found. Add one manually below.</string>
+    <string name="rviz_search_found">%1$d displayable topic(s)</string>
+    <string name="rviz_search_hidden">%1$d other topic(s) hidden</string>
+    <string name="rviz_add_manually">Add manually</string>
+
+    <!-- Selección del fixed frame -->
+    <string name="rviz_fixed_frame_automatic">Automatic (%1$s)</string>
+
+    <!-- ===================================================== Cámara -->
+    <string name="camera_image_description">Camera image</string>
+    <string name="camera_select_topic">Tap image topics below to show them (up to 4)</string>
+    <string name="camera_image_topics">Image topics</string>
+    <string name="camera_choose_topics">Choose cameras</string>
+    <string name="camera_back_to_images">Back to the images</string>
+    <string name="camera_search">Search</string>
+    <string name="camera_add_topic_hint">Add topic, e.g. /my_camera/image_raw</string>
+    <string name="camera_add">Add</string>
+    <string name="camera_frame_info">%1$s · %2$dx%3$d · %4$s · %5$.1f fps</string>
+    <string name="camera_waiting_images">Waiting for images on\n%1$s…</string>
+    <string name="camera_ros_not_connected">ROS 2 is not connected (check the settings tab)</string>
+    <string name="camera_no_topics_found">No image topics found. If your camera uses a different name, add it below.</string>
+    <string name="camera_found_topics">Found %1$d image topic(s)</string>
+    <string name="camera_invalid_topic">Invalid topic name</string>
+    <string name="camera_saved_pending">Saved. It will be searched once ROS 2 is connected.</string>
+    <string name="camera_no_publishers">No image publishers on %1$s (it will be included in future searches)</string>
+    <string name="camera_added">Added %1$s</string>
+    <string name="camera_searching">Searching for image topics…</string>
+    <string name="camera_showing">showing</string>
+    <string name="camera_max">You can show up to %1$d cameras at once</string>
+
+    <!-- ===================================================== Teleoperación -->
+    <string name="teleop_stop">STOP</string>
+    <string name="teleop_settings">Settings</string>
+    <string name="teleop_topic_hint">Topic</string>
+    <string name="teleop_use_twist_stamped">Use TwistStamped (e.g. diff_drive_controller on Jazzy)</string>
+    <string name="teleop_left_joystick">Left joystick</string>
+    <string name="teleop_right_joystick">Right joystick</string>
+    <string name="teleop_reason_network_lost">Network lost</string>
+    <string name="teleop_reason_gamepad_disconnected">Gamepad disconnected</string>
+    <string name="teleop_gamepad_info">🎮 %1$s · left/right stick · B = STOP</string>
+
+    <!-- Etiquetas de dirección alrededor de los joysticks -->
+    <string name="teleop_dir_forward">forward</string>
+    <string name="teleop_dir_backward">backward</string>
+    <string name="teleop_dir_left">left</string>
+    <string name="teleop_dir_right">right</string>
+    <string name="teleop_dir_up">up</string>
+    <string name="teleop_dir_down">down</string>
+    <string name="teleop_dir_turn_left">turn left</string>
+    <string name="teleop_dir_turn_right">turn right</string>
+    <string name="teleop_dir_roll_plus">roll +</string>
+    <string name="teleop_dir_roll_minus">roll −</string>
+    <string name="teleop_dir_pitch_plus">pitch +</string>
+    <string name="teleop_dir_pitch_minus">pitch −</string>
+
+    <!-- Estado de la publicación -->
+    <string name="teleop_ros_not_connected">ROS 2 is not connected</string>
+    <string name="teleop_status_no_subscribers">%1$s (%2$s) · no subscribers</string>
+    <string name="teleop_status_subscribers">%1$s (%2$s) · %3$d subscriber(s)</string>
+    <string name="teleop_mode_stop">STOP</string>
+    <string name="teleop_mode_publishing">publishing</string>
+    <string name="teleop_mode_idle">idle</string>
+    <string name="teleop_value_x">x %1$+.2f</string>
+    <string name="teleop_value_y">y %1$+.2f</string>
+    <string name="teleop_value_z">z %1$+.2f</string>
+    <string name="teleop_value_yaw">yaw %1$+.2f</string>
+    <string name="teleop_value_roll_pitch">roll %1$+.2f pitch %2$+.2f</string>
+    <string name="teleop_safety_stop">⚠ Safety stop: %1$s. Tap here to continue.</string>
+
+    <!-- Diálogo de ajustes -->
+    <string name="teleop_max_linear">Max linear speed: %1$.2f m/s</string>
+    <string name="teleop_max_angular">Max angular speed: %1$.1f rad/s</string>
+    <string name="teleop_control">Control</string>
+    <string name="teleop_axis_left_horizontal">Left ↔</string>
+    <string name="teleop_axis_left_vertical">Left ↕</string>
+    <string name="teleop_axis_joystick_horizontal">Joystick ↔</string>
+    <string name="teleop_axis_joystick_vertical">Joystick ↕</string>
+    <string name="teleop_axis_right_horizontal">Right ↔</string>
+    <string name="teleop_axis_right_vertical">Right ↕</string>
+    <string name="teleop_invert">invert</string>
+    <string name="teleop_stop_on_loss">Stop if the connection is lost while driving</string>
+    <string name="teleop_settings_title">Teleop settings</string>
+    <string name="teleop_settings_title_dual">Teleop settings (2 joysticks)</string>
+    <string name="teleop_cancel">Cancel</string>
+    <string name="teleop_save">Save</string>
+    <string name="teleop_invalid_topic">Invalid topic name</string>
+
+    <!-- ===================================================== Grafo de red y árbol TF -->
+    <string name="graph_title">Network graph</string>
+    <string name="graph_back">Back</string>
+    <string name="graph_tab_nodes">Nodes &amp; topics</string>
+    <string name="graph_tab_tf">TF tree</string>
+    <string name="graph_filter_hint">Filter nodes or topics</string>
+    <string name="graph_hide_debug">Hide debug topics</string>
+    <string name="graph_hide_dead_ends">Hide dead ends</string>
+    <string name="graph_node_selected">Node %1$s · tap again to open its parameters</string>
+    <string name="graph_topic_selected">Topic %1$s</string>
+    <string name="graph_frame_info">%1$s · parent %2$s · %3$s</string>
+    <string name="graph_root">(root)</string>
+    <string name="graph_static">static</string>
+    <string name="graph_updated_ago">updated %1$.1f s ago</string>
+    <string name="graph_no_data">no data</string>
+    <string name="graph_tf_help">Tap a frame for details. Pinch to zoom, double tap to fit.</string>
+    <string name="graph_nodes_help">Tap a node or topic to highlight its connections. Pinch to zoom, double tap to fit.</string>
+    <string name="graph_frames_count">%1$d frames</string>
+    <string name="graph_not_connected">not connected</string>
+    <string name="graph_nodes_topics_count">%1$d nodes · %2$d topics</string>
+</resources>

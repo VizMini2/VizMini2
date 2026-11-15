@@ -1,0 +1,13 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": {
+    "public": "hosting",
+    "cleanUrls": true,
+    "redirects": [
+      { "source": "/", "destination": "/privacy", "type": 302 },
+      { "source": "/delete-account", "destination": "/privacy#es-delete", "type": 302 }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+rules_version = '2';
+
+// Reglas de Firestore de VizMini2. Las cuentas son opcionales y solo sirven para tener los perfiles de
+// robot en la nube en todos los móviles: cada cuenta lee y escribe únicamente los suyos.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function owner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      // Documento que creaban las versiones anteriores (roles, nombre…): ya no se usa. Solo se puede
+      // leer y borrar (Inicio → Eliminar mi cuenta), nunca crear ni modificar.
+      allow read, delete: if owner(uid);
+
+      // Perfiles de robot en la nube: solo los de la propia cuenta.
+      match /profiles/{profileId} {
+        allow read, write: if owner(uid);
+      }
+    }
+  }
+}

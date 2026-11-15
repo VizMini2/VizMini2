@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Files that can be shared with other apps (MCAP bags, plot CSVs, exported maps, screen recordings before Android 10) -->
+<paths>
+    <external-files-path name="bags" path="bags/" />
+    <files-path name="bags_internal" path="bags/" />
+    <cache-path name="exports" path="exports/" />
+    <external-files-path name="movies" path="Movies/" />
+</paths>

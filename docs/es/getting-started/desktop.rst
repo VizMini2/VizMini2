@@ -1,0 +1,197 @@
+La app de PC
+============
+
+VizMini2 también funciona en un PC con Linux, con las mismas pestañas que el móvil en una ventana
+redimensionable: cómoda junto al terminal del robot, en una pantalla grande del laboratorio o con
+ratón y teclado para sesiones largas. Tus pestañas, dashboards y perfiles pasan del móvil al PC y al
+revés (expórtalos, o vincula una :doc:`cuenta <account>`).
+
+.. clip:: pc_dashboard
+   :align: wide
+   :caption: El dashboard Showcase en el PC, contra tools/fake_robot.py.
+
+Instalación
+-----------
+
+Funciona en **Ubuntu 20.04 o posterior** (x86-64, o cualquier Linux con glibc 2.31 o posterior) con
+OpenGL. **No** hace falta ROS 2 en el PC: la app trae su propio DDS. Sirve cualquier distro de ROS 2
+en la red (Foxy, Humble, Jazzy, Kilted, Lyrical...).
+
+* **El .deb** (de las versiones publicadas del proyecto):
+
+  .. code-block:: bash
+
+     sudo apt install ./vizmini2_1.0.0_amd64.deb
+
+  Luego abre *VizMini2* desde el menú de aplicaciones, o ejecuta ``/opt/vizmini2/bin/vizmini2``.
+  Para actualizar, instala el ``.deb`` nuevo igual; ``sudo apt remove vizmini2`` la desinstala (tus
+  ajustes se quedan en tu carpeta personal).
+
+* **Como paquete de ROS 2**, compilado desde el código fuente (para compilarlo hace falta un JDK 17
+  o posterior):
+
+  .. code-block:: bash
+
+     cd ~/ros2_ws/src && git clone <repositorio> vizmini2_src
+     cd ~/ros2_ws && colcon build --packages-select vizmini2 && source install/setup.bash
+     ros2 run vizmini2 vizmini2
+
+  La primera vez toma el ``ROS_DOMAIN_ID`` del terminal.
+
+Extras recomendados: ``ffmpeg`` (topics de vídeo H.264/H.265 y grabar la ventana) y
+``libnotify-bin`` (notificaciones de escritorio de las :doc:`alertas <../tabs/alerts>`):
+
+.. code-block:: bash
+
+   sudo apt install ffmpeg libnotify-bin
+
+La ventana
+----------
+
+* **Barra lateral** (izquierda): la etiqueta de conexión (*Dominio N*), tus pestañas, **Añadir**,
+  **Grabar vídeo** y **Configuración**. El botón ☰ la pliega a solo iconos (pasa el ratón por
+  encima de uno para ver su nombre).
+
+  * Haz clic en una pestaña para abrirla; la **×** la elimina, después de preguntar (un dashboard se
+    lleva sus widgets).
+  * **Clic derecho** en una pestaña, como la pulsación larga del móvil: *Renombrar*, *Duplicar*
+    (una copia justo debajo, con sus widgets), *Eliminar*, y exportarla como fichero de VizMini2
+    (para añadirla en otro PC o móvil con *Añadir* → *Importar*) o, cuando tiene algo que
+    entiendan, como fichero de RViz 2, layout de paneles o layout de gráficas
+    (:doc:`../config/import-export`).
+
+* **Añadir** abre el catálogo: los mismos tipos de pestaña y dashboards ya montados que en el
+  móvil, e *Importar una pestaña, un fichero de RViz o un layout…* con un diálogo de ficheros.
+* **Configuración**: red (dominio, middleware, Zenoh, foxglove_bridge, interfaces), apariencia
+  (idioma, tema, tamaño de la interfaz), la cuenta, las variables de topics y los perfiles de
+  robot. Mira :doc:`../config/network`.
+
+.. shot:: pc_camera
+   :align: center
+   :caption: La pestaña Cámara: una imagen sin comprimir y dos topics de vídeo (H.264 y H.265) a la vez.
+
+Sin robot: la demo
+------------------
+
+*Configuración* → **Iniciar demo** ejecuta el mismo robot simulado que el móvil, solo en este
+ordenador (su propio dominio, el 231, y solo la interfaz local, así que no llega nada a tu red): una
+sala con mapa, láser, cámara (también como vídeo H.264, con ``ffmpeg``), odometría, diagnósticos,
+servicios, una acción, un nodo lifecycle y un controller manager de ros2_control, con pestañas y un
+dashboard para probarlo todo. Condúcelo desde *Conducir*. Mientras está en marcha, **Salir de la
+demo** se queda arriba en la barra lateral; al salir vuelven tus pestañas y tu conexión.
+``vizmini2 --demo`` arranca directamente en ella.
+
+Ratón y teclado
+---------------
+
+* **Vista 3D:** arrastra para orbitar, arrastra con el botón derecho o el central (o
+  :kbd:`Mayús` + arrastrar) para desplazar, y la rueda para el zoom; la barra tiene todas las
+  herramientas (en el móvil algunas están en el menú de la regla). En el grafo de nodos y el árbol
+  TF, la rueda hace zoom y un doble clic encaja la vista.
+* **Dashboards:** :kbd:`Ctrl+E` edita, :kbd:`Ctrl+Z` deshace, :kbd:`Esc` sale de la edición,
+  :kbd:`Ctrl+0` restablece el zoom y :kbd:`Ctrl` + rueda hace zoom. Arrastra topics desde la
+  pestaña Topics (o campos de un mensaje) a los widgets o a las gráficas.
+* **Teleop:** arrastra el joystick con el ratón, o conduce con :kbd:`W` :kbd:`A` :kbd:`S` :kbd:`D`
+  o las flechas; :kbd:`Espacio` es STOP.
+* **Grabar la ventana:** :kbd:`Ctrl+Mayús+R` empieza y para.
+
+Grabar la ventana
+-----------------
+
+**Grabar vídeo** en la barra lateral (o :kbd:`Ctrl+Mayús+R`) graba toda la ventana, vista 3D
+incluida, en un MP4 en *~/Vídeos/VizMini2* (o *~/Videos/VizMini2*); mientras graba, el botón muestra
+el tiempo y sirve para parar. Necesita ``ffmpeg``. Para enseñar a alguien qué hizo el robot, suele
+ser más rápido que una bag.
+
+Notificaciones
+--------------
+
+El PC muestra las :doc:`alertas <../tabs/alerts>` (tus reglas de topics, la pérdida de contacto con
+el robot y los diagnósticos en ERROR) como notificaciones de escritorio mientras VizMini2 está
+abierta. Los tres interruptores están arriba en la pestaña Alertas; vienen activados.
+
+.. clip:: pc_alerts
+   :align: wide
+   :caption: La pestaña Alertas con tres reglas y los últimos avisos.
+
+Móvil y PC: qué cambia
+----------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * -
+     - Móvil
+     - PC
+   * - Pestañas
+     - Todas
+     - Todas
+   * - Robot de demo
+     - Sí
+     - Sí (*Configuración*, o ``vizmini2 --demo``)
+   * - Conducir
+     - Joysticks táctiles, mando
+     - Ratón, teclado
+   * - Ficheros (bags, mapas, exportaciones)
+     - Menú de compartir
+     - Diálogo de ficheros; bags en *~/.local/share/vizmini2/bags*
+   * - Renombrar o duplicar una pestaña
+     - Pulsación larga
+     - Clic derecho
+   * - Grabar la pantalla
+     - *Movies/VizMini2*
+     - *~/Vídeos/VizMini2* (necesita ffmpeg)
+   * - Alertas en segundo plano
+     - Sí, con la conexión en segundo plano
+     - Mientras la ventana está abierta
+   * - Informes de fallos
+     - Firebase Crashlytics
+     - Ninguno
+
+Dónde guarda las cosas
+----------------------
+
+* Ajustes, pestañas y perfiles: *~/.config/vizmini2*
+* Bags: *~/.local/share/vizmini2/bags*
+* Teselas del mapa GPS: *~/.cache/vizmini2*
+* Vídeos de la pantalla: *~/Vídeos/VizMini2*
+
+Borrar *~/.config/vizmini2* empieza de cero.
+
+Línea de comandos
+-----------------
+
+``vizmini2`` (o ``ros2 run vizmini2 vizmini2``) acepta algunas opciones, sobre todo para scripts y
+para diagnosticar problemas:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Opción
+     - Qué hace
+   * - ``--domain N``
+     - Arranca en el dominio de ROS *N* (y lo guarda).
+   * - ``--tab TIPO``
+     - Abre la primera pestaña de ese tipo (``RVIZ``, ``CAMERA``, ``PLOT``, ``MAPS``…), y la crea si
+       no hay ninguna.
+   * - ``--check --domain N``
+     - Sin ventana: se conecta, lista lo que ve en la red y sale. Útil para probar la red desde un
+       terminal.
+   * - ``--scan-domains``
+     - Sin ventana: qué dominios de ROS tienen nodos en la red.
+   * - ``--record salida.mp4 --seconds N``
+     - Graba la ventana durante *N* segundos y sale.
+   * - ``--shot salida.png [--size AxH] [--millis N]``
+     - Guarda una captura de una pestaña sin abrir ventana (también con ``--tab`` y ``--domain``),
+       para informes o para una CI.
+   * - ``--demo``
+     - Arranca en modo demo, con el robot simulado.
+   * - ``--import FICHERO``
+     - Añade un fichero de pestaña de VizMini2, un fichero de RViz 2 o un layout de paneles o de
+       gráficas, lo abre, e imprime lo que no se ha podido pasar.
+   * - ``--showcase``
+     - Añade el dashboard *Showcase* (casi todos los widgets; pruébalo con la demo).
+
+Siguiente: :doc:`connect` para ver tu robot, y luego las :doc:`pestañas <../tabs/visualize>`.

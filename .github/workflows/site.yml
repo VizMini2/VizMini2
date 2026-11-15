@@ -1,0 +1,99 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+#
+# The website, https://vizmini2.github.io: the user manual (English at the root, Spanish in es/) and the API reference
+# (api/), built from this repository and pushed to the VizMini2/VizMini2.github.io repository, which GitHub Pages serves.
+#
+# - When a release is published (the draft that release.yml leaves, once you publish it on GitHub), from its tag, so
+#   the website always describes the version people download.
+# - By hand from the Actions tab, from the branch or tag you choose (to fix a typo between releases, or the first time).
+#
+# Needs the repository secret SITE_DEPLOY_KEY: the private half of an SSH deploy key with write access on
+# VizMini2/VizMini2.github.io (`ssh-keygen -t ed25519 -N "" -f site_key`; site_key.pub goes to that repository's
+# Settings > Deploy keys with "Allow write access", and site_key to this one's Settings > Secrets > Actions). That
+# repository's Pages must serve its default branch from the root (Settings > Pages > Deploy from a branch).
+#
+# Each run is one commit on top of the website's history, with everything replaced except CNAME; nothing is pushed if
+# the website did not change. A dry run (by hand) builds it and shows what would change, and does not need the secret.
+name: Website
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Build the website and show what would change, without pushing it
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# One push at a time; a newer run waits instead of cancelling one half pushed.
+concurrency:
+  group: website
+  cancel-in-progress: false
+
+env:
+  SITE_REPO: VizMini2/VizMini2.github.io
+  SITE_BRANCH: main
+
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Manual (English and Spanish) and API reference
+        run: |
+          python3 -m pip install --quiet sphinx sphinx-rtd-theme myst-parser
+          bash docs/build.sh "$PWD/build/site"
+          ./gradlew --no-daemon dokkaGenerate
+          cp -r build/dokka/html build/site/api
+          du -sh build/site
+      - uses: actions/upload-artifact@v5
+        with:
+          name: website
+          path: build/site/
+          retention-days: 14
+      - name: Push to ${{ env.SITE_REPO }}
+        env:
+          DEPLOY_KEY: ${{ secrets.SITE_DEPLOY_KEY }}
+          DRY_RUN: ${{ inputs.dry_run || false }}
+        run: |
+          git init -q pages && cd pages
+          # The current website (a public repository: read without the key), or a first commit if it is still empty.
+          git remote add origin "https://github.com/$SITE_REPO.git"
+          if git fetch -q --depth 1 origin "$SITE_BRANCH" 2> /dev/null; then git checkout -q -B "$SITE_BRANCH" FETCH_HEAD
+          else git checkout -q --orphan "$SITE_BRANCH"; fi
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name CNAME -exec rm -rf {} +
+          cp -a ../build/site/. .
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "The website did not change." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git diff --cached --stat | tail -1 | tee -a "$GITHUB_STEP_SUMMARY"
+          if [ "$DRY_RUN" = true ]; then
+            echo "Dry run: nothing pushed." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if [ -z "$DEPLOY_KEY" ]; then
+            echo "::error::The SITE_DEPLOY_KEY secret is missing (see the top of .github/workflows/site.yml)."
+            exit 1
+          fi
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/site_key && chmod 600 ~/.ssh/site_key
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2> /dev/null
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/site_key -o IdentitiesOnly=yes"
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Site: manual and API reference from VizMini2 $GITHUB_REF_NAME (${GITHUB_SHA::7})"
+          git push -q "git@github.com:$SITE_REPO.git" "HEAD:$SITE_BRANCH"
+          echo "Published on https://vizmini2.github.io from $GITHUB_REF_NAME." | tee -a "$GITHUB_STEP_SUMMARY"

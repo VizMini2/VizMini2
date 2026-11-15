@@ -1,0 +1,49 @@
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.VizMini2" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#0E7C86</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#A6EEF5</item>
+        <item name="colorOnPrimaryContainer">#002023</item>
+        <item name="colorSecondary">#4A6366</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#CCE8EB</item>
+        <item name="colorOnSecondaryContainer">#051F22</item>
+        <!-- Formas más redondeadas, como el Home -->
+        <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.VizMini2.Small</item>
+        <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.VizMini2.Medium</item>
+        <item name="shapeAppearanceCornerLarge">@style/ShapeAppearance.VizMini2.Large</item>
+        <item name="textInputStyle">@style/Widget.VizMini2.TextInput</item>
+    </style>
+
+    <style name="ShapeAppearance.VizMini2.Small" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="ShapeAppearance.VizMini2.Medium" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.VizMini2.Large" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <style name="Theme.VizMini2" parent="Base.Theme.VizMini2" />
+
+    <!-- Pantallas de acceso: siempre oscuras sobre el degradado, con barras transparentes -->
+    <style name="Theme.VizMini2.Auth" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#5CD3DD</item>
+        <item name="colorOnPrimary">#00363B</item>
+        <item name="colorPrimaryContainer">#004F56</item>
+        <item name="colorOnPrimaryContainer">#A6EEF5</item>
+        <item name="colorSecondary">#B1CBCE</item>
+        <item name="colorOnSecondary">#1C3437</item>
+        <item name="colorSecondaryContainer">#334B4E</item>
+        <item name="colorOnSecondaryContainer">#CCE8EB</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

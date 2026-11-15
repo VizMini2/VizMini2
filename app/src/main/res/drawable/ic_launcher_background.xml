@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icon background: brand gradient (night blue to teal) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="108"
+                android:endY="108"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item
+                    android:color="#FF0A1626"
+                    android:offset="0.0" />
+                <item
+                    android:color="#FF0F2C44"
+                    android:offset="0.5" />
+                <item
+                    android:color="#FF0B6574"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Faint grid, like RViz's Grid -->
+    <path
+        android:pathData="M18,30h72M18,42h72M18,54h72M18,66h72M18,78h72M30,18v72M42,18v72M54,18v72M66,18v72M78,18v72"
+        android:strokeWidth="0.6"
+        android:strokeColor="#1FFFFFFF" />
+</vector>

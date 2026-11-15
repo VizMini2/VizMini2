@@ -1,0 +1,26 @@
+<!-- Nav2-style tree for BehaviorTreePcTest: numbered in pre-order, its uids are those of
+     tools/bt_log_pub.py (1 NavigateRecovery, 4 ComputePathToPose, 7 FollowPath, 11 Spin). -->
+<root BTCPP_format="4" main_tree_to_execute="Nav">
+  <BehaviorTree ID="Nav">
+    <RecoveryNode name="NavigateRecovery" number_of_retries="6">
+      <PipelineSequence name="NavigateWithReplanning">
+        <RateController hz="1.0">
+          <ComputePathToPose goal="{goal}" path="{path}"/>
+        </RateController>
+        <SubTree ID="Follow"/>
+      </PipelineSequence>
+      <ReactiveFallback name="RecoveryFallback">
+        <GoalUpdated/>
+        <Sequence name="RecoveryActions">
+          <Spin spin_dist="1.57"/>
+          <Wait wait_duration="5.0"/>
+        </Sequence>
+      </ReactiveFallback>
+    </RecoveryNode>
+  </BehaviorTree>
+  <BehaviorTree ID="Follow">
+    <Sequence name="follow">
+      <FollowPath path="{path}" controller_id="FollowPath"/>
+    </Sequence>
+  </BehaviorTree>
+</root>

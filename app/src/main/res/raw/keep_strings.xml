@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The shared UI (ui/, core i18n) requests strings by name (getIdentifier): keep the release
+     resource shrinking from removing them. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/*,@plurals/*" />

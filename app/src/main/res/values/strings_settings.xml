@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<resources>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_system">System default</string>
+    <string name="settings_language_hint">English, Spanish or your phone\'s language. The app restarts its screens to apply it.</string>
+
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_system">System default</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_hint">Light, dark or the same as the system.</string>
+    <string name="settings_language_hint_pc">English, Spanish or the computer\'s language.</string>
+    <string name="settings_option_system">System</string>
+    <string name="settings_ui_size">Interface size</string>
+    <string name="settings_ui_size_hint">Compact fits more on the screen.</string>
+    <string name="settings_ui_compact">Compact</string>
+    <string name="settings_ui_normal">Normal</string>
+    <string name="settings_ui_large">Large</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="desktop_sidebar_collapse">Collapse the side bar</string>
+    <string name="desktop_sidebar_expand">Expand the side bar</string>
+    <string name="cli_no_domains">No domain with nodes was seen (does the network block multicast?)</string>
+    <string name="cli_domain">Domain %1$s: %2$s</string>
+    <string name="cli_this_machine">%1$s (this computer)</string>
+    <string name="cli_showcase_added">Added the dashboard \"%1$s\"</string>
+    <string name="cli_status">Status: %1$s</string>
+    <string name="cli_nodes">Nodes (%1$d): %2$s</string>
+    <string name="cli_topics">Topics: %1$s</string>
+    <string name="cli_play_failed">could not play %1$s: %2$s</string>
+    <string name="cli_imported">Imported %1$s (%2$s): %3$d tab(s)</string>
+    <string name="cli_import_failed">could not import %1$s: %2$s</string>
+    <!-- Nombres de los tipos de pestaña -->
+    <string name="tab_type_rviz">RViz</string>
+    <string name="tab_type_camera">Camera</string>
+    <string name="tab_type_teleop">Teleop</string>
+    <string name="tab_type_teleop_dual">Teleop (2 joysticks)</string>
+    <string name="tab_type_diagnostics">Diagnostics</string>
+    <string name="tab_type_buttons">Buttons</string>
+    <string name="tab_type_sliders">Sliders</string>
+    <string name="tab_type_indicators">Indicators</string>
+    <string name="tab_type_plot">Plot</string>
+    <string name="tab_type_gps">GPS map</string>
+    <string name="tab_type_message">Message</string>
+    <string name="tab_type_parameters">Parameters</string>
+    <string name="tab_type_behavior_tree">Behavior tree</string>
+    <string name="tab_type_lifecycle">Lifecycle</string>
+    <string name="tab_type_bags">Bags</string>
+    <string name="tab_type_nodes">Nodes</string>
+    <string name="tab_type_topics">Topics</string>
+    <string name="tab_type_services">Services</string>
+    <string name="tab_type_actions">Actions</string>
+    <string name="tab_type_dashboard">Dashboard</string>
+    <string name="tab_type_node_graph">Node graph</string>
+    <string name="tab_type_tf_tree">TF tree</string>
+
+    <!-- Pestañas de la demo -->
+    <string name="demo_tab_rviz">Demo RViz</string>
+    <string name="demo_tab_drive">Drive</string>
+    <string name="demo_tab_dashboard">Demo dashboard</string>
+
+    <!-- Botones de la demo -->
+    <string name="demo_button_home">Return home</string>
+    <string name="demo_slider_forward">Forward</string>
+    <string name="demo_slider_turn">Turn</string>
+    <string name="demo_indicator_battery">Battery</string>
+    <string name="demo_indicator_speed">Speed</string>
+    <string name="demo_indicator_low_battery">Low battery</string>
+    <string name="demo_indicator_voltage">Voltage</string>
+    <string name="demo_indicator_status">Battery status</string>
+    <string name="demo_indicator_position">Position</string>
+    <string name="demo_plot_linear">linear (m/s)</string>
+    <string name="demo_plot_angular">angular (rad/s)</string>
+    <string name="demo_plot_x">x (m)</string>
+    <string name="demo_plot_y">y (m)</string>
+    <string name="demo_button_stop">Stop</string>
+    <string name="demo_button_fibonacci">Fibonacci 10</string>
+</resources>

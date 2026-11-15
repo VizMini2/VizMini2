@@ -1,0 +1,30 @@
+# nombre  y_recorte  duración_s  [docs]
+# Recorte de 610x762 (4:5) desde y_recorte en la grabación a 610x1356; se escala a 480x600.
+# Con "docs" el vídeo va a docs/clips/<idioma>/ (solo para la documentación, no entra en el APK).
+rviz 130 8.5
+rviz_select 130 7.5 docs
+camera 130 7.5
+teleop 215 8.5
+teleop_dual 280 8.5
+diagnostics 130 7.5
+dashboard 130 8.5
+topics 130 8.5
+bags 180 10.5
+tf_tree 330 7.5
+node_graph 410 7.5
+nodes 130 9.5
+services 130 9.5
+actions 130 11.5
+lifecycle 130 8.5
+buttons 130 9.5
+sliders 130 8.5
+indicators 130 7.5
+plot 130 8.5
+gps 130 7.5
+message 130 7.5
+parameters 130 6.5
+behavior_tree 130 7.5
+moveit 240 12.5
+controllers 130 9.5
+maps 130 7.5
+alerts 130 7.5

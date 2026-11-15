@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#141419">
+
+        <SurfaceView
+            android:id="@+id/filamentSurfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/labelsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Only the first time after installing: the 3D materials are compiled in the background -->
+        <TextView
+            android:id="@+id/rvizLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/rviz_loading"
+            android:textColor="#CCFFFFFF"
+            android:visibility="gone" />
+
+        <!-- Top bar: fixed frame + actions -->
+        <LinearLayout
+            android:id="@+id/rvizTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_gravity="top"
+            android:background="#B3141419"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="4dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fixedFrameButton"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:maxWidth="240dp"
+                android:maxLines="1"
+                android:text="@string/rviz_fixed_frame"
+                android:textColor="#FFFFFF"
+                app:icon="@drawable/ic_frame"
+                app:iconTint="#FFEB3B" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/goalToolButton"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:minWidth="0dp"
+                android:paddingHorizontal="6dp"
+                android:text="@string/rviz_tool_goal"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/poseToolButton"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:minWidth="0dp"
+                android:paddingHorizontal="6dp"
+                android:text="@string/rviz_tool_pose"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <ImageButton
+                android:id="@+id/moreToolsButton"
+                android:layout_width="36dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/rviz_more_tools"
+                android:src="@drawable/ic_straighten"
+                app:tint="#FFFFFF" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewTypeButton"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:minWidth="0dp"
+                android:paddingHorizontal="8dp"
+                android:text="@string/rviz_view_orbit"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <ImageButton
+                android:id="@+id/rewindButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/rviz_rewind"
+                android:src="@drawable/ic_history"
+                app:tint="#FFFFFF" />
+
+            <ImageButton
+                android:id="@+id/resetViewButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/rviz_reset_view"
+                android:src="@drawable/ic_center_focus"
+                app:tint="#FFFFFF" />
+
+            <ImageButton
+                android:id="@+id/rvizMenuButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/rviz_more_options"
+                android:src="@drawable/ic_more_vert"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Displays strip -->
+    <HorizontalScrollView
+        android:id="@+id/displayStripScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceContainerLow"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/displayStrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp" />
+    </HorizontalScrollView>
+</LinearLayout>

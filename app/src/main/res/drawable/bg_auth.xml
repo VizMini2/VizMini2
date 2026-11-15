@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Background of the sign-in screens: night-blue to teal gradient.
+     The angle must be a multiple of 45: Android 8 and 9 throw an exception otherwise. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="315"
+        android:centerColor="#0F2C44"
+        android:endColor="#0B5563"
+        android:startColor="#08111D"
+        android:type="linear" />
+</shape>

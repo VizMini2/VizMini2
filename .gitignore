@@ -1,0 +1,45 @@
+# Gradle y builds
+.gradle/
+.kotlin/
+build/
+/app/build/
+/captures/
+*.apk
+*.ap_
+*.aab
+.externalNativeBuild/
+.cxx/
+
+# Android Studio / IntelliJ (se versiona solo lo compartido)
+*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/deploymentTargetSelector.xml
+.idea/appInsightsSettings.xml
+.idea/studiobot.xml
+.idea/other.xml
+local.properties
+
+# Firma de release (nunca al repo)
+keystore.properties
+*.jks
+*.keystore
+
+# Varios
+.DS_Store
+
+# Caché de despliegue de Firebase
+.firebase/
+
+# Binario de prueba de tools/bt_groot/build.sh
+tools/bt_groot/bt_groot_server
+
+# Python
+__pycache__/
+*.pyc

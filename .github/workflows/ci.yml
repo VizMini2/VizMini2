@@ -1,0 +1,240 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+#
+# Everything that can be checked without a real phone, on every push and pull request:
+# - checks: license headers, English-only comments, and the desktop natives running on Ubuntu 20.04 (glibc 2.31);
+# - jvm: unit tests of the shared core and of the Android app, Android lint, the desktop app compiles;
+# - android: debug APKs (app + instrumented tests) as artifacts;
+# - desktop: the Linux .deb and the app image as artifacts;
+# - desktop-compat: the app image on clean Ubuntu 20.04, 22.04 and 24.04 (Fast DDS loads, Filament renders the 3D view);
+# - docs: API reference (Dokka) and the user manual (Sphinx) as artifacts;
+# - e2e-desktop: the desktop app's end-to-end tests against real ROS 2 servers (fake robot, Nav2, MoveIt, ros2_control,
+#   H.264/H.265 video, map services) in a container of each ROS distro (Humble, Jazzy, Lyrical), with the app in that
+#   same container, so both each distro's message versions and its Ubuntu are tested;
+# - e2e-android: the device-only instrumented tests (with the in-app demo robot) on an Android emulator.
+# Only "direct" debug variants: the "play" release tasks upload the mapping to Crashlytics and need the real keys.
+# The release files (signed APKs, Play bundle, .deb, .tar.gz, manual) come from release.yml, on each "v*" tag.
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - name: License headers
+        run: python3 tools/license_headers.py --check
+      - name: Comments in English
+        run: python3 tools/check_english_comments.py
+      - name: Desktop natives run on Ubuntu 20.04 or newer
+        run: bash tools/compat/check-glibc.sh
+
+  jvm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Unit tests, lint and desktop build
+        # :desktopApp:jvmTest here runs the UI tests of the shared screens; its end-to-end tests skip themselves.
+        run: ./gradlew --no-daemon :core:jvmTest testDirectDebugUnitTest lintDirectDebug :desktopApp:jvmTest
+      - name: Test reports
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: jvm-test-reports
+          path: |
+            core/build/reports/
+            app/build/reports/
+            desktopApp/build/reports/
+          retention-days: 7
+
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Debug APKs
+        run: ./gradlew --no-daemon assembleDirectDebug assembleDirectDebugAndroidTest
+      - uses: actions/upload-artifact@v5
+        with:
+          name: vizmini2-direct-debug
+          path: |
+            app/build/outputs/apk/direct/debug/*.apk
+            app/build/outputs/apk/androidTest/direct/debug/*.apk
+          retention-days: 7
+
+  desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Linux package and app image
+        run: |
+          ./gradlew --no-daemon :desktopApp:packageDeb :desktopApp:createDistributable
+          tar -C desktopApp/build/compose/binaries/main/app -cf vizmini2-app.tar vizmini2
+      - uses: actions/upload-artifact@v5
+        with:
+          name: vizmini2-deb
+          path: desktopApp/build/compose/binaries/main/deb/*.deb
+          retention-days: 7
+      - uses: actions/upload-artifact@v5
+        with:
+          name: vizmini2-app
+          path: vizmini2-app.tar
+          retention-days: 3
+
+  # The app image on Ubuntu releases older than the build machine's, with only a desktop's libraries.
+  desktop-compat:
+    needs: desktop
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        ubuntu: ["20.04", "22.04", "24.04"]
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: vizmini2-app
+      - name: Ubuntu ${{ matrix.ubuntu }}
+        run: |
+          docker run --rm -v "$PWD":/w -w /w ubuntu:${{ matrix.ubuntu }} bash -c '
+            export DEBIAN_FRONTEND=noninteractive
+            apt-get update -qq && apt-get install -y -qq --no-install-recommends libx11-6 libxext6 libxrender1 libxtst6 libxi6 \
+              libfreetype6 fontconfig fonts-dejavu-core libgl1 libgl1-mesa-dri libglx-mesa0 xvfb xauth > /dev/null
+            tar xf vizmini2-app.tar
+            ldd --version | head -1
+            # Fast DDS: it connects (no robot here, so it exits with 1 after printing the status).
+            vizmini2/bin/vizmini2 --check > check.log 2>&1 || true; cat check.log
+            grep -q ": Connected" check.log
+            ! grep -qi "failed to load fastddsjava" check.log
+            # Filament and Compose: the 3D view renders.
+            xvfb-run -a -s "-screen 0 1280x900x24" vizmini2/bin/vizmini2 --shot rviz.png --tab RVIZ --millis 6000
+            test -s rviz.png'
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: desktop-compat-${{ matrix.ubuntu }}
+          path: |
+            check.log
+            rviz.png
+          retention-days: 7
+
+  docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: API reference (Dokka)
+        run: ./gradlew --no-daemon dokkaGenerate
+      - name: User manual (Sphinx, English and Spanish)
+        run: |
+          python3 -m pip install --quiet sphinx sphinx-rtd-theme myst-parser
+          bash docs/build.sh "$PWD/build/docs/manual"
+      - uses: actions/upload-artifact@v5
+        with:
+          name: docs
+          path: |
+            build/dokka/html/
+            build/docs/manual/
+          retention-days: 14
+
+  # The ROS servers run in a container of each distro, and the app's tests in another one of the same distro (so on
+  # its Ubuntu: 22.04 for Humble, 24.04 for Jazzy, 26.04 for Lyrical). Both are on the same Docker network, so DDS
+  # discovery works between them.
+  e2e-desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        servers: [lyrical, jazzy, humble]
+    steps:
+      - uses: actions/checkout@v5
+      - name: ROS servers (${{ matrix.servers }})
+        run: |
+          docker network create e2e
+          docker run -d --name servers --network e2e -e ROS_DOMAIN_ID=77 -v "$PWD":/ws -w /ws ros:${{ matrix.servers }}-ros-base \
+            bash tools/e2e/servers.sh
+      - name: End-to-end tests (app on ${{ matrix.servers }}'s Ubuntu)
+        run: |
+          docker run --rm --network e2e -e VIZMINI2_E2E=1 -e VIZMINI2_E2E_DOMAIN=77 -v "$PWD":/ws -w /ws ros:${{ matrix.servers }}-ros-base bash -c '
+            apt-get update -qq && apt-get install -y -qq openjdk-17-jdk-headless openjdk-21-jdk-headless ffmpeg libgl1 libfontconfig1 > /dev/null &&
+            until grep -q "servers ready" build/e2e/servers.log 2>/dev/null; do sleep 2; done &&
+            ./gradlew --no-daemon :desktopApp:jvmTest'
+      - name: Server logs
+        if: always()
+        run: docker logs servers > build-e2e-servers.log 2>&1 || true
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: e2e-desktop-${{ matrix.servers }}
+          path: |
+            build-e2e-servers.log
+            build/e2e/
+            desktopApp/build/reports/tests/
+          retention-days: 7
+
+  e2e-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: APKs
+        run: ./gradlew --no-daemon assembleDirectDebug assembleDirectDebugAndroidTest
+      - name: KVM for the emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - name: Device tests on an emulator (demo robot, no PC servers)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          cores: 4
+          ram-size: 4096M
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: bash tools/e2e/android_device_tests.sh
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: e2e-android
+          path: build/e2e-android/
+          retention-days: 7

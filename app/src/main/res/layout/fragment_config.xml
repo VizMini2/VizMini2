@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Fixed configuration tab, in cards like Home -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- DDS network -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/networkCard"
+            style="@style/Widget.VizMini2.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Widget.VizMini2.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_lan"
+                        android:text="@string/config_network" />
+
+                    <TextView
+                        android:id="@+id/connectionPill"
+                        style="@style/Widget.VizMini2.Pill" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/connectionStatus"
+                    style="@style/Widget.VizMini2.Hint"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    style="@style/Widget.VizMini2.Hint"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/config_network_hint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/domainIdLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:hint="@string/config_domain_id">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/domainIdInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="3" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nodeNameLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:hint="@string/config_node_name">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nodeNameInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Widget.VizMini2.Hint"
+                    android:layout_marginTop="2dp"
+                    android:paddingStart="4dp"
+                    android:text="@string/config_domain_range" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/peersLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/config_peers"
+                    app:helperText="@string/config_peers_helper"
+                    app:startIconDrawable="@drawable/ic_lan">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/peersInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/serversLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/config_server"
+                    app:helperText="@string/config_server_helper"
+                    app:startIconDrawable="@drawable/ic_hub">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/serversInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/bridgeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/config_bridge"
+                    app:helperText="@string/config_bridge_helper"
+                    app:startIconDrawable="@drawable/ic_wifi_tethering">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bridgeInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Zenoh router of a robot running rmw_zenoh_cpp (instead of DDS). -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/zenohLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/config_zenoh"
+                    app:helperText="@string/config_zenoh_helper"
+                    app:startIconDrawable="@drawable/ic_wifi_tethering">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/zenohInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/whitelistLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/config_interfaces"
+                    app:helperText="@string/config_interfaces_helper">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/whitelistInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Service call format: automatic (per server), Fast DDS or Cyclone DDS. -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/serviceFormatLayout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/config_service_format"
+                    app:helperText="@string/config_service_format_helper">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/serviceFormatInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/knownRobotsSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/config_known_robots" />
+
+                <TextView
+                    android:id="@+id/knownRobotsList"
+                    style="@style/Widget.VizMini2.Hint" />
+
+                <Button
+                    android:id="@+id/networkCheckButton"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/config_network_check"
+                    app:icon="@drawable/ic_search" />
+
+                <Button
+                    android:id="@+id/applyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/config_apply" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Background -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.VizMini2.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/keepConnectionSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:text="@string/config_keep_alive"
+                    android:textAppearance="@style/TextAppearance.VizMini2.CardTitle" />
+
+                <TextView
+                    style="@style/Widget.VizMini2.Hint"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/config_keep_alive_hint" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Alerts -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/alertsCard"
+            style="@style/Widget.VizMini2.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/alertsSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/config_alerts"
+                    android:textAppearance="@style/TextAppearance.VizMini2.CardTitle" />
+
+                <TextView
+                    style="@style/Widget.VizMini2.Hint"
+                    android:text="@string/config_alerts_hint" />
+
+                <LinearLayout
+                    android:id="@+id/alertsOptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/alertConnection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/config_alert_connection" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/alertDiagnostics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/config_alert_diagnostics" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/alertDiagWarnings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/config_alert_warnings" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/alertLifecycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/config_alert_lifecycle" />
+
+                    <Button
+                        android:id="@+id/alertTest"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/config_alert_test" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Robot profiles -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profilesCard"
+            style="@style/Widget.VizMini2.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Widget.VizMini2.CardTitle"
+                    android:drawableStart="@drawable/ic_robot"
+                    android:text="@string/config_profiles" />
+
+                <TextView
+                    android:id="@+id/profileActive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/config_profile_none_placeholder"
+                    android:textSize="14sp" />
+
+                <TextView
+                    style="@style/Widget.VizMini2.Hint"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/config_profiles_hint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cloudStatus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_cloud"
+                        app:drawableTint="?attr/colorPrimary" />
+
+                    <Button
+                        android:id="@+id/cloudSync"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/config_sync_now" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/saveProfileButton"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/config_save_as" />
+
+                    <Button
+                        android:id="@+id/loadProfileButton"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/config_load" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/exportProfileButton"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/config_export" />
+
+                    <Button
+                        android:id="@+id/importProfileButton"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/config_import" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/qrShareButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/config_share_qr"
+                        app:icon="@drawable/ic_qr" />
+
+                    <Button
+                        android:id="@+id/qrScanButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/config_scan_qr"
+                        app:icon="@drawable/ic_qr_scan" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- App: language and quick tour (version and changelog are in Home) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/appCard"
+            style="@style/Widget.VizMini2.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Widget.VizMini2.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_language"
+                        android:text="@string/settings_language" />
+
+                    <Button
+                        android:id="@+id/languageButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Widget.VizMini2.Hint"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/settings_language_hint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Widget.VizMini2.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_dark_mode"
+                        android:text="@string/settings_theme" />
+
+                    <Button
+                        android:id="@+id/themeButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Widget.VizMini2.Hint"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/settings_theme_hint" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,250 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+#
+# Continuous delivery: every file of a release, built and checked, on each "v*" tag (and by hand, to try it):
+# - version: the Android, desktop and ROS package versions, the tag and both CHANGELOG entries must agree
+#   (tools/release/version.py); by hand without a draft release it only warns;
+# - tests: the unit tests, as a last check of the tagged commit;
+# - android: the APKs to install directly (one per architecture plus the universal one) and the Google Play bundle
+#   (.aab, to upload by hand), signed with the release key from the repository secrets ANDROID_KEYSTORE_BASE64
+#   (`base64 -w0 release.jks`), ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS and ANDROID_KEY_PASSWORD. Without them a
+#   tag fails, and a run by hand signs with a debug key and names the files "-debugsigned". Crashlytics' mapping upload
+#   is off (-Pvizmini2.uploadMapping=false): the R8 mappings are kept as the "android-mapping" artifact (90 days);
+# - desktop: the .deb and the same app as a .tar.gz, with the natives checked for Ubuntu 20.04 and newer;
+# - desktop-install: the .deb installed with apt on clean Ubuntu 20.04 and 24.04, and started (Fast DDS and the 3D view);
+# - docs: the user manual (English and Spanish) and the API reference, as zips (the website, vizmini2.github.io, is
+#   updated by site.yml when the release is published);
+# - release: a draft GitHub release with all the files, SHA256SUMS and the CHANGELOG entry as notes, to review and
+#   publish by hand. Nothing is uploaded to Google Play or Firebase.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      draft_release:
+        description: Also create a draft GitHub release (the versions must agree; the tag v<version> is created on publishing)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+      tag: ${{ steps.v.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v5
+      - id: v
+        name: Version
+        run: |
+          if [ "$GITHUB_REF_TYPE" = tag ]; then
+            v=$(python3 tools/release/version.py check "$GITHUB_REF_NAME"); tag="$GITHUB_REF_NAME"
+          elif [ "${{ inputs.draft_release }}" = true ]; then
+            v=$(python3 tools/release/version.py check); tag="v$v"
+          else
+            v=$(python3 tools/release/version.py check --lenient); tag=""
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "### VizMini2 $v ${tag:+($tag)}" >> "$GITHUB_STEP_SUMMARY"
+
+  tests:
+    needs: version
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Unit tests
+        run: ./gradlew --no-daemon :core:jvmTest testDirectDebugUnitTest
+
+  android:
+    needs: version
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      V: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Release key
+        id: key
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            # keystore.properties at the root, as app/build.gradle.kts reads it (never committed: .gitignore).
+            printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
+              "$RUNNER_TEMP/release.jks" "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > keystore.properties
+            echo "suffix=" >> "$GITHUB_OUTPUT"
+          elif [ "$GITHUB_REF_TYPE" = tag ]; then
+            echo "::error::No release key in the repository secrets (ANDROID_KEYSTORE_BASE64...): a tagged release must be signed with it"
+            exit 1
+          else
+            echo "::warning::No release key: the APKs are signed with a debug key (for testing only, they cannot update a real install)"
+            echo "suffix=-debugsigned" >> "$GITHUB_OUTPUT"
+          fi
+      # Two runs: with "bundle" among the tasks the per-architecture APK split is turned off (see app/build.gradle.kts).
+      - name: APKs (per architecture and universal)
+        run: ./gradlew --no-daemon -Pvizmini2.uploadMapping=false assembleDirectRelease
+      - name: Google Play bundle
+        run: ./gradlew --no-daemon -Pvizmini2.uploadMapping=false bundlePlayRelease
+      - name: Collect and check the signature
+        run: |
+          rm -f keystore.properties "$RUNNER_TEMP/release.jks"
+          S="${{ steps.key.outputs.suffix }}"
+          mkdir -p out mapping
+          for f in app/build/outputs/apk/direct/release/app-direct-*-release.apk; do
+            abi=$(basename "$f" | sed -E 's/^app-direct-(.+)-release\.apk$/\1/')
+            cp "$f" "out/VizMini2-$V-$abi$S.apk"
+          done
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab "out/VizMini2-$V-play$S.aab"
+          cp app/build/outputs/mapping/directRelease/mapping.txt mapping/mapping-direct-$V.txt
+          cp app/build/outputs/mapping/playRelease/mapping.txt mapping/mapping-play-$V.txt
+          apksigner="$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/apksigner"
+          for f in out/*.apk; do "$apksigner" verify "$f"; done
+          "$apksigner" verify --print-certs out/VizMini2-$V-universal$S.apk | grep -E "SHA-256|DN" | tee -a "$GITHUB_STEP_SUMMARY"
+          ls -la out
+      - uses: actions/upload-artifact@v5
+        with:
+          name: android-release
+          path: out/
+          retention-days: 30
+      - uses: actions/upload-artifact@v5
+        with:
+          name: android-mapping
+          path: mapping/
+          retention-days: 90
+
+  desktop:
+    needs: version
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      V: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Natives run on Ubuntu 20.04 or newer
+        run: bash tools/compat/check-glibc.sh
+      - name: .deb and app image
+        run: |
+          ./gradlew --no-daemon :desktopApp:packageDeb :desktopApp:createDistributable
+          mkdir -p out
+          cp desktopApp/build/compose/binaries/main/deb/*.deb out/
+          tar -C desktopApp/build/compose/binaries/main/app -czf "out/vizmini2-$V-linux-x86_64.tar.gz" vizmini2
+          dpkg-deb -I out/*.deb | sed -n '/Package/,/Depends/p' | tee -a "$GITHUB_STEP_SUMMARY"
+          ls -la out
+      - uses: actions/upload-artifact@v5
+        with:
+          name: desktop-release
+          path: out/
+          retention-days: 30
+
+  # The .deb as a user installs it, on releases older than the build machine's.
+  desktop-install:
+    needs: desktop
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        ubuntu: ["20.04", "24.04"]
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: desktop-release
+      - name: apt install on Ubuntu ${{ matrix.ubuntu }} and start
+        run: |
+          docker run --rm -v "$PWD":/w -w /w ubuntu:${{ matrix.ubuntu }} bash -c '
+            set -e
+            export DEBIAN_FRONTEND=noninteractive
+            apt-get update -qq
+            apt-get install -y -qq --no-install-recommends ./vizmini2_*_amd64.deb libgl1-mesa-dri xvfb xauth fonts-dejavu-core > /dev/null
+            /opt/vizmini2/bin/vizmini2 --check > check.log 2>&1 || true; cat check.log
+            grep -q ": Connected" check.log
+            xvfb-run -a -s "-screen 0 1280x900x24" /opt/vizmini2/bin/vizmini2 --shot rviz.png --tab RVIZ --millis 6000
+            test -s rviz.png
+            apt-get remove -y -qq vizmini2 > /dev/null'
+
+  docs:
+    needs: version
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      V: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Manual and API reference
+        run: |
+          python3 -m pip install --quiet sphinx sphinx-rtd-theme myst-parser
+          bash docs/build.sh "$PWD/build/docs/manual"
+          ./gradlew --no-daemon dokkaGenerate
+          mkdir -p out
+          (cd build/docs && zip -qr "../../out/vizmini2-$V-manual.zip" manual)
+          (cd build/dokka && zip -qr "../../out/vizmini2-$V-api.zip" html)
+      - uses: actions/upload-artifact@v5
+        with:
+          name: docs-release
+          path: out/
+          retention-days: 30
+
+  release:
+    needs: [version, tests, android, desktop, desktop-install, docs]
+    if: github.ref_type == 'tag' || inputs.draft_release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      V: ${{ needs.version.outputs.version }}
+      TAG: ${{ needs.version.outputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: "*-release"
+          path: dist
+          merge-multiple: true
+      - name: Draft release
+        run: |
+          (cd dist && sha256sum * > SHA256SUMS && cat SHA256SUMS)
+          python3 tools/release/version.py notes "$V" > notes.md
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* --draft --title "VizMini2 $V" --notes-file notes.md --target "$GITHUB_SHA"
+          fi
+          echo "Draft release $TAG: review it and publish it on GitHub." >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,2979 @@
+# Generado por tools/gen_ros_interfaces.py desde /opt/ros/jazzy
+@builtin_interfaces/msg/Duration
+int32 sec
+uint32 nanosec
+@builtin_interfaces/msg/Time
+int32 sec
+uint32 nanosec
+@std_msgs/msg/Bool
+bool data
+@std_msgs/msg/Byte
+byte data
+@std_msgs/msg/ByteMultiArray
+MultiArrayLayout  layout
+byte[]            data
+@std_msgs/msg/Char
+char data
+@std_msgs/msg/ColorRGBA
+float32 r
+float32 g
+float32 b
+float32 a
+@std_msgs/msg/Empty
+
+@std_msgs/msg/Float32
+float32 data
+@std_msgs/msg/Float32MultiArray
+MultiArrayLayout  layout
+float32[]         data
+@std_msgs/msg/Float64
+float64 data
+@std_msgs/msg/Float64MultiArray
+MultiArrayLayout  layout
+float64[]         data
+@std_msgs/msg/Header
+builtin_interfaces/Time stamp
+string frame_id
+@std_msgs/msg/Int16
+int16 data
+@std_msgs/msg/Int16MultiArray
+MultiArrayLayout  layout
+int16[]           data
+@std_msgs/msg/Int32
+int32 data
+@std_msgs/msg/Int32MultiArray
+MultiArrayLayout  layout
+int32[]           data
+@std_msgs/msg/Int64
+int64 data
+@std_msgs/msg/Int64MultiArray
+MultiArrayLayout  layout
+int64[]           data
+@std_msgs/msg/Int8
+int8 data
+@std_msgs/msg/Int8MultiArray
+MultiArrayLayout  layout
+int8[]            data
+@std_msgs/msg/MultiArrayDimension
+string label
+uint32 size
+uint32 stride
+@std_msgs/msg/MultiArrayLayout
+MultiArrayDimension[] dim
+uint32 data_offset
+@std_msgs/msg/String
+string data
+@std_msgs/msg/UInt16
+uint16 data
+@std_msgs/msg/UInt16MultiArray
+MultiArrayLayout  layout
+uint16[]            data
+@std_msgs/msg/UInt32
+uint32 data
+@std_msgs/msg/UInt32MultiArray
+MultiArrayLayout  layout
+uint32[]          data
+@std_msgs/msg/UInt64
+uint64 data
+@std_msgs/msg/UInt64MultiArray
+MultiArrayLayout  layout
+uint64[]          data
+@std_msgs/msg/UInt8
+uint8 data
+@std_msgs/msg/UInt8MultiArray
+MultiArrayLayout  layout
+uint8[]           data
+@std_srvs/srv/Empty
+---
+@std_srvs/srv/SetBool
+bool data
+---
+bool success
+string message
+@std_srvs/srv/Trigger
+---
+bool success
+string message
+@geometry_msgs/msg/Accel
+Vector3  linear
+Vector3  angular
+@geometry_msgs/msg/AccelStamped
+std_msgs/Header header
+Accel accel
+@geometry_msgs/msg/AccelWithCovariance
+Accel accel
+float64[36] covariance
+@geometry_msgs/msg/AccelWithCovarianceStamped
+std_msgs/Header header
+AccelWithCovariance accel
+@geometry_msgs/msg/Inertia
+float64 m
+geometry_msgs/Vector3 com
+float64 ixx
+float64 ixy
+float64 ixz
+float64 iyy
+float64 iyz
+float64 izz
+@geometry_msgs/msg/InertiaStamped
+std_msgs/Header header
+Inertia inertia
+@geometry_msgs/msg/Point
+float64 x
+float64 y
+float64 z
+@geometry_msgs/msg/Point32
+float32 x
+float32 y
+float32 z
+@geometry_msgs/msg/PointStamped
+std_msgs/Header header
+Point point
+@geometry_msgs/msg/Polygon
+Point32[] points
+@geometry_msgs/msg/PolygonInstance
+geometry_msgs/Polygon polygon
+int64 id
+@geometry_msgs/msg/PolygonInstanceStamped
+std_msgs/Header header
+geometry_msgs/PolygonInstance polygon
+@geometry_msgs/msg/PolygonStamped
+std_msgs/Header header
+Polygon polygon
+@geometry_msgs/msg/Pose
+Point position
+Quaternion orientation
+@geometry_msgs/msg/Pose2D
+float64 x
+float64 y
+float64 theta
+@geometry_msgs/msg/PoseArray
+std_msgs/Header header
+Pose[] poses
+@geometry_msgs/msg/PoseStamped
+std_msgs/Header header
+Pose pose
+@geometry_msgs/msg/PoseWithCovariance
+Pose pose
+float64[36] covariance
+@geometry_msgs/msg/PoseWithCovarianceStamped
+std_msgs/Header header
+PoseWithCovariance pose
+@geometry_msgs/msg/Quaternion
+float64 x 0
+float64 y 0
+float64 z 0
+float64 w 1
+@geometry_msgs/msg/QuaternionStamped
+std_msgs/Header header
+Quaternion quaternion
+@geometry_msgs/msg/Transform
+Vector3 translation
+Quaternion rotation
+@geometry_msgs/msg/TransformStamped
+std_msgs/Header header
+string child_frame_id
+Transform transform
+@geometry_msgs/msg/Twist
+Vector3  linear
+Vector3  angular
+@geometry_msgs/msg/TwistStamped
+std_msgs/Header header
+Twist twist
+@geometry_msgs/msg/TwistWithCovariance
+Twist twist
+float64[36] covariance
+@geometry_msgs/msg/TwistWithCovarianceStamped
+std_msgs/Header header
+TwistWithCovariance twist
+@geometry_msgs/msg/Vector3
+float64 x
+float64 y
+float64 z
+@geometry_msgs/msg/Vector3Stamped
+std_msgs/Header header
+Vector3 vector
+@geometry_msgs/msg/VelocityStamped
+std_msgs/Header header
+string body_frame_id
+string reference_frame_id
+Twist velocity
+@geometry_msgs/msg/VelocityWithCovarianceStamped
+std_msgs/Header header
+string body_frame_id
+string reference_frame_id
+TwistWithCovariance velocity
+@geometry_msgs/msg/Wrench
+Vector3  force
+Vector3  torque
+@geometry_msgs/msg/WrenchStamped
+std_msgs/Header header
+Wrench wrench
+@sensor_msgs/msg/BatteryState
+uint8 POWER_SUPPLY_STATUS_UNKNOWN = 0
+uint8 POWER_SUPPLY_STATUS_CHARGING = 1
+uint8 POWER_SUPPLY_STATUS_DISCHARGING = 2
+uint8 POWER_SUPPLY_STATUS_NOT_CHARGING = 3
+uint8 POWER_SUPPLY_STATUS_FULL = 4
+uint8 POWER_SUPPLY_HEALTH_UNKNOWN = 0
+uint8 POWER_SUPPLY_HEALTH_GOOD = 1
+uint8 POWER_SUPPLY_HEALTH_OVERHEAT = 2
+uint8 POWER_SUPPLY_HEALTH_DEAD = 3
+uint8 POWER_SUPPLY_HEALTH_OVERVOLTAGE = 4
+uint8 POWER_SUPPLY_HEALTH_UNSPEC_FAILURE = 5
+uint8 POWER_SUPPLY_HEALTH_COLD = 6
+uint8 POWER_SUPPLY_HEALTH_WATCHDOG_TIMER_EXPIRE = 7
+uint8 POWER_SUPPLY_HEALTH_SAFETY_TIMER_EXPIRE = 8
+uint8 POWER_SUPPLY_TECHNOLOGY_UNKNOWN = 0
+uint8 POWER_SUPPLY_TECHNOLOGY_NIMH = 1
+uint8 POWER_SUPPLY_TECHNOLOGY_LION = 2
+uint8 POWER_SUPPLY_TECHNOLOGY_LIPO = 3
+uint8 POWER_SUPPLY_TECHNOLOGY_LIFE = 4
+uint8 POWER_SUPPLY_TECHNOLOGY_NICD = 5
+uint8 POWER_SUPPLY_TECHNOLOGY_LIMN = 6
+uint8 POWER_SUPPLY_TECHNOLOGY_TERNARY = 7
+uint8 POWER_SUPPLY_TECHNOLOGY_VRLA = 8
+std_msgs/Header  header
+float32 voltage
+float32 temperature
+float32 current
+float32 charge
+float32 capacity
+float32 design_capacity
+float32 percentage
+uint8   power_supply_status
+uint8   power_supply_health
+uint8   power_supply_technology
+bool    present
+float32[] cell_voltage
+float32[] cell_temperature
+string location
+string serial_number
+@sensor_msgs/msg/CameraInfo
+std_msgs/Header header
+uint32 height
+uint32 width
+string distortion_model
+float64[] d
+float64[9]  k
+float64[9]  r
+float64[12] p
+uint32 binning_x
+uint32 binning_y
+RegionOfInterest roi
+@sensor_msgs/msg/ChannelFloat32
+string name
+float32[] values
+@sensor_msgs/msg/CompressedImage
+std_msgs/Header header
+string format
+uint8[] data
+@sensor_msgs/msg/FluidPressure
+std_msgs/Header header
+float64 fluid_pressure
+float64 variance
+@sensor_msgs/msg/Illuminance
+std_msgs/Header header
+float64 illuminance
+float64 variance
+@sensor_msgs/msg/Image
+std_msgs/Header header
+uint32 height
+uint32 width
+string encoding
+uint8 is_bigendian
+uint32 step
+uint8[] data
+@sensor_msgs/msg/Imu
+std_msgs/Header header
+geometry_msgs/Quaternion orientation
+float64[9] orientation_covariance
+geometry_msgs/Vector3 angular_velocity
+float64[9] angular_velocity_covariance
+geometry_msgs/Vector3 linear_acceleration
+float64[9] linear_acceleration_covariance
+@sensor_msgs/msg/JointState
+std_msgs/Header header
+string[] name
+float64[] position
+float64[] velocity
+float64[] effort
+@sensor_msgs/msg/Joy
+std_msgs/Header header
+float32[] axes
+int32[] buttons
+@sensor_msgs/msg/JoyFeedback
+uint8 TYPE_LED    = 0
+uint8 TYPE_RUMBLE = 1
+uint8 TYPE_BUZZER = 2
+uint8 type
+uint8 id
+float32 intensity
+@sensor_msgs/msg/JoyFeedbackArray
+JoyFeedback[] array
+@sensor_msgs/msg/LaserEcho
+float32[] echoes
+@sensor_msgs/msg/LaserScan
+std_msgs/Header header
+float32 angle_min
+float32 angle_max
+float32 angle_increment
+float32 time_increment
+float32 scan_time
+float32 range_min
+float32 range_max
+float32[] ranges
+float32[] intensities
+@sensor_msgs/msg/MagneticField
+std_msgs/Header header
+geometry_msgs/Vector3 magnetic_field
+float64[9] magnetic_field_covariance
+@sensor_msgs/msg/MultiDOFJointState
+std_msgs/Header header
+string[] joint_names
+geometry_msgs/Transform[] transforms
+geometry_msgs/Twist[] twist
+geometry_msgs/Wrench[] wrench
+@sensor_msgs/msg/MultiEchoLaserScan
+std_msgs/Header header
+float32 angle_min
+float32 angle_max
+float32 angle_increment
+float32 time_increment
+float32 scan_time
+float32 range_min
+float32 range_max
+LaserEcho[] ranges
+LaserEcho[] intensities
+@sensor_msgs/msg/NavSatFix
+std_msgs/Header header
+NavSatStatus status
+float64 latitude
+float64 longitude
+float64 altitude
+float64[9] position_covariance
+uint8 COVARIANCE_TYPE_UNKNOWN = 0
+uint8 COVARIANCE_TYPE_APPROXIMATED = 1
+uint8 COVARIANCE_TYPE_DIAGONAL_KNOWN = 2
+uint8 COVARIANCE_TYPE_KNOWN = 3
+uint8 position_covariance_type
+@sensor_msgs/msg/NavSatStatus
+int8 STATUS_UNKNOWN = -2
+int8 STATUS_NO_FIX =  -1
+int8 STATUS_FIX =      0
+int8 STATUS_SBAS_FIX = 1
+int8 STATUS_GBAS_FIX = 2
+int8 status -2
+uint16 SERVICE_UNKNOWN = 0
+uint16 SERVICE_GPS =     1
+uint16 SERVICE_GLONASS = 2
+uint16 SERVICE_COMPASS = 4
+uint16 SERVICE_GALILEO = 8
+uint16 service
+@sensor_msgs/msg/PointCloud
+std_msgs/Header header
+geometry_msgs/Point32[] points
+ChannelFloat32[] channels
+@sensor_msgs/msg/PointCloud2
+std_msgs/Header header
+uint32 height
+uint32 width
+PointField[] fields
+bool    is_bigendian
+uint32  point_step
+uint32  row_step
+uint8[] data
+bool is_dense
+@sensor_msgs/msg/PointField
+uint8 INT8    = 1
+uint8 UINT8   = 2
+uint8 INT16   = 3
+uint8 UINT16  = 4
+uint8 INT32   = 5
+uint8 UINT32  = 6
+uint8 FLOAT32 = 7
+uint8 FLOAT64 = 8
+string name
+uint32 offset
+uint8  datatype
+uint32 count
+@sensor_msgs/msg/Range
+std_msgs/Header header
+uint8 ULTRASOUND=0
+uint8 INFRARED=1
+uint8 radiation_type
+float32 field_of_view
+float32 min_range
+float32 max_range
+float32 range
+float32 variance
+@sensor_msgs/msg/RegionOfInterest
+uint32 x_offset
+uint32 y_offset
+uint32 height
+uint32 width
+bool do_rectify
+@sensor_msgs/msg/RelativeHumidity
+std_msgs/Header header
+float64 relative_humidity
+float64 variance
+@sensor_msgs/msg/Temperature
+std_msgs/Header header
+float64 temperature
+float64 variance
+@sensor_msgs/msg/TimeReference
+std_msgs/Header header
+builtin_interfaces/Time time_ref
+string source
+@sensor_msgs/srv/SetCameraInfo
+sensor_msgs/CameraInfo camera_info
+---
+bool success
+string status_message
+@nav_msgs/msg/Goals
+std_msgs/Header header
+geometry_msgs/PoseStamped[] goals
+@nav_msgs/msg/GridCells
+std_msgs/Header header
+float32 cell_width
+float32 cell_height
+geometry_msgs/Point[] cells
+@nav_msgs/msg/MapMetaData
+builtin_interfaces/Time map_load_time
+float32 resolution
+uint32 width
+uint32 height
+geometry_msgs/Pose origin
+@nav_msgs/msg/OccupancyGrid
+std_msgs/Header header
+MapMetaData info
+int8[] data
+@nav_msgs/msg/Odometry
+std_msgs/Header header
+string child_frame_id
+geometry_msgs/PoseWithCovariance pose
+geometry_msgs/TwistWithCovariance twist
+@nav_msgs/msg/Path
+std_msgs/Header header
+geometry_msgs/PoseStamped[] poses
+@nav_msgs/msg/Trajectory
+std_msgs/Header header
+TrajectoryPoint[] points
+@nav_msgs/msg/TrajectoryPoint
+std_msgs/Header header
+geometry_msgs/Pose pose
+geometry_msgs/Twist velocity
+geometry_msgs/Accel acceleration
+geometry_msgs/Wrench effort
+@nav_msgs/srv/GetMap
+---
+OccupancyGrid map
+@nav_msgs/srv/GetPlan
+geometry_msgs/PoseStamped start
+geometry_msgs/PoseStamped goal
+float32 tolerance
+---
+Path plan
+@nav_msgs/srv/LoadMap
+string map_url
+---
+uint8 RESULT_SUCCESS=0
+uint8 RESULT_MAP_DOES_NOT_EXIST=1
+uint8 RESULT_INVALID_MAP_DATA=2
+uint8 RESULT_INVALID_MAP_METADATA=3
+uint8 RESULT_UNDEFINED_FAILURE=255
+nav_msgs/OccupancyGrid map
+uint8 result
+@nav_msgs/srv/SetMap
+nav_msgs/OccupancyGrid map
+geometry_msgs/PoseWithCovarianceStamped initial_pose
+---
+bool success
+@example_interfaces/msg/Bool
+bool data
+@example_interfaces/msg/Byte
+byte data
+@example_interfaces/msg/ByteMultiArray
+MultiArrayLayout  layout
+byte[]            data
+@example_interfaces/msg/Char
+char data
+@example_interfaces/msg/Empty
+
+@example_interfaces/msg/Float32
+float32 data
+@example_interfaces/msg/Float32MultiArray
+MultiArrayLayout  layout
+float32[]         data
+@example_interfaces/msg/Float64
+float64 data
+@example_interfaces/msg/Float64MultiArray
+MultiArrayLayout  layout
+float64[]         data
+@example_interfaces/msg/Int16
+int16 data
+@example_interfaces/msg/Int16MultiArray
+MultiArrayLayout  layout
+int16[]           data
+@example_interfaces/msg/Int32
+int32 data
+@example_interfaces/msg/Int32MultiArray
+MultiArrayLayout  layout
+int32[]           data
+@example_interfaces/msg/Int64
+int64 data
+@example_interfaces/msg/Int64MultiArray
+MultiArrayLayout  layout
+int64[]           data
+@example_interfaces/msg/Int8
+int8 data
+@example_interfaces/msg/Int8MultiArray
+MultiArrayLayout  layout
+int8[]            data
+@example_interfaces/msg/MultiArrayDimension
+string label
+uint32 size
+uint32 stride
+@example_interfaces/msg/MultiArrayLayout
+MultiArrayDimension[] dim
+uint32 data_offset
+@example_interfaces/msg/String
+string data
+@example_interfaces/msg/UInt16
+uint16 data
+@example_interfaces/msg/UInt16MultiArray
+MultiArrayLayout  layout
+uint16[]            data
+@example_interfaces/msg/UInt32
+uint32 data
+@example_interfaces/msg/UInt32MultiArray
+MultiArrayLayout  layout
+uint32[]          data
+@example_interfaces/msg/UInt64
+uint64 data
+@example_interfaces/msg/UInt64MultiArray
+MultiArrayLayout  layout
+uint64[]          data
+@example_interfaces/msg/UInt8
+uint8 data
+@example_interfaces/msg/UInt8MultiArray
+MultiArrayLayout  layout
+uint8[]           data
+@example_interfaces/msg/WString
+wstring data
+@example_interfaces/srv/AddTwoInts
+int64 a
+int64 b
+---
+int64 sum
+@example_interfaces/srv/SetBool
+bool data
+---
+bool success
+string message
+@example_interfaces/srv/Trigger
+---
+bool success
+string message
+@example_interfaces/action/Fibonacci
+int32 order
+---
+int32[] sequence
+---
+int32[] sequence
+@action_msgs/msg/GoalInfo
+unique_identifier_msgs/UUID goal_id
+builtin_interfaces/Time stamp
+@action_msgs/msg/GoalStatus
+int8 STATUS_UNKNOWN   = 0
+int8 STATUS_ACCEPTED  = 1
+int8 STATUS_EXECUTING = 2
+int8 STATUS_CANCELING = 3
+int8 STATUS_SUCCEEDED = 4
+int8 STATUS_CANCELED  = 5
+int8 STATUS_ABORTED   = 6
+GoalInfo goal_info
+int8 status
+@action_msgs/msg/GoalStatusArray
+GoalStatus[] status_list
+@action_msgs/srv/CancelGoal
+GoalInfo goal_info
+---
+int8 ERROR_NONE=0
+int8 ERROR_REJECTED=1
+int8 ERROR_UNKNOWN_GOAL_ID=2
+int8 ERROR_GOAL_TERMINATED=3
+int8 return_code
+GoalInfo[] goals_canceling
+@unique_identifier_msgs/msg/UUID
+uint8[16] uuid
+@turtlesim/msg/Color
+uint8 r
+uint8 g
+uint8 b
+@turtlesim/msg/Pose
+float32 x
+float32 y
+float32 theta
+float32 linear_velocity
+float32 angular_velocity
+@turtlesim/srv/Kill
+string name
+---
+@turtlesim/srv/SetPen
+uint8 r
+uint8 g
+uint8 b
+uint8 width
+uint8 off
+---
+@turtlesim/srv/Spawn
+float32 x
+float32 y
+float32 theta
+string name
+---
+string name
+@turtlesim/srv/TeleportAbsolute
+float32 x
+float32 y
+float32 theta
+---
+@turtlesim/srv/TeleportRelative
+float32 linear
+float32 angular
+---
+@turtlesim/action/RotateAbsolute
+float32 theta
+---
+float32 delta
+---
+float32 remaining
+@nav2_msgs/msg/BehaviorTreeLog
+builtin_interfaces/Time timestamp
+BehaviorTreeStatusChange[] event_log
+@nav2_msgs/msg/BehaviorTreeStatusChange
+builtin_interfaces/Time timestamp
+string node_name
+uint16 uid
+string previous_status
+string current_status
+@nav2_msgs/msg/CollisionDetectorState
+string[] polygons
+bool[] detections
+@nav2_msgs/msg/CollisionMonitorState
+uint8 DO_NOTHING=0
+uint8 STOP=1
+uint8 SLOWDOWN=2
+uint8 APPROACH=3
+uint8 LIMIT=4
+uint8 action_type
+string polygon_name
+@nav2_msgs/msg/Costmap
+std_msgs/Header header
+CostmapMetaData metadata
+uint8[] data
+@nav2_msgs/msg/CostmapFilterInfo
+std_msgs/Header header
+uint8 type
+string filter_mask_topic
+float32 base
+float32 multiplier
+@nav2_msgs/msg/CostmapMetaData
+builtin_interfaces/Time map_load_time
+builtin_interfaces/Time update_time
+string layer
+float32 resolution
+uint32 size_x
+uint32 size_y
+geometry_msgs/Pose origin
+@nav2_msgs/msg/CostmapUpdate
+std_msgs/Header header
+uint32 x
+uint32 y
+uint32 size_x
+uint32 size_y
+uint8[] data
+@nav2_msgs/msg/EdgeCost
+uint16 edgeid
+float32 cost
+@nav2_msgs/msg/MissedWaypoint
+uint32 index
+geometry_msgs/PoseStamped goal
+uint16 error_code
+@nav2_msgs/msg/Particle
+geometry_msgs/Pose pose
+float64 weight
+@nav2_msgs/msg/ParticleCloud
+std_msgs/Header header
+Particle[] particles
+@nav2_msgs/msg/Route
+std_msgs/Header header
+float32 route_cost
+RouteNode[] nodes
+RouteEdge[] edges
+@nav2_msgs/msg/RouteEdge
+uint16 edgeid
+geometry_msgs/Point start
+geometry_msgs/Point end
+@nav2_msgs/msg/RouteNode
+uint16 nodeid
+geometry_msgs/Point position
+@nav2_msgs/msg/SpeedLimit
+std_msgs/Header header
+bool percentage
+float64 speed_limit
+@nav2_msgs/msg/VoxelGrid
+std_msgs/Header header
+uint32[] data
+geometry_msgs/Point32 origin
+geometry_msgs/Vector3 resolutions
+uint32 size_x
+uint32 size_y
+uint32 size_z
+@nav2_msgs/srv/ClearCostmapAroundPose
+geometry_msgs/PoseStamped pose
+float64 reset_distance
+---
+std_msgs/Empty response
+@nav2_msgs/srv/ClearCostmapAroundRobot
+float32 reset_distance
+---
+std_msgs/Empty response
+@nav2_msgs/srv/ClearCostmapExceptRegion
+float32 reset_distance
+---
+std_msgs/Empty response
+@nav2_msgs/srv/ClearEntireCostmap
+std_msgs/Empty request
+---
+std_msgs/Empty response
+@nav2_msgs/srv/DynamicEdges
+uint16[] closed_edges
+uint16[] opened_edges
+EdgeCost[] adjust_edges
+---
+bool success
+@nav2_msgs/srv/GetCost
+bool use_footprint
+float32 x
+float32 y
+float32 theta
+---
+float32 cost
+@nav2_msgs/srv/GetCostmap
+nav2_msgs/CostmapMetaData specs
+---
+nav2_msgs/Costmap map
+@nav2_msgs/srv/IsPathValid
+nav_msgs/Path path
+---
+bool is_valid
+int32[] invalid_pose_indices
+@nav2_msgs/srv/LoadMap
+string map_url
+---
+uint8 RESULT_SUCCESS=0
+uint8 RESULT_MAP_DOES_NOT_EXIST=1
+uint8 RESULT_INVALID_MAP_DATA=2
+uint8 RESULT_INVALID_MAP_METADATA=3
+uint8 RESULT_UNDEFINED_FAILURE=255
+nav_msgs/OccupancyGrid map
+uint8 result
+@nav2_msgs/srv/ManageLifecycleNodes
+uint8 STARTUP = 0
+uint8 PAUSE = 1
+uint8 RESUME = 2
+uint8 RESET = 3
+uint8 SHUTDOWN = 4
+uint8 CONFIGURE = 5
+uint8 CLEANUP = 6
+uint8 command
+---
+bool success
+@nav2_msgs/srv/ReloadDockDatabase
+string filepath
+---
+bool success
+@nav2_msgs/srv/SaveMap
+string map_topic
+string map_url
+string image_format
+string map_mode
+float32 free_thresh
+float32 occupied_thresh
+---
+bool result
+@nav2_msgs/srv/SetInitialPose
+geometry_msgs/PoseWithCovarianceStamped pose
+---
+@nav2_msgs/srv/SetRouteGraph
+string graph_filepath
+---
+bool success
+@nav2_msgs/srv/Toggle
+bool enable
+---
+bool success
+string message
+@nav2_msgs/action/AssistedTeleop
+builtin_interfaces/Duration time_allowance
+---
+uint16 NONE=0
+uint16 UNKNOWN=730
+uint16 TIMEOUT=731
+uint16 TF_ERROR=732
+builtin_interfaces/Duration total_elapsed_time
+uint16 error_code
+string error_msg
+---
+builtin_interfaces/Duration current_teleop_duration
+@nav2_msgs/action/BackUp
+geometry_msgs/Point target
+float32 speed
+builtin_interfaces/Duration time_allowance
+---
+uint16 NONE=0
+uint16 UNKNOWN=710
+uint16 TIMEOUT=711
+uint16 TF_ERROR=712
+uint16 INVALID_INPUT=713
+uint16 COLLISION_AHEAD=714
+builtin_interfaces/Duration total_elapsed_time
+uint16 error_code
+string error_msg
+---
+float32 distance_traveled
+@nav2_msgs/action/ComputeAndTrackRoute
+uint16 start_id
+geometry_msgs/PoseStamped start
+uint16 goal_id
+geometry_msgs/PoseStamped goal
+bool use_start
+bool use_poses
+---
+uint16 NONE=0
+uint16 UNKNOWN=400
+uint16 TF_ERROR=401
+uint16 NO_VALID_GRAPH=402
+uint16 INDETERMINANT_NODES_ON_GRAPH=403
+uint16 TIMEOUT=404
+uint16 NO_VALID_ROUTE=405
+uint16 OPERATION_FAILED=406
+uint16 INVALID_EDGE_SCORER_USE=407
+builtin_interfaces/Duration execution_duration
+uint16 error_code 0
+---
+uint16 last_node_id
+uint16 next_node_id
+uint16 current_edge_id
+Route route
+nav_msgs/Path path
+string[] operations_triggered
+bool rerouted
+@nav2_msgs/action/ComputePathThroughPoses
+geometry_msgs/PoseStamped[] goals
+geometry_msgs/PoseStamped start
+string planner_id
+bool use_start
+---
+uint16 NONE=0
+uint16 UNKNOWN=300
+uint16 INVALID_PLANNER=301
+uint16 TF_ERROR=302
+uint16 START_OUTSIDE_MAP=303
+uint16 GOAL_OUTSIDE_MAP=304
+uint16 START_OCCUPIED=305
+uint16 GOAL_OCCUPIED=306
+uint16 TIMEOUT=307
+uint16 NO_VALID_PATH=308
+uint16 NO_VIAPOINTS_GIVEN=309
+nav_msgs/Path path
+builtin_interfaces/Duration planning_time
+uint16 error_code
+string error_msg
+---
+@nav2_msgs/action/ComputePathToPose
+geometry_msgs/PoseStamped goal
+geometry_msgs/PoseStamped start
+string planner_id
+bool use_start
+---
+uint16 NONE=0
+uint16 UNKNOWN=200
+uint16 INVALID_PLANNER=201
+uint16 TF_ERROR=202
+uint16 START_OUTSIDE_MAP=203
+uint16 GOAL_OUTSIDE_MAP=204
+uint16 START_OCCUPIED=205
+uint16 GOAL_OCCUPIED=206
+uint16 TIMEOUT=207
+uint16 NO_VALID_PATH=208
+nav_msgs/Path path
+builtin_interfaces/Duration planning_time
+uint16 error_code
+string error_msg
+---
+@nav2_msgs/action/ComputeRoute
+uint16 start_id
+geometry_msgs/PoseStamped start
+uint16 goal_id
+geometry_msgs/PoseStamped goal
+bool use_start
+bool use_poses
+---
+uint16 NONE=0
+uint16 UNKNOWN=400
+uint16 TF_ERROR=401
+uint16 NO_VALID_GRAPH=402
+uint16 INDETERMINANT_NODES_ON_GRAPH=403
+uint16 TIMEOUT=404
+uint16 NO_VALID_ROUTE=405
+uint16 INVALID_EDGE_SCORER_USE=407
+builtin_interfaces/Duration planning_time
+nav_msgs/Path path
+Route route
+uint16 error_code 0
+---
+@nav2_msgs/action/DockRobot
+bool use_dock_id True
+string dock_id
+geometry_msgs/PoseStamped dock_pose
+string dock_type
+float32 max_staging_time 1000.0
+bool navigate_to_staging_pose True
+---
+uint16 NONE=0
+uint16 DOCK_NOT_IN_DB=901
+uint16 DOCK_NOT_VALID=902
+uint16 FAILED_TO_STAGE=903
+uint16 FAILED_TO_DETECT_DOCK=904
+uint16 FAILED_TO_CONTROL=905
+uint16 FAILED_TO_CHARGE=906
+uint16 UNKNOWN=999
+bool success True
+uint16 error_code 0
+uint16 num_retries 0
+string error_msg
+---
+uint16 NONE=0
+uint16 NAV_TO_STAGING_POSE=1
+uint16 INITIAL_PERCEPTION=2
+uint16 CONTROLLING=3
+uint16 WAIT_FOR_CHARGE=4
+uint16 RETRY=5
+uint16 state
+builtin_interfaces/Duration docking_time
+uint16 num_retries 0
+@nav2_msgs/action/DriveOnHeading
+geometry_msgs/Point target
+float32 speed
+builtin_interfaces/Duration time_allowance
+---
+uint16 NONE=0
+uint16 UNKNOWN=720
+uint16 TIMEOUT=721
+uint16 TF_ERROR=722
+uint16 COLLISION_AHEAD=723
+uint16 INVALID_INPUT=724
+builtin_interfaces/Duration total_elapsed_time
+uint16 error_code
+string error_msg
+---
+float32 distance_traveled
+@nav2_msgs/action/DummyBehavior
+std_msgs/String command
+---
+builtin_interfaces/Duration total_elapsed_time
+uint16 error_code
+string error_msg
+---
+@nav2_msgs/action/FollowGPSWaypoints
+uint32 number_of_loops
+uint32 goal_index 0
+geographic_msgs/GeoPose[] gps_poses
+---
+uint16 NONE=0
+uint16 UNKNOWN=600
+uint16 TASK_EXECUTOR_FAILED=601
+MissedWaypoint[] missed_waypoints
+int16 error_code
+string error_msg
+---
+uint32 current_waypoint
+@nav2_msgs/action/FollowObject
+string pose_topic
+string tracked_frame
+builtin_interfaces/Duration max_duration
+---
+uint16 NONE=0
+uint16 TF_ERROR=901
+uint16 FAILED_TO_DETECT_OBJECT=902
+uint16 FAILED_TO_CONTROL=903
+uint16 TIMEOUT=904
+uint16 UNKNOWN=999
+builtin_interfaces/Duration total_elapsed_time
+uint16 error_code 0
+uint16 num_retries 0
+string error_msg
+---
+uint16 NONE=0
+uint16 INITIAL_PERCEPTION=1
+uint16 CONTROLLING=2
+uint16 STOPPING=3
+uint16 RETRY=4
+uint16 state
+builtin_interfaces/Duration following_time
+uint16 num_retries 0
+@nav2_msgs/action/FollowPath
+nav_msgs/Path path
+string controller_id
+string goal_checker_id
+string progress_checker_id
+---
+uint16 NONE=0
+uint16 UNKNOWN=100
+uint16 INVALID_CONTROLLER=101
+uint16 TF_ERROR=102
+uint16 INVALID_PATH=103
+uint16 PATIENCE_EXCEEDED=104
+uint16 FAILED_TO_MAKE_PROGRESS=105
+uint16 NO_VALID_CONTROL=106
+uint16 CONTROLLER_TIMED_OUT=107
+std_msgs/Empty result
+uint16 error_code
+string error_msg
+---
+float32 distance_to_goal
+float32 speed
+@nav2_msgs/action/FollowWaypoints
+uint32 number_of_loops
+uint32 goal_index 0
+geometry_msgs/PoseStamped[] poses
+---
+uint16 NONE=0
+uint16 UNKNOWN=600
+uint16 TASK_EXECUTOR_FAILED=601
+MissedWaypoint[] missed_waypoints
+uint16 error_code
+string error_msg
+---
+uint32 current_waypoint
+@nav2_msgs/action/NavigateThroughPoses
+geometry_msgs/PoseStamped[] poses
+string behavior_tree
+---
+uint16 NONE=0
+uint16 error_code
+string error_msg
+---
+geometry_msgs/PoseStamped current_pose
+builtin_interfaces/Duration navigation_time
+builtin_interfaces/Duration estimated_time_remaining
+int16 number_of_recoveries
+float32 distance_remaining
+int16 number_of_poses_remaining
+@nav2_msgs/action/NavigateToPose
+geometry_msgs/PoseStamped pose
+string behavior_tree
+---
+uint16 NONE=0
+uint16 error_code
+string error_msg
+---
+geometry_msgs/PoseStamped current_pose
+builtin_interfaces/Duration navigation_time
+builtin_interfaces/Duration estimated_time_remaining
+int16 number_of_recoveries
+float32 distance_remaining
+@nav2_msgs/action/SmoothPath
+nav_msgs/Path path
+string smoother_id
+builtin_interfaces/Duration max_smoothing_duration
+bool check_for_collisions
+---
+uint16 NONE=0
+uint16 UNKNOWN=500
+uint16 INVALID_SMOOTHER=501
+uint16 TIMEOUT=502
+uint16 SMOOTHED_PATH_IN_COLLISION=503
+uint16 FAILED_TO_SMOOTH_PATH=504
+uint16 INVALID_PATH=505
+nav_msgs/Path path
+builtin_interfaces/Duration smoothing_duration
+bool was_completed
+uint16 error_code
+string error_msg
+---
+@nav2_msgs/action/Spin
+float32 target_yaw
+builtin_interfaces/Duration time_allowance
+---
+uint16 NONE=0
+uint16 UNKNOWN=700
+uint16 TIMEOUT=701
+uint16 TF_ERROR=702
+uint16 COLLISION_AHEAD=703
+builtin_interfaces/Duration total_elapsed_time
+uint16 error_code
+string error_msg
+---
+float32 angular_distance_traveled
+@nav2_msgs/action/UndockRobot
+string dock_type
+float32 max_undocking_time 30.0
+---
+uint16 NONE=0
+uint16 DOCK_NOT_VALID=902
+uint16 FAILED_TO_CONTROL=905
+uint16 UNKNOWN=999
+bool success True
+uint16 error_code 0
+string error_msg
+---
+@nav2_msgs/action/Wait
+builtin_interfaces/Duration time
+---
+builtin_interfaces/Duration total_elapsed_time
+uint16 error_code
+string error_msg
+---
+builtin_interfaces/Duration time_left
+@action_tutorials_interfaces/action/Fibonacci
+int32 order
+---
+int32[] sequence
+---
+int32[] partial_sequence
+@lifecycle_msgs/msg/State
+uint8 PRIMARY_STATE_UNKNOWN = 0
+uint8 PRIMARY_STATE_UNCONFIGURED = 1
+uint8 PRIMARY_STATE_INACTIVE = 2
+uint8 PRIMARY_STATE_ACTIVE = 3
+uint8 PRIMARY_STATE_FINALIZED = 4
+uint8 TRANSITION_STATE_CONFIGURING = 10
+uint8 TRANSITION_STATE_CLEANINGUP = 11
+uint8 TRANSITION_STATE_SHUTTINGDOWN = 12
+uint8 TRANSITION_STATE_ACTIVATING = 13
+uint8 TRANSITION_STATE_DEACTIVATING = 14
+uint8 TRANSITION_STATE_ERRORPROCESSING = 15
+uint8 id
+string label
+@lifecycle_msgs/msg/Transition
+uint8 TRANSITION_CREATE = 0
+uint8 TRANSITION_CONFIGURE = 1
+uint8 TRANSITION_CLEANUP = 2
+uint8 TRANSITION_ACTIVATE = 3
+uint8 TRANSITION_DEACTIVATE = 4
+uint8 TRANSITION_UNCONFIGURED_SHUTDOWN  = 5
+uint8 TRANSITION_INACTIVE_SHUTDOWN = 6
+uint8 TRANSITION_ACTIVE_SHUTDOWN = 7
+uint8 TRANSITION_DESTROY = 8
+uint8 TRANSITION_ON_CONFIGURE_SUCCESS = 10
+uint8 TRANSITION_ON_CONFIGURE_FAILURE = 11
+uint8 TRANSITION_ON_CONFIGURE_ERROR = 12
+uint8 TRANSITION_ON_CLEANUP_SUCCESS = 20
+uint8 TRANSITION_ON_CLEANUP_FAILURE = 21
+uint8 TRANSITION_ON_CLEANUP_ERROR = 22
+uint8 TRANSITION_ON_ACTIVATE_SUCCESS = 30
+uint8 TRANSITION_ON_ACTIVATE_FAILURE = 31
+uint8 TRANSITION_ON_ACTIVATE_ERROR = 32
+uint8 TRANSITION_ON_DEACTIVATE_SUCCESS = 40
+uint8 TRANSITION_ON_DEACTIVATE_FAILURE = 41
+uint8 TRANSITION_ON_DEACTIVATE_ERROR = 42
+uint8 TRANSITION_ON_SHUTDOWN_SUCCESS = 50
+uint8 TRANSITION_ON_SHUTDOWN_FAILURE = 51
+uint8 TRANSITION_ON_SHUTDOWN_ERROR = 52
+uint8 TRANSITION_ON_ERROR_SUCCESS = 60
+uint8 TRANSITION_ON_ERROR_FAILURE = 61
+uint8 TRANSITION_ON_ERROR_ERROR = 62
+uint8 TRANSITION_CALLBACK_SUCCESS = 97
+uint8 TRANSITION_CALLBACK_FAILURE = 98
+uint8 TRANSITION_CALLBACK_ERROR = 99
+uint8 id
+string label
+@lifecycle_msgs/msg/TransitionDescription
+Transition transition
+State start_state
+State goal_state
+@lifecycle_msgs/msg/TransitionEvent
+uint64 timestamp
+Transition transition
+State start_state
+State goal_state
+@lifecycle_msgs/srv/ChangeState
+Transition transition
+---
+bool success
+@lifecycle_msgs/srv/GetAvailableStates
+---
+State[] available_states
+@lifecycle_msgs/srv/GetAvailableTransitions
+---
+TransitionDescription[] available_transitions
+@lifecycle_msgs/srv/GetState
+---
+State current_state
+@diagnostic_msgs/msg/DiagnosticArray
+std_msgs/Header header
+DiagnosticStatus[] status
+@diagnostic_msgs/msg/DiagnosticStatus
+byte OK=0
+byte WARN=1
+byte ERROR=2
+byte STALE=3
+byte level
+string name
+string message
+string hardware_id
+KeyValue[] values
+@diagnostic_msgs/msg/KeyValue
+string key
+string value
+@diagnostic_msgs/srv/AddDiagnostics
+string load_namespace
+---
+bool success
+string message
+@diagnostic_msgs/srv/SelfTest
+---
+string id
+byte passed
+DiagnosticStatus[] status
+@trajectory_msgs/msg/JointTrajectory
+std_msgs/Header header
+string[] joint_names
+JointTrajectoryPoint[] points
+@trajectory_msgs/msg/JointTrajectoryPoint
+float64[] positions
+float64[] velocities
+float64[] accelerations
+float64[] effort
+builtin_interfaces/Duration time_from_start
+@trajectory_msgs/msg/MultiDOFJointTrajectory
+std_msgs/Header header
+string[] joint_names
+MultiDOFJointTrajectoryPoint[] points
+@trajectory_msgs/msg/MultiDOFJointTrajectoryPoint
+geometry_msgs/Transform[] transforms
+geometry_msgs/Twist[] velocities
+geometry_msgs/Twist[] accelerations
+builtin_interfaces/Duration time_from_start
+@geographic_msgs/msg/BoundingBox
+GeoPoint min_pt
+GeoPoint max_pt
+@geographic_msgs/msg/GeoPath
+std_msgs/Header header
+geographic_msgs/GeoPoseStamped[] poses
+@geographic_msgs/msg/GeoPoint
+float64 latitude
+float64 longitude
+float64 altitude
+@geographic_msgs/msg/GeoPointStamped
+std_msgs/Header header
+geographic_msgs/GeoPoint position
+@geographic_msgs/msg/GeoPose
+GeoPoint position
+geometry_msgs/Quaternion orientation
+@geographic_msgs/msg/GeoPoseStamped
+std_msgs/Header header
+geographic_msgs/GeoPose pose
+@geographic_msgs/msg/GeoPoseWithCovariance
+GeoPose pose
+float64[36] covariance
+@geographic_msgs/msg/GeoPoseWithCovarianceStamped
+std_msgs/Header header
+geographic_msgs/GeoPoseWithCovariance pose
+@geographic_msgs/msg/GeographicMap
+std_msgs/Header header
+unique_identifier_msgs/UUID id
+BoundingBox  bounds
+WayPoint[]   points
+MapFeature[] features
+KeyValue[]   props
+@geographic_msgs/msg/GeographicMapChanges
+std_msgs/Header header
+GeographicMap diffs
+unique_identifier_msgs/UUID[] deletes
+@geographic_msgs/msg/KeyValue
+string key
+string value
+@geographic_msgs/msg/MapFeature
+unique_identifier_msgs/UUID   id
+unique_identifier_msgs/UUID[] components
+KeyValue[] props
+@geographic_msgs/msg/RouteNetwork
+std_msgs/Header          header
+unique_identifier_msgs/UUID id
+BoundingBox     bounds
+WayPoint[]      points
+RouteSegment[]  segments
+KeyValue[]      props
+@geographic_msgs/msg/RoutePath
+std_msgs/Header header
+unique_identifier_msgs/UUID   network
+unique_identifier_msgs/UUID[] segments
+KeyValue[]           props
+@geographic_msgs/msg/RouteSegment
+unique_identifier_msgs/UUID id
+unique_identifier_msgs/UUID start
+unique_identifier_msgs/UUID end
+KeyValue[] props
+@geographic_msgs/msg/WayPoint
+unique_identifier_msgs/UUID id
+GeoPoint   position
+KeyValue[] props
+@geographic_msgs/srv/GetGeoPath
+geographic_msgs/GeoPoint start
+geographic_msgs/GeoPoint goal
+---
+bool success
+string status
+geographic_msgs/GeoPath plan
+unique_identifier_msgs/UUID network
+unique_identifier_msgs/UUID start_seg
+unique_identifier_msgs/UUID goal_seg
+float64 distance
+@geographic_msgs/srv/GetGeographicMap
+string url
+BoundingBox bounds
+---
+bool success
+string status
+GeographicMap map
+@geographic_msgs/srv/GetRoutePlan
+unique_identifier_msgs/UUID network
+unique_identifier_msgs/UUID start
+unique_identifier_msgs/UUID goal
+---
+bool            success
+string          status
+RoutePath       plan
+@geographic_msgs/srv/UpdateGeographicMap
+GeographicMapChanges updates
+---
+bool   success
+string status
+@rcl_interfaces/msg/FloatingPointRange
+float64 from_value
+float64 to_value
+float64 step
+@rcl_interfaces/msg/IntegerRange
+int64 from_value
+int64 to_value
+uint64 step
+@rcl_interfaces/msg/ListParametersResult
+string[] names
+string[] prefixes
+@rcl_interfaces/msg/Log
+uint8 DEBUG=10
+uint8 INFO=20
+uint8 WARN=30
+uint8 ERROR=40
+uint8 FATAL=50
+builtin_interfaces/Time stamp
+uint8 level
+string name
+string msg
+string file
+string function
+uint32 line
+@rcl_interfaces/msg/LoggerLevel
+uint8 LOG_LEVEL_UNKNOWN = 0
+uint8 LOG_LEVEL_DEBUG = 10
+uint8 LOG_LEVEL_INFO = 20
+uint8 LOG_LEVEL_WARN = 30
+uint8 LOG_LEVEL_ERROR = 40
+uint8 LOG_LEVEL_FATAL = 50
+string name
+uint32 level
+@rcl_interfaces/msg/Parameter
+string name
+ParameterValue value
+@rcl_interfaces/msg/ParameterDescriptor
+string name
+uint8 type
+string description
+string additional_constraints
+bool read_only false
+bool dynamic_typing false
+FloatingPointRange[<=1] floating_point_range
+IntegerRange[<=1] integer_range
+@rcl_interfaces/msg/ParameterEvent
+builtin_interfaces/Time stamp
+string node
+Parameter[] new_parameters
+Parameter[] changed_parameters
+Parameter[] deleted_parameters
+@rcl_interfaces/msg/ParameterEventDescriptors
+ParameterDescriptor[] new_parameters
+ParameterDescriptor[] changed_parameters
+ParameterDescriptor[] deleted_parameters
+@rcl_interfaces/msg/ParameterType
+uint8 PARAMETER_NOT_SET=0
+uint8 PARAMETER_BOOL=1
+uint8 PARAMETER_INTEGER=2
+uint8 PARAMETER_DOUBLE=3
+uint8 PARAMETER_STRING=4
+uint8 PARAMETER_BYTE_ARRAY=5
+uint8 PARAMETER_BOOL_ARRAY=6
+uint8 PARAMETER_INTEGER_ARRAY=7
+uint8 PARAMETER_DOUBLE_ARRAY=8
+uint8 PARAMETER_STRING_ARRAY=9
+@rcl_interfaces/msg/ParameterValue
+uint8 type
+bool bool_value
+int64 integer_value
+float64 double_value
+string string_value
+byte[] byte_array_value
+bool[] bool_array_value
+int64[] integer_array_value
+float64[] double_array_value
+string[] string_array_value
+@rcl_interfaces/msg/SetLoggerLevelsResult
+bool successful
+string reason
+@rcl_interfaces/msg/SetParametersResult
+bool successful
+string reason
+@rcl_interfaces/srv/DescribeParameters
+string[] names
+---
+ParameterDescriptor[] descriptors
+@rcl_interfaces/srv/GetLoggerLevels
+string[] names
+---
+LoggerLevel[] levels
+@rcl_interfaces/srv/GetParameterTypes
+string[] names
+---
+uint8[] types
+@rcl_interfaces/srv/GetParameters
+string[] names
+---
+ParameterValue[] values
+@rcl_interfaces/srv/ListParameters
+uint64 DEPTH_RECURSIVE=0
+string[] prefixes
+uint64 depth
+---
+ListParametersResult result
+@rcl_interfaces/srv/SetLoggerLevels
+LoggerLevel[] levels
+---
+SetLoggerLevelsResult[] results
+@rcl_interfaces/srv/SetParameters
+Parameter[] parameters
+---
+SetParametersResult[] results
+@rcl_interfaces/srv/SetParametersAtomically
+Parameter[] parameters
+---
+SetParametersResult result
+@visualization_msgs/msg/ImageMarker
+int32 CIRCLE=0
+int32 LINE_STRIP=1
+int32 LINE_LIST=2
+int32 POLYGON=3
+int32 POINTS=4
+int32 ADD=0
+int32 REMOVE=1
+std_msgs/Header header
+string ns
+int32 id
+int32 type
+int32 action
+geometry_msgs/Point position
+float32 scale
+std_msgs/ColorRGBA outline_color
+uint8 filled
+std_msgs/ColorRGBA fill_color
+builtin_interfaces/Duration lifetime
+geometry_msgs/Point[] points
+std_msgs/ColorRGBA[] outline_colors
+@visualization_msgs/msg/InteractiveMarker
+std_msgs/Header header
+geometry_msgs/Pose pose
+string name
+string description
+float32 scale
+MenuEntry[] menu_entries
+InteractiveMarkerControl[] controls
+@visualization_msgs/msg/InteractiveMarkerControl
+string name
+geometry_msgs/Quaternion orientation
+uint8 INHERIT = 0
+uint8 FIXED = 1
+uint8 VIEW_FACING = 2
+uint8 orientation_mode
+uint8 NONE = 0
+uint8 MENU = 1
+uint8 BUTTON = 2
+uint8 MOVE_AXIS = 3
+uint8 MOVE_PLANE = 4
+uint8 ROTATE_AXIS = 5
+uint8 MOVE_ROTATE = 6
+uint8 MOVE_3D = 7
+uint8 ROTATE_3D = 8
+uint8 MOVE_ROTATE_3D = 9
+uint8 interaction_mode
+bool always_visible
+Marker[] markers
+bool independent_marker_orientation
+string description
+@visualization_msgs/msg/InteractiveMarkerFeedback
+std_msgs/Header header
+string client_id
+string marker_name
+string control_name
+uint8 KEEP_ALIVE = 0
+uint8 POSE_UPDATE = 1
+uint8 MENU_SELECT = 2
+uint8 BUTTON_CLICK = 3
+uint8 MOUSE_DOWN = 4
+uint8 MOUSE_UP = 5
+uint8 event_type
+geometry_msgs/Pose pose
+uint32 menu_entry_id
+geometry_msgs/Point mouse_point
+bool mouse_point_valid
+@visualization_msgs/msg/InteractiveMarkerInit
+string server_id
+uint64 seq_num
+InteractiveMarker[] markers
+@visualization_msgs/msg/InteractiveMarkerPose
+std_msgs/Header header
+geometry_msgs/Pose pose
+string name
+@visualization_msgs/msg/InteractiveMarkerUpdate
+string server_id
+uint64 seq_num
+uint8 KEEP_ALIVE = 0
+uint8 UPDATE = 1
+uint8 type
+InteractiveMarker[] markers
+InteractiveMarkerPose[] poses
+string[] erases
+@visualization_msgs/msg/Marker
+int32 ARROW=0
+int32 CUBE=1
+int32 SPHERE=2
+int32 CYLINDER=3
+int32 LINE_STRIP=4
+int32 LINE_LIST=5
+int32 CUBE_LIST=6
+int32 SPHERE_LIST=7
+int32 POINTS=8
+int32 TEXT_VIEW_FACING=9
+int32 MESH_RESOURCE=10
+int32 TRIANGLE_LIST=11
+int32 ARROW_STRIP=12
+int32 ADD=0
+int32 MODIFY=0
+int32 DELETE=2
+int32 DELETEALL=3
+std_msgs/Header header
+string ns
+int32 id
+int32 type
+int32 action
+geometry_msgs/Pose pose
+geometry_msgs/Vector3 scale
+std_msgs/ColorRGBA color
+builtin_interfaces/Duration lifetime
+bool frame_locked
+geometry_msgs/Point[] points
+std_msgs/ColorRGBA[] colors
+string texture_resource
+sensor_msgs/CompressedImage texture
+UVCoordinate[] uv_coordinates
+string text
+string mesh_resource
+MeshFile mesh_file
+bool mesh_use_embedded_materials
+@visualization_msgs/msg/MarkerArray
+Marker[] markers
+@visualization_msgs/msg/MenuEntry
+uint32 id
+uint32 parent_id
+string title
+string command
+uint8 FEEDBACK=0
+uint8 ROSRUN=1
+uint8 ROSLAUNCH=2
+uint8 command_type
+@visualization_msgs/msg/MeshFile
+string filename
+uint8[] data
+@visualization_msgs/msg/UVCoordinate
+float32 u
+float32 v
+@visualization_msgs/srv/GetInteractiveMarkers
+---
+uint64 sequence_number
+InteractiveMarker[] markers
+@shape_msgs/msg/Mesh
+MeshTriangle[] triangles
+geometry_msgs/Point[] vertices
+@shape_msgs/msg/MeshTriangle
+uint32[3] vertex_indices
+@shape_msgs/msg/Plane
+float64[4] coef
+@shape_msgs/msg/SolidPrimitive
+uint8 BOX=1
+uint8 SPHERE=2
+uint8 CYLINDER=3
+uint8 CONE=4
+uint8 PRISM=5
+uint8 type
+float64[<=3] dimensions
+uint8 BOX_X=0
+uint8 BOX_Y=1
+uint8 BOX_Z=2
+uint8 SPHERE_RADIUS=0
+uint8 CYLINDER_HEIGHT=0
+uint8 CYLINDER_RADIUS=1
+uint8 CONE_HEIGHT=0
+uint8 CONE_RADIUS=1
+uint8 PRISM_HEIGHT=0
+geometry_msgs/Polygon polygon
+@service_msgs/msg/ServiceEventInfo
+uint8 REQUEST_SENT = 0
+uint8 REQUEST_RECEIVED = 1
+uint8 RESPONSE_SENT = 2
+uint8 RESPONSE_RECEIVED = 3
+uint8 event_type
+builtin_interfaces/Time stamp
+char[16] client_gid
+int64 sequence_number
+@rosgraph_msgs/msg/Action
+string name
+Service send_goal
+Service get_result
+Service cancel_goal
+Topic feedback
+Topic status
+@rosgraph_msgs/msg/Clock
+builtin_interfaces/Time clock
+@rosgraph_msgs/msg/Graph
+Node[] nodes
+@rosgraph_msgs/msg/InterfaceType
+string name
+TypeHash hash
+@rosgraph_msgs/msg/Node
+string name
+rcl_interfaces/ParameterDescriptor[] parameters
+rcl_interfaces/ParameterValue[] parameter_values
+Topic[] publishers
+Topic[] subscriptions
+Service[] service_clients
+Service[] service_servers
+Action[] action_clients
+Action[] action_servers
+@rosgraph_msgs/msg/QoSProfile
+uint32 depth
+builtin_interfaces/Duration deadline
+builtin_interfaces/Duration lifespan
+uint8 HISTORY_SYSTEM_DEFAULT=0
+uint8 HISTORY_KEEP_LAST=1
+uint8 HISTORY_KEEP_ALL=2
+uint8 HISTORY_UNKNOWN=3
+uint8 history
+uint8 RELIABILITY_SYSTEM_DEFAULT=0
+uint8 RELIABILITY_RELIABLE=1
+uint8 RELIABILITY_BEST_EFFORT=2
+uint8 RELIABILITY_UNKNOWN=3
+uint8 RELIABILITY_BEST_AVAILABLE=4
+uint8 reliability
+uint8 DURABILITY_SYSTEM_DEFAULT=0
+uint8 DURABILITY_TRANSIENT_LOCAL=1
+uint8 DURABILITY_VOLATILE=2
+uint8 DURABILITY_UNKNOWN=3
+uint8 DURABILITY_BEST_AVAILABLE=4
+uint8 durability
+uint8 LIVELINESS_SYSTEM_DEFAULT=0
+uint8 LIVELINESS_AUTOMATIC=1
+uint8 LIVELINESS_MANUAL_BY_TOPIC=3
+uint8 LIVELINESS_UNKNOWN=4
+uint8 LIVELINESS_BEST_AVAILABLE=5
+uint8 liveliness
+builtin_interfaces/Duration liveliness_lease_duration
+@rosgraph_msgs/msg/Service
+string name
+InterfaceType request_type
+QoSProfile request_qos
+InterfaceType response_type
+QoSProfile response_qos
+@rosgraph_msgs/msg/Topic
+string name
+InterfaceType type
+QoSProfile qos
+@rosgraph_msgs/msg/TypeHash
+uint8 version 1
+uint8[32] value
+@tf2_msgs/msg/TF2Error
+uint8 NO_ERROR = 0
+uint8 LOOKUP_ERROR = 1
+uint8 CONNECTIVITY_ERROR = 2
+uint8 EXTRAPOLATION_ERROR = 3
+uint8 INVALID_ARGUMENT_ERROR = 4
+uint8 TIMEOUT_ERROR = 5
+uint8 TRANSFORM_ERROR = 6
+uint8 error
+string error_string
+@tf2_msgs/msg/TFMessage
+geometry_msgs/TransformStamped[] transforms
+@tf2_msgs/srv/FrameGraph
+---
+string frame_yaml
+@tf2_msgs/action/LookupTransform
+string target_frame
+string source_frame
+builtin_interfaces/Time source_time
+builtin_interfaces/Duration timeout
+builtin_interfaces/Time target_time
+string fixed_frame
+bool advanced
+---
+geometry_msgs/TransformStamped transform
+tf2_msgs/TF2Error error
+---
+@actionlib_msgs/msg/GoalID
+builtin_interfaces/Time stamp
+string id
+@actionlib_msgs/msg/GoalStatus
+GoalID goal_id
+uint8 status
+uint8 PENDING         = 0
+uint8 ACTIVE          = 1
+uint8 PREEMPTED       = 2
+uint8 SUCCEEDED       = 3
+uint8 ABORTED         = 4
+uint8 REJECTED        = 5
+uint8 PREEMPTING      = 6
+uint8 RECALLING       = 7
+uint8 RECALLED        = 8
+uint8 LOST            = 9
+string text
+@actionlib_msgs/msg/GoalStatusArray
+std_msgs/Header header
+GoalStatus[] status_list
+@foxglove_msgs/msg/Point2
+float64 x
+float64 y
+@foxglove_msgs/msg/Color
+float64 r
+float64 g
+float64 b
+float64 a
+@foxglove_msgs/msg/CircleAnnotation
+builtin_interfaces/Time timestamp
+foxglove_msgs/Point2 position
+float64 diameter
+float64 thickness
+foxglove_msgs/Color fill_color
+foxglove_msgs/Color outline_color
+@foxglove_msgs/msg/PointsAnnotation
+uint8 UNKNOWN=0
+uint8 POINTS=1
+uint8 LINE_LOOP=2
+uint8 LINE_STRIP=3
+uint8 LINE_LIST=4
+builtin_interfaces/Time timestamp
+uint8 type
+foxglove_msgs/Point2[] points
+foxglove_msgs/Color outline_color
+foxglove_msgs/Color[] outline_colors
+foxglove_msgs/Color fill_color
+float64 thickness
+@foxglove_msgs/msg/TextAnnotation
+builtin_interfaces/Time timestamp
+foxglove_msgs/Point2 position
+string text
+float64 font_size
+foxglove_msgs/Color text_color
+foxglove_msgs/Color background_color
+@foxglove_msgs/msg/ImageAnnotations
+foxglove_msgs/CircleAnnotation[] circles
+foxglove_msgs/PointsAnnotation[] points
+foxglove_msgs/TextAnnotation[] texts
+@moveit_msgs/msg/AllowedCollisionEntry
+bool[] enabled
+@moveit_msgs/msg/AllowedCollisionMatrix
+string[] entry_names
+AllowedCollisionEntry[] entry_values
+string[] default_entry_names
+bool[] default_entry_values
+@moveit_msgs/msg/AttachedCollisionObject
+string link_name
+CollisionObject object
+string[] touch_links
+trajectory_msgs/JointTrajectory detach_posture
+float64 weight
+@moveit_msgs/msg/BoundingVolume
+shape_msgs/SolidPrimitive[] primitives
+geometry_msgs/Pose[] primitive_poses
+shape_msgs/Mesh[] meshes
+geometry_msgs/Pose[] mesh_poses
+@moveit_msgs/msg/CartesianPoint
+geometry_msgs/Pose pose
+geometry_msgs/Twist velocity
+geometry_msgs/Accel acceleration
+@moveit_msgs/msg/CartesianTrajectory
+std_msgs/Header header
+string tracked_frame
+CartesianTrajectoryPoint[] points
+@moveit_msgs/msg/CartesianTrajectoryPoint
+CartesianPoint point
+builtin_interfaces/Duration time_from_start
+@moveit_msgs/msg/CollisionObject
+std_msgs/Header header
+geometry_msgs/Pose pose
+string id
+object_recognition_msgs/ObjectType type
+shape_msgs/SolidPrimitive[] primitives
+geometry_msgs/Pose[] primitive_poses
+shape_msgs/Mesh[] meshes
+geometry_msgs/Pose[] mesh_poses
+shape_msgs/Plane[] planes
+geometry_msgs/Pose[] plane_poses
+string[] subframe_names
+geometry_msgs/Pose[] subframe_poses
+byte ADD=0
+byte REMOVE=1
+byte APPEND=2
+byte MOVE=3
+byte operation
+@moveit_msgs/msg/ConstraintEvalResult
+bool result
+float64 distance
+@moveit_msgs/msg/Constraints
+string name
+JointConstraint[] joint_constraints
+PositionConstraint[] position_constraints
+OrientationConstraint[] orientation_constraints
+VisibilityConstraint[] visibility_constraints
+@moveit_msgs/msg/ContactInformation
+std_msgs/Header header
+geometry_msgs/Point position
+geometry_msgs/Vector3 normal
+float64 depth
+string contact_body_1
+uint32 body_type_1
+string contact_body_2
+uint32 body_type_2
+uint32 ROBOT_LINK=0
+uint32 WORLD_OBJECT=1
+uint32 ROBOT_ATTACHED=2
+@moveit_msgs/msg/CostSource
+float64 cost_density
+geometry_msgs/Vector3 aabb_min
+geometry_msgs/Vector3 aabb_max
+@moveit_msgs/msg/DisplayRobotState
+RobotState state
+ObjectColor[] highlight_links
+bool hide
+@moveit_msgs/msg/DisplayTrajectory
+string model_id
+RobotTrajectory[] trajectory
+RobotState trajectory_start
+@moveit_msgs/msg/GenericTrajectory
+std_msgs/Header header
+trajectory_msgs/JointTrajectory[] joint_trajectory
+moveit_msgs/CartesianTrajectory[] cartesian_trajectory
+@moveit_msgs/msg/Grasp
+string id
+trajectory_msgs/JointTrajectory pre_grasp_posture
+trajectory_msgs/JointTrajectory grasp_posture
+geometry_msgs/PoseStamped grasp_pose
+float64 grasp_quality
+GripperTranslation pre_grasp_approach
+GripperTranslation post_grasp_retreat
+GripperTranslation post_place_retreat
+float32 max_contact_force
+string[] allowed_touch_objects
+@moveit_msgs/msg/GripperTranslation
+geometry_msgs/Vector3Stamped direction
+float32 desired_distance
+float32 min_distance
+@moveit_msgs/msg/JointConstraint
+string joint_name
+float64 position
+float64 tolerance_above
+float64 tolerance_below
+float64 weight
+@moveit_msgs/msg/JointLimits
+string joint_name
+bool has_position_limits
+float64 min_position
+float64 max_position
+bool has_velocity_limits
+float64 max_velocity
+bool has_acceleration_limits
+float64 max_acceleration
+bool has_jerk_limits
+float64 max_jerk
+@moveit_msgs/msg/KinematicSolverInfo
+string[] joint_names
+moveit_msgs/JointLimits[] limits
+string[] link_names
+@moveit_msgs/msg/LinkPadding
+string link_name
+float64 padding
+@moveit_msgs/msg/LinkScale
+string link_name
+float64 scale
+@moveit_msgs/msg/MotionPlanDetailedResponse
+RobotState trajectory_start
+string group_name
+RobotTrajectory[] trajectory
+string[] description
+float64[] processing_time
+MoveItErrorCodes error_code
+@moveit_msgs/msg/MotionPlanRequest
+WorkspaceParameters workspace_parameters
+RobotState start_state
+Constraints[] goal_constraints
+Constraints path_constraints
+TrajectoryConstraints trajectory_constraints
+GenericTrajectory[] reference_trajectories
+string pipeline_id
+string planner_id
+string group_name
+int32 num_planning_attempts
+float64 allowed_planning_time
+float64 max_velocity_scaling_factor
+float64 max_acceleration_scaling_factor
+string cartesian_speed_limited_link
+float64 max_cartesian_speed
+float64 smoothness_level
+@moveit_msgs/msg/MotionPlanResponse
+RobotState trajectory_start
+string group_name
+RobotTrajectory trajectory
+float64 planning_time
+MoveItErrorCodes error_code
+@moveit_msgs/msg/MotionSequenceItem
+MotionPlanRequest req
+float64 blend_radius
+@moveit_msgs/msg/MotionSequenceRequest
+MotionSequenceItem[] items
+@moveit_msgs/msg/MotionSequenceResponse
+MoveItErrorCodes error_code
+RobotState sequence_start
+RobotTrajectory[] planned_trajectories
+float64 planning_time
+@moveit_msgs/msg/MoveItErrorCodes
+int32 val
+int32 SUCCESS=1
+int32 UNDEFINED=0
+int32 FAILURE=99999
+int32 PLANNING_FAILED=-1
+int32 INVALID_MOTION_PLAN=-2
+int32 MOTION_PLAN_INVALIDATED_BY_ENVIRONMENT_CHANGE=-3
+int32 CONTROL_FAILED=-4
+int32 UNABLE_TO_AQUIRE_SENSOR_DATA=-5
+int32 TIMED_OUT=-6
+int32 PREEMPTED=-7
+int32 START_STATE_IN_COLLISION=-10
+int32 START_STATE_VIOLATES_PATH_CONSTRAINTS=-11
+int32 START_STATE_INVALID=-26
+int32 GOAL_IN_COLLISION=-12
+int32 GOAL_VIOLATES_PATH_CONSTRAINTS=-13
+int32 GOAL_CONSTRAINTS_VIOLATED=-14
+int32 GOAL_STATE_INVALID=-27
+int32 UNRECOGNIZED_GOAL_TYPE=-28
+int32 INVALID_GROUP_NAME=-15
+int32 INVALID_GOAL_CONSTRAINTS=-16
+int32 INVALID_ROBOT_STATE=-17
+int32 INVALID_LINK_NAME=-18
+int32 INVALID_OBJECT_NAME=-19
+int32 FRAME_TRANSFORM_FAILURE=-21
+int32 COLLISION_CHECKING_UNAVAILABLE=-22
+int32 ROBOT_STATE_STALE=-23
+int32 SENSOR_INFO_STALE=-24
+int32 COMMUNICATION_FAILURE=-25
+int32 CRASH=-29
+int32 ABORT=-30
+int32 NO_IK_SOLUTION=-31
+string message
+string source
+@moveit_msgs/msg/ObjectColor
+string id
+std_msgs/ColorRGBA color
+@moveit_msgs/msg/OrientationConstraint
+std_msgs/Header header
+geometry_msgs/Quaternion orientation
+string link_name
+float64 absolute_x_axis_tolerance
+float64 absolute_y_axis_tolerance
+float64 absolute_z_axis_tolerance
+uint8 parameterization
+uint8 XYZ_EULER_ANGLES=0
+uint8 ROTATION_VECTOR=1
+float64 weight
+@moveit_msgs/msg/OrientedBoundingBox
+geometry_msgs/Pose pose
+geometry_msgs/Point32 extents
+@moveit_msgs/msg/PipelineState
+MotionPlanRequest request
+MotionPlanResponse response
+string pipeline_stage
+@moveit_msgs/msg/PlaceLocation
+string id
+trajectory_msgs/JointTrajectory post_place_posture
+geometry_msgs/PoseStamped place_pose
+float64 quality
+GripperTranslation pre_place_approach
+GripperTranslation post_place_retreat
+string[] allowed_touch_objects
+@moveit_msgs/msg/PlannerInterfaceDescription
+string name
+string pipeline_id
+string[] planner_ids
+@moveit_msgs/msg/PlannerParams
+string[] keys
+string[] values
+string[] descriptions
+@moveit_msgs/msg/PlanningOptions
+PlanningScene planning_scene_diff
+bool plan_only
+bool look_around
+int32 look_around_attempts
+float64 max_safe_execution_cost
+bool replan
+int32 replan_attempts
+float64 replan_delay
+@moveit_msgs/msg/PlanningScene
+string name
+RobotState robot_state
+string robot_model_name
+geometry_msgs/TransformStamped[] fixed_frame_transforms
+AllowedCollisionMatrix allowed_collision_matrix
+LinkPadding[] link_padding
+LinkScale[] link_scale
+ObjectColor[] object_colors
+PlanningSceneWorld world
+bool is_diff
+@moveit_msgs/msg/PlanningSceneComponents
+uint32 SCENE_SETTINGS=1
+uint32 ROBOT_STATE=2
+uint32 ROBOT_STATE_ATTACHED_OBJECTS=4
+uint32 WORLD_OBJECT_NAMES=8
+uint32 WORLD_OBJECT_GEOMETRY=16
+uint32 OCTOMAP=32
+uint32 TRANSFORMS=64
+uint32 ALLOWED_COLLISION_MATRIX=128
+uint32 LINK_PADDING_AND_SCALING=256
+uint32 OBJECT_COLORS=512
+uint32 components
+@moveit_msgs/msg/PlanningSceneWorld
+CollisionObject[] collision_objects
+octomap_msgs/OctomapWithPose octomap
+@moveit_msgs/msg/PositionConstraint
+std_msgs/Header header
+string link_name
+geometry_msgs/Vector3 target_point_offset
+BoundingVolume constraint_region
+float64 weight
+@moveit_msgs/msg/PositionIKRequest
+string group_name
+moveit_msgs/RobotState robot_state
+Constraints constraints
+bool avoid_collisions
+string ik_link_name
+geometry_msgs/PoseStamped pose_stamped
+string[] ik_link_names
+geometry_msgs/PoseStamped[] pose_stamped_vector
+builtin_interfaces/Duration timeout
+@moveit_msgs/msg/RobotState
+sensor_msgs/JointState joint_state
+sensor_msgs/MultiDOFJointState multi_dof_joint_state
+AttachedCollisionObject[] attached_collision_objects
+bool is_diff
+@moveit_msgs/msg/RobotTrajectory
+trajectory_msgs/JointTrajectory joint_trajectory
+trajectory_msgs/MultiDOFJointTrajectory multi_dof_joint_trajectory
+@moveit_msgs/msg/ServoStatus
+int8 code
+string message
+int8 INVALID = -1
+int8 NO_WARNING = 0
+int8 DECELERATE_FOR_APPROACHING_SINGULARITY = 1
+int8 HALT_FOR_SINGULARITY = 2
+int8 DECELERATE_FOR_LEAVING_SINGULARITY = 3
+int8 DECELERATE_FOR_COLLISION = 4
+int8 HALT_FOR_COLLISION = 5
+int8 JOINT_BOUND = 6
+@moveit_msgs/msg/TrajectoryConstraints
+Constraints[] constraints
+@moveit_msgs/msg/VisibilityConstraint
+float64 target_radius
+geometry_msgs/PoseStamped target_pose
+int32 cone_sides
+geometry_msgs/PoseStamped sensor_pose
+float64 max_view_angle
+float64 max_range_angle
+uint8 SENSOR_Z=0
+uint8 SENSOR_Y=1
+uint8 SENSOR_X=2
+uint8 sensor_view_direction
+float64 weight
+@moveit_msgs/msg/WorkspaceParameters
+std_msgs/Header header
+geometry_msgs/Vector3 min_corner
+geometry_msgs/Vector3 max_corner
+@moveit_msgs/srv/ApplyPlanningScene
+PlanningScene scene
+---
+bool success
+@moveit_msgs/srv/CheckIfRobotStateExistsInWarehouse
+string name
+string robot
+---
+bool exists
+@moveit_msgs/srv/DeleteRobotStateFromWarehouse
+string name
+string robot
+---
+@moveit_msgs/srv/GetCartesianPath
+std_msgs/Header header
+RobotState start_state
+string group_name
+string link_name
+geometry_msgs/Pose[] waypoints
+float64 max_step
+float64 jump_threshold
+float64 prismatic_jump_threshold
+float64 revolute_jump_threshold
+bool avoid_collisions
+Constraints path_constraints
+float64 max_velocity_scaling_factor
+float64 max_acceleration_scaling_factor
+string cartesian_speed_limited_link
+float64 max_cartesian_speed
+---
+RobotState start_state
+RobotTrajectory solution
+float64 fraction
+MoveItErrorCodes error_code
+@moveit_msgs/srv/GetGroupUrdf
+string group_name
+---
+MoveItErrorCodes error_code
+string urdf_string
+@moveit_msgs/srv/GetMotionPlan
+MotionPlanRequest motion_plan_request
+---
+MotionPlanResponse motion_plan_response
+@moveit_msgs/srv/GetMotionSequence
+MotionSequenceRequest request
+---
+MotionSequenceResponse response
+@moveit_msgs/srv/GetMultiStateValidity
+RobotState robot_state
+sensor_msgs/JointState[] joint_states
+string group_name
+Constraints constraints
+---
+bool valid
+ContactInformation[] contacts
+CostSource[] cost_sources
+ConstraintEvalResult[] constraint_result
+@moveit_msgs/srv/GetPlannerParams
+string pipeline_id
+string planner_config
+string group
+---
+PlannerParams params
+@moveit_msgs/srv/GetPlanningScene
+PlanningSceneComponents components
+---
+PlanningScene scene
+@moveit_msgs/srv/GetPositionFK
+std_msgs/Header header
+string[] fk_link_names
+RobotState robot_state
+---
+geometry_msgs/PoseStamped[] pose_stamped
+string[] fk_link_names
+MoveItErrorCodes error_code
+@moveit_msgs/srv/GetPositionIK
+PositionIKRequest ik_request
+---
+RobotState solution
+MoveItErrorCodes error_code
+@moveit_msgs/srv/GetRobotStateFromWarehouse
+string name
+string robot
+---
+moveit_msgs/RobotState state
+@moveit_msgs/srv/GetStateValidity
+RobotState robot_state
+string group_name
+Constraints constraints
+---
+bool valid
+ContactInformation[] contacts
+CostSource[] cost_sources
+ConstraintEvalResult[] constraint_result
+@moveit_msgs/srv/GraspPlanning
+string group_name
+CollisionObject target
+string[] support_surfaces
+Grasp[] candidate_grasps
+CollisionObject[] movable_obstacles
+---
+Grasp[] grasps
+MoveItErrorCodes error_code
+@moveit_msgs/srv/ListRobotStatesInWarehouse
+string regex
+string robot
+---
+string[] states
+@moveit_msgs/srv/LoadGeometryFromFile
+string file_path_and_name
+---
+bool success
+@moveit_msgs/srv/LoadMap
+string filename
+---
+bool success
+@moveit_msgs/srv/QueryPlannerInterfaces
+---
+PlannerInterfaceDescription[] planner_interfaces
+@moveit_msgs/srv/RenameRobotStateInWarehouse
+string old_name
+string new_name
+string robot
+---
+@moveit_msgs/srv/SaveGeometryToFile
+string file_path_and_name
+---
+bool success
+@moveit_msgs/srv/SaveMap
+string filename
+---
+bool success
+@moveit_msgs/srv/SaveRobotStateToWarehouse
+string name
+string robot
+moveit_msgs/RobotState state
+---
+bool success
+@moveit_msgs/srv/ServoCommandType
+int8 JOINT_JOG = 0
+int8 TWIST = 1
+int8 POSE = 2
+int8 command_type
+---
+bool success
+@moveit_msgs/srv/SetPlannerParams
+string pipeline_id
+string planner_config
+string group
+PlannerParams params
+bool replace
+---
+@moveit_msgs/srv/UpdatePointcloudOctomap
+sensor_msgs/PointCloud2 cloud
+---
+bool success
+@moveit_msgs/action/ExecuteTrajectory
+RobotTrajectory trajectory
+string[] controller_names
+---
+MoveItErrorCodes error_code
+---
+string state
+@moveit_msgs/action/GlobalPlanner
+string planning_group
+moveit_msgs/MotionSequenceRequest motion_sequence
+---
+moveit_msgs/MotionPlanResponse response
+---
+string feedback
+@moveit_msgs/action/HybridPlanner
+string planning_group
+moveit_msgs/MotionSequenceRequest motion_sequence
+---
+moveit_msgs/MoveItErrorCodes error_code
+string error_message
+---
+string feedback
+@moveit_msgs/action/LocalPlanner
+Constraints[] local_constraints
+---
+moveit_msgs/MoveItErrorCodes error_code
+string error_message
+---
+string feedback
+@moveit_msgs/action/MoveGroup
+MotionPlanRequest request
+PlanningOptions planning_options
+---
+MoveItErrorCodes error_code
+moveit_msgs/RobotState trajectory_start
+moveit_msgs/RobotTrajectory planned_trajectory
+moveit_msgs/RobotTrajectory executed_trajectory
+float64 planning_time
+---
+string state
+@moveit_msgs/action/MoveGroupSequence
+MotionSequenceRequest request
+PlanningOptions planning_options
+---
+MotionSequenceResponse response
+---
+string state
+@moveit_msgs/action/Pickup
+string target_name
+string group_name
+string end_effector
+Grasp[] possible_grasps
+string support_surface_name
+bool allow_gripper_support_collision
+string[] attached_object_touch_links
+bool minimize_object_distance
+Constraints path_constraints
+string planner_id
+string[] allowed_touch_objects
+float64 allowed_planning_time
+PlanningOptions planning_options
+---
+MoveItErrorCodes error_code
+RobotState trajectory_start
+RobotTrajectory[] trajectory_stages
+string[] trajectory_descriptions
+Grasp grasp
+float64 planning_time
+---
+string state
+@moveit_msgs/action/Place
+string group_name
+string attached_object_name
+PlaceLocation[] place_locations
+bool place_eef
+string support_surface_name
+bool allow_gripper_support_collision
+Constraints path_constraints
+string planner_id
+string[] allowed_touch_objects
+float64 allowed_planning_time
+PlanningOptions planning_options
+---
+MoveItErrorCodes error_code
+RobotState trajectory_start
+RobotTrajectory[] trajectory_stages
+string[] trajectory_descriptions
+PlaceLocation place_location
+float64 planning_time
+---
+string state
+@object_recognition_msgs/msg/ObjectInformation
+string name
+shape_msgs/Mesh ground_truth_mesh
+sensor_msgs/PointCloud2 ground_truth_point_cloud
+@object_recognition_msgs/msg/ObjectType
+string key
+string db
+@object_recognition_msgs/msg/RecognizedObject
+std_msgs/Header header
+object_recognition_msgs/ObjectType type
+float32 confidence
+sensor_msgs/PointCloud2[] point_clouds
+shape_msgs/Mesh bounding_mesh
+geometry_msgs/Point[] bounding_contours
+geometry_msgs/PoseWithCovarianceStamped pose
+@object_recognition_msgs/msg/RecognizedObjectArray
+std_msgs/Header header
+object_recognition_msgs/RecognizedObject[] objects
+float32[] cooccurrence
+@object_recognition_msgs/msg/Table
+std_msgs/Header header
+geometry_msgs/Pose pose
+geometry_msgs/Point[] convex_hull
+@object_recognition_msgs/msg/TableArray
+std_msgs/Header header
+object_recognition_msgs/Table[] tables
+@object_recognition_msgs/srv/GetObjectInformation
+object_recognition_msgs/ObjectType type
+---
+object_recognition_msgs/ObjectInformation information
+@object_recognition_msgs/action/ObjectRecognition
+bool use_roi
+float32[] filter_limits
+---
+object_recognition_msgs/RecognizedObjectArray recognized_objects
+---
+@octomap_msgs/msg/Octomap
+std_msgs/Header header
+bool binary
+string id
+float64 resolution
+int8[] data
+@octomap_msgs/msg/OctomapWithPose
+std_msgs/Header header
+geometry_msgs/Pose origin
+octomap_msgs/Octomap octomap
+@octomap_msgs/srv/BoundingBoxQuery
+geometry_msgs/Point min
+geometry_msgs/Point max
+---
+@octomap_msgs/srv/GetOctomap
+---
+octomap_msgs/Octomap map
+@control_msgs/msg/AdmittanceControllerState
+std_msgs/Float64MultiArray mass
+std_msgs/Float64MultiArray damping
+std_msgs/Float64MultiArray stiffness
+geometry_msgs/Quaternion rot_base_control
+geometry_msgs/TransformStamped ref_trans_base_ft
+std_msgs/Int8MultiArray selected_axes
+std_msgs/String ft_sensor_frame
+geometry_msgs/TransformStamped admittance_position
+geometry_msgs/TwistStamped admittance_acceleration
+geometry_msgs/TwistStamped admittance_velocity
+geometry_msgs/WrenchStamped wrench_base
+sensor_msgs/JointState joint_state
+@control_msgs/msg/BatteryStateArray
+sensor_msgs/BatteryState[] battery_states
+@control_msgs/msg/CANopenState
+uint8 node_id
+uint8 nmt_state
+uint8 dsp_402_state
+uint32 last_emcy_code
+uint8 NMT_INITIALISING      = 0
+uint8 NMT_PRE_OPERATIONAL   = 127
+uint8 NMT_OPERATIONAL       = 5
+uint8 NMT_STOPPED           = 4
+uint8 DSP402_NOT_READY_TO_SWITCH_ON    = 0
+uint8 DSP402_SWITCH_ON_DISABLED        = 1
+uint8 DSP402_READY_TO_SWITCH_ON        = 2
+uint8 DSP402_SWITCHED_ON               = 3
+uint8 DSP402_OPERATION_ENABLED         = 4
+uint8 DSP402_QUICK_STOP_ACTIVE         = 5
+uint8 DSP402_FAULT_REACTION_ACTIVE     = 6
+uint8 DSP402_FAULT                     = 7
+@control_msgs/msg/DynamicInterfaceGroupValues
+std_msgs/Header header
+string[] interface_groups
+InterfaceValue[] interface_values
+@control_msgs/msg/DynamicInterfaceValues
+std_msgs/Header header
+InterfaceValue states
+InterfaceValue commands
+@control_msgs/msg/DynamicJointState
+std_msgs/Header header
+string[] joint_names
+InterfaceValue[] interface_values
+@control_msgs/msg/EtherCATState
+uint16 slave_position
+string vendor_id
+string product_code
+uint8 al_state
+bool has_error
+uint16 al_status_code
+uint8 AL_STATE_INIT    = 1
+uint8 AL_STATE_PREOP   = 2
+uint8 AL_STATE_BOOTSTRAP = 3
+uint8 AL_STATE_SAFEOP  = 4
+uint8 AL_STATE_OP      = 8
+@control_msgs/msg/Float64Values
+std_msgs/Header header
+float64[] values
+@control_msgs/msg/GenericHardwareState
+uint8 health_status
+uint8[] error_domain
+uint8 operational_mode
+uint8 power_state
+uint8 connectivity_status
+string manufacturer
+string model
+string firmware_version
+diagnostic_msgs/KeyValue[] state_details
+uint8 HEALTH_UNKNOWN  = 0
+uint8 HEALTH_OK       = 1
+uint8 HEALTH_DEGRADED = 2
+uint8 HEALTH_WARNING  = 3
+uint8 HEALTH_ERROR    = 4
+uint8 HEALTH_FATAL    = 5
+uint8 ERROR_NONE           = 0
+uint8 ERROR_UNKNOWN        = 1
+uint8 ERROR_HW             = 2
+uint8 ERROR_SW             = 3
+uint8 ERROR_OVER_TRAVEL    = 4
+uint8 EMERGENCY_STOP_HW    = 5
+uint8 EMERGENCY_STOP_SW    = 6
+uint8 PROTECTIVE_STOP_HW   = 7
+uint8 PROTECTIVE_STOP_SW   = 8
+uint8 SAFETY_STOP          = 9
+uint8 CALIBRATION_REQUIRED = 10
+uint8 MODE_UNKNOWN              = 0
+uint8 MODE_MANUAL               = 1
+uint8 MODE_AUTO                 = 2
+uint8 MODE_SAFE                 = 3
+uint8 MODE_MAINTENANCE          = 4
+uint8 MODE_JOG_MANUAL           = 5
+uint8 MODE_ADMITTANCE           = 6
+uint8 MODE_MONITORED_STOP       = 7
+uint8 MODE_HOLD_TO_RUN          = 8
+uint8 MODE_CARTESIAN_TWIST      = 9
+uint8 MODE_CARTESIAN_POSE       = 10
+uint8 MODE_TRAJECTORY_FORWARDING = 11
+uint8 MODE_TRAJECTORY_STREAMING  = 12
+uint8 POWER_UNKNOWN         = 0
+uint8 POWER_OFF             = 1
+uint8 POWER_STANDBY         = 2
+uint8 POWER_ON              = 3
+uint8 POWER_SLEEP           = 4
+uint8 POWER_ERROR           = 5
+uint8 POWER_LEVEL_LOW       = 6
+uint8 POWER_LEVEL_CRITICAL  = 7
+uint8 POWER_CHARGING        = 8
+uint8 POWER_CHARGING_ERROR  = 9
+uint8 CONNECT_UNKNOWN    = 0
+uint8 CONNECT_UP         = 1
+uint8 CONNECT_DOWN       = 2
+uint8 CONNECT_FAILURE    = 3
+uint8 CONNECTION_SLOW    = 4
+@control_msgs/msg/GripperCommand
+float64 position
+float64 max_effort
+@control_msgs/msg/HardwareDeviceDiagnostics
+std_msgs/Header header
+string device_id
+diagnostic_msgs/KeyValue[] entries
+@control_msgs/msg/HardwareDeviceStatus
+std_msgs/Header header
+string device_id
+GenericHardwareState[] hardware_status
+CANopenState[] canopen_states
+EtherCATState[] ethercat_states
+VDA5050State[] vda5050_states
+@control_msgs/msg/HardwareDiagnostics
+std_msgs/Header header
+string hardware_id
+HardwareDeviceDiagnostics[] hardware_device_diagnostics
+@control_msgs/msg/HardwareStatus
+std_msgs/Header header
+string hardware_id
+HardwareDeviceStatus[] hardware_device_states
+@control_msgs/msg/InterfaceValue
+string[] interface_names
+float64[] values
+@control_msgs/msg/JointCommand
+std_msgs/Header header
+string[] joint_names
+string interface_name
+float64[] values
+@control_msgs/msg/JointComponentTolerance
+uint16 X_AXIS=1
+uint16 Y_AXIS=2
+uint16 Z_AXIS=3
+uint16 TRANSLATION=4
+uint16 ROTATION=5
+string joint_name
+uint16 component
+float64 position
+float64 velocity
+float64 acceleration
+@control_msgs/msg/JointControllerState
+std_msgs/Header header
+float64 set_point
+float64 process_value
+float64 process_value_dot
+float64 error
+float64 time_step
+float64 command
+float64 p
+float64 i
+float64 d
+float64 i_clamp
+bool antiwindup
+@control_msgs/msg/JointJog
+std_msgs/Header header
+string[] joint_names
+float64[] displacements
+float64[] velocities
+float64 duration
+@control_msgs/msg/JointTolerance
+string name
+float64 position
+float64 velocity
+float64 acceleration
+@control_msgs/msg/JointTrajectoryControllerState
+std_msgs/Header header
+string[] joint_names
+trajectory_msgs/JointTrajectoryPoint reference
+trajectory_msgs/JointTrajectoryPoint feedback
+trajectory_msgs/JointTrajectoryPoint error
+trajectory_msgs/JointTrajectoryPoint output
+string[] multi_dof_joint_names
+trajectory_msgs/MultiDOFJointTrajectoryPoint multi_dof_reference
+trajectory_msgs/MultiDOFJointTrajectoryPoint multi_dof_feedback
+trajectory_msgs/MultiDOFJointTrajectoryPoint multi_dof_error
+trajectory_msgs/MultiDOFJointTrajectoryPoint multi_dof_output
+float64 speed_scaling_factor
+@control_msgs/msg/JointWrenchTrajectory
+std_msgs/Header header
+string[] joint_names
+control_msgs/JointWrenchTrajectoryPoint[] points
+@control_msgs/msg/JointWrenchTrajectoryPoint
+trajectory_msgs/JointTrajectoryPoint point
+control_msgs/WrenchFramed wrench
+@control_msgs/msg/Keys
+std_msgs/Header header
+string[] keys
+@control_msgs/msg/MecanumDriveControllerState
+std_msgs/Header header
+float64 front_left_wheel_velocity
+float64 back_left_wheel_velocity
+float64 back_right_wheel_velocity
+float64 front_right_wheel_velocity
+geometry_msgs/Twist reference_velocity
+@control_msgs/msg/MotionArgument
+string name
+float64 value
+@control_msgs/msg/MotionPrimitive
+int8 UNKNOWN=-1
+int8 LINEAR_JOINT=0
+int8 LINEAR_CARTESIAN=50
+int8 CIRCULAR_CARTESIAN=51
+int8 type -1
+float64 blend_radius
+MotionArgument[] additional_arguments
+geometry_msgs/PoseStamped[] poses
+float64[] joint_positions
+@control_msgs/msg/MotionPrimitiveSequence
+MotionPrimitive[] motions
+@control_msgs/msg/MultiDOFCommand
+string[] dof_names
+float64[] values
+float64[] values_dot
+@control_msgs/msg/MultiDOFStateStamped
+std_msgs/Header header
+SingleDOFState[] dof_states
+@control_msgs/msg/PidState
+std_msgs/Header header
+builtin_interfaces/Duration timestep
+float64 error
+float64 error_dot
+float64 i_term
+float64 p_gain
+float64 i_gain
+float64 d_gain
+float64 output
+@control_msgs/msg/SingleDOFState
+string name
+float64 reference
+float64 feedback
+float64 feedback_dot
+float64 error
+float64 error_dot
+float64 time_step
+float64 output
+@control_msgs/msg/SingleDOFStateStamped
+std_msgs/Header header
+SingleDOFState dof_state
+@control_msgs/msg/SpeedScalingFactor
+float64 factor
+@control_msgs/msg/SteeringControllerCommand
+std_msgs/Header header
+float64 steering_angle
+float64 linear_velocity
+@control_msgs/msg/SteeringControllerStatus
+std_msgs/Header header
+float64[] traction_wheels_position
+float64[] traction_wheels_velocity
+float64[] steer_positions
+float64[] traction_command
+float64[] steering_angle_command
+@control_msgs/msg/VDA5050SafetyState
+string e_stop
+bool field_violation
+string AUTO_ACK="autoAck"
+string MANUAL="manual"
+string REMOTE="remote"
+string NONE="none"
+@control_msgs/msg/VDA5050State
+string order_id
+string action_status
+uint32 last_node_id
+bool driving
+float64 battery_charge
+string operating_mode
+string error_type
+string error_description
+string ACTION_WAITING    = "WAITING"
+string ACTION_INITIALIZING = "INITIALIZING"
+string ACTION_RUNNING    = "RUNNING"
+string ACTION_PAUSED     = "PAUSED"
+string ACTION_FINISHED   = "FINISHED"
+string ACTION_FAILED     = "FAILED"
+string MODE_AUTOMATIC    = "AUTOMATIC"
+string MODE_SEMI_AUTOMATIC = "SEMIAUTOMATIC"
+string MODE_MANUAL       = "MANUAL"
+string MODE_SERVICE      = "SERVICE"
+string MODE_EMERGENCY    = "EMERGENCY"
+string MODE_TEACHIN      = "TEACHIN"
+@control_msgs/msg/WrenchFramed
+string frame_id
+geometry_msgs/Wrench wrench
+@control_msgs/srv/QueryCalibrationState
+---
+bool is_calibrated
+@control_msgs/srv/QueryTrajectoryState
+builtin_interfaces/Time time
+---
+bool success
+string message
+string[] name
+float64[] position
+float64[] velocity
+float64[] acceleration
+@control_msgs/srv/SetOdometry
+float64 x
+float64 y
+float64 z
+float64 roll
+float64 pitch
+float64 yaw
+---
+bool success
+string message
+@control_msgs/action/ExecuteMotionPrimitiveSequence
+MotionPrimitiveSequence trajectory
+---
+int32 SUCCESSFUL = 0
+int32 INVALID_GOAL = -1
+int32 MOTION_EXECUTION_FAILED = -2
+int32 OLD_HEADER_TIMESTAMP = -3
+int32 ABORTED_BY_DEACTIVATION = -4
+int32 error_code
+string error_string
+---
+uint8 current_primitive_index
+@control_msgs/action/FollowJointTrajectory
+trajectory_msgs/JointTrajectory trajectory
+trajectory_msgs/MultiDOFJointTrajectory multi_dof_trajectory
+JointTolerance[] path_tolerance
+JointComponentTolerance[] component_path_tolerance
+JointTolerance[] goal_tolerance
+JointComponentTolerance[] component_goal_tolerance
+builtin_interfaces/Duration goal_time_tolerance
+---
+int32 error_code
+int32 SUCCESSFUL = 0
+int32 INVALID_GOAL = -1
+int32 INVALID_JOINTS = -2
+int32 OLD_HEADER_TIMESTAMP = -3
+int32 PATH_TOLERANCE_VIOLATED = -4
+int32 GOAL_TOLERANCE_VIOLATED = -5
+string error_string
+---
+std_msgs/Header header
+string[] joint_names
+trajectory_msgs/JointTrajectoryPoint desired
+trajectory_msgs/JointTrajectoryPoint actual
+trajectory_msgs/JointTrajectoryPoint error
+int32 index
+string[] multi_dof_joint_names
+trajectory_msgs/MultiDOFJointTrajectoryPoint multi_dof_desired
+trajectory_msgs/MultiDOFJointTrajectoryPoint multi_dof_actual
+trajectory_msgs/MultiDOFJointTrajectoryPoint multi_dof_error
+int32 multi_dof_index
+@control_msgs/action/FollowJointWrenchTrajectory
+control_msgs/JointWrenchTrajectory trajectory
+control_msgs/JointTolerance[] path_tolerance
+control_msgs/JointTolerance[] goal_tolerance
+builtin_interfaces/Duration goal_time_tolerance
+---
+int32 error_code
+int32 SUCCESSFUL = 0
+int32 INVALID_GOAL = -1
+int32 INVALID_JOINTS = -2
+int32 OLD_HEADER_TIMESTAMP = -3
+int32 PATH_TOLERANCE_VIOLATED = -4
+int32 GOAL_TOLERANCE_VIOLATED = -5
+int32 TRAJECTORY_ABORTED = -6
+string error_string
+---
+std_msgs/Header header
+string[] joint_names
+control_msgs/JointWrenchTrajectoryPoint desired
+control_msgs/JointWrenchTrajectoryPoint actual
+control_msgs/JointWrenchTrajectoryPoint error
+int32 index
+@control_msgs/action/GripperCommand
+GripperCommand command
+---
+float64 position
+float64 effort
+bool stalled
+bool reached_goal
+---
+float64 position
+float64 effort
+bool stalled
+bool reached_goal
+@control_msgs/action/JointTrajectory
+trajectory_msgs/JointTrajectory trajectory
+---
+---
+@control_msgs/action/ParallelGripperCommand
+sensor_msgs/JointState command
+---
+sensor_msgs/JointState state
+bool stalled
+bool reached_goal
+---
+sensor_msgs/JointState state
+@control_msgs/action/PointHead
+geometry_msgs/PointStamped target
+geometry_msgs/Vector3 pointing_axis
+string pointing_frame
+builtin_interfaces/Duration min_duration
+float64 max_velocity
+---
+---
+float64 pointing_angle_error
+@control_msgs/action/SingleJointPosition
+float64 position
+builtin_interfaces/Duration min_duration
+float64 max_velocity
+---
+---
+std_msgs/Header header
+float64 position
+float64 velocity
+float64 error
+@controller_manager_msgs/msg/ChainConnection
+string name
+string[] reference_interfaces
+@controller_manager_msgs/msg/ControllerManagerActivity
+std_msgs/Header header
+NamedLifecycleState[] controllers
+NamedLifecycleState[] hardware_components
+@controller_manager_msgs/msg/ControllerState
+string name
+string state
+string type
+bool is_async
+uint16 update_rate
+string[] claimed_interfaces
+string[] required_command_interfaces
+string[] required_state_interfaces
+bool is_chainable
+bool is_chained
+string[] exported_state_interfaces
+string[] reference_interfaces
+ChainConnection[] chain_connections
+@controller_manager_msgs/msg/HardwareComponentState
+string name
+string type
+bool is_async
+uint16 rw_rate
+string plugin_name
+lifecycle_msgs/State state
+HardwareInterface[] command_interfaces
+HardwareInterface[] state_interfaces
+@controller_manager_msgs/msg/HardwareInterface
+string name
+string data_type
+bool is_available
+bool is_claimed
+@controller_manager_msgs/msg/NamedLifecycleState
+string name
+lifecycle_msgs/State state
+@controller_manager_msgs/srv/CleanupController
+string name
+---
+bool ok
+@controller_manager_msgs/srv/ConfigureController
+string name
+---
+bool ok
+@controller_manager_msgs/srv/ListControllerTypes
+---
+string[] types
+string[] base_classes
+@controller_manager_msgs/srv/ListControllers
+---
+controller_manager_msgs/ControllerState[] controller
+@controller_manager_msgs/srv/ListHardwareComponents
+---
+HardwareComponentState[] component
+@controller_manager_msgs/srv/ListHardwareInterfaces
+---
+HardwareInterface[] command_interfaces
+HardwareInterface[] state_interfaces
+@controller_manager_msgs/srv/LoadController
+string name
+---
+bool ok
+@controller_manager_msgs/srv/ReloadControllerLibraries
+bool force_kill
+---
+bool ok
+@controller_manager_msgs/srv/SetHardwareComponentState
+string name
+lifecycle_msgs/State target_state
+---
+bool ok
+lifecycle_msgs/State state
+@controller_manager_msgs/srv/SwitchController
+string[] activate_controllers
+string[] deactivate_controllers
+int32 strictness
+int32 BEST_EFFORT=1
+int32 STRICT=2
+int32 AUTO=3
+int32 FORCE_AUTO=4
+bool activate_asap
+builtin_interfaces/Duration timeout
+---
+bool ok
+string message
+@controller_manager_msgs/srv/UnloadController
+string name
+---
+bool ok
+@foxglove_msgs/msg/CompressedVideo
+builtin_interfaces/Time timestamp
+string frame_id
+uint8[] data
+string format
+@ffmpeg_image_transport_msgs/msg/FFMPEGPacket
+std_msgs/Header header
+int32 width
+int32 height
+string encoding
+uint64 pts
+uint8 flags
+bool is_bigendian
+uint8[] data
+@slam_toolbox/srv/SaveMap
+std_msgs/String name
+---
+uint8 RESULT_SUCCESS=0
+uint8 RESULT_NO_MAP_RECEIEVD=1
+uint8 RESULT_UNDEFINED_FAILURE=255
+uint8 result
+@slam_toolbox/srv/SerializePoseGraph
+string filename
+---
+uint8 RESULT_SUCCESS=0
+uint8 RESULT_FAILED_TO_WRITE_FILE=255
+uint8 result
+@slam_toolbox/srv/Pause
+---
+bool status
+@slam_toolbox/srv/Clear
+---
+@slam_toolbox/srv/Reset
+bool pause_new_measurements
+---
+uint8 RESULT_SUCCESS=0
+uint8 result
