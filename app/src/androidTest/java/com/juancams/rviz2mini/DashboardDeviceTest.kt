@@ -66,16 +66,21 @@ class DashboardDeviceTest {
                 return f!!
             }
             assertEquals(4, frag().layoutForTest().size)
-            // The widget's RViz receives real data.
+            // The widget's RViz receives real data (the first launch after install also prepares the 3D viewer first).
             var statuses = ""
-            scenario.onActivity { _ ->
-                val rvizId = TabStore.get().all.first { it.dashboardId == dash.id && it.type == TabType.RVIZ }.id
-                val r = frag().childFragmentManager.findFragmentByTag(rvizId) as RvizFragment
-                statuses = r.displayConfigs().joinToString("\n") { d -> "${d.name}: ${r.displayStatus(d.id)?.level}" }
-            }
+            val deadline = SystemClock.uptimeMillis() + 30_000
+            do {
+                scenario.onActivity { _ ->
+                    val rvizId = TabStore.get().all.first { it.dashboardId == dash.id && it.type == TabType.RVIZ }.id
+                    val r = frag().childFragmentManager.findFragmentByTag(rvizId) as RvizFragment
+                    statuses = r.displayConfigs().joinToString("\n") { d -> "${d.name}: ${r.displayStatus(d.id)?.level}" }
+                }
+                val ok = statuses.lines().count { it.endsWith("OK") } >= 5
+                if (!ok) SystemClock.sleep(1000)
+            } while (!ok && SystemClock.uptimeMillis() < deadline)
             Log.i(TAG, "RViz en el dashboard:\n$statuses")
-            assertTrue(statuses, statuses.lines().count { it.endsWith("OK") } >= 5)
-            assertTrue(Ui.exists("/camera/image_raw"))
+            assertTrue("RViz in the dashboard:\n$statuses", statuses.lines().count { it.endsWith("OK") } >= 5)
+            Ui.waitFor("/camera/image_raw", timeoutMs = 20_000, scroll = false)
 
             // Move and resize: free placement, the camera goes where it is dropped and nothing else moves.
             val cam = frag().layoutForTest().first { item -> TabStore.get().get(item.id)?.type == TabType.CAMERA }

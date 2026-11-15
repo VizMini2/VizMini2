@@ -233,6 +233,8 @@ jobs:
           api-level: 34
           arch: x86_64
           target: google_apis
+          # A phone-sized screen (the default AVD is 320x640, too small for the dashboard and drag tests).
+          profile: pixel_6
           disable-animations: true
           cores: 4
           ram-size: 4096M
