@@ -84,7 +84,7 @@ compose.desktop {
                 shortcut = true
                 // The same maintainer as ros/vizmini2/package.xml.
                 debMaintainer = "jc.manzanares.serrano@gmail.com"
-                // tools/make_desktop_icon.java (the Android icon drawing).
+                // tools/make_icons.sh (the logo, as on Android).
                 iconFile.set(project.file("icons/vizmini2.png"))
             }
         }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+     SPDX-License-Identifier: GPL-3.0-only -->
+<resources>
+    <!-- The logo's colour at its edges: the same as BG in tools/make_icons.sh. -->
+    <color name="ic_launcher_background">#FF182733</color>
+</resources>

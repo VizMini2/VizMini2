@@ -1,0 +1,156 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+name: 🐞 Bug report
+description: Something in VizMini2 (Android, desktop or the ROS 2 package) does not work as expected.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this! Many connection problems (multicast, domain ID, QoS, firewall) are
+        already covered in [Troubleshooting](https://vizmini2.github.io/help/troubleshooting.html) and
+        [Known limitations](https://vizmini2.github.io/help/limitations.html).
+
+        **Do not post passwords, tokens, public IPs or anything private.** Security problems go through the
+        [security policy](https://github.com/VizMini2/.github/blob/main/SECURITY.md), not here.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Where does it happen?
+      multiple: true
+      options:
+        - Android app
+        - Desktop app (.deb or .tar.gz)
+        - Desktop app as a ROS 2 package (ros2 run vizmini2 vizmini2)
+        - User manual / website
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected and what you got instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: If it happens with the built-in demo robot (no robot needed), say so; that makes it much easier to fix.
+      placeholder: |
+        1. Open the RViz tab
+        2. Add a PointCloud2 display on /points
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: VizMini2 version
+      description: "Android: Settings → Apps → VizMini2. Desktop: the window title."
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device and OS
+      placeholder: "Pixel 8, Android 16  /  Ubuntu 24.04, NVIDIA driver 570"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Connection / discovery
+        - RViz / 3D view (displays, TF, robot model, markers)
+        - Maps, Nav2, SLAM
+        - MoveIt
+        - ros2_control controllers
+        - Cameras and video (H.264 / H.265)
+        - Dashboards, buttons, indicators, sliders
+        - Plots
+        - Teleop / gamepad
+        - Topics, services, actions
+        - Nodes, parameters, lifecycle
+        - Bags (record / play)
+        - Alerts
+        - Screen recording
+        - Import / export (.rviz files, layouts)
+        - Account, sign-in, profiles
+        - Install, packaging, startup
+        - Demo robot
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ros-distro
+    attributes:
+      label: ROS 2 distribution on the robot
+      description: Only if the problem involves a robot.
+      options:
+        - Foxy
+        - Humble
+        - Jazzy
+        - Kilted
+        - Lyrical
+        - Rolling
+        - Not sure / no robot
+
+  - type: dropdown
+    id: middleware
+    attributes:
+      label: Middleware
+      description: How VizMini2 talks to the robot (Config → Network).
+      options:
+        - Fast DDS (rmw_fastrtps_cpp)
+        - Cyclone DDS (rmw_cyclonedds_cpp)
+        - Zenoh (rmw_zenoh_cpp)
+        - foxglove_bridge
+        - Not sure / no robot
+
+  - type: dropdown
+    id: network
+    attributes:
+      label: How does VizMini2 reach the robot?
+      options:
+        - Same network, multicast discovery
+        - Same network, discovery peers
+        - Discovery Server
+        - VPN
+        - Same computer (desktop app)
+        - Demo only (no robot)
+        - Not sure
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        For connection problems, the output of **Network check** (Config → Network). On the desktop, the terminal
+        output (`vizmini2 --check` checks the connection).
+      render: shell
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or videos
+      description: Drag files here.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before sending
+      options:
+        - label: I searched the [existing issues](https://github.com/VizMini2/VizMini2/issues?q=is%3Aissue) and this one is new.
+          required: true
+        - label: There are no passwords, tokens or other private data in this report.
+          required: true

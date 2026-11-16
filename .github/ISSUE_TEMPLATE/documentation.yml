@@ -1,0 +1,31 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+name: 📖 Documentation
+description: Something in the user manual (vizmini2.github.io) is wrong, unclear or missing.
+labels: ["documentation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The address of the page, or "new page" if it is missing.
+      placeholder: "https://vizmini2.github.io/config/network.html"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - English
+        - Spanish
+        - Both
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing?
+      description: Quote the text if it helps. A typo fix can also go straight into a pull request on `docs/`.
+    validations:
+      required: true

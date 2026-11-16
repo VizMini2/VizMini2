@@ -34,7 +34,7 @@ class OnboardingActivity : AppCompatActivity() {
     private class Page(@androidx.annotation.StringRes val title: Int, @androidx.annotation.StringRes val text: Int, val image: Int, val isPhoto: Boolean = true)
 
     private val pages = listOf(
-        Page(R.string.onboarding_welcome_title, R.string.onboarding_welcome_text, R.drawable.ic_logo_axes, isPhoto = false),
+        Page(R.string.onboarding_welcome_title, R.string.onboarding_welcome_text, R.drawable.logo_vizmini2, isPhoto = false),
         Page(R.string.onboarding_connect_title, R.string.onboarding_connect_text, R.drawable.shot_config),
         Page(R.string.onboarding_workspace_title, R.string.onboarding_workspace_text, R.drawable.shot_dashboard),
         Page(R.string.onboarding_drive_title, R.string.onboarding_drive_text, R.drawable.shot_teleop),
@@ -127,19 +127,22 @@ class OnboardingActivity : AppCompatActivity() {
             val p = pages[position]
             val v = holder.itemView as LinearLayout
             v.removeAllViews()
-            // Screenshot in a rounded "phone", or the logo on the first page.
+            // Screenshot in a rounded "phone", or the logo (its own rounded tile) on the first page.
             val frame = FrameLayout(this@OnboardingActivity).apply {
-                setBackgroundResource(R.drawable.bg_logo_tile)
-                setPadding(dp(6), dp(6), dp(6), dp(6))
+                if (p.isPhoto) {
+                    setBackgroundResource(R.drawable.bg_logo_tile)
+                    setPadding(dp(6), dp(6), dp(6), dp(6))
+                }
             }
             frame.addView(ImageView(this@OnboardingActivity).apply {
                 setImageResource(p.image)
                 scaleType = if (p.isPhoto) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
-                clipToOutline = true
-                outlineProvider = android.view.ViewOutlineProvider.BACKGROUND
-                setBackgroundResource(R.drawable.bg_thumb)
+                if (p.isPhoto) {
+                    clipToOutline = true
+                    outlineProvider = android.view.ViewOutlineProvider.BACKGROUND
+                    setBackgroundResource(R.drawable.bg_thumb)
+                }
                 importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-                if (!p.isPhoto) setPadding(dp(40), dp(40), dp(40), dp(40))
             })
             v.addView(frame, LinearLayout.LayoutParams(dp(230), dp(if (p.isPhoto) 300 else 230)).apply { topMargin = dp(12) })
             v.addView(TextView(this@OnboardingActivity).apply {

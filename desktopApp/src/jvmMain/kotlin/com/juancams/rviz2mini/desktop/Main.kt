@@ -182,7 +182,7 @@ val APP_VERSION: String by lazy {
     }.getOrNull() ?: "dev"
 }
 
-/** The window icon (the Android one, see tools/make_desktop_icon.java). */
+/** The window icon: the logo (tools/make_icons.sh). */
 private fun appIcon(): androidx.compose.ui.graphics.painter.Painter? =
     object {}.javaClass.getResourceAsStream("/vizmini2.png")?.use { javax.imageio.ImageIO.read(it) }
         ?.let { androidx.compose.ui.graphics.painter.BitmapPainter(it.toComposeImageBitmap()) }

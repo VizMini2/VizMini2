@@ -1,3 +1,5 @@
+<img src="desktopApp/icons/vizmini2.png" alt="VizMini2 logo" width="120" align="right">
+
 # VizMini2
 
 [![CI](https://github.com/VizMini2/VizMini2/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VizMini2/VizMini2/actions/workflows/ci.yml)

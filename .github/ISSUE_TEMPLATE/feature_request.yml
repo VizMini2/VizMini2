@@ -1,0 +1,57 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+name: ✨ Feature request
+description: Suggest an idea or an improvement for VizMini2.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas from real use with robots are the most useful ones: tell us what you are trying to do, not only the
+        button you are missing.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: The task or the problem with your robot.
+      placeholder: "When I drive my robot with Nav2 I would like to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: How do you imagine it?
+      description: Which tab or screen, what it would show, how you would use it. Sketches are welcome.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: For which app?
+      multiple: true
+      options:
+        - Android
+        - Desktop
+        - Both
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What do you use today instead?
+      description: RViz 2, Foxglove, rqt, a workaround on the robot...
+
+  - type: textarea
+    id: ros
+    attributes:
+      label: ROS 2 details
+      description: Message types, packages or tools involved (for example `nav2_msgs/action/NavigateToPose`).
+
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Would you like to help?
+      options:
+        - No, just the idea
+        - I can test it on my robot
+        - I would like to implement it (see CONTRIBUTING.md)
