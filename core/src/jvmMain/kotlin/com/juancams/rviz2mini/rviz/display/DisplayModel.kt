@@ -427,6 +427,20 @@ enum class DisplayType(
         "moveit_msgs/msg/PlanningScene", "/monitored_planning_scene", listOf("/monitored_planning_scene"),
         listOf(P.color(Colors.rgb(50, 230, 50), "Scene Color"), P.alpha(0.9), QOS_SPEC_RELIABLE)
     ),
+    NAVMAP(
+        "NavMap", "EasyNavigation's navigable mesh map: floors, ramps and stairs, colored by a layer (navmap_ros_interfaces/NavMap)",
+        "navmap_ros_interfaces/msg/NavMap", "/navmap", listOf("/navmap", "/navmap_server/navmap"),
+        listOf(
+            PropertySpec.Text("layer", "Layer", "", "Name of the layer that colors the cells (empty: the first one)"),
+            PropertySpec.Choice("scheme", "Color Scheme", listOf("viridis", "heat", "rainbow", "flat"), "viridis"),
+            PropertySpec.Bool("smooth", "Smooth Colors", true),
+            P.color(Colors.rgb(180, 180, 180), "Flat Color"), P.alpha(1.0),
+            PropertySpec.Text("layerTopic", "Update Layer Topic", "", "navmap_ros_interfaces/NavMapLayer (empty: the map's topic + _layers)"),
+            PropertySpec.Bool("drawLinks", "Draw Links", true),
+            PropertySpec.Bool("drawEdges", "Draw Edges", false),
+            QOS_SPEC_RELIABLE
+        )
+    ),
     INTERACTIVE_MARKERS(
         "InteractiveMarkers", "Interactive markers you move with the Interact tool (visualization_msgs/InteractiveMarkerUpdate)",
         "visualization_msgs/msg/InteractiveMarkerUpdate", "/basic_controls/update",

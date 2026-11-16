@@ -71,6 +71,7 @@ object DisplayFactory {
         DisplayType.INTERACTIVE_MARKERS -> InteractiveMarkersDisplay(host, c)
         DisplayType.TRAJECTORY -> TrajectoryDisplay(host, c)
         DisplayType.PLANNING_SCENE -> PlanningSceneDisplay(host, c)
+        DisplayType.NAVMAP -> NavMapDisplay(host, c)
         DisplayType.GRID_CELLS, DisplayType.WRENCH, DisplayType.TWIST, DisplayType.ACCEL, DisplayType.TEMPERATURE,
         DisplayType.ILLUMINANCE, DisplayType.FLUID_PRESSURE, DisplayType.RELATIVE_HUMIDITY -> createExtraDisplay(host, c)!!
     }
@@ -97,7 +98,7 @@ object DisplayFactory {
         fun <T : us.ihmc.jros2.ROS2Message<T>> r(c: Class<T>) = com.juancams.rviz2mini.ros.RosConnection.ProbeRequest(topic, c)
         return when (type) {
             DisplayType.GRID, DisplayType.TF, DisplayType.AXES, DisplayType.IMAGE, DisplayType.CAMERA, DisplayType.DEPTH_CLOUD, DisplayType.EFFORT,
-            DisplayType.TRAJECTORY, DisplayType.PLANNING_SCENE -> null
+            DisplayType.TRAJECTORY, DisplayType.PLANNING_SCENE, DisplayType.NAVMAP -> null
             DisplayType.ROBOT_MODEL -> r(std_msgs.String_::class.java)
             DisplayType.MAP -> r(OccupancyGrid::class.java)
             DisplayType.LASER_SCAN -> r(LaserScan::class.java)

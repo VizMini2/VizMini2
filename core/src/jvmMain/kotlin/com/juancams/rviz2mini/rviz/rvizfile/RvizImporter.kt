@@ -107,6 +107,8 @@ object RvizImporter {
             // MoveIt: the Trajectory display and the "Planned Path" part of MotionPlanning.
             "Trajectory", "MotionPlanning" -> DisplayType.TRAJECTORY
             "PlanningScene" -> DisplayType.PLANNING_SCENE
+            // EasyNavigation's plugin (navmap_rviz_plugin).
+            "NavMap", "NavMapDisplay" -> DisplayType.NAVMAP
             else -> return null
         }
         val topicMap = when (type) {
@@ -164,6 +166,12 @@ object RvizImporter {
                 flag("loop", "Loop Animation", planned); col("color", "Robot Color", planned); num("alpha", "Robot Alpha", planned)
             }
             DisplayType.GRID_CELLS -> { col("color", "Color"); num("alpha", "Alpha") }
+            DisplayType.NAVMAP -> {
+                num("alpha", "Alpha"); flag("drawLinks", "Draw Links")
+                str(d, "Layer")?.takeIf { it.isNotBlank() }?.let { p["layer"] = it }
+                str(d, "Color Scheme")?.lowercase()?.takeIf { it in listOf("heat", "rainbow") }?.let { p["scheme"] = it }
+                topicValue(d["Update Layer Topic"])?.let { p["layerTopic"] = it }
+            }
             DisplayType.WRENCH -> {
                 col("linearColor", "Force Color"); col("angularColor", "Torque Color")
                 num("linearScale", "Force Arrow Scale"); num("angularScale", "Torque Arrow Scale"); num("alpha", "Alpha")

@@ -2977,3 +2977,52 @@ bool pause_new_measurements
 ---
 uint8 RESULT_SUCCESS=0
 uint8 result
+@navmap_ros_interfaces/msg/NavMap
+std_msgs/Header header
+float32[] positions_x
+float32[] positions_y
+float32[] positions_z
+bool has_vertex_rgba
+uint8[] colors_r
+uint8[] colors_g
+uint8[] colors_b
+uint8[] colors_a
+uint32[] navcels_v0
+uint32[] navcels_v1
+uint32[] navcels_v2
+navmap_ros_interfaces/NavMapSurface[] surfaces
+navmap_ros_interfaces/NavMapLayer[] layers
+uint64 geometry_id
+navmap_ros_interfaces/NavMapLink[] links
+@navmap_ros_interfaces/msg/NavMapLayer
+std_msgs/Header header
+uint8 U8 = 0
+uint8 F32 = 1
+uint8 F64 = 2
+uint8 I16 = 3
+string name
+uint8 type
+string description
+string unit
+bool has_unknown
+float64 unknown_value
+uint64 geometry_id
+uint32[] indices
+uint8[]   data_u8
+float32[] data_f32
+float64[] data_f64
+int16[]   data_i16
+@navmap_ros_interfaces/msg/NavMapLink
+uint8 GENERIC = 0
+uint8 RAMP = 1
+uint8 STAIRS = 2
+uint8 ELEVATOR = 3
+uint8 DOOR = 4
+uint32 from_navcel
+uint32 to_navcel
+uint8 type
+float32 length
+bool bidirectional
+@navmap_ros_interfaces/msg/NavMapSurface
+string frame_id
+uint32[] navcels

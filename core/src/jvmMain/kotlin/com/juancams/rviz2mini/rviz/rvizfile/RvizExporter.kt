@@ -24,6 +24,8 @@ object RvizExporter {
         DisplayType.GRID_CELLS to "GridCells", DisplayType.WRENCH to "Wrench", DisplayType.TWIST to "TwistStamped", DisplayType.ACCEL to "AccelStamped",
         DisplayType.TEMPERATURE to "Temperature", DisplayType.ILLUMINANCE to "Illuminance", DisplayType.FLUID_PRESSURE to "FluidPressure",
         DisplayType.RELATIVE_HUMIDITY to "RelativeHumidity", DisplayType.INTERACTIVE_MARKERS to "InteractiveMarkers",
+        // Not one of RViz's own: EasyNavigation's plugin (navmap_rviz_plugin).
+        DisplayType.NAVMAP to "navmap_rviz_plugin/NavMapDisplay",
     )
 
     fun export(displays: List<DisplayConfig>, fixedFrame: String?, background: Int, view: Map<String, String>?,
@@ -38,7 +40,7 @@ object RvizExporter {
         line(2, "Displays:")
         for (c in displays) {
             val cls = CLASSES[c.type] ?: continue
-            line(4, "- Class: rviz_default_plugins/$cls")
+            line(4, "- Class: " + if ('/' in cls) cls else "rviz_default_plugins/$cls")
             line(6, "Enabled: ${c.enabled}")
             line(6, "Name: ${q(c.name)}")
             line(6, "Value: ${c.enabled}")
@@ -70,7 +72,7 @@ object RvizExporter {
         line(4, "- Class: rviz_default_plugins/Select")
         line(4, "- Class: rviz_default_plugins/Measure")
         for ((cls, t) in listOf("SetInitialPose" to (poseTopic ?: "/initialpose"), "SetGoal" to (goalTopic ?: "/goal_pose"), "PublishPoint" to (pointTopic ?: "/clicked_point"))) {
-            line(4, "- Class: rviz_default_plugins/$cls")
+            line(4, "- Class: " + if ('/' in cls) cls else "rviz_default_plugins/$cls")
             line(6, "Topic:")
             line(8, "Value: ${q(t)}")
         }
@@ -115,6 +117,13 @@ object RvizExporter {
             DisplayType.DEPTH_CLOUD -> { num("Alpha", "alpha"); num("Size (m)", "size") }
             DisplayType.EFFORT -> { num("Alpha", "alpha"); num("Width", "width") }
             DisplayType.INTERACTIVE_MARKERS -> flag("Show Descriptions", "showDescriptions")
+            DisplayType.NAVMAP -> {
+                num("Alpha", "alpha"); flag("Draw Links", "drawLinks")
+                c.string("layer").takeIf { it.isNotBlank() }?.let { p += "Layer" to q(it) }
+                // The plugin only has these two (viridis and flat are VizMini2's).
+                when (c.string("scheme")) { "heat" -> p += "Color Scheme" to "Heat"; "rainbow" -> p += "Color Scheme" to "Rainbow" }
+                c.string("layerTopic").takeIf { it.isNotBlank() }?.let { p += "Update Layer Topic" to q(it) }
+            }
             else -> {}
         }
         return p
