@@ -90,7 +90,7 @@ private fun importAtStart(args: Array<String>) {
     val r = runCatching { com.juancams.rviz2mini.ui.interop.ConfigInterop.import(f.readText(), f.name) }
         .getOrElse { System.err.println("VizMini2: " + tr("cli_import_failed", f, it.message)); return }
     for (t in r.tabs) com.juancams.rviz2mini.tabs.TabStore.get().add(t)
-    importedTab = r.tabs.firstOrNull { !it.isWidget }?.type?.name
+    importedTab = r.tabs.firstOrNull { !it.isWidget }?.id
     println(tr("cli_imported", f.name, r.format.label, r.tabs.count { !it.isWidget }))
     r.notes.distinct().forEach { println("  • $it") }
 }
@@ -101,15 +101,18 @@ private fun startDemo(args: Array<String>) {
 }
 
 /**
- * `--set key=value` (several): settings of the tab of type `--tab` (created if there is none), for captures, recordings
+ * `--set key=value` (several): settings of the tab `--tab` (its id or name, or the first of that type, created if there is
+ * none), for captures, recordings
  * and tests; `key=@file` reads the value from a file (JSON with quotes, which gradle --args swallows).
  */
 private fun applySettings(args: Array<String>, tab: String?) {
     val sets = args.withIndex().filter { it.value == "--set" }.mapNotNull { args.getOrNull(it.index + 1) }
     if (sets.isEmpty()) return
-    val type = com.juancams.rviz2mini.tabs.TabType.fromName(tab ?: "") ?: return
     val store = com.juancams.rviz2mini.tabs.TabStore.get()
-    val spec = store.all.firstOrNull { it.type == type } ?: com.juancams.rviz2mini.tabs.TabSpec.create(type, type.label()).also { store.add(it) }
+    val spec = store.all.firstOrNull { it.id == tab || it.name == tab } ?: run {
+        val type = com.juancams.rviz2mini.tabs.TabType.fromName(tab ?: "") ?: return
+        store.all.firstOrNull { it.type == type } ?: com.juancams.rviz2mini.tabs.TabSpec.create(type, type.label()).also { store.add(it) }
+    }
     for (kv in sets) {
         val v = kv.substringAfter('=')
         store.updateSetting(spec.id, kv.substringBefore('='), if (v.startsWith("@")) java.io.File(v.substring(1)).readText().trim() else v.replace("\\n", "\n"))

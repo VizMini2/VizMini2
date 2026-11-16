@@ -82,12 +82,13 @@ fun DesktopApp(startTab: String? = null) {
         val store = TabStore.get()
         val tabs = remember { mutableStateListOf<TabSpec>().apply { addAll(store.all.filter { !it.isWidget }) } }
         // null = the network configuration.
-        // `startTab`: the tab type to start with ("TOPICS"...; "CONFIG" = the network). If none exists, it is created.
+        // `startTab`: the tab to start with: its id or name, or a tab type ("TOPICS"...; "CONFIG" = the network). If no tab
+        // of that type exists, it is created.
         var selected by remember {
             mutableStateOf(when (startTab) {
                 null -> tabs.firstOrNull { it.type in SHARED_TAB_TYPES || it.type in com.juancams.rviz2mini.ui.PlatformTabs.screens.keys }?.id
                 "CONFIG" -> null
-                else -> TabType.fromName(startTab)?.let { type ->
+                else -> tabs.firstOrNull { it.id == startTab || it.name == startTab }?.id ?: TabType.fromName(startTab)?.let { type ->
                     (tabs.firstOrNull { it.type == type } ?: TabSpec.create(type, type.label()).also { store.add(it); tabs.add(it) }).id
                 }
             })
