@@ -224,3 +224,17 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 }
+// Dokka (./gradlew dokkaGenerate) does not see the sources of an Android module with AGP 9's built-in Kotlin, as there is
+// no kotlin-android plugin to read them from: without this, the "app" part of the API reference is empty.
+dokka {
+    dokkaSourceSets.register("main") {
+        analysisPlatform.set(org.jetbrains.dokka.gradle.engine.parameters.KotlinPlatform.AndroidJVM)
+        sourceRoots.from("src/main/java")
+        classpath.from(androidComponents.sdkComponents.bootClasspath)
+        classpath.from(provider {
+            configurations.getByName("directDebugCompileClasspath").incoming.artifactView {
+                attributes { attribute(Attribute.of("artifactType", String::class.java), "android-classes-jar") }
+            }.files
+        })
+    }
+}

@@ -11,7 +11,7 @@ plugins {
     id("com.google.gms.google-services") version "4.4.4" apply false
     id("com.google.firebase.crashlytics") version "3.0.2" apply false
     // API reference from the KDoc comments: ./gradlew dokkaGenerate -> build/dokka/html/index.html
-    id("org.jetbrains.dokka") version "2.1.0"
+    id("org.jetbrains.dokka") version "2.3.0"
 }
 
 dependencies {
