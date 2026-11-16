@@ -5,8 +5,8 @@
 # - version: the Android, desktop and ROS package versions, the tag and both CHANGELOG entries must agree
 #   (tools/release/version.py); by hand without a draft release it only warns;
 # - tests: the unit tests, as a last check of the tagged commit;
-# - android: the APKs to install directly (one per architecture plus the universal one) and the Google Play bundle
-#   (.aab, to upload by hand), signed with the release key from the repository secrets ANDROID_KEYSTORE_BASE64
+# - android: the APKs to install directly (one per architecture plus the universal one), in the release, and the
+#   Google Play bundle (.aab, to upload by hand; only as the "android-bundle" artifact, 30 days), signed with the release key from the repository secrets ANDROID_KEYSTORE_BASE64
 #   (`base64 -w0 release.jks`), ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS and ANDROID_KEY_PASSWORD. Without them a
 #   tag fails, and a run by hand signs with a debug key and names the files "-debugsigned". Crashlytics' mapping upload
 #   is off (-Pvizmini2.uploadMapping=false): the R8 mappings are kept as the "android-mapping" artifact (90 days);
@@ -115,12 +115,12 @@ jobs:
         run: |
           rm -f keystore.properties "$RUNNER_TEMP/release.jks"
           S="${{ steps.key.outputs.suffix }}"
-          mkdir -p out mapping
+          mkdir -p out bundle mapping
           for f in app/build/outputs/apk/direct/release/app-direct-*-release.apk; do
             abi=$(basename "$f" | sed -E 's/^app-direct-(.+)-release\.apk$/\1/')
             cp "$f" "out/VizMini2-$V-$abi$S.apk"
           done
-          cp app/build/outputs/bundle/playRelease/app-play-release.aab "out/VizMini2-$V-play$S.aab"
+          cp app/build/outputs/bundle/playRelease/app-play-release.aab "bundle/VizMini2-$V-play$S.aab"
           cp app/build/outputs/mapping/directRelease/mapping.txt mapping/mapping-direct-$V.txt
           cp app/build/outputs/mapping/playRelease/mapping.txt mapping/mapping-play-$V.txt
           apksigner="$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/apksigner"
@@ -131,6 +131,12 @@ jobs:
         with:
           name: android-release
           path: out/
+          retention-days: 30
+      # Not in the GitHub release (nobody can install it): download it from the run's artifacts for Google Play.
+      - uses: actions/upload-artifact@v5
+        with:
+          name: android-bundle
+          path: bundle/
           retention-days: 30
       - uses: actions/upload-artifact@v5
         with:

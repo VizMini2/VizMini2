@@ -24,7 +24,7 @@ Making a release
 ``.github/workflows/release.yml`` then builds every file, checks it and leaves a **draft**
 GitHub release to review and publish by hand:
 
-* the APKs (one per architecture and the universal one) and the Google Play bundle, signed with
+* the APKs (one per architecture and the universal one), signed with
   the release key from the repository secrets ``ANDROID_KEYSTORE_BASE64``,
   ``ANDROID_KEYSTORE_PASSWORD``, ``ANDROID_KEY_ALIAS`` and ``ANDROID_KEY_PASSWORD``;
 * the ``.deb`` and a ``.tar.gz`` of the desktop app, after installing the ``.deb`` with apt on clean
@@ -32,8 +32,10 @@ GitHub release to review and publish by hand:
 * this manual and the API reference as zips, ``SHA256SUMS``, and the changelog entry as release
   notes.
 
-Nothing is uploaded to Google Play or Firebase: the ``.aab`` goes up by hand, and the R8 mappings
-are kept as a workflow artifact. The workflow can also be started by hand from the *Actions* tab to
+Nothing is uploaded to Google Play or Firebase. The Google Play bundle (``.aab``, signed with the
+same key) is not in the release, as nobody can install it: download it from the run's
+``android-bundle`` artifact (30 days) and upload it by hand. The R8 mappings are kept as the
+``android-mapping`` artifact (90 days). The workflow can also be started by hand from the *Actions* tab to
 try it (unsigned keys produce ``-debugsigned`` files).
 
 The website

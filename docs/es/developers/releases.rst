@@ -24,7 +24,7 @@ Publicar una versión
 ``.github/workflows/release.yml`` compila entonces todos los ficheros, los comprueba y deja un
 **borrador** de versión en GitHub para revisarlo y publicarlo a mano:
 
-* los APK (uno por arquitectura y el universal) y el bundle de Google Play, firmados con la clave
+* los APK (uno por arquitectura y el universal), firmados con la clave
   de los secretos del repositorio ``ANDROID_KEYSTORE_BASE64``, ``ANDROID_KEYSTORE_PASSWORD``,
   ``ANDROID_KEY_ALIAS`` y ``ANDROID_KEY_PASSWORD``;
 * el ``.deb`` y un ``.tar.gz`` de la app de escritorio, después de instalar el ``.deb`` con apt en
@@ -32,8 +32,10 @@ Publicar una versión
 * este manual y la referencia de la API en zips, ``SHA256SUMS`` y la entrada del historial como
   notas de la versión.
 
-No se sube nada a Google Play ni a Firebase: el ``.aab`` se sube a mano y los mappings de R8 se
-guardan como artefacto del workflow. El workflow también se puede lanzar a mano desde la pestaña
+No se sube nada a Google Play ni a Firebase. El bundle de Google Play (``.aab``, firmado con la
+misma clave) no va en la versión, porque nadie puede instalarlo: descárgalo del artefacto
+``android-bundle`` de la ejecución (30 días) y súbelo a mano. Los mappings de R8 se guardan en el
+artefacto ``android-mapping`` (90 días). El workflow también se puede lanzar a mano desde la pestaña
 *Actions* para probarlo (sin claves genera ficheros ``-debugsigned``).
 
 La web

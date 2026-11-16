@@ -60,10 +60,11 @@ Lyrical (on each one's Ubuntu), and the device tests on an Android emulator.
 ## Releases
 
 `.github/workflows/release.yml` builds every file of a release on each `v*` tag (or by hand from the Actions tab, to
-try it): the signed APKs (one per architecture and the universal one), the Google Play bundle, the `.deb` and a
+try it): the signed APKs (one per architecture and the universal one), the `.deb` and a
 `.tar.gz` of the desktop app, the manual and the API reference, all checked (the `.deb` is installed and started on
 Ubuntu 20.04 and 24.04), and leaves them in a **draft** GitHub release with `SHA256SUMS` and the CHANGELOG entry as
-notes. Nothing goes to Google Play or Firebase. When you publish that release, `.github/workflows/site.yml` builds the
+notes. The Google Play bundle (`.aab`) is only a workflow artifact, to upload by hand; nothing goes to Google Play
+or Firebase. When you publish that release, `.github/workflows/site.yml` builds the
 manual and the API reference from its tag and pushes them to
 [VizMini2/VizMini2.github.io](https://github.com/VizMini2/VizMini2.github.io), the website at https://vizmini2.github.io
 (secret `SITE_DEPLOY_KEY`: a deploy key with write access on that repository; see the top of the workflow).
