@@ -807,6 +807,7 @@ class RvizFragment : TabFragment() {
     internal fun updateDisplayForTest(c: DisplayConfig) = updateDisplay(c)
     internal fun removeDisplayForTest(id: String) = removeDisplay(id)
     internal fun currentFixedFrame() = fixedFrame
+    internal fun preferredFixedFrame() = rs?.preferredFixedFrame
     internal fun setCameraForTest(radius: Double, azimuth: Double, elevation: Double, tx: Double, ty: Double) {
         viewCtl.type = ViewType.ORBIT; viewTypeButton.text = viewCtl.type.label
         viewCtl.distance = radius; viewCtl.yaw = azimuth; viewCtl.pitch = elevation

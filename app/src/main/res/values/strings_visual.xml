@@ -148,6 +148,8 @@
 
     <!-- Selección del fixed frame -->
     <string name="rviz_fixed_frame_automatic">Automatic (%1$s)</string>
+    <string name="rviz_fixed_frame_write">Write a frame…</string>
+    <string name="rviz_fixed_frame_write_hint">Frame name: it is used as soon as it appears in TF (it may not exist yet)</string>
 
     <!-- ===================================================== Cámara -->
     <string name="camera_image_description">Camera image</string>

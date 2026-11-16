@@ -82,7 +82,7 @@ fun PropRow(label: String, indent: Int = 0, modifier: Modifier = Modifier, value
 /** Compact text field: applied on Enter or when leaving the field. */
 @Composable
 fun CompactField(value: String, onCommit: (String) -> Unit, modifier: Modifier = Modifier, error: Boolean = false, numeric: Boolean = false,
-                 mono: Boolean = false, trailing: (@Composable () -> Unit)? = null) {
+                 mono: Boolean = false, trailing: (@Composable () -> Unit)? = null, placeholder: String? = null) {
     var text by remember(value) { mutableStateOf(value) }
     val color = MaterialTheme.colorScheme.onSurface
     val border = if (error) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
@@ -92,8 +92,33 @@ fun CompactField(value: String, onCommit: (String) -> Unit, modifier: Modifier =
             cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
             keyboardOptions = KeyboardOptions(keyboardType = if (numeric) KeyboardType.Decimal else KeyboardType.Text, imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { if (text != value) onCommit(text) }),
+            decorationBox = { inner ->
+                Box {
+                    if (text.isEmpty() && placeholder != null)
+                        Text(placeholder, fontSize = 13.sp, color = color.copy(alpha = 0.5f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    inner()
+                }
+            },
             modifier = Modifier.weight(1f).onFocusChanged { if (!it.isFocused && text != value) onCommit(text) })
         trailing?.invoke()
+    }
+}
+
+/**
+ * A TF frame: written by hand (it may not exist yet) or picked from `frames` with the arrow. "" = automatic, shown as
+ * `autoLabel` when empty.
+ */
+@Composable
+fun FrameField(value: String, frames: List<String>, autoLabel: String, onChange: (String) -> Unit) {
+    var open by remember { mutableStateOf(false) }
+    Box {
+        CompactField(value, { onChange(it.trim()) }, mono = true, placeholder = autoLabel, trailing = if (frames.isNotEmpty()) ({
+            Icon(Icons.Default.ArrowDropDown, tr("rviz_pick_tf"), Modifier.size(22.dp).clickable { open = true })
+        }) else null)
+        DropdownMenu(open, { open = false }) {
+            DropdownMenuItem({ Text(autoLabel, fontSize = 13.sp) }, { open = false; onChange("") })
+            for (f in frames) DropdownMenuItem({ Text(f, fontSize = 13.sp, fontFamily = FontFamily.Monospace) }, { open = false; onChange(f) })
+        }
     }
 }
 
@@ -263,16 +288,7 @@ private fun PropertyGridRow(spec: PropertySpec, c: DisplayConfig, tfFrames: List
         }
         is PropertySpec.Text -> PropRow(spec.label) { CompactField(c.string(spec.key), { onChange(c.with(spec.key, it.trim())) }) }
         is PropertySpec.Frame -> PropRow(spec.label) {
-            var open by remember { mutableStateOf(false) }
-            Box {
-                CompactField(c.string(spec.key), { onChange(c.with(spec.key, it.trim())) }, mono = true, trailing = if (tfFrames.isNotEmpty()) ({
-                    Icon(Icons.Default.ArrowDropDown, tr("rviz_pick_tf"), Modifier.size(22.dp).clickable { open = true })
-                }) else null)
-                DropdownMenu(open, { open = false }) {
-                    DropdownMenuItem({ Text(tr("rviz_frame_auto"), fontSize = 13.sp) }, { open = false; onChange(c.with(spec.key, "")) })
-                    for (f in tfFrames) DropdownMenuItem({ Text(f, fontSize = 13.sp, fontFamily = FontFamily.Monospace) }, { open = false; onChange(c.with(spec.key, f)) })
-                }
-            }
+            FrameField(c.string(spec.key), tfFrames, tr("rviz_frame_auto")) { onChange(c.with(spec.key, it)) }
         }
         is PropertySpec.FrameSet -> {
             var open by remember { mutableStateOf(false) }

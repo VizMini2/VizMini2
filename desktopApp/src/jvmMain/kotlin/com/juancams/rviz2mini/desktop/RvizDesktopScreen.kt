@@ -557,10 +557,10 @@ private fun DisplaysPanel(scene: RvizScene, version: Int, onEdit: (DisplayConfig
                 TreeHeader(globalOpen, { globalOpen = !globalOpen }) { Text("Global Options", fontSize = 13.sp, fontWeight = FontWeight.Medium) }
                 if (globalOpen) {
                     com.juancams.rviz2mini.rviz.ui.PropRow("Fixed Frame", 1) {
-                        val frames = scene.tfTree.frameIds().sorted()
+                        // Written by hand (it may not exist yet: it is used as soon as it appears in TF) or picked.
                         val auto = "(auto: ${scene.fixedFrame.ifEmpty { "—" }})"
-                        com.juancams.rviz2mini.rviz.ui.CompactChoice(scene.preferredFixedFrame ?: auto, listOf(auto) + frames) { f ->
-                            scene.setPreferredFixedFrame(if (f == auto) null else f); onChanged()
+                        com.juancams.rviz2mini.rviz.ui.FrameField(scene.preferredFixedFrame.orEmpty(), scene.tfTree.frameIds().sorted(), auto) { f ->
+                            scene.setPreferredFixedFrame(f.ifEmpty { null }); onChanged()
                         }
                     }
                     com.juancams.rviz2mini.rviz.ui.PropRow("Background Color", 1) {
@@ -575,6 +575,9 @@ private fun DisplaysPanel(scene: RvizScene, version: Int, onEdit: (DisplayConfig
                 val (gLevel, gText) = when {
                     frames.isEmpty() -> StatusLevel.WARN to "No TF data"
                     scene.fixedFrame.isEmpty() || !scene.tfTree.contains(scene.fixedFrame) -> StatusLevel.ERROR to "Fixed Frame [${scene.fixedFrame}] does not exist"
+                    // Written by hand and not in TF yet: the automatic one is used meanwhile.
+                    scene.preferredFixedFrame.let { it != null && it != scene.fixedFrame } ->
+                        StatusLevel.WARN to "Fixed Frame [${scene.preferredFixedFrame}] not in TF yet: using [${scene.fixedFrame}]"
                     else -> StatusLevel.OK to "Ok"
                 }
                 Row(Modifier.fillMaxWidth().heightIn(min = 30.dp).padding(start = 28.dp), verticalAlignment = Alignment.CenterVertically) {

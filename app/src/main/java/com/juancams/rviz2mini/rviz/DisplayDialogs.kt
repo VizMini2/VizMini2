@@ -27,15 +27,40 @@ internal object OpenDialogs {
 // ====================================================================== fixed frame
 
 object FixedFrameDialog {
-    /** `null` = automatic (map, odom... or the tree root). */
+    /**
+     * `null` = automatic (map, odom... or the tree root). Besides the frames in TF, one can be written by hand (to leave
+     * a configuration ready: it is used as soon as it appears), so the current one is listed even if it is not in TF.
+     */
     fun show(ctx: Context, frames: List<String>, current: String?, autoLabel: String, onPick: (String?) -> Unit) {
-        val items = listOf(ctx.getString(R.string.rviz_fixed_frame_automatic, autoLabel)) + frames
-        val checked = if (current == null) 0 else (frames.indexOf(current) + 1).coerceAtLeast(0)
+        val all = if (current != null && current !in frames) listOf(current) + frames else frames
+        val items = listOf(ctx.getString(R.string.rviz_fixed_frame_automatic, autoLabel)) + all
+        val checked = if (current == null) 0 else (all.indexOf(current) + 1).coerceAtLeast(0)
         OpenDialogs.last = MaterialAlertDialogBuilder(ctx)
             .setTitle(R.string.rviz_fixed_frame)
             .setSingleChoiceItems(items.toTypedArray(), checked) { d, i ->
-                onPick(if (i == 0) null else frames[i - 1])
+                onPick(if (i == 0) null else all[i - 1])
                 d.dismiss()
+            }
+            .setNeutralButton(R.string.rviz_fixed_frame_write) { _, _ -> write(ctx, current, onPick) }
+            .setNegativeButton(R.string.rviz_action_cancel, null)
+            .show()
+    }
+
+    private fun write(ctx: Context, current: String?, onPick: (String?) -> Unit) {
+        val input = android.widget.EditText(ctx).apply {
+            setText(current.orEmpty()); setSelection(text.length)
+            hint = ctx.getString(R.string.rviz_fixed_frame_write_hint)
+            isSingleLine = true
+            typeface = android.graphics.Typeface.MONOSPACE
+        }
+        val pad = (20 * ctx.resources.displayMetrics.density).toInt()
+        val box = android.widget.FrameLayout(ctx).apply { setPadding(pad, pad / 2, pad, 0); addView(input) }
+        OpenDialogs.last = MaterialAlertDialogBuilder(ctx)
+            .setTitle(R.string.rviz_fixed_frame)
+            .setMessage(R.string.rviz_fixed_frame_write_hint)
+            .setView(box)
+            .setPositiveButton(R.string.rviz_action_ok) { _, _ ->
+                onPick(input.text.toString().trim().trimStart('/').ifEmpty { null })
             }
             .setNegativeButton(R.string.rviz_action_cancel, null)
             .show()

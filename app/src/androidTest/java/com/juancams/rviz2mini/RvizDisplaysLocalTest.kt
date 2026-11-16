@@ -128,8 +128,27 @@ class RvizDisplaysLocalTest {
             scenario.onActivity { it.findViewById<android.view.View>(R.id.fixedFrameButton).performClick() }
             SystemClock.sleep(700)
             shot("21_fixed_frame")
-            onMain { com.juancams.rviz2mini.rviz.OpenDialogs.dismissLast() }
-            SystemClock.sleep(400)
+            // Written by hand, a frame that is not in TF: kept as the preferred one, the automatic one is used meanwhile.
+            val auto = onMainGet { rviz.currentFixedFrame() }
+            onMain { (com.juancams.rviz2mini.rviz.OpenDialogs.last as androidx.appcompat.app.AlertDialog).getButton(android.content.DialogInterface.BUTTON_NEUTRAL).performClick() }
+            SystemClock.sleep(700)
+            onMain {
+                val d = com.juancams.rviz2mini.rviz.OpenDialogs.last as androidx.appcompat.app.AlertDialog
+                fun find(v: android.view.View): android.widget.EditText? = v as? android.widget.EditText
+                    ?: (v as? android.view.ViewGroup)?.let { g -> (0 until g.childCount).firstNotNullOfOrNull { find(g.getChildAt(it)) } }
+                find(d.window!!.decorView)!!.setText("/robot_x/base_link")
+            }
+            shot("22_fixed_frame_written")
+            onMain { (com.juancams.rviz2mini.rviz.OpenDialogs.last as androidx.appcompat.app.AlertDialog).getButton(android.content.DialogInterface.BUTTON_POSITIVE).performClick() }
+            SystemClock.sleep(700)
+            assertEquals("robot_x/base_link", onMainGet { rviz.preferredFixedFrame() })
+            assertEquals(auto, onMainGet { rviz.currentFixedFrame() })
+            // Back to automatic.
+            scenario.onActivity { it.findViewById<android.view.View>(R.id.fixedFrameButton).performClick() }
+            SystemClock.sleep(700)
+            onMain { (com.juancams.rviz2mini.rviz.OpenDialogs.last as androidx.appcompat.app.AlertDialog).listView.performItemClick(null, 0, 0) }
+            SystemClock.sleep(500)
+            assertEquals(null, onMainGet { rviz.preferredFixedFrame() })
 
             // Persistence: recreate the activity and check that they are all still there.
             scenario.recreate()

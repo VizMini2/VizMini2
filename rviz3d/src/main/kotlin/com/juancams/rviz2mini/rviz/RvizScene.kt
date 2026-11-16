@@ -240,7 +240,11 @@ class RvizScene(
     // ---------------------------------------------------------------- view
 
     /** null = the one the TF tree suggests. */
-    fun setPreferredFixedFrame(f: String?) { preferredFixedFrame = f; saveSetting(KEY_FIXED_FRAME, f); resolveFixedFrame() }
+    /** `null` = automatic. A frame written by hand may not exist yet: until it appears in TF, the automatic one is used. */
+    fun setPreferredFixedFrame(f: String?) {
+        val id = f?.let { com.juancams.rviz2mini.TfTree.normalizeId(it.trim()) }?.ifEmpty { null }
+        preferredFixedFrame = id; saveSetting(KEY_FIXED_FRAME, id); resolveFixedFrame()
+    }
 
     fun resolveFixedFrame() {
         val ids = tfTree.frameIds()
