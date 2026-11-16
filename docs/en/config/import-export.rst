@@ -7,8 +7,8 @@ views over and take them back.
 **Import:** **+** (*Add* on the PC) → *Import a tab, an RViz file or a layout…*. The format is
 recognized by its content:
 
-* **RViz 2** (``.rviz``): a new RViz tab with its displays (33 types, from Grid and TF to
-  MarkerArray, Camera, Trajectory and PlanningScene), fixed frame, background, view and the topics of
+* **RViz 2** (``.rviz``): a new RViz tab with its displays (34 types, from Grid and TF to
+  MarkerArray, Camera, Trajectory, PlanningScene and EasyNavigation's NavMap), fixed frame, background, view and the topics of
   the tools. From an RViz tab, its menu also imports into that tab.
 * **Panel layouts** (``.json``): the layouts that web-based ROS visualization tools export, and the
   ones their SDKs generate. They become a dashboard with a widget per panel, placed as in the layout.

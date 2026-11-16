@@ -17,6 +17,8 @@ El formato sigue Keep a Changelog y el proyecto usa versionado semántico.
 - **Pestaña Gráficas:** series en el tiempo, XY, transiciones de estado, espectro e histograma, con fórmulas y scripts en Lua, desde topics, bags, ficheros CSV, UDP, MQTT y ZeroMQ.
 - Pestañas **Indicadores, Mapa GPS, Árbol de comportamiento** (Groot2 con el blackboard, la grabación y los puntos de parada, y el log de Nav2), **Mensaje** y **Parámetros**.
 - **Vista 3D:** displays Camera, DepthCloud, Effort, Image con anotaciones, Trajectory (la trayectoria planificada como robot fantasma) y Planning scene, marcadores de malla, marcadores interactivos, las herramientas Seleccionar, Medir y Publicar punto, y una herramienta de MoveIt para arrastrar el objetivo del brazo. Los paneles de imagen y de cámara se pueden mover y redimensionar.
+- **Display NavMap:** los mapas NavMap de EasyNavigation (`navmap_ros_interfaces/NavMap`) en la vista 3D: superficies navegables en una o varias plantas, coloreadas por cualquiera de sus capas (coste, elevación, ocupación…), con los enlaces entre plantas (escaleras, ascensores, puertas) y las actualizaciones de capas en directo. Los ficheros de RViz con su plugin se importan y se exportan.
+- **Fixed frame escrito a mano:** en la pestaña RViz, escribe cualquier frame, aunque aún no esté en TF, para dejar una vista preparada; mientras no aparezca se usa el automático.
 - **Robots con rmw_zenoh_cpp** (router de Zenoh en Configuración › Red), y servicios, acciones, parámetros y lifecycle de nodos con rmw_cyclonedds_cpp.
 - **A través de foxglove_bridge:** topics, servicios, parámetros, acciones y el grafo de nodos.
 - **Bags:** reproducción directa con una línea de tiempo común para todas las pestañas.

@@ -4,7 +4,8 @@
 #
 # The ROS 2 side of the end-to-end tests, inside a ros:<distro>-ros-base container (used by the CI, one container per
 # distro): installs what the test servers need and starts the same servers as tools/e2e/run.sh: the fake robot, the
-# fake Nav2, MoveIt with the Panda, the Panda under ros2_control in /rc, H.264/H.265 video and the fake map services.
+# fake Nav2, MoveIt with the Panda, the Panda under ros2_control in /rc, H.264/H.265 video, the fake map services and
+# a NavMap (tools/navmap_demo.py).
 # Writes "servers ready" to build/e2e/servers.log. ROS_DOMAIN_ID comes from the environment.
 set -eo pipefail
 # shellcheck disable=SC1090
@@ -27,6 +28,7 @@ ros2 launch tools/moveit_panda_headless.launch.py > build/e2e/moveit.log 2>&1 &
 ros2 launch tools/ros2_control_panda.launch.py namespace:=rc > build/e2e/ros2_control.log 2>&1 &
 (source "$MSGS"; exec python3 -u tools/video_publisher.py) > build/e2e/video.log 2>&1 &
 (source "$MSGS"; exec python3 -u tools/fake_map_services.py) > build/e2e/maps.log 2>&1 &
+(source "$MSGS"; exec python3 -u tools/navmap_demo.py) > build/e2e/navmap.log 2>&1 &
 for _ in $(seq 1 90); do grep -q "You can start planning now" build/e2e/moveit.log && break; sleep 2; done
 echo "servers ready" >> "$LOG"
 wait

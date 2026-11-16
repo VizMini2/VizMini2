@@ -36,6 +36,11 @@ junto a *Add*). Arrastra el borde izquierdo del panel para ensancharlo; el botó
 derecha lo oculta. En una ventana estrecha o en un widget de dashboard se ven los chips en su lugar:
 clic para activar o desactivar un display, botón derecho para editarlo.
 
+El **fixed frame** se elige entre los frames de TF o se escribe a mano (en el móvil, *Escribir un
+frame…* en su diálogo; en el PC, escribiéndolo en *Fixed Frame*), aunque todavía no exista: para dejar
+una vista preparada para un robot que no está en marcha. Hasta que aparezca en TF se usa el
+automático, y en el PC lo dice *Global Status*.
+
 .. list-table::
    :header-rows: 1
    :widths: 22 78
@@ -111,6 +116,14 @@ clic para activar o desactivar un display, botón derecho para editarlo.
    * - PlanningScene
      - Los objetos de colisión de MoveIt (``/monitored_planning_scene``): cajas, esferas, cilindros,
        conos y mallas, también los que lleva enganchados el robot. Color y transparencia.
+   * - NavMap
+     - El `NavMap de EasyNavigation <https://github.com/EasyNavigation/NavMap>`_ (``/navmap``): una
+       superficie navegable de triángulos, en una planta o en varias (rampas, escaleras, parkings de
+       varias alturas), coloreada por una de sus capas (coste, elevación, ocupación…) con *viridis*,
+       *heat* o *rainbow*, mezclando los colores entre celdas o celda a celda; las celdas desconocidas,
+       en gris translúcido. Los enlaces entre plantas (escaleras, ascensores, puertas) como arcos de
+       color según su tipo, y las actualizaciones de capas de ``/navmap_layers`` (enteras o solo las
+       celdas que cambian). Los ajustes de su plugin de RViz se importan de los ficheros ``.rviz``.
    * - InteractiveMarkers
      - Los controles de un servidor de interactive markers (``<namespace>/update``): sus markers o,
        si un control no trae ninguno, las flechas y anillos de RViz. Se mueven con la herramienta

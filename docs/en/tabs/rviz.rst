@@ -36,6 +36,11 @@ Right click a display for *Duplicate*, *Rename* and *Remove* (also at the bottom
 window or a dashboard widget the chips are shown instead: click to turn a display on or off, right
 click to edit it.
 
+The **fixed frame** is picked from the frames in TF or written by hand (on the phone, *Write a frame…*
+in its dialog; on the PC, type it in *Fixed Frame*), even one that does not exist yet: to leave a view
+ready for a robot that is not running. Until it appears in TF the automatic one is used, and on the PC
+*Global Status* says so.
+
 .. list-table::
    :header-rows: 1
    :widths: 22 78
@@ -109,6 +114,14 @@ click to edit it.
    * - PlanningScene
      - MoveIt's collision objects (``/monitored_planning_scene``): boxes, spheres, cylinders, cones
        and meshes, also those attached to the robot. Color and alpha.
+   * - NavMap
+     - `EasyNavigation's NavMap <https://github.com/EasyNavigation/NavMap>`_ (``/navmap``): a navigable
+       surface of triangles, on one floor or several (ramps, stairs, multi-storey car parks), colored
+       by one of its layers (cost, elevation, occupancy…) with *viridis*, *heat* or *rainbow*,
+       blended across cells or cell by cell; unknown cells in translucent gray. The links between
+       floors (stairs, elevators, doors) as arcs colored by type, and the layer updates of
+       ``/navmap_layers`` (whole or only the cells that change). Its RViz plugin's settings are
+       imported from ``.rviz`` files.
    * - InteractiveMarkers
      - The controls of an interactive marker server (``<namespace>/update``): their markers or, if
        a control has none, RViz's arrows and rings. Move them with the **Interact** tool.

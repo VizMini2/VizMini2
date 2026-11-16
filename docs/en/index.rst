@@ -34,7 +34,7 @@ What it can do
 .. raw:: html
 
    <div class="vm-grid">
-     <div class="vm-card"><b>See</b>3D view with 33 RViz display types, cameras and H.264/H.265 video, the TF tree, the node graph, GPS maps and your own dashboards. <a href="tabs/rviz.html">RViz tab</a></div>
+     <div class="vm-card"><b>See</b>3D view with 34 display types (RViz's and NavMap's multi-floor maps), cameras and H.264/H.265 video, the TF tree, the node graph, GPS maps and your own dashboards. <a href="tabs/rviz.html">RViz tab</a></div>
      <div class="vm-card"><b>Drive</b>On-screen joysticks, a gamepad or the keyboard, with safety stops; Nav2 goals and waypoints from the map. <a href="tabs/teleop.html">Teleop</a></div>
      <div class="vm-card"><b>Move arms</b>Plan and execute with MoveIt, and switch or command ros2_control controllers. <a href="tabs/moveit.html">MoveIt</a> · <a href="tabs/controllers.html">Controllers</a></div>
      <div class="vm-card"><b>Act</b>Buttons and sliders that publish, call services or send action goals. <a href="tabs/buttons.html">Buttons</a></div>

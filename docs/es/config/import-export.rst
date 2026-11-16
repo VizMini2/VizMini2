@@ -7,8 +7,8 @@ puedes traer tus vistas y volver a llevártelas.
 **Importar:** **+** (*Añadir* en el PC) → *Importar una pestaña, un fichero de RViz o un layout…*.
 El formato se reconoce por su contenido:
 
-* **RViz 2** (``.rviz``): una pestaña RViz nueva con sus displays (33 tipos, de Grid y TF a
-  MarkerArray, Camera, Trajectory y PlanningScene), el frame fijo, el fondo, la vista y los topics de
+* **RViz 2** (``.rviz``): una pestaña RViz nueva con sus displays (34 tipos, de Grid y TF a
+  MarkerArray, Camera, Trajectory, PlanningScene y el NavMap de EasyNavigation), el frame fijo, el fondo, la vista y los topics de
   las herramientas. Desde una pestaña RViz, su menú también importa en esa pestaña.
 * **Layouts de paneles** (``.json``): los que exportan las herramientas web de visualización de ROS,
   y los que generan sus SDK. Se convierten en un dashboard con un widget por panel, colocados como en

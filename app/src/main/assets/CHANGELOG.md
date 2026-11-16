@@ -17,6 +17,8 @@ The format follows Keep a Changelog, and the project uses semantic versioning.
 - **Plot tab:** series over time, XY, state transitions, spectrum and histogram, with formulas and Lua scripts, from topics, bags, CSV files, UDP, MQTT and ZeroMQ.
 - **Indicators, GPS map, Behavior tree** (Groot2 with the blackboard, recording and breakpoints, and the Nav2 log), **Message** and **Parameters** tabs.
 - **3D view:** Camera, DepthCloud, Effort, Image with annotations, Trajectory (the planned path as a ghost robot) and Planning scene displays, mesh markers, interactive markers, the Select, Measure and Publish point tools, and a MoveIt tool to drag the arm's goal. Image and camera panels can be moved and resized.
+- **NavMap display:** EasyNavigation's NavMap maps (`navmap_ros_interfaces/NavMap`) in the 3D view: navigable surfaces on one or several floors, colored by any of their layers (cost, elevation, occupancy…), with the links between floors (stairs, elevators, doors) and live layer updates. RViz files with its plugin are imported and exported.
+- **Fixed frame written by hand:** in the RViz tab, type any frame, even one that is not in TF yet, to leave a view ready; the automatic one is used until it appears.
 - **Robots on rmw_zenoh_cpp** (Zenoh router in Config › Network), and services, actions, parameters and lifecycle of nodes on rmw_cyclonedds_cpp.
 - **Through foxglove_bridge:** topics, services, parameters, actions and the node graph.
 - **Bags:** direct playback with a shared timeline for every tab.

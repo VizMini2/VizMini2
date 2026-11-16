@@ -50,4 +50,8 @@ Tests
 
 Los servidores de prueba de ``tools/`` también vienen bien a mano: ``python3 tools/fake_robot.py``
 publica casi todos los tipos de mensaje que enseña la app, y ``vizmini2 --showcase`` añade un
-dashboard pensado para él.
+dashboard pensado para él. Para el display NavMap, ``tools/navmap_demo.py`` publica un edificio
+pequeño de dos plantas con actualizaciones de capas en directo y ``tools/navmap_file_pub.py``
+cualquier fichero ``.navmap`` (los playgrounds de EasyNavigation tienen mapas reales, como un parking
+de varias plantas); ábrelos con ``vizmini2 --import tools/navmap_demo.rviz``. Los dos necesitan
+``navmap_ros_interfaces``: ``source "$(tools/e2e/build_msgs.sh)"`` compila una copia.
