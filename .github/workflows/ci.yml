@@ -16,10 +16,14 @@
 # The release files (signed APKs, Play bundle, .deb, .tar.gz, manual) come from release.yml, on each "v*" tag.
 name: CI
 
+# Pushes and pull requests that only touch these files (texts for GitHub, not code or the manual) do not run it. The
+# manual (docs/) does: the docs job builds it.
 on:
   push:
     branches: [main, develop]
+    paths-ignore: ["*.md", LICENSE, NOTICE, .github/ISSUE_TEMPLATE/**, .github/pull_request_template.md]
   pull_request:
+    paths-ignore: ["*.md", LICENSE, NOTICE, .github/ISSUE_TEMPLATE/**, .github/pull_request_template.md]
   workflow_dispatch:
 
 concurrency:

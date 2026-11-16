@@ -1,4 +1,6 @@
-<img src="desktopApp/icons/vizmini2.png" alt="VizMini2 logo" width="120" align="right">
+<p align="center">
+  <img src="desktopApp/icons/vizmini2.png" alt="VizMini2 logo" width="140">
+</p>
 
 # VizMini2
 
