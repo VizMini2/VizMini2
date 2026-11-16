@@ -37,10 +37,21 @@ run() {
   grep -q "^OK (" "$OUT/$1.txt"
 }
 
+# If the device is gone (the emulator crashed or was killed), the rest would only "fail" without running: stop there.
+alive() {
+  [ "$("$ADB" get-state 2> /dev/null)" = device ] && return 0
+  echo "The device is gone (adb: $("$ADB" get-state 2>&1 | tr -d '\r')) before $1; not run: ${*}"
+  echo "Failed before the device was lost: ${failed[*]:-none}"
+  exit 1
+}
+
 failed=()
 retried=()
-for c in "${CLASSES[@]}"; do
+for i in "${!CLASSES[@]}"; do
+  c=${CLASSES[$i]}
+  alive "${CLASSES[@]:$i}"
   if run "$c"; then echo "$c: OK"; continue; fi
+  alive "${CLASSES[@]:$i}"
   mv "$OUT/$c.txt" "$OUT/$c.1.txt"
   if run "$c"; then echo "$c: OK at the second try"; retried+=("$c")
   else echo "$c: FAILED"; failed+=("$c"); fi
