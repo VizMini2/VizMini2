@@ -190,7 +190,7 @@ dependencies {
     implementation("androidx.documentfile:documentfile:1.1.0")
     implementation(libs.material)
     // "nio" variant: jros2 uses java.nio.file.Path.of (API 33); without it, it doesn't connect on Android 8–12.
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.4")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.5")
     // jros2 1.5.1 with the native libraries rebuilt from the fork (16 KB alignment, ROS graph
     // discovery and sample identities for services; see tools/jros2-16k/).
     implementation("us.ihmc:jros2-android:1.5.1-16k-graph")
@@ -201,25 +201,25 @@ dependencies {
     // Sign in with Google (Android account picker, Credential Manager).
     implementation("androidx.credentials:credentials:1.5.0")
     implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.2.1")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-crashlytics")
     // Also crashes inside native code (Fast DDS, Filament).
     implementation("com.google.firebase:firebase-crashlytics-ndk")
     // WebSocket connection with foxglove_bridge (instead of DDS).
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.1")
     // Lua scripts for Plot's computed series; pure Java.
     implementation("org.luaj:luaj-jse:3.0.1")
     // Zenoh client to talk to robots using rmw_zenoh_cpp (same version as the Lyrical router).
     // Declares minSdk 30: the native part supports 21+ and the manifest forces it (overrideLibrary).
     implementation("org.eclipse.zenoh:zenoh-kotlin-android:1.10.2")
     // Profile QR codes: generate (ZXing, pure Java) and scan (Google Play Services scanner, no camera permission).
-    implementation("com.google.zxing:core:3.5.3")
+    implementation("com.google.zxing:core:3.5.4")
     implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
     // zstd-compressed MCAP bags (the AAR .so files are already 16 KB aligned).
-    implementation("com.github.luben:zstd-jni:1.5.7-12@aar")
+    implementation("com.github.luben:zstd-jni:1.5.7-28@aar")
     // In JVM tests, the version with the desktop natives.
-    testImplementation("com.github.luben:zstd-jni:1.5.7-12")
+    testImplementation("com.github.luben:zstd-jni:1.5.7-28")
     testImplementation(libs.junit)
     // org.json on Android is a stub in JVM tests: we use the real implementation.
     testImplementation("org.json:json:20240303")

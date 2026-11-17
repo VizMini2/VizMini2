@@ -33,13 +33,13 @@ kotlin {
             // Dispatchers.Main on the Swing thread (where Compose for Desktop runs).
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.11.0")
             // Profile QR codes (the same as Android).
-            implementation("com.google.zxing:core:3.5.3")
+            implementation("com.google.zxing:core:3.5.4")
             implementation(files("../tools/jros2-16k/desktop/jros2-desktop.jar"))
             // Filament for PC: the Android bindings compiled for Linux (tools/filament-desktop/build-*.sh).
             implementation(files("../tools/filament-desktop/filament-desktop.jar"))
             implementation("org.eclipse.zenoh:zenoh-kotlin:1.10.2")
             implementation("org.json:json:20240303")
-            implementation("com.github.luben:zstd-jni:1.5.7-12")
+            implementation("com.github.luben:zstd-jni:1.5.7-28")
         }
         // End-to-end tests against real ROS 2 servers (skipped unless VIZMINI2_E2E=1; see tools/e2e/run.sh).
         jvmTest.dependencies {
