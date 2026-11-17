@@ -17,7 +17,7 @@ kotlin {
             // jros2 and Zenoh are provided by each app (Android: the AARs; desktop: the jars with their natives).
             compileOnly(files("../tools/jros2-16k/classes/jros2-classes.jar"))
             compileOnly("org.eclipse.zenoh:zenoh-kotlin:1.10.2")
-            implementation("com.squareup.okhttp3:okhttp:4.12.0")
+            implementation("com.squareup.okhttp3:okhttp:4.12.1")
             // Lua scripts for computed series (pure Java).
             implementation("org.luaj:luaj-jse:3.0.1")
             // zstd for MCAP bags: each app provides its own (Android: the AAR; desktop: the jar with natives).
