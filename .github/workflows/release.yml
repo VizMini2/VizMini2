@@ -43,7 +43,7 @@ jobs:
       version: ${{ steps.v.outputs.version }}
       tag: ${{ steps.v.outputs.tag }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - id: v
         name: Version
         run: |
@@ -63,12 +63,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-java@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
       - name: Unit tests
         run: ./gradlew --no-daemon :core:jvmTest testDirectDebugUnitTest
 
@@ -79,12 +79,12 @@ jobs:
     env:
       V: ${{ needs.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-java@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
       - name: Release key
         id: key
         env:
@@ -127,18 +127,18 @@ jobs:
           for f in out/*.apk; do "$apksigner" verify "$f"; done
           "$apksigner" verify --print-certs out/VizMini2-$V-universal$S.apk | grep -E "SHA-256|DN" | tee -a "$GITHUB_STEP_SUMMARY"
           ls -la out
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: android-release
           path: out/
           retention-days: 30
       # Not in the GitHub release (nobody can install it): download it from the run's artifacts for Google Play.
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: android-bundle
           path: bundle/
           retention-days: 30
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: android-mapping
           path: mapping/
@@ -151,12 +151,12 @@ jobs:
     env:
       V: ${{ needs.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-java@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
       - name: Natives run on Ubuntu 20.04 or newer
         run: bash tools/compat/check-glibc.sh
       - name: .deb and app image
@@ -167,7 +167,7 @@ jobs:
           tar -C desktopApp/build/compose/binaries/main/app -czf "out/vizmini2-$V-linux-x86_64.tar.gz" vizmini2
           dpkg-deb -I out/*.deb | sed -n '/Package/,/Depends/p' | tee -a "$GITHUB_STEP_SUMMARY"
           ls -la out
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: desktop-release
           path: out/
@@ -183,7 +183,7 @@ jobs:
       matrix:
         ubuntu: ["20.04", "24.04"]
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v8
         with:
           name: desktop-release
       - name: apt install on Ubuntu ${{ matrix.ubuntu }} and start
@@ -206,12 +206,12 @@ jobs:
     env:
       V: ${{ needs.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-java@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
       - name: Manual and API reference
         run: |
           python3 -m pip install --quiet sphinx sphinx-rtd-theme myst-parser
@@ -220,7 +220,7 @@ jobs:
           mkdir -p out
           (cd build/docs && zip -qr "../../out/vizmini2-$V-manual.zip" manual)
           (cd build/dokka && zip -qr "../../out/vizmini2-$V-api.zip" html)
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: docs-release
           path: out/
@@ -238,8 +238,8 @@ jobs:
       TAG: ${{ needs.version.outputs.tag }}
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/download-artifact@v5
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
         with:
           pattern: "*-release"
           path: dist
