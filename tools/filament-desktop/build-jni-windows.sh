@@ -5,7 +5,8 @@
 # against Filament's official Windows release (static libraries with the /MD runtime, the same one as Fast DDS's MSVC
 # build), so Filament itself is not built here.
 # Run from Git Bash with the MSVC x64 environment (on GitHub: ilammy/msvc-dev-cmd) and LLVM's clang-cl in the PATH
-# (GitHub's Windows runners have it), and JAVA_HOME pointing to a JDK (for the JNI headers).
+# (GitHub's Windows runners have it), and JAVA_HOME pointing to a JDK (for the JNI headers). The linker finds the Windows
+# SDK and the C++ runtime through that environment's LIB variable (so this script must not use that name).
 # Output: $OUT (default build/filament-windows) with natives/windows-x86_64/filament-jni.dll and filamat-jni.dll, the
 # layout of filament-desktop.jar (tools/desktop-natives/add-windows.sh puts them in).
 set -euo pipefail
@@ -16,6 +17,7 @@ V=1.75.1
 B="$(cygpath -m "${FILAMENT_WORK:-$HOME/.cache/vizmini2-filament-windows}")"
 OUT="$(cygpath -m "${OUT:-$HERE/../../build/filament-windows}")"
 JH="$(cygpath -m "${JAVA_HOME:?JAVA_HOME must point to a JDK}")"
+[ -n "${LIB:-}" ] || { echo "LIB is not set: run from the MSVC x64 environment"; exit 1; }
 mkdir -p "$B"; cd "$B"
 
 if [ ! -d dist/lib/x86_64/md ]; then
@@ -35,7 +37,7 @@ if [ ! -d src/android/common ]; then
 fi
 
 F="$B/src/android"
-LIB="$B/dist/lib/x86_64/md"
+FLIB="$B/dist/lib/x86_64/md"
 O="$B/jni"
 rm -rf "$O"; mkdir -p "$O/obj"
 CXXFLAGS=(-std:c++20 -O2 -MD -EHsc -GR- -W0 -DFILAMENT_SUPPORTS_OPENGL=1 -DWIN32_LEAN_AND_MEAN -DNOMINMAX
@@ -53,7 +55,7 @@ for f in "$F"/filament-android/src/main/cpp/*.cpp "$F"/common/*.cpp "$B/src/fila
   clang-cl "${CXXFLAGS[@]}" -c "$f" -Fo"$o"
   objs+=("$o")
 done
-lld-link /DLL /NOLOGO /OUT:"$O/filament-jni.dll" "${objs[@]}" "$LIB"/*.lib "${SYSLIBS[@]}"
+lld-link /DLL /NOLOGO /OUT:"$O/filament-jni.dll" "${objs[@]}" "$FLIB"/*.lib "${SYSLIBS[@]}"
 
 echo "== filamat-jni"
 mobjs=()
@@ -62,7 +64,7 @@ for f in "$F"/filamat-android/src/main/cpp/*.cpp "$F"/common/NioUtils.cpp; do
   clang-cl "${CXXFLAGS[@]}" -c "$f" -Fo"$o"
   mobjs+=("$o")
 done
-lld-link /DLL /NOLOGO /OUT:"$O/filamat-jni.dll" "${mobjs[@]}" "$LIB"/*.lib "${SYSLIBS[@]}"
+lld-link /DLL /NOLOGO /OUT:"$O/filamat-jni.dll" "${mobjs[@]}" "$FLIB"/*.lib "${SYSLIBS[@]}"
 
 mkdir -p "$OUT/natives/windows-x86_64"
 cp "$O/filament-jni.dll" "$O/filamat-jni.dll" "$OUT/natives/windows-x86_64/"
