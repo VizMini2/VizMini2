@@ -9,6 +9,8 @@
 #
 # The CI's emulator has no GPU and shares a small machine, so a class that fails is run once more from a clean start
 # (app stopped, home screen); it only counts as failed if it fails twice. The first output stays as <Class>.1.txt.
+# The classes that fail go to failed.txt (added to, across runs). If the device is lost (the emulator crashed), the
+# classes not run yet go to not_run.txt: the CI runs just those again on a new emulator (ONLY="A B" runs only those).
 set -uo pipefail
 cd "$(dirname "$0")/../.."
 ADB="${ADB:-adb}"
@@ -20,6 +22,11 @@ CLASSES=(
   LandscapeDeviceTest TeleopDeviceTest BagPlaybackDeviceTest GraphTabsDeviceTest OnboardingDeviceTest
   DemoModeDeviceTest ZstdDeviceTest Jros2StartupDeviceTest
 )
+# shellcheck disable=SC2206
+if [ -n "${ONLY:-}" ]; then CLASSES=($ONLY); fi
+rm -f "$OUT/not_run.txt"
+# A full run starts a new list of failures; a run of the classes not run yet (ONLY) adds to it.
+[ -n "${ONLY:-}" ] || rm -f "$OUT/failed.txt"
 # The APK for the device's ABI (x86_64 on the emulator, arm64-v8a on phones) or, if there is none, the universal one.
 abi=$("$ADB" shell getprop ro.product.cpu.abi | tr -d '\r')
 apk=app/build/outputs/apk/direct/debug/app-direct-$abi-debug.apk
@@ -42,6 +49,7 @@ alive() {
   [ "$("$ADB" get-state 2> /dev/null)" = device ] && return 0
   echo "The device is gone (adb: $("$ADB" get-state 2>&1 | tr -d '\r')) before $1; not run: ${*}"
   echo "Failed before the device was lost: ${failed[*]:-none}"
+  echo "$*" > "$OUT/not_run.txt"
   exit 1
 }
 
@@ -54,7 +62,7 @@ for i in "${!CLASSES[@]}"; do
   alive "${CLASSES[@]:$i}"
   mv "$OUT/$c.txt" "$OUT/$c.1.txt"
   if run "$c"; then echo "$c: OK at the second try"; retried+=("$c")
-  else echo "$c: FAILED"; failed+=("$c"); fi
+  else echo "$c: FAILED"; failed+=("$c"); echo "$c" >> "$OUT/failed.txt"; fi
 done
 "$ADB" pull "/sdcard/Android/data/$APP/files" "$OUT/files" > /dev/null 2>&1 || true
 if [ ${#retried[@]} -gt 0 ]; then echo "Passed at the second try: ${retried[*]}"; fi

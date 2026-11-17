@@ -241,6 +241,10 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
       - name: Device tests on an emulator (demo robot, no PC servers)
+        id: device
+        # The emulator (software rendering) sometimes crashes on its own, without running out of memory: then the classes
+        # it did not get to run again on a new one (next step). Whether any class failed is decided at the end.
+        continue-on-error: true
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
@@ -254,6 +258,28 @@ jobs:
           disk-size: 4096M
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: bash tools/e2e/android_device_tests.sh
+      - name: Device tests not run, on a new emulator
+        id: device_again
+        if: steps.device.outcome == 'failure' && hashFiles('build/e2e-android/not_run.txt') != ''
+        continue-on-error: true
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          profile: pixel_6
+          disable-animations: true
+          cores: 4
+          ram-size: 4096M
+          disk-size: 4096M
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: ONLY="$(cat build/e2e-android/not_run.txt)" bash tools/e2e/android_device_tests.sh
+      - name: Device test results
+        run: |
+          if [ -s build/e2e-android/failed.txt ]; then echo "Failed: $(sort -u build/e2e-android/failed.txt | tr '\n' ' ')"; exit 1; fi
+          if [ -f build/e2e-android/not_run.txt ]; then echo "Not run (the emulator crashed twice): $(cat build/e2e-android/not_run.txt)"; exit 1; fi
+          if [ "${{ steps.device.outcome }}" = failure ] && [ "${{ steps.device_again.outcome }}" != success ]; then echo "The device tests did not finish"; exit 1; fi
+          echo "All device tests passed."
       - name: Memory and OOM killer
         if: failure()
         run: |
@@ -263,5 +289,8 @@ jobs:
         if: always()
         with:
           name: e2e-android
-          path: build/e2e-android/
+          # With the emulator's crash reports, if it crashed.
+          path: |
+            build/e2e-android/
+            /tmp/android-runner/emu-crash-*
           retention-days: 7
