@@ -40,7 +40,10 @@ F="$B/src/android"
 FLIB="$B/dist/lib/x86_64/md"
 O="$B/jni"
 rm -rf "$O"; mkdir -p "$O/obj"
-CXXFLAGS=(-std:c++20 -O2 -MD -EHsc -GR- -W0 -DFILAMENT_SUPPORTS_OPENGL=1 -DWIN32_LEAN_AND_MEAN -DNOMINMAX
+# WIN32: Filament's headers test it (not _WIN32) and its CMake defines it; without it some structures (JobSystem::Job)
+# would not have the layout the prebuilt libraries were compiled with.
+CXXFLAGS=(-std:c++20 -O2 -MD -EHsc -GR- -W0 -DWIN32 -D_CRT_SECURE_NO_WARNINGS -DFILAMENT_SUPPORTS_OPENGL=1
+  -DWIN32_LEAN_AND_MEAN -DNOMINMAX
   -I"$B/dist/include" -I"$F" -I"$F/common" -I"$F/filament-android/src/main/cpp"
   -I"$B/src/libs/utils/include" -I"$B/src/filament/backend/include" -I"$B/src/libs/math/include"
   -I"$JH/include" -I"$JH/include/win32")
