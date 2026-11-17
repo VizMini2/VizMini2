@@ -49,7 +49,8 @@ SYSLIBS=(opengl32.lib gdi32.lib user32.lib shlwapi.lib advapi32.lib ws2_32.lib)
 
 echo "== filament-jni"
 objs=()
-for f in "$F"/filament-android/src/main/cpp/*.cpp "$F"/common/*.cpp "$B/src/filament/backend/src/VirtualMachineEnv.cpp"; do
+for f in "$F"/filament-android/src/main/cpp/*.cpp "$F"/common/*.cpp "$B/src/filament/backend/src/VirtualMachineEnv.cpp" \
+    "$(cygpath -m "$HERE/NativeWindowDesktop.cpp")"; do
   case "$(basename "$f")" in FramePacerAndroidJni.cpp) continue;; esac
   o="$O/obj/fil_$(basename "$f" .cpp).obj"
   clang-cl "${CXXFLAGS[@]}" -c "$f" -Fo"$o"
