@@ -9,7 +9,8 @@
 # - app/src/main/res/mipmap-*/ic_launcher_foreground.png: the Android adaptive icon (the tile, its corners filled with
 #   the background colour, inside the 72 dp that launchers show; the colour below is ic_launcher_background);
 # - app/src/main/res/drawable-nodpi/logo_vizmini2.webp: the logo of the first onboarding page;
-# - desktopApp/icons/vizmini2.png: the desktop app (window, .deb, applications menu);
+# - desktopApp/icons/vizmini2.png: the desktop app (window, .deb, applications menu); vizmini2.ico: the same on Windows
+#   (the .msi, the .exe and the Start menu);
 # - docs/_static/favicon.png: the manual's favicon.
 # Only in build/icons/, to upload by hand: the Google Play icon (512x512) and the GitHub social preview (1280x640).
 set -euo pipefail
@@ -29,6 +30,7 @@ mkdir -p build/icons
 "$IM" -size 2048x2048 "xc:$BG" "$T/tile.png" -compose Over -composite "$T/square.png"
 
 "$IM" "$T/tile.png" -filter Lanczos -resize 512x512 -strip desktopApp/icons/vizmini2.png
+"$IM" desktopApp/icons/vizmini2.png -define icon:auto-resize=256,128,64,48,32,24,16 desktopApp/icons/vizmini2.ico
 "$IM" "$T/tile.png" -filter Lanczos -resize 512x512 -strip -define webp:alpha-quality=100 -quality 90 \
   app/src/main/res/drawable-nodpi/logo_vizmini2.webp
 "$IM" "$T/tile.png" -filter Lanczos -resize 64x64 -strip docs/_static/favicon.png
@@ -53,5 +55,5 @@ done
   -font DejaVu-Sans-Bold -fill white -pointsize 92 -gravity northwest -annotate +600+190 "VizMini2" \
   -font DejaVu-Sans -fill "#B8C7D6" -pointsize 34 -annotate +604+320 "ROS 2 visualization and control" \
   -annotate +604+368 "on Android and on the desktop" -strip build/icons/github_social_preview.png
-ls -la desktopApp/icons/vizmini2.png app/src/main/res/drawable-nodpi/logo_vizmini2.webp docs/_static/favicon.png \
+ls -la desktopApp/icons/vizmini2.png desktopApp/icons/vizmini2.ico app/src/main/res/drawable-nodpi/logo_vizmini2.webp docs/_static/favicon.png \
   app/src/main/res/mipmap-*/ic_launcher_foreground.png build/icons/

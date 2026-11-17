@@ -87,6 +87,16 @@ compose.desktop {
                 // tools/make_icons.sh (the logo, as on Android).
                 iconFile.set(project.file("icons/vizmini2.png"))
             }
+            windows {
+                menuGroup = "VizMini2"
+                shortcut = true
+                dirChooser = true
+                // Installed for the current user: no administrator needed.
+                perUserInstall = true
+                // Never change it: it is how Windows knows that a newer .msi updates the installed VizMini2.
+                upgradeUuid = "1d5d6a3e-8aca-4b55-b051-cd0773d589b9"
+                iconFile.set(project.file("icons/vizmini2.ico"))
+            }
         }
     }
 }

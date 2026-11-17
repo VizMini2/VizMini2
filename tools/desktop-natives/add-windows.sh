@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
 # SPDX-License-Identifier: GPL-3.0-only
-# Puts the Windows x86_64 natives built by the CI (.github/workflows/desktop-windows.yml) into the desktop jars, next to
+# Puts the Windows x86_64 natives built by the CI (.github/workflows/windows-natives.yml) into the desktop jars, next to
 # the Linux ones:
 # - tools/filament-desktop/filament-desktop.jar: natives/windows-x86_64/{filament,filamat}-jni.dll, and NativeLoader
 #   (recompiled from tools/filament-desktop/NativeLoader.java, which knows each system's folder and file names);
@@ -13,7 +13,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
-WORKFLOW="Desktop on Windows"
+WORKFLOW="Windows natives"
 RUN="${1:-$(gh run list --workflow "$WORKFLOW" --branch "$(git branch --show-current)" --status success --limit 1 \
   --json databaseId --jq '.[0].databaseId // empty')}"
 [ -n "$RUN" ] || { echo "No successful \"$WORKFLOW\" run on this branch: pass a run id"; exit 1; }

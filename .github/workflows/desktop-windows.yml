@@ -1,21 +1,17 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
 # SPDX-License-Identifier: GPL-3.0-only
 #
-# The desktop app on Windows (work in progress). For now, the native libraries it needs, built on Windows:
-# - filament: Filament's JNI bindings (tools/filament-desktop/build-jni-windows.sh), against Filament's Windows release;
-# - fastdds: Fast DDS and jros2's JNI library from VizMini2's fork of jros2 (with the ROS graph, unicast peers and
-#   discovery server natives that the upstream Windows build lacks), with MSVC.
-# Uploaded as artifacts (filament-windows-x86_64, fastdds-windows-x86_64); tools/desktop-natives/add-windows.sh puts
-# them into the desktop jars (filament-desktop.jar, jros2-desktop.jar), like the Linux natives.
+# The desktop app on Windows (work in progress), with the Windows natives already in the desktop jars
+# (windows-natives.yml and tools/desktop-natives/add-windows.sh):
+# - the desktop tests (the UI tests of the shared screens; the end-to-end ones skip themselves without ROS servers);
+# - the .msi installer and the app folder, as an artifact to try by hand;
+# - as desktop-compat does on Ubuntu (ci.yml): Fast DDS connects (--check) and Filament renders the 3D view (--shot), the
+#   latter with Mesa's software OpenGL next to the app, since the runners have no GPU (their OpenGL is Windows' 1.1).
 name: Desktop on Windows
 
 on:
   pull_request:
-    paths:
-      - .github/workflows/desktop-windows.yml
-      - tools/filament-desktop/**
-      - tools/jros2-16k/**
-      - tools/desktop-natives/**
+    paths-ignore: ["*.md", LICENSE, NOTICE, .github/ISSUE_TEMPLATE/**, .github/pull_request_template.md, .github/dependabot.yml]
   workflow_dispatch:
 
 concurrency:
@@ -25,80 +21,52 @@ concurrency:
 permissions:
   contents: read
 
-jobs:
-  filament:
-    runs-on: windows-2022
-    timeout-minutes: 40
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
-      - uses: actions/setup-java@v6
-        with:
-          distribution: temurin
-          java-version: 21
-      - name: Filament's JNI bindings
-        shell: bash
-        run: |
-          clang-cl --version | head -1
-          OUT=build/filament-windows bash tools/filament-desktop/build-jni-windows.sh
-      - uses: actions/upload-artifact@v7
-        with:
-          name: filament-windows-x86_64
-          path: build/filament-windows/
-          retention-days: 14
+env:
+  APP: desktopApp/build/compose/binaries/main/app/vizmini2
+  MESA: "26.2.5"
 
-  fastdds:
+jobs:
+  desktop:
     runs-on: windows-2022
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
-      - name: VizMini2's jros2 (develop)
-        shell: bash
-        run: |
-          git clone -q --depth 1 -b develop https://github.com/VizMini2/jros2.git build/jros2
-          echo "JROS2_SHA=$(git -C build/jros2 rev-parse HEAD)" >> "$GITHUB_ENV"
-      - uses: actions/cache@v6
-        id: cache
-        with:
-          path: build/jros2/src/main/resources/fastddsjava/native/windows-x86_64
-          key: fastdds-windows-x86_64-${{ env.JROS2_SHA }}
-      # Also on a cache hit: dumpbin, to check the library.
-      - uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
-      - name: Fast DDS and jros2's JNI library (MSVC)
-        if: steps.cache.outputs.cache-hit != 'true'
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Desktop tests, the .msi and the app
         shell: bash
-        working-directory: build/jros2
-        run: |
-          # The upstream Windows natives are in the repository: remove them so the ones built here are used.
-          rm -rf src/main/resources/fastddsjava/native/windows-x86_64
-          bash scripts/cppbuild.bash
-      - name: Check the JNI library (every native method of fastddsjavaGraph)
+        run: ./gradlew --no-daemon :desktopApp:jvmTest :desktopApp:packageMsi :desktopApp:createDistributable
+      - name: Fast DDS connects
         shell: bash
         run: |
-          set -euo pipefail
-          N=build/jros2/src/main/resources/fastddsjava/native/windows-x86_64
-          ls -la "$N"
-          exports=$(MSYS_NO_PATHCONV=1 dumpbin.exe /EXPORTS "$N/jnifastddsjava.dll")
-          missing=0
-          for m in $(grep -o 'native [a-zA-Z\[\]]* [a-zA-Z]*' core/src/jvmMain/java/us/ihmc/fastddsjava/natives/fastddsjavaGraph.java | awk '{print $3}'); do
-            grep -q "fastddsjavaGraph_${m}\b" <<< "$exports" || { echo "Missing $m in jnifastddsjava.dll"; missing=1; }
-          done
-          exit $missing
-      - name: Stage
+          ls "$APP"
+          # No robot here, so it exits with 1 after printing the status.
+          "$APP/vizmini2.exe" --check > check.log 2>&1 || true
+          cat check.log
+          grep -q ": Connected" check.log
+          ! grep -qi "failed to load fastddsjava" check.log
+      - name: Filament renders the 3D view (Mesa's software OpenGL)
         shell: bash
         run: |
-          mkdir -p build/fastdds-windows/fastddsjava/native
-          cp -r build/jros2/src/main/resources/fastddsjava/native/windows-x86_64 build/fastdds-windows/fastddsjava/native/
+          curl -sSL -o mesa.7z "https://github.com/pal1000/mesa-dist-win/releases/download/$MESA/mesa3d-$MESA-release-msvc.7z"
+          7z x -y -omesa mesa.7z x64 > /dev/null
+          ls mesa/x64
+          # Next to the .exe, Windows loads these before its own opengl32.dll.
+          for f in opengl32.dll libgallium_wgl.dll libglapi.dll; do [ -f "mesa/x64/$f" ] && cp "mesa/x64/$f" "$APP/"; done
+          GALLIUM_DRIVER=llvmpipe "$APP/vizmini2.exe" --shot rviz.png --tab RVIZ --millis 8000 > shot.log 2>&1 || true
+          cat shot.log
+          test -s rviz.png
       - uses: actions/upload-artifact@v7
+        if: always()
         with:
-          name: fastdds-windows-x86_64
-          path: build/fastdds-windows/
+          name: desktop-windows
+          path: |
+            desktopApp/build/compose/binaries/main/msi/
+            desktopApp/build/reports/
+            check.log
+            shot.log
+            rviz.png
           retention-days: 14
