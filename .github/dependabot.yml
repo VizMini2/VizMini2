@@ -1,0 +1,51 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+#
+# Dependabot's version updates: once a month, a few grouped pull requests that the CI checks before merging.
+# - The CI's actions: all in one pull request (they rarely break anything, and upload/download-artifact must match).
+# - Gradle: patch and minor versions only, in two pull requests: the toolchain (Kotlin, Compose Multiplatform and the
+#   Android Gradle plugin, which go together) and the rest of the libraries. Major versions (OkHttp 5, a new Firebase
+#   BOM, Gradle 10...) change APIs: they are done by hand.
+# - Never: jros2 (VizMini2's own build, from tools/jros2-16k: the one on Maven would drop its patches), Filament (the
+#   desktop natives and the compiled materials must match it, tools/filament-desktop) and Zenoh (it must match the
+#   robots' routers; to be tried with real ones).
+# Security fixes (Dependabot security updates, in the repository's settings) come on their own, whatever this says.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+      timezone: Europe/Madrid
+    commit-message:
+      prefix: CI
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: monthly
+      timezone: Europe/Madrid
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: Dependencies
+    ignore:
+      - dependency-name: "us.ihmc:jros2*"
+      - dependency-name: "com.google.android.filament:*"
+      - dependency-name: "org.eclipse.zenoh:*"
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      toolchain:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.compose*"
+          - "com.android.application"
+          - "com.android.kotlin.multiplatform.library"
+          - "gradle-wrapper"
+        update-types: ["minor", "patch"]
+      libraries:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
