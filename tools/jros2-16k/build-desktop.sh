@@ -33,6 +33,10 @@ mkdir -p "$WORK/jar/fastddsjava/native/$PLATFORM" "$HERE/desktop" "$HERE/classes
 AAR="$(ls "$HERE"/repo/us/ihmc/jros2-android/*/jros2-android-*.aar | tail -1)"
 ( cd "$WORK" && unzip -q -o "$AAR" classes.jar && cd jar && unzip -q -o ../classes.jar )
 cp "$NATIVE"/lib* "$WORK/jar/fastddsjava/native/$PLATFORM/"
+# The other systems' natives already in the jar (Windows: tools/desktop-natives/add-windows.sh) are kept.
+if [ -f "$HERE/desktop/jros2-desktop.jar" ]; then
+  ( cd "$WORK/jar" && unzip -q -n "$HERE/desktop/jros2-desktop.jar" 'fastddsjava/native/*' -x "fastddsjava/native/$PLATFORM/*" ) || true
+fi
 ( cd "$WORK/jar" && rm -f "$HERE/desktop/jros2-desktop.jar" && zip -q -r "$HERE/desktop/jros2-desktop.jar" . )
 cp "$WORK/classes.jar" "$HERE/classes/jros2-classes.jar"
 echo "Listo: $HERE/desktop/jros2-desktop.jar"

@@ -15,7 +15,9 @@ export MSYS_NO_PATHCONV=1
 HERE="$(cd "$(dirname "$0")" && pwd)"
 V=1.75.1
 B="$(cygpath -m "${FILAMENT_WORK:-$HOME/.cache/vizmini2-filament-windows}")"
-OUT="$(cygpath -m "${OUT:-$HERE/../../build/filament-windows}")"
+# Absolute, before the cd below (a relative OUT would end up inside $B).
+mkdir -p "${OUT:=$HERE/../../build/filament-windows}"
+OUT="$(cygpath -m "$(cd "$OUT" && pwd)")"
 JH="$(cygpath -m "${JAVA_HOME:?JAVA_HOME must point to a JDK}")"
 [ -n "${LIB:-}" ] || { echo "LIB is not set: run from the MSVC x64 environment"; exit 1; }
 mkdir -p "$B"; cd "$B"
