@@ -128,7 +128,8 @@ class RvizDisplaysLocalTest {
             scenario.onActivity { it.findViewById<android.view.View>(R.id.fixedFrameButton).performClick() }
             SystemClock.sleep(700)
             shot("21_fixed_frame")
-            // Written by hand, a frame that is not in TF: kept as the preferred one, the automatic one is used meanwhile.
+            // Written by hand, a frame that is not in TF: kept as the preferred one. While there is TF the automatic one is
+            // used; with no TF at all (as here, without a robot), the written one.
             val auto = onMainGet { rviz.currentFixedFrame() }
             onMain { (com.juancams.rviz2mini.rviz.OpenDialogs.last as androidx.appcompat.app.AlertDialog).getButton(android.content.DialogInterface.BUTTON_NEUTRAL).performClick() }
             SystemClock.sleep(700)
@@ -142,7 +143,7 @@ class RvizDisplaysLocalTest {
             onMain { (com.juancams.rviz2mini.rviz.OpenDialogs.last as androidx.appcompat.app.AlertDialog).getButton(android.content.DialogInterface.BUTTON_POSITIVE).performClick() }
             SystemClock.sleep(700)
             assertEquals("robot_x/base_link", onMainGet { rviz.preferredFixedFrame() })
-            assertEquals(auto, onMainGet { rviz.currentFixedFrame() })
+            assertEquals(auto.ifEmpty { "robot_x/base_link" }, onMainGet { rviz.currentFixedFrame() })
             // Back to automatic.
             scenario.onActivity { it.findViewById<android.view.View>(R.id.fixedFrameButton).performClick() }
             SystemClock.sleep(700)
