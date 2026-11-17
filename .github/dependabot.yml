@@ -45,7 +45,7 @@ updates:
           - "com.android.application"
           - "com.android.kotlin.multiplatform.library"
           - "gradle-wrapper"
-        update-types: ["minor", "patch"]
+      # No update-types here: majors are already ignored above, and versions that are not semver (zstd-jni's
+      # 1.5.7-12 -> 1.5.7-28) would otherwise come in a pull request of their own.
       libraries:
         patterns: ["*"]
-        update-types: ["minor", "patch"]
