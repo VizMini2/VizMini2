@@ -1,0 +1,104 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+#
+# The desktop app on Windows (work in progress). For now, the native libraries it needs, built on Windows:
+# - filament: Filament's JNI bindings (tools/filament-desktop/build-jni-windows.sh), against Filament's Windows release;
+# - fastdds: Fast DDS and jros2's JNI library from VizMini2's fork of jros2 (with the ROS graph, unicast peers and
+#   discovery server natives that the upstream Windows build lacks), with MSVC.
+# Uploaded as artifacts (filament-windows-x86_64, fastdds-windows-x86_64); tools/desktop-natives/add-windows.sh puts
+# them into the desktop jars (filament-desktop.jar, jros2-desktop.jar), like the Linux natives.
+name: Desktop on Windows
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/desktop-windows.yml
+      - tools/filament-desktop/**
+      - tools/jros2-16k/**
+      - tools/desktop-natives/**
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  filament:
+    runs-on: windows-2022
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Filament's JNI bindings
+        shell: bash
+        run: |
+          clang-cl --version | head -1
+          OUT=build/filament-windows bash tools/filament-desktop/build-jni-windows.sh
+      - uses: actions/upload-artifact@v7
+        with:
+          name: filament-windows-x86_64
+          path: build/filament-windows/
+          retention-days: 14
+
+  fastdds:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - name: VizMini2's jros2 (develop)
+        shell: bash
+        run: |
+          git clone -q --depth 1 -b develop https://github.com/VizMini2/jros2.git build/jros2
+          echo "JROS2_SHA=$(git -C build/jros2 rev-parse HEAD)" >> "$GITHUB_ENV"
+      - uses: actions/cache@v6
+        id: cache
+        with:
+          path: build/jros2/src/main/resources/fastddsjava/native/windows-x86_64
+          key: fastdds-windows-x86_64-${{ env.JROS2_SHA }}
+      # Also on a cache hit: dumpbin, to check the library.
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Fast DDS and jros2's JNI library (MSVC)
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
+        working-directory: build/jros2
+        run: |
+          # The upstream Windows natives are in the repository: remove them so the ones built here are used.
+          rm -rf src/main/resources/fastddsjava/native/windows-x86_64
+          bash scripts/cppbuild.bash
+      - name: Check the JNI library (every native method of fastddsjavaGraph)
+        shell: bash
+        run: |
+          set -euo pipefail
+          N=build/jros2/src/main/resources/fastddsjava/native/windows-x86_64
+          ls -la "$N"
+          exports=$(MSYS_NO_PATHCONV=1 dumpbin.exe /EXPORTS "$N/jnifastddsjava.dll")
+          missing=0
+          for m in $(grep -o 'native [a-zA-Z\[\]]* [a-zA-Z]*' core/src/jvmMain/java/us/ihmc/fastddsjava/natives/fastddsjavaGraph.java | awk '{print $3}'); do
+            grep -q "fastddsjavaGraph_${m}\b" <<< "$exports" || { echo "Missing $m in jnifastddsjava.dll"; missing=1; }
+          done
+          exit $missing
+      - name: Stage
+        shell: bash
+        run: |
+          mkdir -p build/fastdds-windows/fastddsjava/native
+          cp -r build/jros2/src/main/resources/fastddsjava/native/windows-x86_64 build/fastdds-windows/fastddsjava/native/
+      - uses: actions/upload-artifact@v7
+        with:
+          name: fastdds-windows-x86_64
+          path: build/fastdds-windows/
+          retention-days: 14
