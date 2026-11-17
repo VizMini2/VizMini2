@@ -48,7 +48,7 @@ androidComponents {
 
 android {
     namespace = "com.juancams.rviz2mini"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.juancams.vizmini2"
@@ -186,6 +186,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
+    // PlotFragment saves CSVs with it (it used to come along with AppCompat).
+    implementation("androidx.documentfile:documentfile:1.1.0")
     implementation(libs.material)
     // "nio" variant: jros2 uses java.nio.file.Path.of (API 33); without it, it doesn't connect on Android 8–12.
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.4")

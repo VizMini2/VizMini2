@@ -57,7 +57,7 @@ class OnboardingActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
             setBackgroundResource(R.drawable.bg_auth)
         }
-        skip = MaterialButton(this, null, com.google.android.material.R.attr.borderlessButtonStyle).apply {
+        skip = MaterialButton(this, null, androidx.appcompat.R.attr.borderlessButtonStyle).apply {
             setText(R.string.onboarding_skip)
             setTextColor(getColor(R.color.auth_text_secondary))
             setOnClickListener { finishTour(false) }

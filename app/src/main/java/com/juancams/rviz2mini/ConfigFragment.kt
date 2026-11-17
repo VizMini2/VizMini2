@@ -112,7 +112,7 @@ class ConfigFragment : Fragment() {
             }
             card.addView(button, card.indexOfChild(row) + 1, android.widget.LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT))
             // Topic variables (${ns}/scan): the same editor as the PC.
-            val vars = com.google.android.material.button.MaterialButton(requireContext(), null, com.google.android.material.R.attr.borderlessButtonStyle).apply {
+            val vars = com.google.android.material.button.MaterialButton(requireContext(), null, androidx.appcompat.R.attr.borderlessButtonStyle).apply {
                 setText(R.string.variables_title)
                 setOnClickListener { showComposeDialog { dismiss -> com.juancams.rviz2mini.ui.common.VariablesDialog(dismiss) } }
             }

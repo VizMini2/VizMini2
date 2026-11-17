@@ -32,7 +32,7 @@ object TypePicker {
             addView(list, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (320 * dp).toInt()))
         }
         val custom = onDefineCustom?.let {
-            Button(ctx, null, com.google.android.material.R.attr.borderlessButtonStyle).apply { setText(R.string.buttons_editor_define_custom) }.also { box.addView(it) }
+            Button(ctx, null, androidx.appcompat.R.attr.borderlessButtonStyle).apply { setText(R.string.buttons_editor_define_custom) }.also { box.addView(it) }
         }
         val dialog = MaterialAlertDialogBuilder(ctx).setTitle(R.string.buttons_editor_type_title).setView(box).setNegativeButton(R.string.buttons_cancel, null).show()
         filter.addTextChangedListener(object : TextWatcher {
