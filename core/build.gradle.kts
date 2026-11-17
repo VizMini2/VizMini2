@@ -21,7 +21,7 @@ kotlin {
             // Lua scripts for computed series (pure Java).
             implementation("org.luaj:luaj-jse:3.0.1")
             // zstd for MCAP bags: each app provides its own (Android: the AAR; desktop: the jar with natives).
-            compileOnly("com.github.luben:zstd-jni:1.5.7-12")
+            compileOnly("com.github.luben:zstd-jni:1.5.7-28")
             // Android already ships org.json; the desktop adds it.
             compileOnly("org.json:json:20240303")
         }
@@ -30,7 +30,7 @@ kotlin {
             implementation(libs.junit)
             implementation(files("../tools/jros2-16k/classes/jros2-classes.jar"))
             implementation("org.json:json:20240303")
-            implementation("com.github.luben:zstd-jni:1.5.7-12")
+            implementation("com.github.luben:zstd-jni:1.5.7-28")
         }
     }
 }

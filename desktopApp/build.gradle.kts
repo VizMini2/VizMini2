@@ -39,7 +39,7 @@ kotlin {
             implementation(files("../tools/filament-desktop/filament-desktop.jar"))
             implementation("org.eclipse.zenoh:zenoh-kotlin:1.10.2")
             implementation("org.json:json:20240303")
-            implementation("com.github.luben:zstd-jni:1.5.7-12")
+            implementation("com.github.luben:zstd-jni:1.5.7-28")
         }
         // End-to-end tests against real ROS 2 servers (skipped unless VIZMINI2_E2E=1; see tools/e2e/run.sh).
         jvmTest.dependencies {

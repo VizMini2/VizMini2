@@ -215,9 +215,9 @@ dependencies {
     implementation("com.google.zxing:core:3.5.3")
     implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
     // zstd-compressed MCAP bags (the AAR .so files are already 16 KB aligned).
-    implementation("com.github.luben:zstd-jni:1.5.7-12@aar")
+    implementation("com.github.luben:zstd-jni:1.5.7-28@aar")
     // In JVM tests, the version with the desktop natives.
-    testImplementation("com.github.luben:zstd-jni:1.5.7-12")
+    testImplementation("com.github.luben:zstd-jni:1.5.7-28")
     testImplementation(libs.junit)
     // org.json on Android is a stub in JVM tests: we use the real implementation.
     testImplementation("org.json:json:20240303")
