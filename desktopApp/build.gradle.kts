@@ -31,7 +31,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.desktop.currentOs)
             // Dispatchers.Main on the Swing thread (where Compose for Desktop runs).
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.10.2")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.11.0")
             // Profile QR codes (the same as Android).
             implementation("com.google.zxing:core:3.5.3")
             implementation(files("../tools/jros2-16k/desktop/jros2-desktop.jar"))
