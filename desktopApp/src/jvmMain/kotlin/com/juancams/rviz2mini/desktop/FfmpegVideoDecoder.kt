@@ -133,7 +133,8 @@ class FfmpegVideoDecoder private constructor(
         /** The ffmpeg to use: $VIZMINI2_FFMPEG or the first one in the PATH (null if there is none). */
         fun find(): String? {
             System.getenv("VIZMINI2_FFMPEG")?.takeIf { File(it).canExecute() }?.let { return it }
-            return System.getenv("PATH").orEmpty().split(File.pathSeparator).map { File(it, "ffmpeg") }.firstOrNull { it.canExecute() }?.absolutePath
+            val exe = if (File.separatorChar == '\\') "ffmpeg.exe" else "ffmpeg"
+            return System.getenv("PATH").orEmpty().split(File.pathSeparator).map { File(it, exe) }.firstOrNull { it.canExecute() }?.absolutePath
         }
 
         private val versions = java.util.concurrent.ConcurrentHashMap<String, IntArray>()

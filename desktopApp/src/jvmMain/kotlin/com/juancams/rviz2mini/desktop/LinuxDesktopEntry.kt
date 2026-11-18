@@ -30,6 +30,7 @@ object LinuxDesktopEntry {
     """.trimIndent() + "\n"
 
     fun install() {
+        if (!System.getProperty("os.name", "").lowercase().contains("linux")) return
         runCatching {
             // Only from an installed app image (jpackage sets this): not from `gradlew run`.
             val launcher = System.getProperty("jpackage.app-path")?.takeIf { File(it).canExecute() } ?: return

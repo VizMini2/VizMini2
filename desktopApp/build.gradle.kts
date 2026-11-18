@@ -69,7 +69,10 @@ compose.desktop {
     application {
         mainClass = "com.juancams.rviz2mini.desktop.MainKt"
         // The X11 window class is set to "vizmini2" (so the desktop shows its name and logo): it needs this module open.
-        jvmArgs += listOf("--add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED")
+        // Only on Linux (each package is built on its own system; elsewhere Java warns that the package does not exist).
+        if (System.getProperty("os.name").lowercase().contains("linux")) {
+            jvmArgs += listOf("--add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED")
+        }
         nativeDistributions {
             targetFormats(TargetFormat.Deb, TargetFormat.Msi, TargetFormat.Dmg)
             packageName = "vizmini2"

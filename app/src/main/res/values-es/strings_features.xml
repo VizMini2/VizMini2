@@ -65,7 +65,7 @@
     <string name="control_msgs_foxy">Foxy</string>
     <string name="video_unsupported">Vídeo en formato “%1$s”: solo se pueden decodificar H.264 y H.265</string>
     <string name="video_no_decoder">Este dispositivo no puede decodificar %1$s</string>
-    <string name="video_needs_ffmpeg">El vídeo H.264/H.265 necesita ffmpeg (sudo apt install ffmpeg)</string>
+    <string name="video_needs_ffmpeg">El vídeo H.264/H.265 necesita ffmpeg (Linux: sudo apt install ffmpeg; Windows: winget install ffmpeg)</string>
     <string name="video_decoder_failed">El decodificador de vídeo ha fallado: %1$s</string>
     <string name="alerts_silent_for">sin datos %1$s s</string>
     <string name="alerts_back">%1$s vuelve a publicar</string>

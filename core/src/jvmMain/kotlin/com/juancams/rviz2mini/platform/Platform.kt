@@ -39,6 +39,23 @@ object Platform {
      */
     @Volatile var acquireMulticast: () -> (() -> Unit) = { {} }
 
+    private val windows = System.getProperty("os.name", "").lowercase().startsWith("windows")
+
+    /**
+     * Desktop configuration folder: ~/.config/vizmini2 (Linux), %APPDATA%\VizMini2 (Windows), or wherever the
+     * `vizmini2.config` property says.
+     */
+    val configDir: File get() = File(System.getProperty("vizmini2.config") ?: when {
+        windows -> (System.getenv("APPDATA") ?: (System.getProperty("user.home") + "\\AppData\\Roaming")) + "\\VizMini2"
+        else -> System.getProperty("user.home") + "/.config/vizmini2"
+    })
+
+    /** Desktop data folder (bags, recordings of the instant replay...): ~/.local/share/vizmini2, %LOCALAPPDATA%\VizMini2. */
+    val dataDir: File get() = when {
+        windows -> File((System.getenv("LOCALAPPDATA") ?: (System.getProperty("user.home") + "\\AppData\\Local")) + "\\VizMini2")
+        else -> File(System.getProperty("user.home") ?: ".", ".local/share/vizmini2")
+    }
+
     /** Platform, for the help text and reports ("android", "linux", "windows", "macos"). */
     @Volatile var name: String = System.getProperty("os.name", "jvm").lowercase().let {
         when {
@@ -91,8 +108,7 @@ interface KeyValueStore {
 }
 
 /**
- * Preferences in .properties files (desktop): ~/.config/vizmini2/<name>.properties, or wherever the
- * `vizmini2.config` property says. Types are stored with a prefix ("i:3", "b:true"...).
+ * Preferences in .properties files (desktop): <name>.properties in [Platform.configDir] (~/.config/vizmini2 on Linux). Types are stored with a prefix ("i:3", "b:true"...).
  */
 class FilePrefs private constructor(private val file: File) : KeyValueStore {
     private val map = ConcurrentHashMap<String, Any>()
@@ -163,8 +179,8 @@ class FilePrefs private constructor(private val file: File) : KeyValueStore {
     companion object {
         private val open = ConcurrentHashMap<String, FilePrefs>()
 
-        /** Desktop configuration folder. */
-        val dir: File get() = File(System.getProperty("vizmini2.config") ?: (System.getProperty("user.home") + "/.config/vizmini2"))
+        /** Desktop configuration folder ([Platform.configDir]). */
+        val dir: File get() = Platform.configDir
 
         fun get(name: String): FilePrefs = open.getOrPut(name) { FilePrefs(File(dir, "$name.properties")) }
     }
