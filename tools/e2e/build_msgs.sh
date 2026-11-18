@@ -5,7 +5,8 @@
 # The messages of the test servers that some distros lack (Lyrical does not have them yet): foxglove_msgs and
 # ffmpeg_image_transport_msgs (tools/video_publisher.py), slam_toolbox's services (tools/fake_map_services.py) and
 # EasyNavigation's navmap_ros_interfaces (tools/navmap_demo.py).
-# Builds the stand-ins of tools/e2e/msgs that are missing into build/e2e/msgs_ws. Prints the setup file to source ("" if nothing is needed).
+# Builds the stand-ins of tools/e2e/msgs that are missing into build/e2e/msgs_ws/<distro> (one per distro: a workspace
+# built for another one would mix both). Prints the setup file to source ("" if nothing is needed).
 #
 #   source "$(tools/e2e/build_msgs.sh)"     (with a sourced ROS 2)
 set -euo pipefail
@@ -15,10 +16,10 @@ for p in foxglove_msgs.msg ffmpeg_image_transport_msgs.msg slam_toolbox.srv navm
   python3 -c "import $p" 2> /dev/null || missing+=("${p%.*}")
 done
 if [ ${#missing[@]} -eq 0 ]; then echo /dev/null; exit 0; fi
-WS=build/e2e/msgs_ws
+WS=build/e2e/msgs_ws/${ROS_DISTRO:?source a ROS 2 first}
 if [ ! -f "$WS/install/setup.bash" ] || [ -n "$(find tools/e2e/msgs -newer "$WS/install/setup.bash" -print -quit)" ]; then
   mkdir -p "$WS"
-  ( cd "$WS" && colcon --log-base log build --base-paths ../../../tools/e2e/msgs --packages-select "${missing[@]}" > build.log 2>&1 ) \
+  ( cd "$WS" && colcon --log-base log build --base-paths ../../../../tools/e2e/msgs --packages-select "${missing[@]}" > build.log 2>&1 ) \
     || { tail -20 "$WS/build.log" >&2; exit 1; }
 fi
 echo "$PWD/$WS/install/setup.bash"

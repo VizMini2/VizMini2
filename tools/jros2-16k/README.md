@@ -16,7 +16,11 @@ El commit del fork añade:
   descubiertos (con sus nombres e IPs), para listar topics, servicios y acciones como
   `ros2 topic/service/action list`;
 - la identidad DDS de cada muestra escrita y la `related_sample_identity` de las recibidas, para
-  emparejar cada respuesta de servicio con su petición;
+  emparejar cada respuesta de servicio con su petición; la `related_sample_identity` de la siguiente
+  muestra que escribe un escritor (las respuestas de los servidores de servicios llevan la de su
+  petición, y las peticiones el GUID del lector de respuestas del cliente, como `rmw_fastrtps`), si un
+  escritor está emparejado con un lector y el GUID de un lector, para que un servidor espere a que el
+  lector del cliente esté emparejado antes de responder;
 - peers unicast de descubrimiento (como `ROS_STATIC_PEERS`) y Discovery Server (como
   `ROS_DISCOVERY_SERVER`, en modo SUPER_CLIENT).
 

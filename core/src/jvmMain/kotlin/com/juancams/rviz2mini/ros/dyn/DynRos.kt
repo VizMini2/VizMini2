@@ -26,9 +26,14 @@ object DynRos {
     class Publisher constructor(val spec: MsgSpec, private val managed: RosConnection.ManagedPublisher<*>) {
         /** False if there is no connection yet. Always call from the same thread. */
         fun publish(value: MsgValue): Boolean = publishAny(managed, DynTypes.newMessage(spec, value))
-        /** Like [publish] and copies the sample's DDS identity into `identityOut` (24 bytes). */
-        fun publishWithIdentity(value: MsgValue, identityOut: ByteArray): Boolean =
-            publishIdentityAny(managed, DynTypes.newMessage(spec, value), identityOut)
+        /**
+         * Like [publish] and copies the sample's DDS identity into `identityOut` (24 bytes); `related`, its
+         * related_sample_identity (see [RosConnection.ManagedPublisher.publishWithIdentity]).
+         */
+        fun publishWithIdentity(value: MsgValue, identityOut: ByteArray, related: ByteArray? = null): Boolean =
+            publishIdentityAny(managed, DynTypes.newMessage(spec, value), identityOut, related)
+        /** Whether it is matched with the reader with that GUID (16 bytes); true if it cannot be known. */
+        fun isMatchedWith(readerGuid: ByteArray): Boolean = managed.isMatchedWith(readerGuid)
         fun matched(): Int = managed.matchedSubscribers()
         val isReady: Boolean get() = managed.isReady
         fun close() = managed.close()
@@ -37,6 +42,8 @@ object DynRos {
     class Subscription constructor(private val managed: RosConnection.ManagedSubscription<*>) {
         val error: String? get() = managed.error
         fun waitForPublisher(timeoutMs: Long) = managed.waitForPublisher(timeoutMs)
+        /** The GUID (16 bytes) of its DDS reader; false if there is none yet. */
+        fun readerGuid(out: ByteArray): Boolean = managed.readerGuid(out)
         fun close() = managed.cancel()
     }
 
@@ -58,23 +65,33 @@ object DynRos {
      * service response it is the identity of the request it answers.
      */
     fun subscribeRawWithIdentity(ddsName: String, spec: MsgSpec, qos: ROS2QoSProfile, onMessage: (MsgValue, ByteArray) -> Unit): Subscription =
-        Subscription(subscribeIdentityAny(ddsName, DynTypes.classFor(spec), qos, onMessage))
+        Subscription(subscribeIdentityAny(ddsName, DynTypes.classFor(spec), qos) { v, _, related -> onMessage(v, related) })
+
+    /**
+     * Like [subscribeRawWithIdentity], with each sample's own identity too: in a service request, what its reply
+     * must carry as related_sample_identity; its related one, the client's reply reader (rmw_fastrtps and this app).
+     */
+    fun subscribeRawWithIdentities(
+        ddsName: String, spec: MsgSpec, qos: ROS2QoSProfile, onMessage: (value: MsgValue, identity: ByteArray, related: ByteArray) -> Unit
+    ): Subscription = Subscription(subscribeIdentityAny(ddsName, DynTypes.classFor(spec), qos, onMessage))
 
     @Suppress("UNCHECKED_CAST")
-    private fun subscribeIdentityAny(ddsName: String, cls: Class<*>, qos: ROS2QoSProfile, onMessage: (MsgValue, ByteArray) -> Unit) =
+    private fun subscribeIdentityAny(ddsName: String, cls: Class<*>, qos: ROS2QoSProfile, onMessage: (MsgValue, ByteArray, ByteArray) -> Unit) =
         subscribeIdentityTyped(ddsName, cls as Class<DynSlots.S0>, qos, onMessage)
 
     private fun <T : ROS2Message<T>> subscribeIdentityTyped(
-        ddsName: String, cls: Class<T>, qos: ROS2QoSProfile, onMessage: (MsgValue, ByteArray) -> Unit
+        ddsName: String, cls: Class<T>, qos: ROS2QoSProfile, onMessage: (MsgValue, ByteArray, ByteArray) -> Unit
     ): RosConnection.ManagedSubscription<T> {
         val cb = ROS2SubscriptionCallback<T> { reader ->
             val data = cls.getDeclaredConstructor().newInstance()
-            // Own native SampleInfo to read the identity; services run at low frequency.
+            // Own native SampleInfo to read the identities; services run at low frequency.
             SampleInfo().use { info ->
                 if (reader.read(data, info)) {
                     val identity = ByteArray(IDENTITY_SIZE)
-                    GraphAccess.relatedSampleIdentity(info, identity)
-                    (data as? DynMessage<*>)?.let { onMessage(it.value, identity) }
+                    val related = ByteArray(IDENTITY_SIZE)
+                    GraphAccess.sampleIdentity(info, identity)
+                    GraphAccess.relatedSampleIdentity(info, related)
+                    (data as? DynMessage<*>)?.let { onMessage(it.value, identity, related) }
                 }
             }
         }
@@ -83,14 +100,21 @@ object DynRos {
 
     /** DDS identity of a sample: writer GUID (16 bytes) + sequence number (8). */
     const val IDENTITY_SIZE = 24
+    const val GUID_SIZE = 16
+
+    /** An identity with only a GUID: the sequence number "unknown" (high -1, low 0), as rmw_fastrtps sends it. */
+    fun guidIdentity(guid: ByteArray): ByteArray = ByteArray(IDENTITY_SIZE).also {
+        guid.copyInto(it, 0, 0, GUID_SIZE)
+        for (i in 16 until 20) it[i] = 0xFF.toByte()
+    }
 
     @Suppress("UNCHECKED_CAST")
-    private fun publishIdentityAny(p: RosConnection.ManagedPublisher<*>, msg: DynMessage<*>, identityOut: ByteArray): Boolean =
-        publishIdentityTyped(p as RosConnection.ManagedPublisher<DynSlots.S0>, msg, identityOut)
+    private fun publishIdentityAny(p: RosConnection.ManagedPublisher<*>, msg: DynMessage<*>, identityOut: ByteArray, related: ByteArray?): Boolean =
+        publishIdentityTyped(p as RosConnection.ManagedPublisher<DynSlots.S0>, msg, identityOut, related)
 
     @Suppress("UNCHECKED_CAST")
-    private fun <T : ROS2Message<T>> publishIdentityTyped(p: RosConnection.ManagedPublisher<T>, msg: DynMessage<*>, identityOut: ByteArray): Boolean =
-        p.publishWithIdentity(msg as T, identityOut)
+    private fun <T : ROS2Message<T>> publishIdentityTyped(p: RosConnection.ManagedPublisher<T>, msg: DynMessage<*>, identityOut: ByteArray, related: ByteArray?): Boolean =
+        p.publishWithIdentity(msg as T, identityOut, related)
 
     @Suppress("UNCHECKED_CAST")
     private fun createPublisherAny(topic: String?, ddsName: String?, cls: Class<*>, qos: ROS2QoSProfile): RosConnection.ManagedPublisher<*> =
@@ -261,12 +285,22 @@ class DynServiceClient(name: String, val srv: SrvSpec) {
         val queue = ArrayBlockingQueue<MsgValue>(1)
         synchronized(lock) { pending.addLast(queue) }
         var key = ""
+        var altKey: String? = null
         try {
-            if (!requests.publishWithIdentity(request, identity)) throw CallException("No ROS 2 connection")
+            // The reply reader's GUID as the request's related identity (as rmw_fastrtps): the server can wait until it
+            // is matched before replying, so the first reply is not lost while discovery finishes.
+            val readerGuid = ByteArray(DynRos.GUID_SIZE)
+            val related = if (replies!!.readerGuid(readerGuid)) DynRos.guidIdentity(readerGuid) else null
+            if (!requests.publishWithIdentity(request, identity, related)) throw CallException("No ROS 2 connection")
             key = hex(identity)
+            // rmw_fastrtps servers answer a request that names the reply reader with that reader's GUID (and the
+            // request's sequence number) instead of the request writer's: either form is this call's reply.
+            if (related != null) altKey = hex(readerGuid + identity.copyOfRange(DynRos.GUID_SIZE, DynRos.IDENTITY_SIZE))
             synchronized(lock) {
                 early.remove(key)?.let { return it }
+                altKey?.let { k -> early.remove(k)?.let { return it } }
                 waiters[key] = queue
+                altKey?.let { waiters[it] = queue }
             }
             while (true) {
                 if (cancelled()) throw CallException("Canceled")
@@ -275,7 +309,7 @@ class DynServiceClient(name: String, val srv: SrvSpec) {
                 queue.poll(minOf(left, 100L), TimeUnit.MILLISECONDS)?.let { return it }
             }
         } finally {
-            synchronized(lock) { waiters.remove(key); pending.remove(queue) }
+            synchronized(lock) { waiters.remove(key); altKey?.let { waiters.remove(it) }; pending.remove(queue) }
         }
     }
 
@@ -500,17 +534,31 @@ class DynActionClient(name: String, val action: ActionSpec, cancelSrv: SrvSpec) 
  * "rr<name>Reply". `handler` receives the request and a function to respond with, which it may call
  * later (e.g. get_result of an action, which does not respond until the goal finishes).
  *
- * The natives do not allow writing the "related sample identity", so responses carry a
- * zero identity and the app's client assigns them to its oldest call ([DynServiceClient]).
- * Enough for the demo robot, which lives in the same node; an rmw client on another machine would not
- * match them.
+ * As rmw_fastrtps: each reply carries its request's identity as related_sample_identity, so each client (of this app
+ * or any ROS 2 one) takes only its own replies, even when they come out of order; and if the request names the
+ * client's reply reader (its related identity, as rmw_fastrtps and this app's client send it), the reply waits until
+ * that reader is matched, so it is not lost while discovery finishes.
  */
 class DynServiceServer(name: String, val srv: SrvSpec, handler: (request: MsgValue, reply: (MsgValue) -> Unit) -> Unit) {
 
     val serviceName = DynRos.normalizeName(name)
     private val replies = DynRos.rawPublisher("rr${serviceName}Reply", srv.response, RosConnection.defaultQos())
-    private val requests = DynRos.subscribeRaw("rq${serviceName}Request", srv.request, RosConnection.defaultQos()) { req ->
-        handler(req) { response -> replies.publish(response) }
+    private val requests = DynRos.subscribeRawWithIdentities("rq${serviceName}Request", srv.request, RosConnection.defaultQos()) { req, identity, related ->
+        handler(req) { response -> reply(response, identity, related) }
+    }
+
+    private fun reply(response: MsgValue, request: ByteArray, clientReader: ByteArray) {
+        val reader = clientReader.copyOf(DynRos.GUID_SIZE)
+        if (reader.any { it != 0.toByte() }) {
+            val until = System.currentTimeMillis() + MATCH_WAIT_MS
+            while (!replies.isMatchedWith(reader) && System.currentTimeMillis() < until) Thread.sleep(10)
+        }
+        replies.publishWithIdentity(response, ByteArray(DynRos.IDENTITY_SIZE), related = request)
+    }
+
+    private companion object {
+        /** At most this long for the client's reply reader to match (rmw_fastrtps waits too; then it sends anyway). */
+        const val MATCH_WAIT_MS = 1000L
     }
 
     fun close() {

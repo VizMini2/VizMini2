@@ -55,6 +55,10 @@ kotlin {
 tasks.withType<Test>().configureEach {
     // The end-to-end tests need the environment of tools/e2e/run.sh (or of the CI) and can take minutes.
     environment("VIZMINI2_E2E", System.getenv("VIZMINI2_E2E") ?: "")
+    // End-to-end: a new JVM for each test class. Dynamic message types take one of a fixed number of classes for the
+    // whole process (DynTypes), and all the suite's types together (more with Cyclone DDS servers, whose services
+    // take a second type each) ran out of them halfway through.
+    if (System.getenv("VIZMINI2_E2E") == "1") forkEvery = 1
     environment("VIZMINI2_E2E_DOMAIN", System.getenv("VIZMINI2_E2E_DOMAIN") ?: "77")
     // ConfigInteropTest.writeSamples: where to leave files exported for RViz, Foxglove and PlotJuggler (empty: none).
     environment("VIZMINI2_INTEROP_OUT", System.getenv("VIZMINI2_INTEROP_OUT") ?: "")
