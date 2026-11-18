@@ -23,12 +23,17 @@ from pathlib import Path
 ALLOWED = (re.compile(r"^java/nio/file/"), re.compile(r"^java/lang/StringBuilder\."))
 
 
+def api_level(v) -> int:
+    """API level of a "since": newer SDKs also have minor versions ("36.1"), which count as their major one."""
+    return int(str(v).split(".")[0])
+
+
 def main():
     classes_dir, api_xml, min_sdk = Path(sys.argv[1]), sys.argv[2], int(sys.argv[3])
     api = {}
     for c in ET.parse(api_xml).getroot().findall("class"):
-        since = int(c.get("since", "1"))
-        methods = {m.get("name"): int(m.get("since", since)) for m in c.findall("method")}
+        since = api_level(c.get("since", "1"))
+        methods = {m.get("name"): api_level(m.get("since", since)) for m in c.findall("method")}
         parents = [e.get("name") for e in c.findall("extends")] + [e.get("name") for e in c.findall("implements")]
         api[c.get("name")] = (since, methods, parents)
 

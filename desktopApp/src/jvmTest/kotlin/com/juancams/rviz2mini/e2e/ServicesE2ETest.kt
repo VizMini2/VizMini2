@@ -22,17 +22,19 @@ class ServicesE2ETest {
         assumeTrue("servers of this app are for rmw_fastrtps clients (RMW_IMPLEMENTATION=$rmw)", rmw.isEmpty() || rmw.contains("fastrtps"))
         E2E.connect("/tf")
         assumeTrue("ros2 CLI not in the PATH", runCatching { ProcessBuilder("ros2", "--help").start().waitFor(30, TimeUnit.SECONDS) }.getOrDefault(false))
-        val srv = Interfaces.get().srv("example_interfaces/srv/AddTwoInts")
-        val server = DynServiceServer("/vizmini2_e2e/add", srv) { req, reply ->
-            reply(MsgValue().apply { put("sum", (req["a"] as Long) + (req["b"] as Long)) })
+        // std_srvs (common_interfaces) is in every ROS 2 install, unlike example_interfaces (not in the ros-base images).
+        val srv = Interfaces.get().srv("std_srvs/srv/SetBool")
+        val server = DynServiceServer("/vizmini2_e2e/set", srv) { req, reply ->
+            val on = req["data"] as Boolean
+            reply(MsgValue().apply { put("success", on); put("message", "vizmini2 got $on") })
         }
         try {
-            val p = ProcessBuilder("ros2", "service", "call", "/vizmini2_e2e/add", "example_interfaces/srv/AddTwoInts", "{a: 2, b: 3}")
+            val p = ProcessBuilder("ros2", "service", "call", "/vizmini2_e2e/set", "std_srvs/srv/SetBool", "{data: true}")
                 .redirectErrorStream(true).apply { environment()["ROS_DOMAIN_ID"] = E2E.domain.toString() }.start()
             val finished = p.waitFor(60, TimeUnit.SECONDS)
             if (!finished) p.destroyForcibly()
             val out = p.inputStream.bufferedReader().readText()
-            assertTrue("ros2 service call did not get the reply:\n$out", finished && "sum=5" in out)
+            assertTrue("ros2 service call did not get the reply:\n$out", finished && "success=True" in out && "vizmini2 got true" in out)
         } finally {
             server.close()
         }
