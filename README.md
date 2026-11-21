@@ -50,7 +50,7 @@ tools/e2e/run.sh                                                   # desktop end
 tools/e2e/android_device_tests.sh                                  # device tests on a phone or emulator (demo robot)
 tools/pc_tests.sh -b                                               # phone tests against servers on this PC
 tools/compat/build-desktop-natives.sh                              # rebuild the desktop natives inside Ubuntu 20.04
-tools/compat/try-desktop.sh 22.04 [vizmini2_1.1.0_amd64.deb]       # run the app (or install the .deb) on another Ubuntu
+tools/compat/try-desktop.sh 22.04 [vizmini2_1.0.0_amd64.deb]       # run the app (or install the .deb) on another Ubuntu
 ```
 
 The desktop app's own native libraries (Fast DDS, Filament, an X11 helper) are built inside Ubuntu 20.04 so they run

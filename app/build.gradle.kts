@@ -55,8 +55,8 @@ android {
         minSdk = 26
         targetSdk = 36
         // Still without version 1.0: 0.MINOR.PATCH (see assets/CHANGELOG.md).
-        versionCode = 23
-        versionName = "1.1.0"
+        versionCode = 22
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "com.juancams.rviz2mini.TestRunner"
 

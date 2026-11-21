@@ -3,29 +3,11 @@
 All notable changes to VizMini2 are documented here.
 The format follows Keep a Changelog, and the project uses semantic versioning.
 
-## [1.1.0] - 2026-11-21
-
-### Added
-- **VizMini2 for Windows:** the same app as on Linux, on Windows 10 and 11 (64-bit). Install the `.msi` (for your user, no administrator needed: it asks where, and adds a shortcut on the desktop and in the Start menu) or unzip the `.zip`. The same tabs, the demo robot, the 3D view, bags, alerts, and H.264/H.265 video and recording the window with ffmpeg (`winget install ffmpeg`). Uninstalling it from Settings › Apps keeps your settings, bags and videos.
-- On the PC, a notification when a window recording is saved; on Windows, clicking it shows the video in Explorer.
-
-### Changed
-- 3D view: TF frame names that would cover each other, such as those of a small robot seen from afar, are stacked one above the other so they can all be read.
-- Buttons: a long list in a result shows its first values and how many there are (`[0, 1, 1, 2, 3, 5, …] (11)`) instead of just `[11]`.
-- The teleop control presets, and the buttons of the PC's RViz panel, are now translated.
-- PC: when the tabs do not fit in the sidebar their rows get shorter, and with many tabs a scrollbar shows there are more.
-- PC: the open and save dialogs are the system's current ones on Windows, list only the right kind of files, and add the extension if you write a name without one.
-- PC: clicking anywhere in the Drive tab gives it back the keyboard (WASD and the arrows).
-
-### Fixed
-- PC: recording the window without ffmpeg did nothing; now it says how to install it, and so does the demo card.
-- PC: while recording a bag its counters did not move, and while playing one its position stayed at the start.
-- PC: `vizmini2 --demo --shot` left demo mode on for the next normal start.
-
 ## [1.0.0] - 2026-11-12
 
 ### Added
-- **VizMini2 for the PC (Linux):** the same tabs as on the phone, in a window. Install the `.deb` on Ubuntu 20.04 or newer, or build it as a ROS 2 package and start it with `ros2 run vizmini2 vizmini2` (the first time it takes the domain and the peers from the terminal). It has the demo robot too (Configuration › Start demo, or `vizmini2 --demo`), on that computer only.
+- **VizMini2 for the PC (Linux and Windows):** the same tabs as on the phone, in a window. On Linux, install the `.deb` on Ubuntu 20.04 or newer, or build it as a ROS 2 package and start it with `ros2 run vizmini2 vizmini2` (the first time it takes the domain and the peers from the terminal). It has the demo robot too (Configuration › Start demo, or `vizmini2 --demo`), on that computer only.
+- **On Windows 10 and 11** (64-bit): install the `.msi` (for your user, no administrator needed: it asks where, and adds a shortcut on the desktop and in the Start menu) or unzip the `.zip`. Uninstalling it from Settings › Apps keeps your settings, bags and videos. H.264/H.265 video and recording the window use ffmpeg (`winget install ffmpeg`; without it, the app says how to get it), the open and save dialogs are Windows' own, and a notification says when a video is saved (click it to see the video in Explorer).
 - **MoveIt tab:** plan and move a robot arm with `move_group`: planning groups and named poses, a slider per joint, moving the gripper in X, Y, Z and around its axes, straight lines, the planner and the planning time, and obstacles. Works with the MoveIt of Humble, Jazzy and newer.
 - **Controllers tab (ros2_control):** the controllers of a controller manager with their state; activate, deactivate, configure, load and unload them; move the joints of trajectory and forward command controllers; and the hardware components with their interfaces. Foxy, Humble, Jazzy and newer.
 - **Maps tab:** save the map on the robot (Nav2's map_saver or SLAM Toolbox) or download it as PGM and YAML, pause SLAM, clear the costmaps, and draw keepout and speed limit zones published as Nav2 costmap filter masks.
@@ -35,7 +17,7 @@ The format follows Keep a Changelog, and the project uses semantic versioning.
 - **Import and export** RViz 2 files, panel layouts (`.json`) and plot layouts (`.xml`), from + and from each tab's menu. Publish panels become buttons, and every tab of a layout comes in as a dashboard of its own.
 - **Plot tab:** series over time, XY, state transitions, spectrum and histogram, with formulas and Lua scripts, from topics, bags, CSV files, UDP, MQTT and ZeroMQ.
 - **Indicators, GPS map, Behavior tree** (Groot2 with the blackboard, recording and breakpoints, and the Nav2 log), **Message** and **Parameters** tabs.
-- **3D view:** Camera, DepthCloud, Effort, Image with annotations, Trajectory (the planned path as a ghost robot) and Planning scene displays, mesh markers, interactive markers, the Select, Measure and Publish point tools, and a MoveIt tool to drag the arm's goal. Image and camera panels can be moved and resized.
+- **3D view:** Camera, DepthCloud, Effort, Image with annotations, Trajectory (the planned path as a ghost robot) and Planning scene displays, mesh markers, interactive markers, the Select, Measure and Publish point tools, and a MoveIt tool to drag the arm's goal. Image and camera panels can be moved and resized. TF frame names that would cover each other, such as those of a small robot seen from afar, are stacked so they can all be read.
 - **NavMap display:** EasyNavigation's NavMap maps (`navmap_ros_interfaces/NavMap`) in the 3D view: navigable surfaces on one or several floors, colored by any of their layers (cost, elevation, occupancy…), with the links between floors (stairs, elevators, doors) and live layer updates. RViz files with its plugin are imported and exported.
 - **Fixed frame written by hand:** in the RViz tab, type any frame, even one that is not in TF yet, to leave a view ready; the automatic one is used until it appears.
 - **Robots on rmw_zenoh_cpp** (Zenoh router in Config › Network), and services, actions, parameters and lifecycle of nodes on rmw_cyclonedds_cpp.
@@ -50,6 +32,8 @@ The format follows Keep a Changelog, and the project uses semantic versioning.
 ### Changed
 - VizMini2 is free software under the GNU GPL version 3.
 - The app targets Android 16 (API 36).
+- Buttons: a long list in a result shows its first values and how many there are (`[0, 1, 1, 2, 3, 5, …] (11)`) instead of just `[11]`.
+- The teleop control presets are translated.
 
 ### Fixed
 - Crashes at startup on Android 12 and 13, on Android 8 and 9, and when turning the phone to landscape in RViz or Camera.

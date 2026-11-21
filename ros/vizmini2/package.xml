@@ -4,7 +4,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>vizmini2</name>
-  <version>1.1.0</version>
+  <version>1.0.0</version>
   <description>VizMini2 for the desktop: 3D view, topics, teleop, parameters, lifecycle and more for ROS 2, the same app as on Android. Start it with `ros2 run vizmini2 vizmini2`.</description>
   <maintainer email="jc.manzanares.serrano@gmail.com">Juan Carlos Manzanares Serrano</maintainer>
   <author email="jc.manzanares.serrano@gmail.com">Juan Carlos Manzanares Serrano</author>

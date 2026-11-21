@@ -21,7 +21,7 @@ en la red (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 
   .. code-block:: bash
 
-     sudo apt install ./vizmini2_1.1.0_amd64.deb
+     sudo apt install ./vizmini2_1.0.0_amd64.deb
 
   Luego abre *VizMini2* desde el menú de aplicaciones, o ejecuta ``/opt/vizmini2/bin/vizmini2``.
   Para actualizar, instala el ``.deb`` nuevo igual; ``sudo apt remove vizmini2`` la desinstala (tus

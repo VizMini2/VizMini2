@@ -21,7 +21,7 @@ works (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 
   .. code-block:: bash
 
-     sudo apt install ./vizmini2_1.1.0_amd64.deb
+     sudo apt install ./vizmini2_1.0.0_amd64.deb
 
   Then open *VizMini2* from the applications menu, or run ``/opt/vizmini2/bin/vizmini2``. Upgrade
   by installing the new ``.deb`` the same way; ``sudo apt remove vizmini2`` removes it (your
