@@ -50,10 +50,25 @@ object Platform {
         else -> System.getProperty("user.home") + "/.config/vizmini2"
     })
 
-    /** Desktop data folder (bags, recordings of the instant replay...): ~/.local/share/vizmini2, %LOCALAPPDATA%\VizMini2. */
+    private val localAppData: String get() = System.getenv("LOCALAPPDATA") ?: (System.getProperty("user.home") + "\\AppData\\Local")
+
+    /**
+     * Desktop data folder (bags, recordings of the instant replay...): ~/.local/share/vizmini2, %LOCALAPPDATA%\VizMini2 Data.
+     * Not %LOCALAPPDATA%\VizMini2: the .msi installs the app in %LOCALAPPDATA%\vizmini2 (the same folder for Windows), and
+     * uninstalling deletes it with everything in it.
+     */
     val dataDir: File get() = when {
-        windows -> File((System.getenv("LOCALAPPDATA") ?: (System.getProperty("user.home") + "\\AppData\\Local")) + "\\VizMini2")
+        windows -> File("$localAppData\\VizMini2 Data")
         else -> File(System.getProperty("user.home") ?: ".", ".local/share/vizmini2")
+    }
+
+    /**
+     * Desktop cache (3D materials, the extracted native libraries, map tiles): $XDG_CACHE_HOME/vizmini2 or ~/.cache/vizmini2,
+     * %LOCALAPPDATA%\VizMini2 Data\Cache. Anything in it can be deleted.
+     */
+    val cacheDir: File get() = when {
+        windows -> File(dataDir, "Cache")
+        else -> File(System.getenv("XDG_CACHE_HOME")?.takeIf { it.isNotBlank() } ?: (System.getProperty("user.home") + "/.cache"), "vizmini2")
     }
 
     /** Platform, for the help text and reports ("android", "linux", "windows", "macos"). */

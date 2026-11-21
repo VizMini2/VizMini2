@@ -38,7 +38,7 @@ object FilamentHub {
     private var releaseToken = 0
 
     /** Where compiled materials and their fingerprint are stored (changes when another version is installed). Set by each platform. */
-    @Volatile var materialsDir: () -> File = { File(System.getProperty("user.home") ?: ".", ".cache/vizmini2/filamat") }
+    @Volatile var materialsDir: () -> File = { File(com.juancams.rviz2mini.platform.Platform.cacheDir, "filamat") }
     @Volatile var fingerprint: () -> String = { "dev" }
     /** What to compile the materials for: mobile (OpenGL ES and Vulkan) or desktop (OpenGL). */
     @Volatile var materialPlatform: MaterialBuilder.Platform = MaterialBuilder.Platform.DESKTOP

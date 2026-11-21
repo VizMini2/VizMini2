@@ -159,6 +159,15 @@ Dónde guarda las cosas
 
 Borrar *~/.config/vizmini2* empieza de cero.
 
+En Windows:
+
+* Ajustes, pestañas y perfiles: *%APPDATA%\\VizMini2*
+* Bags: *%LOCALAPPDATA%\\VizMini2 Data\\bags*
+* Caché (vista 3D y teselas del mapa GPS): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
+* Vídeos de la pantalla: *Vídeos\\VizMini2*
+
+Desinstalar VizMini2 no borra ninguna de estas carpetas.
+
 Línea de comandos
 -----------------
 

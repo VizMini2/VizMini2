@@ -152,6 +152,15 @@ Where it keeps things
 
 Removing *~/.config/vizmini2* starts from scratch.
 
+On Windows:
+
+* Settings, tabs and profiles: *%APPDATA%\\VizMini2*
+* Bags: *%LOCALAPPDATA%\\VizMini2 Data\\bags*
+* Cache (3D view and GPS map tiles): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
+* Screen videos: *Videos\\VizMini2*
+
+Uninstalling VizMini2 does not delete any of these folders.
+
 Command line
 ------------
 

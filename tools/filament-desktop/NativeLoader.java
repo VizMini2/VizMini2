@@ -10,7 +10,8 @@ import java.nio.file.StandardCopyOption;
 
 /**
  * Loads Filament's native libraries on the PC (VizMini2): from the -Dfilament.natives.dir folder if given, or
- * by extracting them from this jar's natives/&lt;platform&gt;/ (linux-x86_64, windows-x86_64) to ~/.cache/vizmini2/natives.
+ * by extracting them from this jar's natives/&lt;platform&gt;/ (linux-x86_64, windows-x86_64) to the natives folder of the
+ * -Dvizmini2.cache.dir cache (the app sets it: %LOCALAPPDATA%\VizMini2 Data\Cache on Windows), or ~/.cache/vizmini2/natives.
  * That way java.library.path is not needed.
  */
 public final class NativeLoader {
@@ -35,7 +36,9 @@ public final class NativeLoader {
         try (InputStream in = NativeLoader.class.getResourceAsStream(res)) {
             if (in == null) { System.loadLibrary(name); return; }
             byte[] bytes = in.readAllBytes();
-            File out = new File(System.getProperty("user.home"), ".cache/vizmini2/natives/" + Integer.toHexString(java.util.Arrays.hashCode(bytes)) + "/" + file);
+            String cache = System.getProperty("vizmini2.cache.dir");
+            File base = cache != null ? new File(cache, "natives") : new File(System.getProperty("user.home"), ".cache/vizmini2/natives");
+            File out = new File(base, Integer.toHexString(java.util.Arrays.hashCode(bytes)) + "/" + file);
             if (!out.isFile() || out.length() != bytes.length) {
                 out.getParentFile().mkdirs();
                 File tmp = new File(out.getPath() + ".tmp");

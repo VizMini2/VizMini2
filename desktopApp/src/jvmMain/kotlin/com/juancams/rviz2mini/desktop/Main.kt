@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.rememberWindowState
 
 fun main(args: Array<String>) {
+    // Where Filament's NativeLoader extracts its libraries (tools/filament-desktop/NativeLoader.java).
+    if (System.getProperty("vizmini2.cache.dir") == null) System.setProperty("vizmini2.cache.dir", com.juancams.rviz2mini.platform.Platform.cacheDir.path)
     DesktopPlatform.install()
     com.juancams.rviz2mini.ui.common.PlaybackBars.shownByWindow = true
     DesktopRviz.install()
@@ -41,6 +43,8 @@ fun main(args: Array<String>) {
     args.indexOf("--shot").takeIf { it >= 0 }?.let { i ->
         RosConnection.start()
         args.indexOf("--domain").takeIf { it >= 0 }?.let { d -> RosConnection.applyConfig(RosConnection.config.copy(domainId = args[d + 1].toInt())) }
+        // A capture with --demo leaves demo mode as it was (otherwise the next normal start would be in the demo).
+        val demoBefore = DesktopDemo.active
         startDemo(args)
         importAtStart(args)
         val tab = args.indexOf("--tab").takeIf { it >= 0 }?.let { args[it + 1] } ?: importedTab
@@ -52,7 +56,7 @@ fun main(args: Array<String>) {
         // --size 800x600: capture size (default 1200x800).
         val (w, h) = args.indexOf("--size").takeIf { it >= 0 }?.let { args[it + 1].split('x').map(String::toInt) } ?: listOf(1200, 800)
         shot(java.io.File(args[i + 1]), width = w, height = h, millis = millis, events = events) { DesktopApp(startTab = tab) }
-        DesktopDemo.stopRobot()
+        if (!demoBefore && DesktopDemo.active) DesktopDemo.exit() else DesktopDemo.stopRobot()
         RosConnection.stop()
         kotlin.system.exitProcess(0)
     }

@@ -98,7 +98,9 @@ compose.desktop {
                 menuGroup = "VizMini2"
                 shortcut = true
                 dirChooser = true
-                // Installed for the current user: no administrator needed.
+                // Installed for the current user: no administrator needed. In %LOCALAPPDATA%\vizmini2, which uninstalling
+                // deletes with everything in it: the data goes elsewhere (Platform.dataDir). A deeper folder such as
+                // Programs\VizMini2 is not possible: WiX rejects it for per-user installs (ICE64).
                 perUserInstall = true
                 // Never change it: it is how Windows knows that a newer .msi updates the installed VizMini2.
                 upgradeUuid = "1d5d6a3e-8aca-4b55-b051-cd0773d589b9"
