@@ -20,6 +20,10 @@ import androidx.compose.ui.window.rememberWindowState
 fun main(args: Array<String>) {
     // Where Filament's NativeLoader extracts its libraries (tools/filament-desktop/NativeLoader.java).
     if (System.getProperty("vizmini2.cache.dir") == null) System.setProperty("vizmini2.cache.dir", com.juancams.rviz2mini.platform.Platform.cacheDir.path)
+    // jros2 takes its settings from the app's jros2.properties (so there is no ~/.ihmc). That file says no intraprocess
+    // delivery, as jros2 does by default, except on GitHub Actions, where jros2 turns it on: the same there.
+    if (System.getenv("GITHUB_ACTIONS") != null && System.getProperty("fastdds.intraprocess.delivery") == null)
+        System.setProperty("fastdds.intraprocess.delivery", "true")
     DesktopPlatform.install()
     com.juancams.rviz2mini.ui.common.PlaybackBars.shownByWindow = true
     DesktopRviz.install()
