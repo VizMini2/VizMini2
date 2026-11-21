@@ -124,7 +124,12 @@ fun DesktopApp(startTab: String? = null) {
                     // In demo mode, always in sight how to leave it.
                     if (DesktopDemo.active) SideItem(Icons.Default.SmartToy, tr("home_demo_exit"), false, collapsed, onClick = { reload(DesktopDemo.exit()) })
                     HorizontalDivider(Modifier.padding(vertical = 6.dp))
-                    Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+                    // Shorter rows when the tabs do not fit (down to 30 dp), so that a dozen of them show whole in a
+                    // small window; with more, a scrollbar says there are more instead of a row cut at the bottom.
+                    val rowHeight = (maxHeight / tabs.size.coerceAtLeast(1) - 2.dp).coerceIn(30.dp, 40.dp)
+                    val tabsScroll = rememberScrollState()
+                    Column(Modifier.fillMaxSize().verticalScroll(tabsScroll), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         for (t in tabs) androidx.compose.foundation.ContextMenuArea(items = {
                             // Right click, as the phone's long press: rename, duplicate, delete, and export the tab for
                             // VizMini2 or for another tool (RViz, Foxglove, PlotJuggler).
@@ -142,8 +147,11 @@ fun DesktopApp(startTab: String? = null) {
                             }
                         }) {
                             SideItem(tabIcon(t.type), t.name, selected == t.id, collapsed, onClick = { selected = t.id },
-                                onClose = { deleting = t })
+                                onClose = { deleting = t }, height = rowHeight)
                         }
+                    }
+                    if (tabsScroll.maxValue > 0) androidx.compose.foundation.VerticalScrollbar(
+                        androidx.compose.foundation.rememberScrollbarAdapter(tabsScroll), Modifier.align(Alignment.CenterEnd).fillMaxHeight())
                     }
                     SideItem(Icons.Default.Add, tr("lifecycle_add"), false, collapsed, onClick = { adding = true })
                     RecordItem(collapsed)
@@ -235,10 +243,10 @@ fun DesktopApp(startTab: String? = null) {
 /** A sidebar row: icon and name (only the icon when collapsed, with the name as tooltip). */
 @Composable
 private fun SideItem(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, selected: Boolean, collapsed: Boolean,
-                     onClick: () -> Unit, onClose: (() -> Unit)? = null) {
+                     onClick: () -> Unit, onClose: (() -> Unit)? = null, height: androidx.compose.ui.unit.Dp = 40.dp) {
     val bg = if (selected) MaterialTheme.colorScheme.secondaryContainer else androidx.compose.ui.graphics.Color.Transparent
     val row = @Composable {
-        Row(Modifier.fillMaxWidth().height(40.dp).clip(RoundedCornerShape(20.dp)).background(bg).clickable(onClick = onClick).padding(start = 12.dp, end = 4.dp),
+        Row(Modifier.fillMaxWidth().height(height).clip(RoundedCornerShape(20.dp)).background(bg).clickable(onClick = onClick).padding(start = 12.dp, end = 4.dp),
             verticalAlignment = Alignment.CenterVertically) {
             Icon(icon, if (collapsed) label else null, Modifier.size(20.dp))
             if (!collapsed) {
