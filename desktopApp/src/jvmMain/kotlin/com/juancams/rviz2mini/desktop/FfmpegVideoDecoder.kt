@@ -130,10 +130,24 @@ class FfmpegVideoDecoder private constructor(
         private fun le32(b: ByteArray, o: Int) =
             (b[o].toInt() and 0xFF) or ((b[o + 1].toInt() and 0xFF) shl 8) or ((b[o + 2].toInt() and 0xFF) shl 16) or ((b[o + 3].toInt() and 0xFF) shl 24)
 
-        /** The ffmpeg to use: $VIZMINI2_FFMPEG or the first one in the PATH (null if there is none). */
+        /**
+         * The ffmpeg to use: $VIZMINI2_FFMPEG, the first one in the PATH, or on Windows where winget and the usual
+         * installs leave it (the PATH of an app started before installing ffmpeg does not have it yet). Null if none.
+         */
         fun find(): String? {
             System.getenv("VIZMINI2_FFMPEG")?.takeIf { File(it).canExecute() }?.let { return it }
-            return System.getenv("PATH").orEmpty().split(File.pathSeparator).map { File(it, "ffmpeg") }.firstOrNull { it.canExecute() }?.absolutePath
+            val windows = File.separatorChar == '\\'
+            val exe = if (windows) "ffmpeg.exe" else "ffmpeg"
+            System.getenv("PATH").orEmpty().split(File.pathSeparator).map { File(it, exe) }.firstOrNull { it.canExecute() }?.let { return it.absolutePath }
+            return if (windows) windowsInstalls().firstOrNull { it.canExecute() }?.absolutePath else null
+        }
+
+        private fun windowsInstalls(): List<File> {
+            val local = System.getenv("LOCALAPPDATA").orEmpty()
+            val winget = File(local, "Microsoft\\WinGet\\Packages").listFiles { f -> f.name.startsWith("Gyan.FFmpeg") || f.name.startsWith("BtbN.FFmpeg") }
+                .orEmpty().flatMap { pkg -> pkg.listFiles().orEmpty().map { File(it, "bin\\ffmpeg.exe") } }
+            return listOf(File(local, "Microsoft\\WinGet\\Links\\ffmpeg.exe")) + winget +
+                listOfNotNull(System.getenv("ProgramFiles"), "C:").map { File(it, "ffmpeg\\bin\\ffmpeg.exe") }
         }
 
         private val versions = java.util.concurrent.ConcurrentHashMap<String, IntArray>()

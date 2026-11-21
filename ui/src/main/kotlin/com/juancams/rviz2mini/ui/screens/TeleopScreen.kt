@@ -159,6 +159,16 @@ fun TeleopScreen(
     val gap = if (compact) 6.dp else 10.dp
     Column(
         modifier.fillMaxSize().padding(if (compact) 8.dp else 16.dp).focusRequester(focus).focusable()
+            // Any click in the tab (the joystick too) gives it the keyboard back: after clicking the sidebar or a
+            // dialog the focus is elsewhere and WASD and the arrows would not reach it. Nothing is consumed.
+            .pointerInput(Unit) {
+                awaitPointerEventScope {
+                    while (true) {
+                        val e = awaitPointerEvent(androidx.compose.ui.input.pointer.PointerEventPass.Initial)
+                        if (e.type == androidx.compose.ui.input.pointer.PointerEventType.Press) runCatching { focus.requestFocus() }
+                    }
+                }
+            }
             .onKeyEvent { e ->
                 val k = e.key
                 if (k == Key.Spacebar) {
@@ -229,6 +239,19 @@ fun TeleopScreen(
 }
 
 private val TOPIC_REGEX = Regex("^/?[A-Za-z_~][A-Za-z0-9_/~]*$")
+
+/** A control preset as shown in the settings. */
+private fun presetLabel(p: TeleopPreset) = tr(when (p) {
+    TeleopPreset.DIFFERENTIAL -> "teleop_preset_differential"
+    TeleopPreset.HOLONOMIC -> "teleop_preset_holonomic"
+    TeleopPreset.DUAL_DIFFERENTIAL -> "teleop_preset_dual_differential"
+    TeleopPreset.DUAL_HOLONOMIC -> "teleop_preset_dual_holonomic"
+    TeleopPreset.DRONE_MODE2 -> "teleop_preset_drone_mode2"
+    TeleopPreset.CUSTOM -> "teleop_preset_custom"
+})
+
+/** An axis' target as shown: "None" translated, the Twist fields (linear.x...) as they are. */
+private fun targetLabel(t: AxisTarget) = if (t == AxisTarget.NONE) tr("teleop_axis_none") else t.label
 
 private val DRIVE_KEYS = setOf(Key.W, Key.A, Key.S, Key.D, Key.DirectionUp, Key.DirectionDown, Key.DirectionLeft, Key.DirectionRight)
 
@@ -334,7 +357,7 @@ private fun TeleopSettingsDialog(current: TeleopSettings, onDismiss: () -> Unit,
                 for (p in TeleopPreset.forMode(current.dual)) Row(
                     Modifier.fillMaxWidth().selectable(selected = preset == p, onClick = { preset = p }),
                     verticalAlignment = Alignment.CenterVertically,
-                ) { RadioButton(preset == p, { preset = p }); Text(p.label) }
+                ) { RadioButton(preset == p, { preset = p }); Text(presetLabel(p)) }
                 if (preset == TeleopPreset.CUSTOM) {
                     val axes = if (current.dual) StickAxis.entries else listOf(StickAxis.LX, StickAxis.LY)
                     for (axis in axes) AxisRow(axis, current.dual, custom.getValue(axis)) { custom[axis] = it }
@@ -365,9 +388,9 @@ private fun AxisRow(axis: StickAxis, dual: Boolean, value: AxisAssignment, onCha
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(name, modifier = Modifier.weight(1f))
         Box {
-            OutlinedButton(onClick = { open = true }) { Text(value.target.label) }
+            OutlinedButton(onClick = { open = true }) { Text(targetLabel(value.target)) }
             DropdownMenu(open, { open = false }) {
-                for (t in AxisTarget.entries) DropdownMenuItem(text = { Text(t.label) }, onClick = { open = false; onChange(value.copy(target = t)) })
+                for (t in AxisTarget.entries) DropdownMenuItem(text = { Text(targetLabel(t)) }, onClick = { open = false; onChange(value.copy(target = t)) })
             }
         }
         Checkbox(value.inverted, { onChange(value.copy(inverted = it)) }); Text(tr("teleop_invert"))

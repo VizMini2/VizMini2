@@ -19,6 +19,9 @@ PC
 * Recomendado: ``ffmpeg`` (``sudo apt install ffmpeg``) para los topics de vídeo H.264/H.265 y para
   grabar la ventana, y ``notify-send`` (paquete ``libnotify-bin``, ya incluido en casi todos los
   escritorios) para las notificaciones de las alertas.
+* O **Windows 10 u 11**, 64 bits, instalada desde el ``.msi`` para tu usuario (sin administrador) o
+  descomprimida del ``.zip``. También ahí se recomienda ``ffmpeg`` (``winget install ffmpeg``).
+  Mira :doc:`../getting-started/desktop`.
 
 Robot
 -----

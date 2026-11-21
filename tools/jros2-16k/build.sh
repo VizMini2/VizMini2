@@ -16,15 +16,16 @@ set -euo pipefail
 # plus our own changes:
 # - fab8158: 16 KB patch in scripts/cppbuild.bash, the ROS graph (endpoints, names and IPs of the
 #   participants), sample identities to match service responses, unicast peers and the
-#   Discovery Server. The new native functions are in the fastddsjavaGraph class, which lives in the app.
-# - Java classes without APIs that Android lacks at minSdk (FloatBuffer.put(int, FloatBuffer, int, int) is from
-#   API 35: without the patch LaserScan, PointCloud2 and maps did not arrive on Android 8-14). Not yet pushed to
-#   develop: until then JROS2_COMMIT=fab8158 does not pass the final API check.
+#   Discovery Server. The new native functions are in the fastddsjavaGraph class, which lives in the app (core).
+# - 73445bb: Java classes without APIs that Android lacks at minSdk (FloatBuffer.put(int, FloatBuffer, int, int) is
+#   from API 35: without the patch LaserScan, PointCloud2 and maps did not arrive on Android 8-14).
+# - 6e2df4a: service replies with their request's related sample identity, whether a writer is matched with a reader,
+#   and a reader's GUID.
 # The .so files are built here from source; the Java classes the fork changes are compiled against Android and
 # replace the ones in the official AAR.
 # JROS2_REPO and JROS2_COMMIT can be changed (e.g. a local copy of the fork and a commit not yet pushed).
 JROS2_REPO="${JROS2_REPO:-https://github.com/VizMini2/jros2}"
-JROS2_COMMIT="${JROS2_COMMIT:-73445bb71d732446b73f57205493d68adeade02c}"
+JROS2_COMMIT="${JROS2_COMMIT:-6e2df4ad1452865210b96dea2aeb6dd0ec2fe5d5}"
 UPSTREAM_COMMIT=0c41e6f
 MIN_SDK=26
 VERSION=1.5.1
@@ -32,7 +33,8 @@ OUT_VERSION=1.5.1-16k-graph
 ABIS=("${@:-arm64-v8a armeabi-v7a x86_64}")
 HERE="$(cd "$(dirname "$0")" && pwd)"
 WORK="${WORK:-$HERE/work}"
-GRAPH_JAVA="$HERE/../../app/src/main/java/us/ihmc/fastddsjava/natives/fastddsjavaGraph.java"
+GRAPH_JAVA="$HERE/../../core/src/jvmMain/java/us/ihmc/fastddsjava/natives/fastddsjavaGraph.java"
+[ -f "$GRAPH_JAVA" ] || { echo "Missing $GRAPH_JAVA"; exit 1; }
 : "${ANDROID_NDK:?Define ANDROID_NDK (NDK r28+)}"
 SDK="${ANDROID_HOME:-$(cd "$ANDROID_NDK/../.." && pwd)}"
 PLATFORM="$(ls -d "$SDK"/platforms/android-* 2> /dev/null | sort -V | tail -1)"

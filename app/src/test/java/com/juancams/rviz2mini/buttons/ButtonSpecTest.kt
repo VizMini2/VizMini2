@@ -56,6 +56,9 @@ class ButtonSpecTest {
         assertEquals("success: true · message: hecho", ButtonRunner.summary(spec, v))
         val fib = registry.action("example_interfaces/action/Fibonacci").result
         assertEquals("sequence: [0, 1, 1, 2]", ButtonRunner.summary(fib, MsgValue().apply { put("sequence", listOf(0L, 1L, 1L, 2L)) }))
+        // Fibonacci 10: the first values and how many, not just "[11]".
+        val eleven = listOf(0L, 1L, 1L, 2L, 3L, 5L, 8L, 13L, 21L, 34L, 55L)
+        assertEquals("sequence: [0, 1, 1, 2, 3, 5, …] (11)", ButtonRunner.summary(fib, MsgValue().apply { put("sequence", eleven) }))
     }
 
     @Test

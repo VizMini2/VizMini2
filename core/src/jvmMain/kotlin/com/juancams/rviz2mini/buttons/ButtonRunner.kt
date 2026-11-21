@@ -297,7 +297,10 @@ class ButtonRunner(
                 val x = v[f.name]
                 parts.add(f.name + ": " + when {
                     f.isArray -> (x as? List<*>).orEmpty().let { l ->
-                        if (f.prim != null && l.size <= 6) l.joinToString(", ", "[", "]") { DynCodec.scalarText(f.prim!!, it) } else "[${l.size}]"
+                        // Long lists: the first values and how many there are ("[0, 1, 1, 2, 3, 5, …] (11)"), not just "[11]".
+                        if (f.prim == null) "[${l.size} × {…}]"
+                        else if (l.size <= 6) l.joinToString(", ", "[", "]") { DynCodec.scalarText(f.prim!!, it) }
+                        else l.take(6).joinToString(", ", "[", ", …] (${l.size})") { DynCodec.scalarText(f.prim!!, it) }
                     }
                     f.nested != null -> "{…}"
                     else -> DynCodec.scalarText(f.prim ?: Prim.STRING, x)

@@ -1,8 +1,9 @@
 Installation
 ============
 
-VizMini2 runs on **Android phones and tablets** (Android 8.0 or newer) and on **Linux PCs**
-(Ubuntu 20.04 or newer). This page is about the phone; for the PC see :doc:`desktop`.
+VizMini2 runs on **Android phones and tablets** (Android 8.0 or newer) and on **PCs** with Linux
+(Ubuntu 20.04 or newer) or Windows (10 or 11). This page is about the phone; for the PC see
+:doc:`desktop`.
 
 On the phone
 ------------

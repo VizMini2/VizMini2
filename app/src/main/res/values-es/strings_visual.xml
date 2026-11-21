@@ -216,6 +216,13 @@
     <string name="teleop_max_linear">Velocidad lineal máx.: %1$.2f m/s</string>
     <string name="teleop_max_angular">Velocidad angular máx.: %1$.1f rad/s</string>
     <string name="teleop_control">Control</string>
+    <string name="teleop_preset_differential">Diferencial (avanzar + girar)</string>
+    <string name="teleop_preset_holonomic">Holonómico (avanzar + lateral)</string>
+    <string name="teleop_preset_dual_differential">Dos joysticks: avanzar / girar</string>
+    <string name="teleop_preset_dual_holonomic">Dos joysticks: holonómico + giro</string>
+    <string name="teleop_preset_drone_mode2">Dos joysticks: dron (modo 2)</string>
+    <string name="teleop_preset_custom">Personalizado</string>
+    <string name="teleop_axis_none">Ninguno</string>
     <string name="teleop_axis_left_horizontal">Izquierdo ↔</string>
     <string name="teleop_axis_left_vertical">Izquierdo ↕</string>
     <string name="teleop_axis_joystick_horizontal">Joystick ↔</string>

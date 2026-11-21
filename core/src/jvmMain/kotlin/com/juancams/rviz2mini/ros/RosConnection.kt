@@ -102,6 +102,12 @@ object RosConnection {
             set
         fun cancel() = unsubscribe(this)
 
+        /** The GUID (16 bytes) of this subscription's DDS reader; false if there is none (or no natives for it). */
+        fun readerGuid(out: ByteArray): Boolean {
+            val sub = subscription ?: return false
+            return try { GraphAccess.readerGuid(sub, out) } catch (e: Throwable) { false }
+        }
+
         /** Waits (blocking) until there is a matched publisher. False if there is no connection. */
         fun waitForPublisher(timeoutMs: Long): Boolean = try {
             subscription?.waitForPublisher(timeoutMs) ?: false
@@ -148,20 +154,34 @@ object RosConnection {
 
         /**
          * Like [publish] and additionally copies into `identityOut` (24 bytes) the DDS identity of the written
-         * sample: a service client needs it to recognize its response.
+         * sample: a service client needs it to recognize its response. `related`: the sample's
+         * related_sample_identity (24 bytes): a service reply carries its request's identity; a request, the GUID of
+         * the client's reply reader (as rmw_fastrtps does). False if it could not be written.
          */
         @Synchronized
-        fun publishWithIdentity(msg: T, identityOut: ByteArray): Boolean {
+        fun publishWithIdentity(msg: T, identityOut: ByteArray, related: ByteArray? = null): Boolean {
             val p = publisher ?: return false
             return try {
                 synchronized(p) {
-                    p.publish(msg)
+                    if (related != null) GraphAccess.setNextRelatedSampleIdentity(p, related)
+                    try {
+                        p.publish(msg)
+                    } finally {
+                        // If the write threw, the next sample must not take it.
+                        if (related != null) GraphAccess.setNextRelatedSampleIdentity(p, null)
+                    }
                     GraphAccess.lastSampleIdentity(p, identityOut)
                 }
             } catch (e: Throwable) {
                 Log.w(TAG, "Error publicando en $topicName: ${e.message}")
                 false
             }
+        }
+
+        /** Whether this publisher is matched with the reader with that GUID (16 bytes); true if it cannot be known. */
+        fun isMatchedWith(readerGuid: ByteArray): Boolean {
+            val p = publisher ?: return false
+            return try { GraphAccess.isMatchedWith(p, readerGuid) } catch (e: Throwable) { true }
         }
 
         /** Number of subscribers matched right now (0 if there is no connection). */

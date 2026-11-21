@@ -30,6 +30,8 @@ object DesktopRecorder {
     var startedMs by mutableLongStateOf(0L); private set
     /** The last file saved (or the reason it could not be). */
     var last by mutableStateOf<String?>(null); private set
+    /** Why recording from the window (sidebar or Ctrl+Shift+R) could not start or finish; the window shows it, then clears it. */
+    var notice by mutableStateOf<String?>(null)
 
     private var proc: Process? = null
     private var thread: Thread? = null
@@ -52,7 +54,10 @@ object DesktopRecorder {
         return File(xdg ?: "$home/Videos", "VizMini2")
     }
 
-    fun toggle() = if (recording) stop() else start()
+    fun toggle() {
+        if (recording) { if (stop() == null) notice = last }
+        else if (!start()) notice = last ?: tr("record_failed", "?")
+    }
 
     /** Starts recording to `to` (default: a new file in [folder]); false and the reason in [last] if it cannot. */
     @Synchronized fun start(to: File? = null): Boolean {

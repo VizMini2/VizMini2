@@ -86,7 +86,9 @@ class TextAtlas(engine: Engine) {
  * A text to draw, anchored at (x, y, z) in the fixed frame. `height` in meters, or in screen
  * pixels if `screenPx` (constant size when zooming in/out, better for TF names on a phone).
  */
-data class TextItem(val text: String, val x: Float, val y: Float, val z: Float, val color: Int, val height: Float, val screenPx: Boolean = false)
+data class TextItem(val text: String, val x: Float, val y: Float, val z: Float, val color: Int, val height: Float, val screenPx: Boolean = false,
+    /** How much higher than usual it is drawn (same units as `height`): to keep it off another label's place. */
+    val lift: Float = 0f)
 
 /**
  * All the scene's texts in a single mesh: one quad per glyph, camera-facing in the
@@ -131,7 +133,7 @@ class TextEntity(private val engine: Engine, private val scene: Scene, material:
                 var width = 0f
                 for (c in line) width += atlas.glyph(c).advance * h
                 var cx = -width / 2
-                val y0 = h * 0.4f + (lines.size - 1 - li) * h * 1.15f // slightly above the point
+                val y0 = h * 0.4f + t.lift + (lines.size - 1 - li) * h * 1.15f // slightly above the point
                 for (c in line) {
                     val gl = atlas.glyph(c)
                     val w = gl.aspect * h

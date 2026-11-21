@@ -1,7 +1,7 @@
 La app de PC
 ============
 
-VizMini2 también funciona en un PC con Linux, con las mismas pestañas que el móvil en una ventana
+VizMini2 también funciona en un PC con Linux o Windows, con las mismas pestañas que el móvil en una ventana
 redimensionable: cómoda junto al terminal del robot, en una pantalla grande del laboratorio o con
 ratón y teclado para sesiones largas. Tus pestañas, dashboards y perfiles pasan del móvil al PC y al
 revés (expórtalos, o vincula una :doc:`cuenta <account>`).
@@ -44,6 +44,34 @@ Extras recomendados: ``ffmpeg`` (topics de vídeo H.264/H.265 y grabar la ventan
 .. code-block:: bash
 
    sudo apt install ffmpeg libnotify-bin
+
+En Windows
+~~~~~~~~~~
+
+Funciona en **Windows 10 u 11** (64 bits). Como en Linux, no hace falta ROS 2 en el PC.
+
+* **El .msi** (de las versiones publicadas del proyecto): ábrelo y sigue los pasos. Se instala para
+  tu usuario, sin pedir administrador, en *%LOCALAPPDATA%\\VizMini2* (en el segundo paso puedes
+  elegir otra carpeta), con un acceso directo en el escritorio y una carpeta *VizMini2* en el menú
+  Inicio. El instalador no está firmado, así que Windows puede avisar antes de abrirlo ("Windows
+  protegió su PC" o una advertencia de seguridad): elige *Más información* → *Ejecutar de todas
+  formas*, o *Ejecutar*. Para actualizar, instala el ``.msi`` nuevo igual; se desinstala desde
+  *Configuración* → *Aplicaciones*. Ninguna de las dos cosas toca tus ajustes, bags ni vídeos.
+* **El .zip**: la misma app sin instalarla. Descomprímelo donde quieras y abre *VizMini2.exe*.
+
+La primera vez que se conecta, el Firewall de Windows pregunta si VizMini2 puede usar la red:
+permítelo. Si tu red está marcada como **Pública** en Windows, puede que no aparezcan los robots;
+márcala como **Privada** (*Configuración* → *Red e Internet* → tu red) o usa las IPs del robot o un
+Discovery Server en :doc:`../config/network`.
+
+Extra recomendado: ``ffmpeg``, para los topics de vídeo H.264/H.265 y grabar la ventana:
+
+.. code-block:: powershell
+
+   winget install ffmpeg
+
+Si no tienes ``winget``, descárgalo de `ffmpeg.org <https://ffmpeg.org/download.html>`_ y añade su
+carpeta ``bin`` al ``PATH``. Sin él, la app te lo dice cuando lo necesita.
 
 La ventana
 ----------
@@ -159,6 +187,15 @@ Dónde guarda las cosas
 
 Borrar *~/.config/vizmini2* empieza de cero.
 
+En Windows:
+
+* Ajustes, pestañas y perfiles: *%APPDATA%\\VizMini2*
+* Bags: *%LOCALAPPDATA%\\VizMini2 Data\\bags*
+* Caché (vista 3D y teselas del mapa GPS): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
+* Vídeos de la pantalla: *Vídeos\\VizMini2*
+
+Desinstalar VizMini2 no borra ninguna de estas carpetas.
+
 Línea de comandos
 -----------------
 
@@ -193,5 +230,13 @@ para diagnosticar problemas:
        gráficas, lo abre, e imprime lo que no se ha podido pasar.
    * - ``--showcase``
      - Añade el dashboard *Showcase* (casi todos los widgets; pruébalo con la demo).
+
+En Windows el programa es *VizMini2.exe*. Es un programa de ventanas, así que una terminal no
+muestra lo que imprime: redirígelo a un fichero, por ejemplo en PowerShell:
+
+.. code-block:: powershell
+
+   Start-Process "$env:LOCALAPPDATA\VizMini2\VizMini2.exe" -ArgumentList '--check' `
+       -RedirectStandardOutput check.txt -Wait -NoNewWindow; Get-Content check.txt
 
 Siguiente: :doc:`connect` para ver tu robot, y luego las :doc:`pestañas <../tabs/visualize>`.

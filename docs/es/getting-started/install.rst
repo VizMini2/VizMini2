@@ -1,8 +1,9 @@
 Instalación
 ===========
 
-VizMini2 funciona en **móviles y tablets Android** (Android 8.0 o superior) y en **PCs con Linux**
-(Ubuntu 20.04 o posterior). Esta página trata del móvil; para el PC mira :doc:`desktop`.
+VizMini2 funciona en **móviles y tablets Android** (Android 8.0 o superior) y en **PCs** con Linux
+(Ubuntu 20.04 o posterior) o Windows (10 u 11). Esta página trata del móvil; para el PC mira
+:doc:`desktop`.
 
 En el móvil
 -----------

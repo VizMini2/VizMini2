@@ -2,7 +2,7 @@ VizMini2
 ========
 
 **ROS 2 en tu bolsillo y en tu mesa.** VizMini2 te deja ver, conducir e inspeccionar robots con
-ROS 2 desde un **móvil Android** o un **PC con Linux**: una vista 3D como RViz, cámaras y vídeo en
+ROS 2 desde un **móvil Android** o un **PC con Linux o Windows**: una vista 3D como RViz, cámaras y vídeo en
 directo, joysticks, tus propios botones para servicios y acciones, MoveIt y ros2_control, mapas
 para Nav2, gráficas, alertas, parámetros de nodos, nodos lifecycle, bags y mucho más. Habla
 directamente con tus robots por tu red (DDS), sin puentes ni servidores en el robot (también

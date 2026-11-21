@@ -12,6 +12,7 @@
 [![Middleware](https://img.shields.io/badge/middleware-Fast%20DDS%20%7C%20Cyclone%20DDS%20%7C%20Zenoh-555)](https://vizmini2.github.io/config/network.html)
 [![Android](https://img.shields.io/badge/Android-8.0%2B-3DDC84?logo=android&logoColor=white)](https://vizmini2.github.io/getting-started/install.html)
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%2B-E95420?logo=ubuntu&logoColor=white)](https://vizmini2.github.io/getting-started/desktop.html)
+[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6)](https://vizmini2.github.io/getting-started/desktop.html#on-windows)
 
 ROS 2 visualization and control on Android and on the desktop, from one code base: a 3D view like RViz (TF, robot
 model, maps, laser, point clouds, cameras, markers, interactive markers, Nav2 waypoints, MoveIt planning...),
@@ -21,6 +22,8 @@ and more. It talks DDS directly (Fast DDS through jros2), and also Zenoh and fox
 RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools (`ui/.../interop/ConfigInterop.kt`).
 
 - **Android**: the app on Google Play, or a debug build with `./gradlew installDirectDebug`.
+- **Desktop on Windows (10 or 11)**: the `.msi` (installed for the current user, no administrator) or the `.zip`
+  from the releases, or `./gradlew :desktopApp:packageMsi` on Windows with a JDK 21 that has jpackage.
 - **Desktop (Linux, Ubuntu 20.04 or newer)**: `./gradlew :desktopApp:run`, the `.deb` from
   `./gradlew :desktopApp:packageDeb`, or as a ROS 2 package: `colcon build` in a workspace with `ros/vizmini2`, then
   `ros2 run vizmini2 vizmini2`. `ffmpeg` is used for H.264/H.265 video and for recording the window.
@@ -61,8 +64,9 @@ Lyrical (on each one's Ubuntu), and the device tests on an Android emulator.
 
 `.github/workflows/release.yml` builds every file of a release on each `v*` tag (or by hand from the Actions tab, to
 try it): the signed APKs (one per architecture and the universal one), the `.deb` and a
-`.tar.gz` of the desktop app, the manual and the API reference, all checked (the `.deb` is installed and started on
-Ubuntu 20.04 and 24.04), and leaves them in a **draft** GitHub release with `SHA256SUMS` and the CHANGELOG entry as
+`.tar.gz` of the desktop app, its Windows `.msi` and `.zip`, the manual and the API reference, all checked (the `.deb`
+is installed and started on Ubuntu 20.04 and 24.04, and the `.msi` on Windows), and leaves them in a **draft** GitHub
+release with `SHA256SUMS` and the CHANGELOG entry as
 notes. The Google Play bundle (`.aab`) is only a workflow artifact, to upload by hand; nothing goes to Google Play
 or Firebase. When you publish that release, `.github/workflows/site.yml` builds the
 manual and the API reference from its tag and pushes them to

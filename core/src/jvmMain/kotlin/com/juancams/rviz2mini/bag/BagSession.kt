@@ -14,8 +14,8 @@ object BagSession {
     var recorder: BagRecorder? = null
     var player: BagPlayer? = null
 
-    /** App data folder (Android: the app's external files; PC: ~/.local/share/vizmini2). */
-    @Volatile var baseDir: () -> File = { File(System.getProperty("user.home") ?: ".", ".local/share/vizmini2") }
+    /** App data folder (Android: the app's external files; PC: [com.juancams.rviz2mini.platform.Platform.dataDir]). */
+    @Volatile var baseDir: () -> File = { com.juancams.rviz2mini.platform.Platform.dataDir }
 
     /**
      * Isolated connection to play a bag only on this machine: another domain and only the local

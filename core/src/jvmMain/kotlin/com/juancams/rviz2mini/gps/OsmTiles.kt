@@ -48,7 +48,7 @@ object OsmTiles {
     const val ATTRIBUTION = "© OpenStreetMap contributors"
     private const val MAX_AGE_MS = 7L * 24 * 3600 * 1000
 
-    @Volatile var cacheDir: File = File(System.getProperty("user.home") ?: ".", ".cache/vizmini2/tiles")
+    @Volatile var cacheDir: File = File(com.juancams.rviz2mini.platform.Platform.cacheDir, "tiles")
     @Volatile var userAgent: String = "VizMini2 (ROS 2 viewer)"
 
     private val http by lazy { OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).build() }

@@ -72,6 +72,10 @@ while read -r f; do
 done < "$O/sources.txt" > "$O/sources2.txt"
 echo "$HERE/NativeLoader.java" >> "$O/sources2.txt"
 "$JAVA_HOME/bin/javac" --release 17 -nowarn -cp "$O/stubclasses" -d "$O/classes" @"$O/sources2.txt"
+# The other systems' natives already in the jar (Windows: tools/desktop-natives/add-windows.sh) are kept.
+if [ -f "$HERE/filament-desktop.jar" ]; then
+  ( cd "$O/classes" && unzip -q -n "$HERE/filament-desktop.jar" 'natives/*' -x 'natives/linux-x86_64/*' ) || true
+fi
 "$JAVA_HOME/bin/jar" cf "$HERE/filament-desktop.jar" -C "$O/classes" .
 echo "== listo"
 ls -la "$HERE/filament-desktop.jar"

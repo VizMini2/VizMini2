@@ -2,7 +2,7 @@ VizMini2
 ========
 
 **ROS 2 in your pocket, and on your desk.** VizMini2 lets you see, drive and inspect ROS 2 robots
-from an **Android phone** or a **Linux PC**: a 3D view like RViz, live cameras and video, joysticks,
+from an **Android phone** or a **Linux or Windows PC**: a 3D view like RViz, live cameras and video, joysticks,
 your own buttons for services and actions, MoveIt and ros2_control, maps for Nav2, plots, alerts,
 node parameters, lifecycle nodes, bags and much more. It talks to your robots directly over your
 network (DDS), with no bridge or server on the robot (Zenoh and foxglove_bridge work too).

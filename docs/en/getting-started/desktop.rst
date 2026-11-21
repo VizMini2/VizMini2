@@ -1,7 +1,7 @@
 The PC app
 ==========
 
-VizMini2 also runs on a Linux PC, with the same tabs as the phone in a resizable window: handy next
+VizMini2 also runs on a Linux or Windows PC, with the same tabs as the phone in a resizable window: handy next
 to the robot's own terminal, on a big screen in the lab, or with a mouse and keyboard for long
 sessions. Your tabs, dashboards and profiles move between phone and PC (export them, or link an
 :doc:`account <account>`).
@@ -43,6 +43,34 @@ Recommended extras: ``ffmpeg`` (H.264/H.265 video topics and recording the windo
 .. code-block:: bash
 
    sudo apt install ffmpeg libnotify-bin
+
+On Windows
+~~~~~~~~~~
+
+It runs on **Windows 10 or 11** (64-bit). As on Linux, ROS 2 is not needed on the PC.
+
+* **The .msi** (from the project's releases): open it and follow the steps. It installs for your
+  user, without asking for an administrator, in *%LOCALAPPDATA%\\VizMini2* (the second step lets
+  you pick another folder), with a shortcut on the desktop and a *VizMini2* folder in the Start
+  menu. The installer isn't signed, so Windows may warn before opening it ("Windows protected your
+  PC" or a security warning): choose *More info* → *Run anyway*, or *Run*. To upgrade, install the
+  new ``.msi`` the same way; uninstall it from *Settings* → *Apps*. Neither touches your settings,
+  bags or videos.
+* **The .zip**: the same app without installing it. Unzip it anywhere and run *VizMini2.exe*.
+
+The first time it connects, Windows Firewall asks whether VizMini2 may use the network: allow it.
+If your network is marked as **Public** in Windows, robots on it may not show up; mark it as
+**Private** (*Settings* → *Network & internet* → your network) or use the robot's IPs or a
+Discovery Server in :doc:`../config/network`.
+
+Recommended extra: ``ffmpeg``, for H.264/H.265 video topics and recording the window:
+
+.. code-block:: powershell
+
+   winget install ffmpeg
+
+If ``winget`` isn't available, download it from `ffmpeg.org <https://ffmpeg.org/download.html>`_
+and add its ``bin`` folder to the ``PATH``. Without it, the app says so when it needs it.
 
 The window
 ----------
@@ -152,6 +180,15 @@ Where it keeps things
 
 Removing *~/.config/vizmini2* starts from scratch.
 
+On Windows:
+
+* Settings, tabs and profiles: *%APPDATA%\\VizMini2*
+* Bags: *%LOCALAPPDATA%\\VizMini2 Data\\bags*
+* Cache (3D view and GPS map tiles): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
+* Screen videos: *Videos\\VizMini2*
+
+Uninstalling VizMini2 does not delete any of these folders.
+
 Command line
 ------------
 
@@ -186,5 +223,13 @@ troubleshooting:
        prints what was not carried over.
    * - ``--showcase``
      - Adds the *Showcase* dashboard (almost every widget; try it with the demo).
+
+On Windows the program is *VizMini2.exe*. It is a windowed program, so a terminal doesn't show
+what it prints: redirect it to a file, for example in PowerShell:
+
+.. code-block:: powershell
+
+   Start-Process "$env:LOCALAPPDATA\VizMini2\VizMini2.exe" -ArgumentList '--check' `
+       -RedirectStandardOutput check.txt -Wait -NoNewWindow; Get-Content check.txt
 
 Next: :doc:`connect` to see your robot, then the :doc:`tabs <../tabs/visualize>`.
