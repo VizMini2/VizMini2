@@ -13,6 +13,27 @@ import javax.swing.SwingUtilities
 /** Desktop: the main thread is the AWT/Swing one, which is where Compose for Desktop runs. */
 object DesktopPlatform {
     private val timer = Executors.newSingleThreadScheduledExecutor { r -> Thread(r, "vizmini2-timer").apply { isDaemon = true } }
+    private val windows = System.getProperty("os.name", "").lowercase().startsWith("windows")
+
+    /** The system's open dialog, titled "Import (.rviz)", that only lists files with those extensions. */
+    private fun openDialog(exts: List<String>): java.awt.FileDialog {
+        val title = com.juancams.rviz2mini.i18n.tr("bags_import") + if (exts.isEmpty()) "" else " (" + exts.joinToString(", ") { ".$it" } + ")"
+        val dialog = java.awt.FileDialog(null as java.awt.Frame?, title, java.awt.FileDialog.LOAD)
+        dialog.setFilenameFilter { _, name -> exts.isEmpty() || exts.any { name.endsWith(".$it", ignoreCase = true) } }
+        // Windows ignores the FilenameFilter: there a pattern as the file name is what filters the list.
+        if (windows && exts.isNotEmpty()) dialog.file = exts.joinToString(";") { "*.$it" }
+        return dialog
+    }
+
+    /** The system's save dialog, titled "Save", with the suggested name. */
+    private fun saveDialog(suggested: String) =
+        java.awt.FileDialog(null as java.awt.Frame?, com.juancams.rviz2mini.i18n.tr("common_save"), java.awt.FileDialog.SAVE).apply { file = suggested }
+
+    /** The name written without an extension gets the suggested one (Windows hides it in the dialog, so it is easy to drop). */
+    private fun withExtension(f: java.io.File, suggested: String): java.io.File {
+        val ext = suggested.substringAfterLast('.', "")
+        return if (ext.isEmpty() || f.name.contains('.')) f else java.io.File(f.parentFile, f.name + "." + ext)
+    }
 
     fun install() {
         com.juancams.rviz2mini.ui.common.UiImages.fromArgb = { px, w, h ->
@@ -35,31 +56,27 @@ object DesktopPlatform {
         }
         // Text files (the XML of a Nav2 tree...): the system dialog.
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.openText = { exts, done ->
-            val dialog = java.awt.FileDialog(null as java.awt.Frame?, exts.joinToString(", ") { ".$it" }, java.awt.FileDialog.LOAD)
-            dialog.setFilenameFilter { _, name -> exts.isEmpty() || exts.any { name.endsWith(".$it", ignoreCase = true) } }
+            val dialog = openDialog(exts)
             dialog.isVisible = true
             done(dialog.files.firstOrNull()?.let { f -> try { f.readText() } catch (_: Exception) { null } })
         }
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.openStream = { exts, done ->
-            val dialog = java.awt.FileDialog(null as java.awt.Frame?, exts.joinToString(", ") { ".$it" }, java.awt.FileDialog.LOAD)
-            dialog.setFilenameFilter { _, name -> exts.isEmpty() || exts.any { name.endsWith(".$it", ignoreCase = true) } }
+            val dialog = openDialog(exts)
             dialog.isVisible = true
             val f = dialog.files.firstOrNull()
             done(f?.name, f?.let { try { it.inputStream() } catch (_: Exception) { null } })
         }
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.saveText = { suggested, content, done ->
-            val dialog = java.awt.FileDialog(null as java.awt.Frame?, suggested, java.awt.FileDialog.SAVE)
-            dialog.file = suggested
+            val dialog = saveDialog(suggested)
             dialog.isVisible = true
-            val f = dialog.files.firstOrNull()
+            val f = dialog.files.firstOrNull()?.let { withExtension(it, suggested) }
             done(f != null && runCatching { f.writeText(content) }.isSuccess)
         }
         // Several files (a map: PGM + YAML): the folder of the first one, picked with the system dialog.
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.saveFiles = { files, done ->
-            val dialog = java.awt.FileDialog(null as java.awt.Frame?, files.first().first, java.awt.FileDialog.SAVE)
-            dialog.file = files.first().first
+            val dialog = saveDialog(files.first().first)
             dialog.isVisible = true
-            val first = dialog.files.firstOrNull()
+            val first = dialog.files.firstOrNull()?.let { withExtension(it, files.first().first) }
             if (first == null) done(null) else {
                 val dir = first.parentFile
                 // The first one with the name chosen; the others keep theirs (the YAML points at the image by name).
@@ -71,8 +88,7 @@ object DesktopPlatform {
         com.juancams.rviz2mini.ui.screens.plotPlatform = object : com.juancams.rviz2mini.ui.screens.JvmPlotPlatform() {
             override val canImportCsv: Boolean get() = !java.awt.GraphicsEnvironment.isHeadless()
             override fun importCsv(done: (java.io.File?, String?) -> Unit) {
-                val dialog = java.awt.FileDialog(null as java.awt.Frame?, "CSV", java.awt.FileDialog.LOAD)
-                dialog.setFilenameFilter { _, name -> name.endsWith(".csv", ignoreCase = true) }
+                val dialog = openDialog(listOf("csv"))
                 dialog.isVisible = true
                 val f = dialog.files.firstOrNull() ?: return done(null, null)
                 try { done(copyCsv(f), null) } catch (e: Exception) { done(null, e.message ?: e.javaClass.simpleName) }
