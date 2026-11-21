@@ -12,6 +12,7 @@
 [![Middleware](https://img.shields.io/badge/middleware-Fast%20DDS%20%7C%20Cyclone%20DDS%20%7C%20Zenoh-555)](https://vizmini2.github.io/config/network.html)
 [![Android](https://img.shields.io/badge/Android-8.0%2B-3DDC84?logo=android&logoColor=white)](https://vizmini2.github.io/getting-started/install.html)
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%2B-E95420?logo=ubuntu&logoColor=white)](https://vizmini2.github.io/getting-started/desktop.html)
+[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6)](https://vizmini2.github.io/getting-started/desktop.html#on-windows)
 
 ROS 2 visualization and control on Android and on the desktop, from one code base: a 3D view like RViz (TF, robot
 model, maps, laser, point clouds, cameras, markers, interactive markers, Nav2 waypoints, MoveIt planning...),
@@ -21,6 +22,8 @@ and more. It talks DDS directly (Fast DDS through jros2), and also Zenoh and fox
 RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools (`ui/.../interop/ConfigInterop.kt`).
 
 - **Android**: the app on Google Play, or a debug build with `./gradlew installDirectDebug`.
+- **Desktop on Windows (10 or 11)**: the `.msi` (installed for the current user, no administrator) or the `.zip`
+  from the releases, or `./gradlew :desktopApp:packageMsi` on Windows with a JDK 21 that has jpackage.
 - **Desktop (Linux, Ubuntu 20.04 or newer)**: `./gradlew :desktopApp:run`, the `.deb` from
   `./gradlew :desktopApp:packageDeb`, or as a ROS 2 package: `colcon build` in a workspace with `ros/vizmini2`, then
   `ros2 run vizmini2 vizmini2`. `ffmpeg` is used for H.264/H.265 video and for recording the window.
@@ -47,7 +50,7 @@ tools/e2e/run.sh                                                   # desktop end
 tools/e2e/android_device_tests.sh                                  # device tests on a phone or emulator (demo robot)
 tools/pc_tests.sh -b                                               # phone tests against servers on this PC
 tools/compat/build-desktop-natives.sh                              # rebuild the desktop natives inside Ubuntu 20.04
-tools/compat/try-desktop.sh 22.04 [vizmini2_1.0.0_amd64.deb]       # run the app (or install the .deb) on another Ubuntu
+tools/compat/try-desktop.sh 22.04 [vizmini2_1.1.0_amd64.deb]       # run the app (or install the .deb) on another Ubuntu
 ```
 
 The desktop app's own native libraries (Fast DDS, Filament, an X11 helper) are built inside Ubuntu 20.04 so they run

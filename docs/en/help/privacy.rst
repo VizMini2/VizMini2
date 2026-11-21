@@ -19,4 +19,5 @@ On the PC
 The PC app sends no crash reports. Everything it stores stays on your computer: settings, tabs,
 profiles and the account session in ``~/.config/vizmini2``; bags in ``~/.local/share/vizmini2``;
 GPS map tiles in ``~/.cache/vizmini2``; window recordings in ``~/Videos/VizMini2`` (your desktop's
-videos folder).
+videos folder). On Windows: ``%APPDATA%\VizMini2``, ``%LOCALAPPDATA%\VizMini2 Data`` (bags, and the
+tiles in its *Cache* folder) and *Videos\\VizMini2*.

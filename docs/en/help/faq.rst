@@ -11,7 +11,8 @@ Which ROS 2 versions work?
    through foxglove_bridge. See :doc:`requirements`.
 
 Is there a PC version?
-   Yes, for Linux (Ubuntu 20.04 or newer), with the same tabs: :doc:`../getting-started/install`.
+   Yes, for Linux (Ubuntu 20.04 or newer) and Windows (10 or 11), with the same tabs:
+   :doc:`../getting-started/desktop`.
 
 Does it work over 4G or a VPN?
    Yes, with a **Discovery Server** that both the phone and the robot can reach, with Discovery

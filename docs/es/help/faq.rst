@@ -11,8 +11,8 @@ Preguntas frecuentes
    middleware a través de foxglove_bridge. Mira :doc:`requirements`.
 
 ¿Hay versión para PC?
-   Sí, para Linux (Ubuntu 20.04 o posterior), con las mismas pestañas:
-   :doc:`../getting-started/install`.
+   Sí, para Linux (Ubuntu 20.04 o posterior) y Windows (10 u 11), con las mismas pestañas:
+   :doc:`../getting-started/desktop`.
 
 ¿Funciona por 4G o VPN?
    Sí, con un **Discovery Server** al que lleguen el móvil y el robot, con Discovery peers a
