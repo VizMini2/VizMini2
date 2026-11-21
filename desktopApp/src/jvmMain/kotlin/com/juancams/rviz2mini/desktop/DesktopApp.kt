@@ -176,6 +176,10 @@ fun DesktopApp(startTab: String? = null) {
             }
         }
 
+        DesktopRecorder.notice?.let { m ->
+            androidx.compose.material3.AlertDialog(onDismissRequest = { DesktopRecorder.notice = null }, text = { Text(m) },
+                confirmButton = { androidx.compose.material3.TextButton(onClick = { DesktopRecorder.notice = null }) { Text("OK") } })
+        }
         exportMessage?.let { m ->
             androidx.compose.material3.AlertDialog(onDismissRequest = { exportMessage = null }, text = { Text(m) },
                 confirmButton = { androidx.compose.material3.TextButton(onClick = { exportMessage = null }) { Text("OK") } })
@@ -286,6 +290,9 @@ private fun DemoCard(onEnter: () -> Unit, onExit: () -> Unit) {
                 Text(tr(if (DesktopDemo.active) "home_demo_title" else "onboarding_demo_title"), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
             }
             Text(tr(if (DesktopDemo.active) "home_demo_text" else "onboarding_demo_text"))
+            // Without ffmpeg the demo has no H.264 camera topic and the window cannot be recorded: say how to get it.
+            val ffmpeg = remember { FfmpegVideoDecoder.find() }
+            if (ffmpeg == null) Text(tr("video_needs_ffmpeg"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (DesktopDemo.active) androidx.compose.material3.OutlinedButton(onClick = onExit) { Text(tr("home_demo_exit")) }
             else androidx.compose.material3.Button(onClick = { confirming = true }) { Text(tr("home_start_demo")) }
         }

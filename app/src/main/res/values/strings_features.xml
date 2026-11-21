@@ -65,7 +65,7 @@
     <string name="control_msgs_foxy">Foxy</string>
     <string name="video_unsupported">Video in format “%1$s”: only H.264 and H.265 can be decoded</string>
     <string name="video_no_decoder">This device cannot decode %1$s</string>
-    <string name="video_needs_ffmpeg">H.264/H.265 video needs ffmpeg (Linux: sudo apt install ffmpeg; Windows: winget install ffmpeg)</string>
+    <string name="video_needs_ffmpeg">H.264/H.265 video and recording the window need ffmpeg. Linux: sudo apt install ffmpeg. Windows: winget install ffmpeg, or download it from ffmpeg.org and put its bin folder in the PATH.</string>
     <string name="video_decoder_failed">The video decoder failed: %1$s</string>
     <string name="alerts_silent_for">silent for %1$s s</string>
     <string name="alerts_back">%1$s is publishing again</string>
