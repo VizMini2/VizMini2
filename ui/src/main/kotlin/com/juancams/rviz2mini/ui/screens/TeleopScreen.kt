@@ -159,6 +159,16 @@ fun TeleopScreen(
     val gap = if (compact) 6.dp else 10.dp
     Column(
         modifier.fillMaxSize().padding(if (compact) 8.dp else 16.dp).focusRequester(focus).focusable()
+            // Any click in the tab (the joystick too) gives it the keyboard back: after clicking the sidebar or a
+            // dialog the focus is elsewhere and WASD and the arrows would not reach it. Nothing is consumed.
+            .pointerInput(Unit) {
+                awaitPointerEventScope {
+                    while (true) {
+                        val e = awaitPointerEvent(androidx.compose.ui.input.pointer.PointerEventPass.Initial)
+                        if (e.type == androidx.compose.ui.input.pointer.PointerEventType.Press) runCatching { focus.requestFocus() }
+                    }
+                }
+            }
             .onKeyEvent { e ->
                 val k = e.key
                 if (k == Key.Spacebar) {

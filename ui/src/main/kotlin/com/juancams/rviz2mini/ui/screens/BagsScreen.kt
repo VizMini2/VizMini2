@@ -345,6 +345,8 @@ fun BagsView(c: BagsController, modifier: Modifier = Modifier) {
                 }
             }
             if (r != null) item {
+                // Read here too: the list skips this item otherwise and the statistics stay at their first values.
+                c.tick
                 Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)) {
                     Column(Modifier.padding(14.dp)) {
                         Text(tr("bags_recording"), style = MaterialTheme.typography.titleMedium)
@@ -419,6 +421,8 @@ fun BagsView(c: BagsController, modifier: Modifier = Modifier) {
 private fun PlayCard(c: BagsController, p: BagPlayer) {
     var dragging by remember { mutableStateOf(false) }
     var dragValue by remember { mutableFloatStateOf(0f) }
+    // The position is not state: the tick (every half second) redraws the card.
+    c.tick
     val dur = c.duration
     val frac = if (dur > 0) (c.position.toFloat() / dur).coerceIn(0f, 1f) else 0f
     Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) {
