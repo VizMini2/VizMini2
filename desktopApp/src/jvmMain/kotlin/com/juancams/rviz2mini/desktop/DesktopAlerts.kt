@@ -102,18 +102,41 @@ object DesktopAlerts {
             runCatching { ProcessBuilder(ns, "-a", "VizMini2", "-u", urgency, "-i", icon, a.title, a.text).redirectErrorStream(true).start() }
             return
         }
+        trayMessage(a.title, a.text, when (a.severity) { AlertRules.Severity.ERROR -> java.awt.TrayIcon.MessageType.ERROR; AlertRules.Severity.WARNING -> java.awt.TrayIcon.MessageType.WARNING; else -> java.awt.TrayIcon.MessageType.INFO })
+    }
+
+    /** What clicking the last tray notification does (null: nothing). */
+    @Volatile private var onTrayClick: (() -> Unit)? = null
+
+    /** A notification from the app's icon in the system tray (Windows, or a Linux desktop without notify-send). */
+    private fun trayMessage(title: String, text: String, type: java.awt.TrayIcon.MessageType, onClick: (() -> Unit)? = null) {
         runCatching {
             if (!java.awt.SystemTray.isSupported()) return
             val t = tray ?: java.awt.TrayIcon(java.awt.Toolkit.getDefaultToolkit().getImage(javaClass.getResource("/vizmini2.png")), "VizMini2")
-                .apply { isImageAutoSize = true; java.awt.SystemTray.getSystemTray().add(this) }.also { tray = it }
-            t.displayMessage(a.title, a.text, when (a.severity) { AlertRules.Severity.ERROR -> java.awt.TrayIcon.MessageType.ERROR; AlertRules.Severity.WARNING -> java.awt.TrayIcon.MessageType.WARNING; else -> java.awt.TrayIcon.MessageType.INFO })
+                .apply {
+                    isImageAutoSize = true
+                    addActionListener { onTrayClick?.invoke() }
+                    java.awt.SystemTray.getSystemTray().add(this)
+                }.also { tray = it }
+            onTrayClick = onClick
+            t.displayMessage(title, text, type)
         }
     }
 
-    /** "Video saved" (with the file), even with alerts turned off. */
+    /** "Video saved" (with the file), even with alerts turned off; on Windows, clicking it shows the file in Explorer. */
     fun notifySaved(f: File) {
-        val ns = notifySend ?: return
-        runCatching { ProcessBuilder(ns, "-a", "VizMini2", "-u", "low", "-i", "video-x-generic", tr("record_saved_title"), f.absolutePath).start() }
+        val ns = notifySend
+        if (ns != null) {
+            runCatching { ProcessBuilder(ns, "-a", "VizMini2", "-u", "low", "-i", "video-x-generic", tr("record_saved_title"), f.absolutePath).start() }
+            return
+        }
+        val windows = File.separatorChar == '\\'
+        trayMessage(tr("record_saved_title"), tr("record_saved_in", f.absolutePath), java.awt.TrayIcon.MessageType.INFO) {
+            runCatching {
+                if (windows) ProcessBuilder("explorer.exe", "/select,", f.absolutePath).start()
+                else java.awt.Desktop.getDesktop().open(f.parentFile)
+            }
+        }
     }
 
     @Composable
