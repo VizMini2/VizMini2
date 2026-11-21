@@ -22,7 +22,7 @@ permissions:
   contents: read
 
 env:
-  APP: desktopApp/build/compose/binaries/main/app/vizmini2
+  APP: desktopApp/build/compose/binaries/main/app/VizMini2
   MESA: "26.2.5"
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
         run: |
           ls "$APP"
           # No robot here, so it exits with 1 after printing the status.
-          "$APP/vizmini2.exe" --check > check.log 2>&1 || true
+          "$APP/VizMini2.exe" --check > check.log 2>&1 || true
           cat check.log
           grep -q ": Connected" check.log
           ! grep -qi "failed to load fastddsjava" check.log
@@ -56,7 +56,7 @@ jobs:
           ls mesa/x64
           # Next to the .exe, Windows loads these before its own opengl32.dll.
           for f in opengl32.dll libgallium_wgl.dll libglapi.dll; do [ -f "mesa/x64/$f" ] && cp "mesa/x64/$f" "$APP/"; done
-          GALLIUM_DRIVER=llvmpipe "$APP/vizmini2.exe" --shot rviz.png --tab RVIZ --millis 8000 > shot.log 2>&1 || true
+          GALLIUM_DRIVER=llvmpipe "$APP/VizMini2.exe" --shot rviz.png --tab RVIZ --millis 8000 > shot.log 2>&1 || true
           cat shot.log
           test -s rviz.png
       - uses: actions/upload-artifact@v7

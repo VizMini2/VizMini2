@@ -54,8 +54,8 @@ object Platform {
 
     /**
      * Desktop data folder (bags, recordings of the instant replay...): ~/.local/share/vizmini2, %LOCALAPPDATA%\VizMini2 Data.
-     * Not %LOCALAPPDATA%\VizMini2: the .msi installs the app in %LOCALAPPDATA%\vizmini2 (the same folder for Windows), and
-     * uninstalling deletes it with everything in it.
+     * Not %LOCALAPPDATA%\VizMini2: that is where the .msi installs the app, and uninstalling deletes it with everything
+     * in it.
      */
     val dataDir: File get() = when {
         windows -> File("$localAppData\\VizMini2 Data")

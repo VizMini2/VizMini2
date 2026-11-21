@@ -40,6 +40,8 @@ kotlin {
             implementation("org.eclipse.zenoh:zenoh-kotlin:1.10.2")
             implementation("org.json:json:20240303")
             implementation("com.github.luben:zstd-jni:1.5.7-28")
+            // Windows' current open and save dialogs (WindowsFileDialogs.kt).
+            implementation("net.java.dev.jna:jna:5.18.1")
         }
         // End-to-end tests against real ROS 2 servers (skipped unless VIZMINI2_E2E=1; see tools/e2e/run.sh).
         jvmTest.dependencies {
@@ -79,7 +81,10 @@ compose.desktop {
         }
         nativeDistributions {
             targetFormats(TargetFormat.Deb, TargetFormat.Msi, TargetFormat.Dmg)
-            packageName = "vizmini2"
+            // vizmini2 for the .deb and the Linux command; "VizMini2" on Windows, where it is what users see: the program
+            // in Settings › Apps, the shortcuts, the .exe and the install folder (%LOCALAPPDATA%\VizMini2). Each
+            // installer is built on its own system.
+            packageName = if (System.getProperty("os.name").lowercase().startsWith("windows")) "VizMini2" else "vizmini2"
             // The account (Firebase REST APIs and the local sign-in page).
             modules("java.net.http", "jdk.httpserver")
             packageVersion = appVersion
@@ -98,7 +103,7 @@ compose.desktop {
                 menuGroup = "VizMini2"
                 shortcut = true
                 dirChooser = true
-                // Installed for the current user: no administrator needed. In %LOCALAPPDATA%\vizmini2, which uninstalling
+                // Installed for the current user: no administrator needed. In %LOCALAPPDATA%\VizMini2, which uninstalling
                 // deletes with everything in it: the data goes elsewhere (Platform.dataDir). A deeper folder such as
                 // Programs\VizMini2 is not possible: WiX rejects it for per-user installs (ICE64).
                 perUserInstall = true
@@ -106,6 +111,26 @@ compose.desktop {
                 upgradeUuid = "1d5d6a3e-8aca-4b55-b051-cd0773d589b9"
                 iconFile.set(project.file("icons/vizmini2.ico"))
             }
+        }
+    }
+}
+
+// The .msi, finished (tools/desktop-installer/msi-postprocess.ps1): VizMini2's pictures instead of WiX's generic ones
+// (packaging/windows, made from icons/vizmini2.png), and installing the same version again replaces the installed one.
+// jpackage has no option for either and the plugin empties its resource folder before running it, so it is done on
+// the finished .msi.
+tasks.matching { it.name.startsWith("package") && it.name.endsWith("Msi") }.configureEach {
+    val binaries = layout.buildDirectory.dir("compose/binaries")
+    val pictures = project.file("packaging/windows")
+    val script = rootProject.file("tools/desktop-installer/msi-postprocess.ps1")
+    inputs.dir(pictures)
+    inputs.file(script)
+    doLast {
+        binaries.get().asFile.walk().filter { it.extension == "msi" }.forEach { msi ->
+            val p = ProcessBuilder("powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script.absolutePath,
+                "-Msi", msi.absolutePath, "-Banner", File(pictures, "banner.bmp").absolutePath, "-Dialog", File(pictures, "dialog.bmp").absolutePath)
+                .inheritIO().start()
+            check(p.waitFor() == 0) { "Could not finish $msi (tools/desktop-installer/msi-postprocess.ps1)" }
         }
     }
 }
