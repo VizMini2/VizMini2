@@ -61,8 +61,9 @@ Lyrical (on each one's Ubuntu), and the device tests on an Android emulator.
 
 `.github/workflows/release.yml` builds every file of a release on each `v*` tag (or by hand from the Actions tab, to
 try it): the signed APKs (one per architecture and the universal one), the `.deb` and a
-`.tar.gz` of the desktop app, the manual and the API reference, all checked (the `.deb` is installed and started on
-Ubuntu 20.04 and 24.04), and leaves them in a **draft** GitHub release with `SHA256SUMS` and the CHANGELOG entry as
+`.tar.gz` of the desktop app, its Windows `.msi` and `.zip`, the manual and the API reference, all checked (the `.deb`
+is installed and started on Ubuntu 20.04 and 24.04, and the `.msi` on Windows), and leaves them in a **draft** GitHub
+release with `SHA256SUMS` and the CHANGELOG entry as
 notes. The Google Play bundle (`.aab`) is only a workflow artifact, to upload by hand; nothing goes to Google Play
 or Firebase. When you publish that release, `.github/workflows/site.yml` builds the
 manual and the API reference from its tag and pushes them to

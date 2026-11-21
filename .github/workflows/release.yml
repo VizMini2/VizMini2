@@ -12,6 +12,9 @@
 #   is off (-Pvizmini2.uploadMapping=false): the R8 mappings are kept as the "android-mapping" artifact (90 days);
 # - desktop: the .deb and the same app as a .tar.gz, with the natives checked for Ubuntu 20.04 and newer;
 # - desktop-install: the .deb installed with apt on clean Ubuntu 20.04 and 24.04, and started (Fast DDS and the 3D view);
+# - desktop-windows: the Windows .msi (installed for the current user, no administrator) and the same app as a .zip;
+# - desktop-windows-install: the .msi installed as a user does, started (Fast DDS, and the 3D view with Mesa's software
+#   OpenGL: the runners have no GPU) and uninstalled;
 # - docs: the user manual (English and Spanish) and the API reference, as zips (the website, vizmini2.github.io, is
 #   updated by site.yml when the release is published);
 # - release: a draft GitHub release with all the files, SHA256SUMS and the CHANGELOG entry as notes, to review and
@@ -199,6 +202,81 @@ jobs:
             test -s rviz.png
             apt-get remove -y -qq vizmini2 > /dev/null'
 
+  desktop-windows:
+    needs: version
+    runs-on: windows-2022
+    timeout-minutes: 60
+    env:
+      V: ${{ needs.version.outputs.version }}
+      APP: desktopApp/build/compose/binaries/main/app/vizmini2
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: .msi and app folder
+        shell: bash
+        run: |
+          ./gradlew --no-daemon :desktopApp:packageMsi :desktopApp:createDistributable
+          mkdir -p out
+          cp desktopApp/build/compose/binaries/main/msi/*.msi "out/vizmini2-$V-windows-x86_64.msi"
+          (cd desktopApp/build/compose/binaries/main/app && 7z a -tzip -bso0 "$GITHUB_WORKSPACE/out/vizmini2-$V-windows-x86_64.zip" vizmini2)
+          ls -la out
+      - name: Fast DDS connects
+        shell: bash
+        run: |
+          # No robot here, so it exits with 1 after printing the status.
+          "$APP/vizmini2.exe" --check > check.log 2>&1 || true
+          cat check.log
+          grep -q ": Connected" check.log
+          ! grep -qi "failed to load fastddsjava" check.log
+      - uses: actions/upload-artifact@v7
+        with:
+          name: desktop-windows-release
+          path: out/
+          retention-days: 30
+
+  # The .msi as a user installs it: for the current user, without administrator, in %LOCALAPPDATA%\vizmini2.
+  desktop-windows-install:
+    needs: desktop-windows
+    runs-on: windows-2022
+    timeout-minutes: 20
+    env:
+      MESA: "26.2.5"
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: desktop-windows-release
+      - name: Install, start and uninstall
+        shell: pwsh
+        run: |
+          $msi = (Get-ChildItem *.msi | Select-Object -First 1).FullName
+          $p = Start-Process msiexec.exe -ArgumentList "/i `"$msi`" /qn /l*v install.log" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { Get-Content install.log -Tail 40; throw "msiexec /i: $($p.ExitCode)" }
+          $app = "$env:LOCALAPPDATA\vizmini2"
+          if (-not (Test-Path "$app\vizmini2.exe")) { throw "not installed in $app" }
+          # No robot here, so it exits with 1 after printing the status.
+          $c = Start-Process "$app\vizmini2.exe" -ArgumentList '--check' -RedirectStandardOutput check.log -RedirectStandardError check.err -Wait -PassThru -NoNewWindow
+          Get-Content check.log, check.err
+          if (-not (Select-String -Path check.log -Pattern ': Connected' -Quiet)) { throw "--check did not connect" }
+          # Mesa's software OpenGL next to the .exe (Windows loads it before its own opengl32.dll): the 3D view.
+          curl.exe -sSL -o mesa.7z "https://github.com/pal1000/mesa-dist-win/releases/download/$env:MESA/mesa3d-$env:MESA-release-msvc.7z"
+          7z x -y -omesa mesa.7z x64 | Out-Null
+          foreach ($f in 'opengl32.dll', 'libgallium_wgl.dll', 'libglapi.dll') { if (Test-Path "mesa\x64\$f") { Copy-Item "mesa\x64\$f" $app } }
+          $env:GALLIUM_DRIVER = 'llvmpipe'
+          Start-Process "$app\vizmini2.exe" -ArgumentList '--shot', "$PWD\rviz.png", '--tab', 'RVIZ', '--millis', '6000' -RedirectStandardOutput shot.log -RedirectStandardError shot.err -Wait -NoNewWindow
+          Get-Content shot.log, shot.err
+          if (-not ((Test-Path rviz.png) -and (Get-Item rviz.png).Length -gt 0)) { throw "no 3D view capture" }
+          foreach ($f in 'opengl32.dll', 'libgallium_wgl.dll', 'libglapi.dll') { Remove-Item "$app\$f" -ErrorAction SilentlyContinue }
+          $u = Get-ChildItem HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall, HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall -ErrorAction SilentlyContinue |
+            Get-ItemProperty | Where-Object DisplayName -eq 'vizmini2' | Select-Object -First 1
+          if (-not $u) { throw "not in the installed apps" }
+          $p = Start-Process msiexec.exe -ArgumentList "/x $($u.PSChildName) /qn" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "msiexec /x: $($p.ExitCode)" }
+          if (Test-Path "$app\vizmini2.exe") { throw "still installed after uninstalling" }
+
   docs:
     needs: version
     runs-on: ubuntu-latest
@@ -227,7 +305,7 @@ jobs:
           retention-days: 30
 
   release:
-    needs: [version, tests, android, desktop, desktop-install, docs]
+    needs: [version, tests, android, desktop, desktop-install, desktop-windows, desktop-windows-install, docs]
     if: github.ref_type == 'tag' || inputs.draft_release
     runs-on: ubuntu-latest
     timeout-minutes: 15
