@@ -554,6 +554,7 @@ private fun DisplaysPanel(scene: RvizScene, version: Int, onEdit: (DisplayConfig
             Column(Modifier.weight(1f).verticalScroll(rememberScrollState())) {
                 if (version < 0) return@Column // reads `version`: the panel repaints when a status changes
                 // Global Options
+                // "Global Options" and "Fixed Frame" in English in every language, as RViz calls them (and as on Android).
                 TreeHeader(globalOpen, { globalOpen = !globalOpen }) { Text("Global Options", fontSize = 13.sp, fontWeight = FontWeight.Medium) }
                 if (globalOpen) {
                     com.juancams.rviz2mini.rviz.ui.PropRow("Fixed Frame", 1) {
@@ -563,7 +564,7 @@ private fun DisplaysPanel(scene: RvizScene, version: Int, onEdit: (DisplayConfig
                             scene.setPreferredFixedFrame(f.ifEmpty { null }); onChanged()
                         }
                     }
-                    com.juancams.rviz2mini.rviz.ui.PropRow("Background Color", 1) {
+                    com.juancams.rviz2mini.rviz.ui.PropRow(tr("rviz_background_title"), 1) {
                         val bg = com.juancams.rviz2mini.rviz.display.Colors.parseHex(scene.setting(RvizScene.KEY_BACKGROUND)) ?: RvizScene.DEFAULT_BACKGROUND
                         com.juancams.rviz2mini.rviz.ui.ColorField(bg and 0xFFFFFF, listOf(RvizScene.DEFAULT_BACKGROUND, 0xFF303030.toInt(), 0xFF000000.toInt(), 0xFFB0B0B0.toInt(), 0xFFFFFFFF.toInt(), 0xFF0D1B2A.toInt())) {
                             scene.setBackground(it or (0xFF shl 24)); onChanged()
@@ -594,9 +595,9 @@ private fun DisplaysPanel(scene: RvizScene, version: Int, onEdit: (DisplayConfig
                         // Right click: the bottom buttons' actions, on this display.
                         DropdownMenu(ctxMenu, { ctxMenu = false }) {
                             DropdownMenuItem({ Text(if (c.enabled) tr("rviz_disable") else tr("rviz_enable")) }, { ctxMenu = false; update(c.copy(enabled = !c.enabled)) })
-                            DropdownMenuItem({ Text("Duplicate") }, { ctxMenu = false; scene.addDisplay(c.copy(id = java.util.UUID.randomUUID().toString(), name = c.name + " (2)")); onChanged() })
-                            DropdownMenuItem({ Text("Rename") }, { ctxMenu = false; renaming = c })
-                            DropdownMenuItem({ Text("Remove") }, { ctxMenu = false; scene.removeDisplay(c.id); selected = null; onChanged() })
+                            DropdownMenuItem({ Text(tr("main_duplicate_tab")) }, { ctxMenu = false; scene.addDisplay(c.copy(id = java.util.UUID.randomUUID().toString(), name = c.name + " (2)")); onChanged() })
+                            DropdownMenuItem({ Text(tr("common_rename")) }, { ctxMenu = false; renaming = c })
+                            DropdownMenuItem({ Text(tr("rviz_action_remove")) }, { ctxMenu = false; scene.removeDisplay(c.id); selected = null; onChanged() })
                         }
                         TreeHeader(open, { if (open) expanded.remove(c.id) else expanded.add(c.id) }, onClick = { selected = c.id }) {
                             Checkbox(c.enabled, { on -> update(c.copy(enabled = on)) }, Modifier.size(28.dp))
@@ -622,18 +623,18 @@ private fun DisplaysPanel(scene: RvizScene, version: Int, onEdit: (DisplayConfig
             val sel = scene.configs.firstOrNull { it.id == selected }
             Row(Modifier.fillMaxWidth().padding(4.dp), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                 val pad = androidx.compose.foundation.layout.PaddingValues(horizontal = 6.dp)
-                TextButton(onClick = onAdd, contentPadding = pad) { Text("Add", fontSize = 13.sp) }
+                TextButton(onClick = onAdd, contentPadding = pad) { Text(tr("rviz_action_add"), fontSize = 13.sp) }
                 TextButton(enabled = sel != null, contentPadding = pad, onClick = {
                     sel?.let { c -> scene.addDisplay(c.copy(id = java.util.UUID.randomUUID().toString(), name = c.name + " (2)")); onChanged() }
-                }) { Text("Duplicate", fontSize = 13.sp) }
-                TextButton(enabled = sel != null, contentPadding = pad, onClick = { sel?.let { scene.removeDisplay(it.id); selected = null; onChanged() } }) { Text("Remove", fontSize = 13.sp) }
-                TextButton(enabled = sel != null, contentPadding = pad, onClick = { renaming = sel }) { Text("Rename", fontSize = 13.sp) }
+                }) { Text(tr("main_duplicate_tab"), fontSize = 13.sp) }
+                TextButton(enabled = sel != null, contentPadding = pad, onClick = { sel?.let { scene.removeDisplay(it.id); selected = null; onChanged() } }) { Text(tr("rviz_action_remove"), fontSize = 13.sp) }
+                TextButton(enabled = sel != null, contentPadding = pad, onClick = { renaming = sel }) { Text(tr("common_rename"), fontSize = 13.sp) }
             }
         }
     }
     renaming?.let { c ->
         var name by remember(c.id) { mutableStateOf(c.name) }
-        AlertDialog(onDismissRequest = { renaming = null }, title = { Text("Rename") },
+        AlertDialog(onDismissRequest = { renaming = null }, title = { Text(tr("common_rename")) },
             text = { OutlinedTextField(name, { name = it.take(40) }, singleLine = true, modifier = Modifier.fillMaxWidth()) },
             confirmButton = { TextButton(onClick = { update(c.copy(name = name.trim().ifEmpty { c.name })); renaming = null }) { Text(tr("rviz_action_save")) } },
             dismissButton = { TextButton(onClick = { renaming = null }) { Text(tr("rviz_action_cancel")) } })

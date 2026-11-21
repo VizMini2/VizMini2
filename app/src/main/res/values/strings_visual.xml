@@ -216,6 +216,13 @@
     <string name="teleop_max_linear">Max linear speed: %1$.2f m/s</string>
     <string name="teleop_max_angular">Max angular speed: %1$.1f rad/s</string>
     <string name="teleop_control">Control</string>
+    <string name="teleop_preset_differential">Differential (forward + turn)</string>
+    <string name="teleop_preset_holonomic">Holonomic (forward + strafe)</string>
+    <string name="teleop_preset_dual_differential">Two joysticks: forward / turn</string>
+    <string name="teleop_preset_dual_holonomic">Two joysticks: holonomic + turn</string>
+    <string name="teleop_preset_drone_mode2">Two joysticks: drone (mode 2)</string>
+    <string name="teleop_preset_custom">Custom</string>
+    <string name="teleop_axis_none">None</string>
     <string name="teleop_axis_left_horizontal">Left ↔</string>
     <string name="teleop_axis_left_vertical">Left ↕</string>
     <string name="teleop_axis_joystick_horizontal">Joystick ↔</string>
