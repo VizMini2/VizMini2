@@ -3,6 +3,25 @@
 All notable changes to VizMini2 are documented here.
 The format follows Keep a Changelog, and the project uses semantic versioning.
 
+## [1.1.0] - 2026-11-21
+
+### Added
+- **VizMini2 for Windows:** the same app as on Linux, on Windows 10 and 11 (64-bit). Install the `.msi` (for your user, no administrator needed: it asks where, and adds a shortcut on the desktop and in the Start menu) or unzip the `.zip`. The same tabs, the demo robot, the 3D view, bags, alerts, and H.264/H.265 video and recording the window with ffmpeg (`winget install ffmpeg`). Uninstalling it from Settings › Apps keeps your settings, bags and videos.
+- On the PC, a notification when a window recording is saved; on Windows, clicking it shows the video in Explorer.
+
+### Changed
+- 3D view: TF frame names that would cover each other, such as those of a small robot seen from afar, are stacked one above the other so they can all be read.
+- Buttons: a long list in a result shows its first values and how many there are (`[0, 1, 1, 2, 3, 5, …] (11)`) instead of just `[11]`.
+- The teleop control presets, and the buttons of the PC's RViz panel, are now translated.
+- PC: when the tabs do not fit in the sidebar their rows get shorter, and with many tabs a scrollbar shows there are more.
+- PC: the open and save dialogs are the system's current ones on Windows, list only the right kind of files, and add the extension if you write a name without one.
+- PC: clicking anywhere in the Drive tab gives it back the keyboard (WASD and the arrows).
+
+### Fixed
+- PC: recording the window without ffmpeg did nothing; now it says how to install it, and so does the demo card.
+- PC: while recording a bag its counters did not move, and while playing one its position stayed at the start.
+- PC: `vizmini2 --demo --shot` left demo mode on for the next normal start.
+
 ## [1.0.0] - 2026-11-12
 
 ### Added

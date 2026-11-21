@@ -3,6 +3,25 @@
 Aquí se documentan todos los cambios relevantes de VizMini2.
 El formato sigue Keep a Changelog y el proyecto usa versionado semántico.
 
+## [1.1.0] - 2026-11-21
+
+### Añadido
+- **VizMini2 para Windows:** la misma app que en Linux, en Windows 10 y 11 (64 bits). Instala el `.msi` (para tu usuario, sin pedir administrador: te pregunta dónde y añade un acceso directo en el escritorio y en el menú Inicio) o descomprime el `.zip`. Las mismas pestañas, el robot de demo, la vista 3D, las bags, las alertas, y el vídeo H.264/H.265 y la grabación de la ventana con ffmpeg (`winget install ffmpeg`). Al desinstalarla desde Configuración › Aplicaciones se conservan tus ajustes, bags y vídeos.
+- En el PC, un aviso cuando se guarda una grabación de la ventana; en Windows, al pulsarlo se abre el Explorador con el vídeo.
+
+### Cambiado
+- Vista 3D: los nombres de los frames de TF que se taparían entre sí, como los de un robot pequeño visto de lejos, se apilan uno encima de otro para que se lean todos.
+- Botones: una lista larga en un resultado muestra sus primeros valores y cuántos hay (`[0, 1, 1, 2, 3, 5, …] (11)`) en vez de solo `[11]`.
+- Los modos de control de la teleoperación, y los botones del panel de RViz del PC, ya están traducidos.
+- PC: cuando las pestañas no caben en la barra lateral sus filas se hacen más bajas, y con muchas pestañas una barra de desplazamiento indica que hay más.
+- PC: los diálogos de abrir y guardar son los actuales del sistema en Windows, solo muestran el tipo de fichero que toca y añaden la extensión si escribes un nombre sin ella.
+- PC: hacer clic en cualquier sitio de la pestaña Conducir le devuelve el teclado (WASD y las flechas).
+
+### Corregido
+- PC: grabar la ventana sin ffmpeg no hacía nada; ahora explica cómo instalarlo, y la tarjeta de la demo también.
+- PC: al grabar una bag sus contadores no avanzaban, y al reproducirla la posición se quedaba al principio.
+- PC: `vizmini2 --demo --shot` dejaba activado el modo demo para el siguiente arranque normal.
+
 ## [1.0.0] - 2026-11-12
 
 ### Añadido
