@@ -8,6 +8,8 @@
     <string name="common_brand" translatable="false">VizMini2</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_save">Save</string>
+    <string name="file_filter_files">%1$s files</string>
+    <string name="file_filter_all">All files</string>
     <string name="common_delete">Delete</string>
     <string name="common_rename">Rename</string>
     <string name="common_ok">OK</string>

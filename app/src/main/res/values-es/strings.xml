@@ -7,6 +7,8 @@
     <!-- Comunes (botones y textos repetidos) -->
     <string name="common_cancel">Cancelar</string>
     <string name="common_save">Guardar</string>
+    <string name="file_filter_files">Archivos %1$s</string>
+    <string name="file_filter_all">Todos los archivos</string>
     <string name="common_delete">Eliminar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_ok">Aceptar</string>

@@ -15,19 +15,39 @@ object DesktopPlatform {
     private val timer = Executors.newSingleThreadScheduledExecutor { r -> Thread(r, "vizmini2-timer").apply { isDaemon = true } }
     private val windows = System.getProperty("os.name", "").lowercase().startsWith("windows")
 
-    /** The system's open dialog, titled "Import (.rviz)", that only lists files with those extensions. */
-    private fun openDialog(exts: List<String>): java.awt.FileDialog {
-        val title = com.juancams.rviz2mini.i18n.tr("bags_import") + if (exts.isEmpty()) "" else " (" + exts.joinToString(", ") { ".$it" } + ")"
-        val dialog = java.awt.FileDialog(null as java.awt.Frame?, title, java.awt.FileDialog.LOAD)
+    private fun openTitle(exts: List<String>) =
+        com.juancams.rviz2mini.i18n.tr("bags_import") + if (exts.isEmpty()) "" else " (" + exts.joinToString(", ") { ".$it" } + ")"
+
+    /**
+     * Picks a file to open, titled "Import (.rviz)" and listing only those extensions: Windows' current dialog
+     * ([WindowsFileDialogs]), or the system's through AWT. `done` runs on the Swing thread (null if cancelled).
+     */
+    private fun pickOpen(exts: List<String>, done: (java.io.File?) -> Unit) {
+        if (WindowsFileDialogs.available) {
+            val name = com.juancams.rviz2mini.i18n.tr("file_filter_files", exts.joinToString(", ") { ".$it" })
+            return WindowsFileDialogs.show(false, openTitle(exts), exts, name, com.juancams.rviz2mini.i18n.tr("file_filter_all"), null, done)
+        }
+        val dialog = java.awt.FileDialog(null as java.awt.Frame?, openTitle(exts), java.awt.FileDialog.LOAD)
         dialog.setFilenameFilter { _, name -> exts.isEmpty() || exts.any { name.endsWith(".$it", ignoreCase = true) } }
         // Windows ignores the FilenameFilter: there a pattern as the file name is what filters the list.
         if (windows && exts.isNotEmpty()) dialog.file = exts.joinToString(";") { "*.$it" }
-        return dialog
+        dialog.isVisible = true
+        done(dialog.files.firstOrNull())
     }
 
-    /** The system's save dialog, titled "Save", with the suggested name. */
-    private fun saveDialog(suggested: String) =
-        java.awt.FileDialog(null as java.awt.Frame?, com.juancams.rviz2mini.i18n.tr("common_save"), java.awt.FileDialog.SAVE).apply { file = suggested }
+    /** Picks where to save, titled "Save", with the suggested name; the extension is added if the name has none. */
+    private fun pickSave(suggested: String, done: (java.io.File?) -> Unit) {
+        val title = com.juancams.rviz2mini.i18n.tr("common_save")
+        if (WindowsFileDialogs.available) {
+            val ext = suggested.substringAfterLast('.', "")
+            val exts = listOfNotNull(ext.takeIf { it.isNotEmpty() })
+            val name = com.juancams.rviz2mini.i18n.tr("file_filter_files", exts.joinToString(", ") { ".$it" })
+            return WindowsFileDialogs.show(true, title, exts, name, com.juancams.rviz2mini.i18n.tr("file_filter_all"), suggested) { done(it?.let { f -> withExtension(f, suggested) }) }
+        }
+        val dialog = java.awt.FileDialog(null as java.awt.Frame?, title, java.awt.FileDialog.SAVE).apply { file = suggested }
+        dialog.isVisible = true
+        done(dialog.files.firstOrNull()?.let { withExtension(it, suggested) })
+    }
 
     /** The name written without an extension gets the suggested one (Windows hides it in the dialog, so it is easy to drop). */
     private fun withExtension(f: java.io.File, suggested: String): java.io.File {
@@ -56,42 +76,33 @@ object DesktopPlatform {
         }
         // Text files (the XML of a Nav2 tree...): the system dialog.
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.openText = { exts, done ->
-            val dialog = openDialog(exts)
-            dialog.isVisible = true
-            done(dialog.files.firstOrNull()?.let { f -> try { f.readText() } catch (_: Exception) { null } })
+            pickOpen(exts) { f -> done(f?.let { try { it.readText() } catch (_: Exception) { null } }) }
         }
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.openStream = { exts, done ->
-            val dialog = openDialog(exts)
-            dialog.isVisible = true
-            val f = dialog.files.firstOrNull()
-            done(f?.name, f?.let { try { it.inputStream() } catch (_: Exception) { null } })
+            pickOpen(exts) { f -> done(f?.name, f?.let { try { it.inputStream() } catch (_: Exception) { null } }) }
         }
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.saveText = { suggested, content, done ->
-            val dialog = saveDialog(suggested)
-            dialog.isVisible = true
-            val f = dialog.files.firstOrNull()?.let { withExtension(it, suggested) }
-            done(f != null && runCatching { f.writeText(content) }.isSuccess)
+            pickSave(suggested) { f -> done(f != null && runCatching { f.writeText(content) }.isSuccess) }
         }
         // Several files (a map: PGM + YAML): the folder of the first one, picked with the system dialog.
         if (!java.awt.GraphicsEnvironment.isHeadless()) com.juancams.rviz2mini.ui.common.FileDialogs.saveFiles = { files, done ->
-            val dialog = saveDialog(files.first().first)
-            dialog.isVisible = true
-            val first = dialog.files.firstOrNull()?.let { withExtension(it, files.first().first) }
-            if (first == null) done(null) else {
-                val dir = first.parentFile
-                // The first one with the name chosen; the others keep theirs (the YAML points at the image by name).
-                val ok = runCatching { files.forEachIndexed { i, (name, bytes) -> java.io.File(dir, if (i == 0) first.name else name).writeBytes(bytes) } }.isSuccess
-                done(if (ok) dir.absolutePath else null)
+            pickSave(files.first().first) { first ->
+                if (first == null) done(null) else {
+                    val dir = first.parentFile
+                    // The first one with the name chosen; the others keep theirs (the YAML points at the image by name).
+                    val ok = runCatching { files.forEachIndexed { i, (name, bytes) -> java.io.File(dir, if (i == 0) first.name else name).writeBytes(bytes) } }.isSuccess
+                    done(if (ok) dir.absolutePath else null)
+                }
             }
         }
         // Plots: import a CSV with the system file dialog.
         com.juancams.rviz2mini.ui.screens.plotPlatform = object : com.juancams.rviz2mini.ui.screens.JvmPlotPlatform() {
             override val canImportCsv: Boolean get() = !java.awt.GraphicsEnvironment.isHeadless()
             override fun importCsv(done: (java.io.File?, String?) -> Unit) {
-                val dialog = openDialog(listOf("csv"))
-                dialog.isVisible = true
-                val f = dialog.files.firstOrNull() ?: return done(null, null)
-                try { done(copyCsv(f), null) } catch (e: Exception) { done(null, e.message ?: e.javaClass.simpleName) }
+                pickOpen(listOf("csv")) { f ->
+                    if (f == null) done(null, null)
+                    else try { done(copyCsv(f), null) } catch (e: Exception) { done(null, e.message ?: e.javaClass.simpleName) }
+                }
             }
         }
         Platform.main = object : MainThread {
