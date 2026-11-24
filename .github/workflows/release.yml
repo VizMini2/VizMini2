@@ -11,7 +11,8 @@
 #   tag fails, and a run by hand signs with a debug key and names the files "-debugsigned". Crashlytics' mapping upload
 #   is off (-Pvizmini2.uploadMapping=false): the R8 mappings are kept as the "android-mapping" artifact (90 days);
 # - desktop: the .deb and the same app as a .tar.gz, with the natives checked for Ubuntu 20.04 and newer;
-# - desktop-install: the .deb installed with apt on clean Ubuntu 20.04 and 24.04, and started (Fast DDS and the 3D view);
+# - desktop-install: the .deb installed with apt on clean Ubuntu 20.04, 22.04 and 24.04, and started (Fast DDS and the
+#   3D view);
 # - desktop-windows: the Windows .msi (installed for the current user, no administrator) and the same app as a .zip;
 # - desktop-windows-install: the .msi installed as a user does, started (Fast DDS, and the 3D view with Mesa's software
 #   OpenGL: the runners have no GPU) and uninstalled;
@@ -176,7 +177,7 @@ jobs:
           path: out/
           retention-days: 30
 
-  # The .deb as a user installs it, on releases older than the build machine's.
+  # The .deb as a user installs it: on the oldest supported Ubuntu, on Humble's (22.04) and on the build machine's.
   desktop-install:
     needs: desktop
     runs-on: ubuntu-latest
@@ -184,7 +185,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ubuntu: ["20.04", "24.04"]
+        ubuntu: ["20.04", "22.04", "24.04"]
     steps:
       - uses: actions/download-artifact@v8
         with:
