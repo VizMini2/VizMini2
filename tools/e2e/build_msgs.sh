@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # The messages of the test servers that some distros lack (Lyrical does not have them yet): foxglove_msgs and
 # ffmpeg_image_transport_msgs (tools/video_publisher.py), slam_toolbox's services (tools/fake_map_services.py) and

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # End-to-end tests of the desktop app against real ROS 2 servers on this machine: starts the fake robot, the fake
 # Nav2, MoveIt with the Panda, the Panda under ros2_control in /rc, H.264/H.265 video, the fake map services and a NavMap

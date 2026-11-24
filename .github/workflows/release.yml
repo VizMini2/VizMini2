@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # Continuous delivery: every file of a release, built and checked, on each "v*" tag (and by hand, to try it):
 # - version: the Android, desktop and ROS package versions, the tag and both CHANGELOG entries must agree

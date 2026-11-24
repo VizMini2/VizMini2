@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Generates app/src/main/assets/ros_interfaces.txt with the .msg/.srv/.action definitions of a
 ROS 2 installation (default /opt/ros/jazzy). The "Buttons" tab uses them to serialize
 any message, service or action without generated classes.

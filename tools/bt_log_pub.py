@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Publishes a /behavior_tree_log like the one from Nav2's bt_navigator (nav2_msgs/BehaviorTreeLog) for
 BehaviorTreePcTest: a fake navigation cycle (plan, follow the path, sometimes fails and
 recovers by spinning), one change every 0.4 s.

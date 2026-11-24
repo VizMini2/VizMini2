@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Builds the documentation in English (root) and Spanish (es/). Usage: docs/build.sh [destination]
 # Defaults to docs/_build/site. For the website: docs/build.sh ~/VizMini2.github.io
 # Requirements: pip install sphinx sphinx-rtd-theme myst-parser

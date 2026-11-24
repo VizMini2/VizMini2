@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Filament Java bindings for Linux x86_64: the same ones as Android (filament-android and filamat-android),
 # compiled against the desktop Filament that build.sh leaves in install/. Without the Android-only files.
 # Output: $HERE/filament-desktop.jar, with the classes and the native libraries in natives/linux-x86_64/.

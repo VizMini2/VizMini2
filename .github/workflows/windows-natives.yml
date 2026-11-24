@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # The native libraries the desktop app needs on Windows, built on Windows (only when their scripts change):
 # - filament: Filament's JNI bindings (tools/filament-desktop/build-jni-windows.sh), against Filament's Windows release;

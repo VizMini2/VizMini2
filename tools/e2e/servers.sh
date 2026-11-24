@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # The ROS 2 side of the end-to-end tests, inside a ros:<distro>-ros-base container (used by the CI, one container per
 # distro): installs what the test servers need and starts the same servers as tools/e2e/run.sh: the fake robot, the

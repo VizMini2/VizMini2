@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Crops and compresses the record.sh recordings into app/src/main/res/raw (English) and raw-es (Spanish), or into
 # docs/clips/<language> those marked "docs" in crops.txt,
 # with the framing from crops.txt. Usage: tools/catalog_clips/encode.sh [clip...]   (ffmpeg on the PATH or $FFMPEG)

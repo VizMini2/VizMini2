@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Checks that the jros2 Java classes only use Java APIs that exist on Android since minSdk.
 
 jros2 is compiled against Java 17+ and uses methods that Android added much later (for example

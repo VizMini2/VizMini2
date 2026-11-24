@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # Screenshots and videos of the PC app for the manual, in English and Spanish, against real ROS 2 servers of this
 # machine: docs/shots/<lang>/shot_pc_<name>.webp and docs/clips/<lang>/clip_pc_<name>.mp4 (docs/build.sh copies them

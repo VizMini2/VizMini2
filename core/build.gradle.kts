@@ -1,5 +1,5 @@
 // Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-// SPDX-License-Identifier: GPL-3.0-only
+// SPDX-License-Identifier: Apache-2.0
 
 // Logic shared by all platforms (no UI): ROS, TF, dynamic messages, bags...
 // For now with a single JVM target, used by both the Android app and the desktop one; iOS

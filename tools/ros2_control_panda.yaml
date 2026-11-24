@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Controllers of tools/ros2_control_panda.launch.py (the Panda with mock hardware), to test the Controllers panel:
 # one of each kind the panel drives (trajectory and forward command), and one that starts inactive.
 # The "/**/" wildcards make the keys match with or without a namespace.

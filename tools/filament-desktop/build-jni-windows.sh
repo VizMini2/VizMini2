@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Filament's Java bindings for Windows x86_64: the same JNI sources as build-jni.sh (Linux), compiled with clang-cl
 # against Filament's official Windows release (static libraries with the /MD runtime, the same one as Fast DDS's MSVC
 # build), so Filament itself is not built here.

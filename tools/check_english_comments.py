@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Fails if a source comment looks Spanish (code and comments are in English; user texts live in strings*.xml).
 
     python3 tools/check_english_comments.py        # used by the CI; exit code 1 and the offending lines if any

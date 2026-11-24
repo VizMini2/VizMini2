@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Filament 1.75.1 for desktop (Linux x86_64) with the Java bindings, for VizMini2's 3D view on the PC.
 # No sudo: portable clang (only what is needed from the official LLVM tarball) and ninja in $FILAMENT_WORK (~/.cache/vizmini2-filament).
 # -pthread: on glibc older than 2.34 (the Ubuntu 20.04 build, tools/compat) pthread is still a separate library.

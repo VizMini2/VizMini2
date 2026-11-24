@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """HTTP mesh server for the VizMini2 RobotModel.
 
 Translates the URLs requested by the app to local files:

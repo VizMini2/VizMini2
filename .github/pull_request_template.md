@@ -35,11 +35,7 @@ Thanks for contributing to VizMini2! The pull request title follows the commit s
 ## Checklist
 
 - [ ] One focused change
-- [ ] New files start with the GPL-3.0 header (`python3 tools/license_headers.py --check`)
+- [ ] New files start with the Apache-2.0 header (`python3 tools/license_headers.py --check`)
 - [ ] Code and comments in English; new user-facing texts in both `values/` and `values-es/`
 - [ ] Manual updated (`docs/en` and `docs/es`) if the change is visible to users
 
-## Contributor License Agreement
-
-<!-- Required in your first pull request (https://github.com/VizMini2/VizMini2/blob/main/CLA.md). Keep this line: -->
-I have read CLA.md and I agree to it for all my contributions to VizMini2.

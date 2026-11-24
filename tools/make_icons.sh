@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # Every app icon and logo from one picture, tools/icons/logo_vizmini2.jpg (2048x2048, the dark tile with rounded white
 # corners). Needs ImageMagick 6 or 7 with WebP. Usage: tools/make_icons.sh

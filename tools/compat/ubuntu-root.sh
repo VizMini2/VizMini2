@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # An Ubuntu root file system to build and try the desktop app on older releases, without sudo or Docker: the official
 # ubuntu-base tarball, entered with an unprivileged user namespace (we are "root" inside, ourselves outside) and
 # chroot. Inside, apt runs under fakeroot (only one user id is mapped, so chown to other users is faked).

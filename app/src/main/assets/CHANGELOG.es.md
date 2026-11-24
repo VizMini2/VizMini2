@@ -33,7 +33,7 @@ El formato sigue Keep a Changelog y el proyecto usa versionado semántico.
 
 ### Cambiado
 - **Ya no hace falta cuenta:** la app se abre directamente en Inicio y se conecta a tus robots sin ella; una cuenta (Google, Microsoft o GitHub) solo sincroniza tus perfiles de robot entre dispositivos.
-- VizMini2 es software libre con la GNU GPL versión 3.
+- VizMini2 es software libre con la Apache License 2.0.
 - Nuevo icono y logo de la app, en el móvil y en el PC.
 - La app usa como objetivo Android 16 (API 36).
 - Botones: una lista larga en un resultado muestra sus primeros valores y cuántos hay (`[0, 1, 1, 2, 3, 5, …] (11)`) en vez de solo `[11]`.

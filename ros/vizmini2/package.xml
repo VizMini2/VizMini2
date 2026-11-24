@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-     SPDX-License-Identifier: GPL-3.0-only -->
+     SPDX-License-Identifier: Apache-2.0 -->
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>vizmini2</name>
@@ -8,7 +8,7 @@
   <description>VizMini2 for the desktop: 3D view, topics, teleop, parameters, lifecycle and more for ROS 2, the same app as on Android. Start it with `ros2 run vizmini2 vizmini2`.</description>
   <maintainer email="jc.manzanares.serrano@gmail.com">Juan Carlos Manzanares Serrano</maintainer>
   <author email="jc.manzanares.serrano@gmail.com">Juan Carlos Manzanares Serrano</author>
-  <license>GPL-3.0-only</license>
+  <license>Apache-2.0</license>
   <url type="website">https://vizmini2.github.io/</url>
   <url type="repository">https://github.com/VizMini2/VizMini2</url>
   <url type="bugtracker">https://github.com/VizMini2/VizMini2/issues</url>

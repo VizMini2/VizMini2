@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """The release version, from the code, for the release workflow (.github/workflows/release.yml).
 
     python3 tools/release/version.py check [v1.0.0]   # prints the version; exit 1 if the sources disagree

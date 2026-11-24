@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # The instrumented tests that need no PC servers (they use the app's demo robot), on the connected device or emulator:
 # installs the debug APKs, runs each class and collects its output and screenshots in build/e2e-android/. Exit code 1

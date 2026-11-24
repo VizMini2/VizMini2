@@ -1,37 +1,19 @@
 VizMini2
 Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
-License, version 3, as published by the Free Software Foundation (see LICENSE). It is distributed WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Licensed under the Apache License, Version 2.0 (see LICENSE). Unless required by applicable law or agreed to in
+writing, it is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied.
 
-SPDX-License-Identifier: GPL-3.0-only
-
-
-Additional permission under GNU GPL version 3 section 7
--------------------------------------------------------
-
-If you modify this program, or any covered work, by linking or combining it with Google Play Services, Firebase
-(including Firebase Authentication, Firestore and Crashlytics), Google ML Kit, or the Google Play Billing and Play
-Core libraries (or modified versions of those libraries), containing parts covered by the terms of their own
-licenses, the licensors of this program grant you additional permission to convey the resulting work. Corresponding
-Source for a non-source form of such a combination shall include the source code for the parts of this program used
-as well as that of the covered work, but need not include the source code of those Google libraries.
+SPDX-License-Identifier: Apache-2.0
 
 
 Name and logo
 -------------
 
 "VizMini2" and its logo identify the official app published by Juan Carlos Manzanares Serrano. The license covers
-the code, not the name or the logo: forks and modified versions must use another name and another logo, and must
-not suggest that they are the official app. Section 7(e) of the GPL allows this restriction.
-
-
-Contributions
--------------
-
-Contributions are welcome under the terms in CONTRIBUTING.md and CLA.md (the author keeps the right to offer the
-code under other terms as well, for example to companies that need a different license).
+the code, not the name or the logo (section 6 of the Apache License grants no trademark rights): forks and modified
+versions must use another name and another logo, and must not suggest that they are the official app.
 
 
 Third-party code
@@ -41,7 +23,7 @@ This repository also contains or downloads third-party software under its own li
 - jros2 (fork in tools/jros2-16k): Apache License 2.0.
 - Filament (prebuilt in tools/filament-desktop and the Android dependency): Apache License 2.0.
 - Fast DDS (inside the jros2 native libraries): Apache License 2.0.
-- ROS 2 message definitions (app/src/main/assets/ros_interfaces.txt, generated from the ROS packages): Apache
-  License 2.0 or BSD, as in each package.
-- Kotlin, Jetpack Compose, Compose Multiplatform, AndroidX, ZXing, JSON-java and the other Gradle dependencies: see
-  each library's license.
+- ROS 2 message definitions (app/src/main/assets/ros_interfaces.txt, generated from the ROS packages, and the
+  stand-in packages in tools/e2e/msgs): Apache License 2.0, BSD or the license of each package.
+- Kotlin, Jetpack Compose, Compose Multiplatform, AndroidX, Firebase, ZXing, JSON-java and the other Gradle
+  dependencies: see each library's license.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Simulated robot that publishes every type VizMini2 visualizes (for testing).
 
 Usage: source /opt/ros/jazzy/setup.bash && ROS_DOMAIN_ID=77 python3 tools/fake_robot.py

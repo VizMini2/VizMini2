@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # A stand-in for EasyNavigation's navmap_ros_interfaces (https://github.com/EasyNavigation/NavMap, Apache-2.0: the
 # message definitions in msg/ are theirs, unchanged) for tools/navmap_demo.py (tools/e2e/build_msgs.sh), so the demo
 # does not need the whole NavMap stack built, and for tools/navmap_file_pub.py (V1: to read the old .navmap files).

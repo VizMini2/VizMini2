@@ -5,7 +5,7 @@
 # VizMini2
 
 [![CI](https://github.com/VizMini2/VizMini2/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VizMini2/VizMini2/actions/workflows/ci.yml)
-[![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Manual](https://img.shields.io/badge/manual-vizmini2.github.io-0A7BBB)](https://vizmini2.github.io)
 <br>
 [![ROS 2](https://img.shields.io/badge/ROS%202-Foxy%20%7C%20Humble%20%7C%20Jazzy%20%7C%20Kilted%20%7C%20Lyrical-22314E?logo=ros)](https://vizmini2.github.io/help/requirements.html)
@@ -143,16 +143,12 @@ keys are in [Releases and CI/CD](https://vizmini2.github.io/developers/releases.
 
 ## Contributing
 
-Bug reports, ideas and pull requests are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md) and [CLA.md](CLA.md).
+Bug reports, ideas and pull requests are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
 Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
 
-VizMini2 is free software under the **GNU General Public License version 3** ([LICENSE](LICENSE)), with an additional
-permission to combine it with Google Play Services and Firebase ([NOTICE](NOTICE)). The name "VizMini2" and its logo
-are not covered by the license: forks must use their own. Contributions are welcome under [CLA.md](CLA.md); see
-[CONTRIBUTING.md](CONTRIBUTING.md).
-
-If you need VizMini2 under other terms (for example inside a closed product), write to
-jc.manzanares.serrano@gmail.com.
+VizMini2 is free software under the **Apache License 2.0** ([LICENSE](LICENSE), [NOTICE](NOTICE)). The name
+"VizMini2" and its logo are not covered by the license: forks must use their own. Contributions are welcome under the
+same license; see [CONTRIBUTING.md](CONTRIBUTING.md).

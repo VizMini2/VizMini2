@@ -1,5 +1,5 @@
 // Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-// SPDX-License-Identifier: GPL-3.0-only
+// SPDX-License-Identifier: Apache-2.0
 
 /*
  * libvizmini2-x11.so: calls XInitThreads() when loaded. Xlib requires it before any other call when

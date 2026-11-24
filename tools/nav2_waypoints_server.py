@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Fake Nav2 servers to test VizMini2's waypoints bar without a real Nav2.
 
 /follow_waypoints (nav2_msgs/action/FollowWaypoints) and /navigate_through_poses (NavigateThroughPoses): they accept the

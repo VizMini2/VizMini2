@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 
 # VizMini2 documentation (Sphinx + Read the Docs theme, like docs.ros.org).
 # Built once per language with docs/build.sh: VIZ_LANG=en (root) and VIZ_LANG=es (es/).

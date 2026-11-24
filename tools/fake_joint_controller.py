@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Fake controller for MoveIt without ros2_control (to test VizMini2's MoveIt panel).
 
 Publishes /joint_states at 50 Hz and follows the trajectories sent by MoveIt:

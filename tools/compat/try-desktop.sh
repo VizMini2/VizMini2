@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Runs the desktop app image (createDistributable) on another Ubuntu release, without sudo or Docker
 # (tools/compat/ubuntu-root.sh): with only the system libraries a desktop has (X11, OpenGL, fonts), against the fake
 # robot of this machine's ROS 2 on domain $DOMAIN. Two checks:

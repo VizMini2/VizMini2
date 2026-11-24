@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Rebuilds the native libraries of jros2-android 1.5.1 with 16 KB pages and publishes the resulting AAR
 # as us.ihmc:jros2-android:1.5.1-16k in tools/jros2-16k/repo (local Maven repository).
 #

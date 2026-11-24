@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Publisher for IndicatorsPcTest: /rviz2mini_test/battery (sensor_msgs/BatteryState) at 5 Hz.
 
 The percentage sweeps 0..1 in 10 s (sawtooth), the voltage goes from 22 to 26 V with it and

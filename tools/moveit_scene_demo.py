@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Puts a mesh (a tetrahedron) and a box grasped by the Panda's hand into the MoveIt scene, to test the
 VizMini2 PlanningScene display (meshes and attached objects). With --clear it removes them.
 

@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # The website, https://vizmini2.github.io: the user manual (English at the root, Spanish in es/) and the API reference
 # (api/), built from this repository and pushed to the VizMini2/VizMini2.github.io repository, which GitHub Pages serves.

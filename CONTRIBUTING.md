@@ -4,14 +4,13 @@ Thanks for helping! Bug reports, ideas and pull requests are welcome.
 
 ## Before you start
 
-- Read [CLA.md](CLA.md): every contribution is accepted under it (add the line it asks for to your first pull
-  request).
-- The code is GPL-3.0 (see [LICENSE](LICENSE) and [NOTICE](NOTICE)). New source files start with the same header as
-  the others:
+- The code is under the Apache License 2.0 (see [LICENSE](LICENSE) and [NOTICE](NOTICE)), and so is every
+  contribution (section 5 of the license): there is no extra agreement to sign. New source files start with the same
+  header as the others:
 
   ```kotlin
   // Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-  // SPDX-License-Identifier: GPL-3.0-only
+  // SPDX-License-Identifier: Apache-2.0
   ```
 
 - Code and comments in English; user-facing texts go to `app/src/main/res/values*/strings*.xml` (English and Spanish).

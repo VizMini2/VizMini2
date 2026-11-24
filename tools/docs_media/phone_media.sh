@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # Screenshots of the phone app for the manual (androidTest DocsShots, demo robot), in English and Spanish:
 # docs/shots/<lang>/shot_phone_<name>.webp. The debug app and its test APK must be installed (tools/pc_tests.sh

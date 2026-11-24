@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-     SPDX-License-Identifier: GPL-3.0-only -->
+     SPDX-License-Identifier: Apache-2.0 -->
 <package format="3">
   <name>slam_toolbox</name>
   <version>0.0.1</version>
   <description>Stand-in for slam_toolbox's services for VizMini2's end-to-end tests.</description>
   <maintainer email="jc.manzanares.serrano@gmail.com">Juan Carlos Manzanares Serrano</maintainer>
-  <license>GPL-3.0-only</license>
+  <license>Apache-2.0</license>
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>rosidl_default_generators</buildtool_depend>
   <depend>std_msgs</depend>

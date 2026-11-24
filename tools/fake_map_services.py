@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """The map services the Maps tab calls, as Nav2 and SLAM Toolbox offer them, to test it without a robot:
 
     /map_saver/save_map                              nav2_msgs/srv/SaveMap (writes nothing; answers true)

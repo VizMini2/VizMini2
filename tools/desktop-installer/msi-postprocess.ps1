@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # Finishes a .msi made by jpackage, where jpackage has no option for it (and the Compose plugin empties jpackage's
 # resource folder before running it, so its WiX templates cannot be replaced either). Run by desktopApp/build.gradle.kts

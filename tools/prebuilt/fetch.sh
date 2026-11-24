@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Downloads the binaries of tools/prebuilt/prebuilt.txt that are missing or out of date, as settings.gradle.kts does
 # on every Gradle build: for the scripts that read them without Gradle (tools/compat/check-glibc.sh, the natives'
 # build scripts). A binary rebuilt here (different from the one last downloaded) is kept, with a warning.

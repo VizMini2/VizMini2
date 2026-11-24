@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Records the catalog videos on the phone (CatalogClips test) in English and Spanish and downloads them to
 # build/catalog_clips/<lang>/. Usage: tools/catalog_clips/record.sh [clip1,clip2...]
 # Requirements: phone connected over adb and signed in; APKs installed with

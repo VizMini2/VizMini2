@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Fails if one of the desktop app's own native libraries asks for a newer glibc or libstdc++ than Ubuntu 20.04 has
 # (GLIBC_2.31, GLIBCXX_3.4.28). Used by the CI and by tools/compat/build-desktop-natives.sh.
 set -euo pipefail

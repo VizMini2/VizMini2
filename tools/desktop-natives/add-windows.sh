@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Puts the Windows x86_64 natives built by the CI (.github/workflows/windows-natives.yml) into the desktop jars, next to
 # the Linux ones:
 # - tools/filament-desktop/filament-desktop.jar: natives/windows-x86_64/{filament,filamat}-jni.dll, and NativeLoader

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 #
 # Runs one instrumented test class (or method) by hand on the connected phone, with what tools/pc_tests.sh does
 # around each one: MIUI/HyperOS's "open in the background" permission (renewed every few seconds, MIUI resets it),

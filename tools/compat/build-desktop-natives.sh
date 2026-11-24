@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # The desktop app's own native libraries, built inside Ubuntu 20.04 so that they run on Ubuntu 20.04 and newer
 # (glibc 2.31, libstdc++ of GCC 9): built on a newer system they ask for that system's glibc and do not load on older
 # ones. No sudo or Docker: tools/compat/ubuntu-root.sh.

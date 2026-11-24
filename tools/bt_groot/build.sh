@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Builds bt_groot_server against the BehaviorTree.CPP of the sourced ROS 2 distro (jazzy if there is
 # none). With RPATH and not RUNPATH: that way it wins over an LD_LIBRARY_PATH from another distro (e.g. rolling).
 set -euo pipefail

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Adds (or checks) the license header of the project's own source files.
 
     python3 tools/license_headers.py           # add the header where it is missing
@@ -13,7 +13,7 @@ import os
 import sys
 
 OWNER = "Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>"
-SPDX = "SPDX-License-Identifier: GPL-3.0-only"
+SPDX = "SPDX-License-Identifier: Apache-2.0"
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 SKIP_DIRS = {"build", ".gradle", ".git", ".idea", ".kotlin", "node_modules", "_build"}

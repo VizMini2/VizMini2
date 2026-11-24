@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Interactive markers server for InteractiveMarkersPcTest (namespace /rviz2mini_test_im, frame map).
 
 - "mover" at (1, 1): arrows along x (MOVE_AXIS) and a ring to rotate around z (ROTATE_AXIS), with a gray cube.

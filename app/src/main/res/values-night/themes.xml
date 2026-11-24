@@ -1,5 +1,5 @@
 <!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-     SPDX-License-Identifier: GPL-3.0-only -->
+     SPDX-License-Identifier: Apache-2.0 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.VizMini2" parent="Theme.Material3.DayNight.NoActionBar">

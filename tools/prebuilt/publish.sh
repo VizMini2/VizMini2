@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Publishes rebuilt binaries of tools/prebuilt/prebuilt.txt: uploads each one that changed to the "prebuilt" GitHub
 # release (a pre-release, never the latest one, created the first time) under a name with its hash, and updates its
 # line in prebuilt.txt. The old files stay in the release, so older commits still build. Then commit prebuilt.txt.

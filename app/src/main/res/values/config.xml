@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-     SPDX-License-Identifier: GPL-3.0-only -->
+     SPDX-License-Identifier: Apache-2.0 -->
 <resources>
     <!-- Documentación (inglés; la española cuelga de es/) y correo de contacto -->
     <string name="docs_url" translatable="false">https://juancams.github.io/vizmini2/</string>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """A NavMap (EasyNavigation, https://github.com/EasyNavigation/NavMap) to try VizMini2's NavMap display: a building
 with two floors joined by a ramp, an elevator and a door between two rooms (links), the layers "cost", "elevation"
 and "occupancy", and a person walking around the ground floor whose cost goes out as sparse layer updates (and a

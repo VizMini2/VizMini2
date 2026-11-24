@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """Publishes a .navmap file (EasyNavigation's NavMap: https://github.com/EasyNavigation/NavMap) on /navmap, like their
 navmap_publisher (plus a static TF from its frame to base_link), without building their stack: for real maps in VizMini2's NavMap display, or to record them in a bag.
 Reads the file formats 1 (old, migrated as navmap_ros does) and 2 (zlib or uncompressed).

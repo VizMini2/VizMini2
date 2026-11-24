@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # jros2 for desktop: the same classes as the Android AAR (repo/us/ihmc/jros2-android) plus the
 # Fast DDS native libraries built from the fork for the current system (Linux x86_64 for now),
 # in fastddsjava/native/<platform>/, which is where fastddsjavaNativeLibrary looks for them.

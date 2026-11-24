@@ -1,5 +1,5 @@
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """The example Panda under a real ros2_control controller manager with mock hardware (to test the Controllers panel).
 
 ros2_control_node with the Panda description of moveit_resources_panda_moveit_config (two hardware components:

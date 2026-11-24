@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 # Interoperability tests of the phone against ROS 2 on this PC, with a single command.
 #
 # For each test class it starts on the PC the servers it needs (in a clean environment, with the chosen distro and

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: Apache-2.0
 """H.264 and H.265 video topics, to test VizMini2's video decoding: ffmpeg encodes a moving test pattern live
 (x264/x265 with zero latency, a key frame every second) and each frame is published as it comes out, as
 foxglove_compressed_video_transport and ffmpeg_image_transport would:
