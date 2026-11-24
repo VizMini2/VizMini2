@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
 
 // Desktop VizMini2: the same logic (core) and the same screens (ui) as on Android.
 plugins {
@@ -51,6 +54,77 @@ kotlin {
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)
         }
+    }
+}
+
+// Each package is built on its own system (the .deb on Linux, the .msi on Windows), so the app only needs that system's
+// natives: the jars that bring every platform's (Zenoh, zstd, JNA, and jros2's and Filament's Linux and Windows ones)
+// lose the others in the app's classpath, which packages and :desktopApp:run use. Some 40 MB less in each package.
+// Elsewhere than x86_64 Linux or Windows nothing is removed.
+abstract class StripForeignNatives : TransformAction<StripForeignNatives.Parameters> {
+    interface Parameters : TransformParameters {
+        /** Paths of other platforms' natives, matched from the start of each entry. */
+        @get:Input val foreign: Property<String>
+    }
+
+    @get:InputArtifact abstract val input: Provider<FileSystemLocation>
+
+    override fun transform(outputs: TransformOutputs) {
+        val jar = input.get().asFile
+        val foreign = Regex(parameters.foreign.get())
+        val names = ZipFile(jar).use { z -> z.entries().asSequence().map { it.name }.toList() }
+        if (names.none { foreign.containsMatchIn(it) }) { outputs.file(input); return }
+        val out = outputs.file(jar.nameWithoutExtension + "-natives." + jar.extension)
+        ZipFile(jar).use { z ->
+            ZipOutputStream(out.outputStream().buffered()).use { zos ->
+                for (e in z.entries()) {
+                    if (foreign.containsMatchIn(e.name)) continue
+                    zos.putNextEntry(ZipEntry(e.name).apply { time = e.time })
+                    if (!e.isDirectory) z.getInputStream(e).use { it.copyTo(zos) }
+                    zos.closeEntry()
+                }
+            }
+        }
+    }
+}
+
+val hostOs = System.getProperty("os.name").lowercase()
+val hostX64 = System.getProperty("os.arch") in setOf("amd64", "x86_64")
+// The other platforms' natives in each of those jars, as one pattern (null: keep them all).
+val foreignNatives: String? = when {
+    !hostX64 -> null
+    hostOs.contains("windows") -> "windows"
+    hostOs.contains("linux") -> "linux"
+    else -> null
+}?.let { os ->
+    val win = os == "windows"
+    listOf(
+        // jros2 (Fast DDS) and Filament: fastddsjava/native/linux-x86_64/, natives/windows-x86_64/...
+        "^(fastddsjava/native|natives)/(?!${if (win) "windows" else "linux"}-x86_64/)[^/]+/.",
+        // Zenoh: x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu.zip...
+        "^(?!${if (win) "x86_64-pc-windows-msvc" else "x86_64-unknown-linux-gnu"}/)[a-z0-9_]+-[a-z0-9_]+-[a-z0-9_-]+/[^/]+\\.zip$",
+        // zstd-jni: linux/amd64/libzstd-jni-....so, win/amd64/...dll...
+        "^(?!${if (win) "win" else "linux"}/amd64/)(aix|darwin|freebsd|linux|win)/[^/]+/libzstd-jni",
+        // JNA: com/sun/jna/linux-x86-64/libjnidispatch.so, com/sun/jna/win32-x86-64/jnidispatch.dll...
+        "^com/sun/jna/(?!${if (win) "win32" else "linux"}-x86-64/)[^/]+/(lib)?jnidispatch\\.",
+    ).joinToString("|")
+}
+
+val nativesStripped = Attribute.of("vizmini2.nativesStripped", Boolean::class.javaObjectType)
+dependencies {
+    attributesSchema { attribute(nativesStripped) }
+    artifactTypes.getByName("jar").attributes.attribute(nativesStripped, false)
+    if (foreignNatives != null) {
+        registerTransform(StripForeignNatives::class) {
+            from.attribute(nativesStripped, false).attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "jar")
+            to.attribute(nativesStripped, true).attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "jar")
+            parameters { foreign.set(foreignNatives) }
+        }
+    }
+}
+if (foreignNatives != null) {
+    configurations.matching { it.name == "jvmRuntimeClasspath" }.configureEach {
+        attributes.attribute(nativesStripped, true)
     }
 }
 
