@@ -16,4 +16,4 @@ Recibe una notificación cuando algo va mal en el robot, incluso con la app en s
 
 En el móvil, el interruptor de arriba activa las notificaciones de alertas (están desactivadas hasta
 que lo hagas); con el *servicio de conexión* (Configuración) siguen llegando con la app en segundo
-plano. En el PC son notificaciones del escritorio mientras VizMini2 está abierto.
+plano. En el PC son notificaciones del escritorio mientras VizMini2 está abierta.

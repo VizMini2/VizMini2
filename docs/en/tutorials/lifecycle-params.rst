@@ -6,12 +6,12 @@ Goal: bring up a lifecycle node and tune a parameter, without a terminal.
 Lifecycle
 ---------
 
-1. Tap **+ → Lifecycle**, keep **Add the lifecycle nodes found now** checked and tap **Create**
+1. Tap **+ → Lifecycle**, keep **Add the N lifecycle node(s) found now** checked and tap **Create**
    (in the demo: ``/camera_driver``). Later, **Add node** adds more.
-2. Each node shows its state. Tap **Configure**, then **Activate** (confirm each one). The state
+2. Each node shows its state. Tap **Configure**, then **Activate**. The state
    changes live, even when another program (like Nav2's lifecycle manager) changes it.
 3. **Deactivate** pauses the node; **Cleanup** takes it back to *unconfigured*; **Shutdown**
-   finalizes it.
+   finalizes it (after you confirm).
 
 Parameters
 ----------

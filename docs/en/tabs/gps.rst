@@ -23,5 +23,5 @@ stops following it. Pinch or double tap to zoom in. The trash button clears the 
 On the PC, drag the map with the mouse and zoom with the wheel or a double click.
 
 Map tiles are downloaded from OpenStreetMap (Internet is needed) and cached for a week so they aren't
-requested again. On the phone, demo mode includes a tab with the simulated robot walking around
+requested again. Demo mode includes a tab with the simulated robot walking around
 Puerta del Sol in Madrid.

@@ -21,7 +21,7 @@ ros2_control, para que todas las pestañas tengan algo que enseñar:
 * ``/controller_manager`` con ``joint_state_broadcaster`` y ``diff_drive_controller`` activos:
   desactiva ``diff_drive_controller`` en una pestaña Controladores y el robot se para.
 
-La demo usa su propio dominio de ROS (231) y solo la red interna del móvil (loopback), así que
+La demo usa su propio dominio de ROS (231) y solo la red interna del dispositivo (loopback), así que
 **nada llega a tu Wi-Fi** y nunca interfiere con robots reales.
 
 Arrancarla
@@ -33,7 +33,8 @@ y tu conexión se guardan y vuelven al pulsar **Salir de la demo**. No hace falt
 La demo añade pestañas ya preparadas: *RViz demo*, *Conducir*, *Cámara*, *Diagnóstico*, *Topics*,
 *Botones*, *Sliders*, *Indicadores*, *Mapa GPS*, *Gráficas*, *Lifecycle* y *Dashboard demo*.
 
-La demo solo está en la app de Android; la app del PC no tiene modo demo.
+En el PC la demo es la misma: *Configuración* → **Iniciar demo**, o arranca la app con
+``vizmini2 --demo`` (:doc:`desktop`). Solo funciona en ese ordenador.
 
 .. container:: vm-clear
 

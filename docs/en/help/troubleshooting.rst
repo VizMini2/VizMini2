@@ -24,16 +24,23 @@ There is no Home on the PC: the status in the side bar shows *Domain N* when the
 
 1. **Same domain?** Configuration → Network → Domain ID must match the robot's ``ROS_DOMAIN_ID``,
    or use **Find robots**. The first time, the app takes ``ROS_DOMAIN_ID``, ``ROS_STATIC_PEERS``
-   and ``ROS_DISCOVERY_SERVER`` from the terminal it was started from; after that, only what you
-   set in Configuration counts.
-2. **Firewall?** DDS uses UDP multicast and ports from 7400 upwards. If ``ufw`` or another firewall
-   is on, allow the robot's network, or add the robot's IP in **Discovery peers**.
+   and ``ROS_DISCOVERY_SERVER`` from its environment (the terminal it was started from, or on
+   Windows your user's environment variables); after that, only what you set in Configuration
+   counts.
+2. **Firewall?** DDS uses UDP multicast and ports from 7400 upwards. On Linux, if ``ufw`` or
+   another firewall is on, allow the robot's network. On Windows, allow VizMini2 when Windows
+   Firewall asks; if you dismissed it, open *Windows Security* → *Firewall & network protection* →
+   *Allow an app through firewall* and tick *VizMini2* for *Private* networks. If your Wi-Fi is
+   marked **Public**, mark it **Private** (*Settings* → *Network & internet*). You can also add the
+   robot's IP in **Discovery peers**.
 3. **Several network cards** (Docker, VPN…)? Write the right IP or interface in **Allowed network
    interfaces**.
 4. Check from a terminal, without the window: ``vizmini2 --check --domain N``. With the ROS 2
    package that is ``ros2 run vizmini2 vizmini2 --check --domain N``; with the ``.deb``,
    ``/opt/vizmini2/bin/vizmini2 --check --domain N``. It connects for a few seconds and prints its
-   status, the nodes and the topics it sees.
+   status, the nodes and the topics it sees. On Windows, ``VizMini2.exe --check`` prints nothing in
+   the terminal: redirect it to a file as shown in :doc:`../getting-started/desktop` (*Command
+   line*).
 
 Topics appear but no data arrives
 ---------------------------------
@@ -46,7 +53,8 @@ Topics appear but no data arrives
 * **Big messages over Wi-Fi:** point clouds and raw images are heavy. Prefer compressed images
   and downsampled clouds.
 * **Video topics on the PC** (H.264/H.265, such as ``foxglove_msgs/CompressedVideo``) need
-  ``ffmpeg``: ``sudo apt install ffmpeg``. Without it the camera says so.
+  ``ffmpeg``: ``sudo apt install ffmpeg`` on Linux, ``winget install ffmpeg`` on Windows. Without
+  it the camera says so.
 * **Point clouds or images stop after running** ``ros2 topic echo`` **or** ``ros2 topic hz`` **on
   the robot (ROS 2 Lyrical):** a bug in Lyrical's ``rmw_fastrtps_cpp`` makes a publisher stop
   sending topics with byte arrays (``sensor_msgs/PointCloud2``, ``Image``, ``CompressedImage``…) to
@@ -80,18 +88,25 @@ timeout on the robot (most controllers have one).
 PC only
 -------
 
-The dock shows a generic icon or a Java name
+The dock shows a generic icon or a Java name (Linux)
    The ``.deb`` adds *VizMini2* to the applications menu with its icon. With ``ros2 run``, the app
    adds that menu entry (in ``~/.local/share/applications``) the first time it starts; if the dock
    still shows the generic icon, close the app and open it again.
 
-Wayland
+Wayland (Linux)
    The app runs through XWayland, which Ubuntu brings by default. If the window doesn't open in a
    Wayland session, check that XWayland is installed, or log in with an X11 (Xorg) session.
 
+Windows says "Windows protected your PC" when installing
+   The ``.msi`` isn't signed: choose *More info* → *Run anyway*.
+
 No notifications
-   Alerts use ``notify-send``: install it with ``sudo apt install libnotify-bin``. Check also that
-   **Notifications on this PC** is on in the Alerts tab (:doc:`../tabs/alerts`).
+   On Linux, alerts use ``notify-send``: install it with ``sudo apt install libnotify-bin``. On
+   Windows they come from VizMini2's icon in the system tray: check that Windows notifications are
+   on for it. Check also that **Notifications on this PC** is on in the Alerts tab
+   (:doc:`../tabs/alerts`).
 
 Record video doesn't work
-   Recording the window needs ``ffmpeg`` (``sudo apt install ffmpeg``).
+   Recording the window needs ``ffmpeg``: ``sudo apt install ffmpeg`` on Linux, ``winget install
+   ffmpeg`` on Windows (the app also finds the one winget installs if it was already open). Or set
+   the ``VIZMINI2_FFMPEG`` environment variable to the ``ffmpeg`` program.

@@ -63,8 +63,8 @@ Scripts run with ``math``, ``string`` and ``table``, without files or the system
 Panels
 ------
 
-Tap a series to edit or remove it. From the panel's ⋮ menu, **Show as XY** shows the first series
-(x) against the second (y), for example the trajectory in ``/odom``. With **Same scale on x and y**
+Tap a series to edit or remove it. From the panel's ⋮ menu, **Show as XY (x against y)** shows the first
+series (x) against the second (y) (an XY panel holds those two series), for example the trajectory in ``/odom``. With **Same scale on x and y**
 the trajectory is not distorted. **Show over time** goes back to a normal panel, and **Remove panel**
 deletes it.
 
@@ -148,4 +148,4 @@ custom series) are imported as Plot tabs, and a Plot tab is exported as a plot l
 :doc:`../config/import-export`.
 
 The tab can also be added to a :doc:`dashboard`; dropping a topic or a field on a Plot widget adds a
-series. On the phone, demo mode includes one with the simulated robot's speeds and trajectory.
+series. Demo mode includes one with the simulated robot's speeds and trajectory.

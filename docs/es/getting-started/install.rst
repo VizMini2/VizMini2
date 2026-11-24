@@ -8,7 +8,8 @@ VizMini2 funciona en **móviles y tablets Android** (Android 8.0 o superior) y e
 En el móvil
 -----------
 
-VizMini2 todavía no está en Google Play: se instala desde un fichero APK.
+VizMini2 está en pruebas cerradas en Google Play y todavía no es pública allí: instálala desde un
+fichero APK.
 
 1. Abre en el móvil la `página de versiones <releases page_>`_ del proyecto y descarga
    ``VizMini2-<versión>-universal.apk`` (sirve para cualquier móvil; el ``arm64-v8a`` es más
@@ -36,14 +37,17 @@ cada vez que grabas la pantalla, el aviso de captura de pantalla de Android.
 En el PC
 --------
 
-La app de escritorio tiene las mismas pestañas: el |deb| de la misma
-`página de versiones <releases page_>`_ (``sudo apt install ./vizmini2_*_amd64.deb``) o
-``ros2 run vizmini2 vizmini2`` desde el código fuente. Todos los detalles están en :doc:`desktop`.
+La app de escritorio tiene las mismas pestañas. De la misma
+`página de versiones <releases page_>`_: en Ubuntu el |deb| (``sudo apt install ./vizmini2_*_amd64.deb``)
+o el ``.tar.gz``; en Windows el ``.msi`` (para tu usuario, sin necesidad de administrador) o el
+``.zip``. En Linux también se puede compilar desde el código fuente y ejecutar con
+``ros2 run vizmini2 vizmini2``. Todos los detalles están en :doc:`desktop`.
 
 Actualizar
 ----------
 
-Descarga el APK (o el ``.deb``) más reciente e instálalo encima del que tienes: se conservan tus
-pestañas, tus perfiles y tus ajustes. El :doc:`../changelog` recoge qué cambia en cada versión.
+Descarga el APK (o el ``.deb`` o el ``.msi``) más reciente e instálalo encima del que tienes: se
+conservan tus pestañas, tus perfiles y tus ajustes. Con el ``.tar.gz`` o el ``.zip``, sustituye la
+carpeta. El :doc:`../changelog` recoge qué cambia en cada versión.
 
 Siguiente: :doc:`demo` o :doc:`connect`. La :doc:`cuenta <account>` es opcional.

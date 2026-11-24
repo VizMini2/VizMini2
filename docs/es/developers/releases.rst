@@ -4,12 +4,19 @@ Versiones y CI/CD
 Integración continua
 --------------------
 
-Cada push y pull request pasa ``.github/workflows/ci.yml``: las comprobaciones de licencia y
-comentarios, los tests unitarios y el lint, las compilaciones de Android y de escritorio, la
-comprobación de glibc de las librerías nativas, la app de escritorio arrancada en Ubuntu 20.04,
-22.04 y 24.04 limpios, este manual, los tests de extremo a extremo del escritorio contra servidores
-ROS 2 de Humble, Jazzy y Lyrical (cada uno en su Ubuntu) y los tests de dispositivo en un emulador
-Android.
+Los push a ``main`` y ``develop`` y cada pull request pasan ``.github/workflows/ci.yml`` (no cuando
+solo tocan ficheros ``*.md``, ``LICENSE``, ``NOTICE`` o las plantillas de GitHub): las
+comprobaciones de licencia y comentarios, los tests unitarios y el lint, las compilaciones de
+Android y de escritorio, la comprobación de glibc de las librerías nativas, la app de escritorio
+arrancada en Ubuntu 20.04, 22.04 y 24.04 limpios, este manual, los tests de extremo a extremo del
+escritorio contra servidores ROS 2 de Humble, Jazzy y Lyrical (cada uno en su Ubuntu) y los tests de
+dispositivo en un emulador Android.
+
+Los pull requests también pasan ``desktop-windows.yml`` (que también se puede lanzar a mano): los
+tests de escritorio en Windows, el ``.msi`` y la app arrancada (``--check``, y la vista 3D con el
+OpenGL por software de Mesa, porque los runners no tienen GPU). ``windows-natives.yml`` compila las
+librerías nativas de Windows (el JNI de Filament y Fast DDS, con MSVC) cuando cambian sus scripts,
+o a mano.
 
 Publicar una versión
 --------------------
@@ -18,8 +25,11 @@ Publicar una versión
    ``gradle.properties`` (``vizmini2.version``) y ``ros/vizmini2/package.xml``.
 2. Añade su entrada a los dos historiales de cambios (``app/src/main/assets/CHANGELOG.md`` y
    ``CHANGELOG.es.md``): la app los enseña en *Historial de cambios* y este manual en :doc:`../changelog`.
-3. ``python3 tools/release/version.py check v1.2.3`` comprueba que todo cuadra.
-4. Etiqueta y sube: ``git tag v1.2.3 && git push origin v1.2.3``.
+3. ``python3 tools/release/version.py check v1.2.3`` comprueba que todo cuadra. Pon también como
+   fecha de las entradas del historial el día de la versión (eso no se comprueba).
+4. Si has recompilado librerías nativas, publícalas antes (``tools/prebuilt/publish.sh``) y sube a
+   git ``tools/prebuilt/prebuilt.txt``: la versión se compila con los ficheros que lista.
+5. Etiqueta y sube: ``git tag v1.2.3 && git push origin v1.2.3``.
 
 ``.github/workflows/release.yml`` compila entonces todos los ficheros, los comprueba y deja un
 **borrador** de versión en GitHub para revisarlo y publicarlo a mano:
@@ -28,7 +38,10 @@ Publicar una versión
   de los secretos del repositorio ``ANDROID_KEYSTORE_BASE64``, ``ANDROID_KEYSTORE_PASSWORD``,
   ``ANDROID_KEY_ALIAS`` y ``ANDROID_KEY_PASSWORD``;
 * el ``.deb`` y un ``.tar.gz`` de la app de escritorio, después de instalar el ``.deb`` con apt en
-  Ubuntu 20.04 y 24.04 limpios y arrancarla;
+  Ubuntu 20.04, 22.04 y 24.04 limpios y arrancarla (``--check`` y una captura del 3D);
+* el ``.msi`` y el ``.zip`` de Windows, compilados en Windows; el ``.msi`` se instala para el usuario
+  actual, se arranca (``--check``, y la vista 3D con el OpenGL por software de Mesa) y se
+  desinstala;
 * este manual y la referencia de la API en zips, ``SHA256SUMS`` y la entrada del historial como
   notas de la versión.
 
@@ -41,7 +54,8 @@ artefacto ``android-mapping`` (90 días). El workflow también se puede lanzar a
 La web
 ------
 
-Cuando publicas esa versión, ``.github/workflows/site.yml`` compila este manual y la referencia de
+Cuando publicas esa versión (una etiqueta ``v*``: publicar la release *prebuilt* de los binarios
+nativos no despliega nada), ``.github/workflows/site.yml`` compila este manual y la referencia de
 la API desde su etiqueta y los sube al repositorio
 `VizMini2/VizMini2.github.io <https://github.com/VizMini2/VizMini2.github.io>`_, que GitHub Pages
 sirve en https://vizmini2.github.io (el manual en la raíz, el español en ``es/`` y la referencia de

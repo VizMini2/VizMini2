@@ -11,7 +11,8 @@ Desde RViz 2
 ------------
 
 1. Copia tu fichero ``.rviz`` al móvil (o déjalo en el PC).
-2. **+** (*Añadir* en el PC) → *Importar una pestaña, un fichero de RViz o un layout…* y elígelo.
+2. **+** → *Importar una pestaña, un fichero de RViz o un layout…* (en el PC, **Añadir** →
+   *Importar un fichero de VizMini2 o de RViz, o un layout*) y elígelo.
 3. Aparece una pestaña RViz nueva con los mismos displays, topics, fixed frame, fondo y vista. Para
    sustituir los displays de una pestaña que ya tienes, usa *Importar archivo .rviz…* en el menú de
    esa pestaña RViz.

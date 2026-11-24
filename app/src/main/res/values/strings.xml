@@ -398,7 +398,7 @@
     <string name="tab_catalog_dashboard_summary">Your own screen: mix 3D views, cameras, joysticks, buttons and more.</string>
     <string name="tab_catalog_dashboard_detail1">Add any tab as a widget: RViz, several cameras, a joystick, buttons, diagnostics, lifecycle nodes…</string>
     <string name="tab_catalog_dashboard_detail2">Tap Edit to move widgets by dragging, resize them from the corner or remove them.</string>
-    <string name="tab_catalog_dashboard_detail3">Widgets snap to a grid and rearrange themselves so nothing overlaps, or float on top of the others, like a joystick over the 3D view.</string>
+    <string name="tab_catalog_dashboard_detail3">Widgets stay where you drop them and can overlap (the one you moved last is on top), like a joystick over the 3D view.</string>
     <string name="add_tab_widget_title">Add widget</string>
     <string name="dashboard_edit">Edit</string>
     <string name="dashboard_done">Done</string>

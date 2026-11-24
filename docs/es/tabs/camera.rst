@@ -9,7 +9,8 @@ Imagen en directo de los topics de cámara, hasta cuatro a la vez.
   ``compressedDepth`` para los topics cuyo nombre contiene *depth*, y con **vídeo H.264 / H.265**:
   ``foxglove_msgs/CompressedVideo`` (``.../foxglove``) y ``ffmpeg_image_transport_msgs/FFMPEGPacket``
   (``.../ffmpeg``), que gastan una fracción de la WiFi que necesita una cámara en JPEG. El móvil los
-  decodifica por hardware; el PC, con ``ffmpeg`` (``sudo apt install ffmpeg``). Los displays *Image* y
+  decodifica por hardware; el PC, con ``ffmpeg`` (Linux: ``sudo apt install ffmpeg``; Windows:
+  ``winget install ffmpeg``), y sin él la imagen dice cómo conseguirlo. Los displays *Image* y
   *Camera* del RViz también los aceptan.
 * Codificaciones sin comprimir: ``rgb8``, ``bgr8``, ``rgba8``, ``bgra8``, ``mono8``, ``mono16``,
   ``8UC1/3/4``, ``16UC1``, ``32FC1``, ``yuv422`` (``uyvy``) y ``yuyv``.

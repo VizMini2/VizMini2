@@ -19,7 +19,7 @@ Esta página trata del móvil. En el PC las mismas piezas están en una barra la
   nodos lifecycle); accesos al grafo de nodos y al árbol TF; tu espacio de trabajo; la tarjeta de
   la cuenta opcional (:doc:`account`); y tarjetas para el recorrido rápido, esta documentación, el
   apoyo al proyecto, el historial de cambios, el contacto y la privacidad.
-* **Ajustes:** red, conexión en segundo plano, perfiles de robot, avisos e idioma.
+* **Ajustes:** red, conexión en segundo plano, perfiles de robot, alertas e idioma.
 
 .. raw:: html
 
@@ -55,5 +55,6 @@ Grabar un vídeo
 Para enseñar cómo se comporta el robot, graba lo que hay en pantalla: el botón de grabar de arriba en
 el móvil (Android pide permiso cada vez; la notificación tiene *Parar*) guarda un MP4 en
 *Movies/VizMini2*. En el PC, **Grabar vídeo** en la barra lateral (o :kbd:`Ctrl+Mayús+R`) graba la
-ventana, vista 3D incluida, en *~/Videos/VizMini2* (necesita ``ffmpeg``).
+ventana, vista 3D incluida, en *~/Vídeos/VizMini2* (*Vídeos\\VizMini2* en Windows; necesita
+``ffmpeg``).
 

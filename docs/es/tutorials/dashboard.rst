@@ -10,9 +10,9 @@ Objetivo: una pantalla con la vista 3D, una cámara y un joystick.
 5. Opcional: añade **Botones** con tus órdenes más usadas, o **Diagnóstico** en modo *Log*.
 6. Pulsa **Hecho** y conduce mientras miras.
 
-Los widgets se ajustan a una cuadrícula y se apartan entre sí en vez de solaparse, así que puedes
-reordenarlos libremente. Con **Superponer a los demás**, un widget flota encima de los otros, como
-un joystick sobre la vista 3D. Guarda el resultado en un perfil de robot
+Los widgets se quedan justo donde los sueltas y se pueden solapar: el último que has movido queda
+encima, así que puedes poner un joystick sobre la vista 3D o una cámara pequeña en una esquina.
+**Deshacer** revierte el último movimiento. Guarda el resultado en un perfil de robot
 (:doc:`../config/profiles`) para tenerlo en otro dispositivo.
 
 ¿Tienes prisa? El catálogo de **+** también tiene **Dashboards ya montados** (*Navegación*, *Robot

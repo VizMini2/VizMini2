@@ -53,7 +53,8 @@ On the PC
 
 The same settings are in **Configuration** (the last item of the side bar) → **Network**. The
 first time, the app takes ``ROS_DOMAIN_ID`` (and ``ROS_STATIC_PEERS`` or ``ROS_DISCOVERY_SERVER``)
-from the terminal you start it from. There is no Home: the top of the side bar shows *Domain N*
+from its environment: the terminal you start it from, or on Windows your user's environment
+variables. There is no Home: the top of the side bar shows *Domain N*
 when the node is up, and a **Topics** or **Nodes** tab (**Add** in the side bar) shows what is on
 the network. If nothing shows up, check the firewall too: :doc:`../help/troubleshooting`.
 

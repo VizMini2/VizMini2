@@ -24,7 +24,7 @@ joystick, botones, diagnósticos… todo a la vez. El móvil y el PC usan el mis
   moverte por él (los gestos de dos dedos sobre un joystick son del joystick). El porcentaje de la
   barra lo devuelve al 100 %. El zoom se recuerda para cada dashboard en cada dispositivo.
 * El botón de pausa de la barra congela todos los widgets a la vez (los mensajes siguen llegando y
-  al reanudar se ve el último). Mientras se reproduce una bag desde la pestaña :doc:`bags`, su barra
+  al reanudar se ve el último). Mientras se reproduce un bag desde la pestaña :doc:`bags`, su barra
   de tiempo aparece aquí, y pausar, cambiar la velocidad o saltar mueve todos los widgets a la vez.
 
 Cada widget guarda sus propios ajustes, como una pestaña normal.
@@ -53,7 +53,7 @@ colocados y configurados, con los topics que haya en la red si los hay: **Navega
 láser, plan y footprint, joystick, velocidad y diagnóstico), **Robot con cámara**,
 **Monitorización** (diagnóstico, gráficas, indicadores, grafo de nodos y árbol TF), **Manipulación
 (MoveIt)** y **Showcase** (casi todo lo que sabe hacer la app, pensado para ``tools/fake_robot.py``).
-En el móvil, el modo demo trae además un *Dashboard demo*.
+El modo demo trae además un *Dashboard demo*.
 
 Los layouts de paneles (``.json``) se pueden importar como dashboard, y un dashboard se puede
 exportar como layout de paneles: mira :doc:`../config/import-export`.

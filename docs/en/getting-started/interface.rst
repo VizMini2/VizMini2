@@ -54,5 +54,6 @@ Recording a video
 To show how the robot behaves, record what is on the screen: the record button at the top of the
 phone (Android asks for permission each time; the notification has *Stop*) saves an MP4 to
 *Movies/VizMini2*. On the PC, **Record video** in the sidebar (or :kbd:`Ctrl+Shift+R`) records the
-window, 3D view included, to *~/Videos/VizMini2* (it needs ``ffmpeg``).
+window, 3D view included, to *~/Videos/VizMini2* (*Videos\\VizMini2* on Windows; it needs
+``ffmpeg``).
 

@@ -6,12 +6,12 @@ Objetivo: arrancar un nodo lifecycle y ajustar un parámetro, sin terminal.
 Lifecycle
 ---------
 
-1. Pulsa **+ → Lifecycle**, deja marcado **Añadir los nodos lifecycle encontrados ahora** y pulsa
+1. Pulsa **+ → Lifecycle**, deja marcado **Añadir los N nodos lifecycle encontrados ahora** y pulsa
    **Crear** (en la demo: ``/camera_driver``). Después, **Añadir nodo** añade más.
-2. Cada nodo muestra su estado. Pulsa **Configure** y después **Activate** (confirma cada una). El
-   estado cambia en directo, también cuando lo cambia otro programa (como el lifecycle manager de
-   Nav2).
-3. **Deactivate** pausa el nodo; **Cleanup** lo devuelve a *unconfigured*; **Shutdown** lo finaliza.
+2. Cada nodo muestra su estado. Pulsa **Configure** y después **Activate**. El estado cambia en
+   directo, también cuando lo cambia otro programa (como el lifecycle manager de Nav2).
+3. **Deactivate** pausa el nodo; **Cleanup** lo devuelve a *unconfigured*; **Shutdown** lo finaliza
+   (después de que lo confirmes).
 
 Parámetros
 ----------

@@ -19,7 +19,9 @@ keyboard on the PC.
 * **Gamepad** (phone): the sticks drive and the **B** button is STOP.
 
 On the PC, drag the joystick with the mouse or use the keyboard: :kbd:`W`/:kbd:`S` or :kbd:`↑`/:kbd:`↓`
-and :kbd:`A`/:kbd:`D` or :kbd:`←`/:kbd:`→` move the (left) joystick, and :kbd:`Space` is STOP.
+and :kbd:`A`/:kbd:`D` or :kbd:`←`/:kbd:`→` move the (left) joystick, and :kbd:`Space` is STOP. If
+the keys stop working after you clicked the sidebar or a dialog, click anywhere in the tab: it takes
+the keyboard back.
 
 Safety
 ------

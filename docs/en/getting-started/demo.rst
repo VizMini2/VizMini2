@@ -21,7 +21,7 @@ manager, so every tab has something to show:
 * ``/controller_manager`` with ``joint_state_broadcaster`` and ``diff_drive_controller`` active:
   deactivate ``diff_drive_controller`` in a Controllers tab and the robot stops.
 
-The demo uses its own ROS domain (231) and only the phone's internal (loopback) network, so
+The demo uses its own ROS domain (231) and only the device's internal (loopback) network, so
 **nothing reaches your Wi-Fi** and it never interferes with real robots.
 
 Start it
@@ -33,7 +33,8 @@ saved and come back when you tap **Exit demo**. No account needed.
 The demo adds ready-made tabs: *Demo RViz*, *Drive*, *Camera*, *Diagnostics*, *Topics*, *Buttons*,
 *Sliders*, *Indicators*, *GPS map*, *Plot*, *Lifecycle* and *Demo dashboard*.
 
-The demo is only in the Android app; the PC app has no demo mode.
+On the PC the demo is the same: *Configuration* → **Start demo**, or start the app with
+``vizmini2 --demo`` (:doc:`desktop`). It runs on that computer only.
 
 .. container:: vm-clear
 

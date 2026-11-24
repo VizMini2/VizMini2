@@ -12,5 +12,5 @@ On the PC
 ---------
 
 **Configuration → Appearance → Language:** *System*, *English* or *Español*; the window changes
-right away. *System* follows the computer's language (``LANG``). The same card has **Theme** and
+right away. *System* follows the computer's language (``LANG`` on Linux, the language settings on Windows). The same card has **Theme** and
 **Interface size** (*Compact*, *Normal* or *Large*).

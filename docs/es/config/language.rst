@@ -12,5 +12,6 @@ En el PC
 --------
 
 **Configuración → Apariencia → Idioma:** *Sistema*, *English* o *Español*; la ventana cambia al
-momento. *Sistema* sigue el idioma del ordenador (``LANG``). En la misma tarjeta están **Tema** y
-**Tamaño de la interfaz** (*Compacto*, *Normal* o *Grande*).
+momento. *Sistema* sigue el idioma del ordenador (``LANG`` en Linux, la configuración de idioma en
+Windows). En la misma tarjeta están **Tema** y **Tamaño de la interfaz** (*Compacto*, *Normal* o
+*Grande*).

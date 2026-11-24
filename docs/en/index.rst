@@ -7,8 +7,8 @@ your own buttons for services and actions, MoveIt and ros2_control, maps for Nav
 node parameters, lifecycle nodes, bags and much more. It talks to your robots directly over your
 network (DDS), with no bridge or server on the robot (Zenoh and foxglove_bridge work too).
 
-No account needed. Not sure yet? **Try the demo** on the phone: a simulated robot that runs only
-inside it, with everything working.
+No account needed. Not sure yet? **Try the demo**: a simulated robot that runs only inside the
+phone or the PC, with everything working.
 
 .. clip:: dashboard
    :align: center
@@ -25,7 +25,7 @@ or file dialog), each page says so.
 
    <div class="vm-grid">
      <div class="vm-card vm-entry"><b>On the phone (Android 8.0+)</b>Install the APK, try the demo robot and connect to yours. <a href="getting-started/install.html">Install on Android</a></div>
-     <div class="vm-card vm-entry"><b>On the PC (Ubuntu 20.04+)</b>A <code>.deb</code> or <code>ros2 run vizmini2 vizmini2</code>: a window with a sidebar, keyboard shortcuts and drag and drop. <a href="getting-started/desktop.html">The PC app</a></div>
+     <div class="vm-card vm-entry"><b>On the PC (Ubuntu 20.04+ or Windows 10/11)</b>A <code>.deb</code>, an <code>.msi</code> or <code>ros2 run vizmini2 vizmini2</code>: a window with a sidebar, keyboard shortcuts and drag and drop. <a href="getting-started/desktop.html">The PC app</a></div>
    </div>
 
 What it can do

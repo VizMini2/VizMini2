@@ -3,7 +3,7 @@ Indicadores
 
 .. clip:: indicators
 
-Valores en vivo de cualquier topic, como números, relojes, barras, luces, texto o tablas.
+Valores en vivo de cualquier topic, como números, agujas, barras, luces, texto o tablas.
 Cada indicador se suscribe a un topic y enseña **un campo** del mensaje, o todos en una tabla.
 
 Pulsa **Añadir indicador**, escribe el topic o usa **Buscar en la red…**, elige el tipo de mensaje,
@@ -53,5 +53,5 @@ entera. El menú ⋮ de cada indicador tiene *Editar*, *Duplicar*, *Mover antes*
 *Eliminar*.
 
 Los indicadores quedan muy bien como widgets de un :doc:`dashboard`: en modo edición en el móvil, el
-**+** del widget añade otro, y un widget vacío añade uno al tocarlo. En el móvil, el modo demo trae
-una pestaña *Indicadores* con la batería, la velocidad y la posición del robot simulado.
+**+** del widget añade otro, y un widget vacío añade uno al tocarlo. El modo demo trae una
+pestaña *Indicadores* con la batería, la velocidad y la posición del robot simulado.

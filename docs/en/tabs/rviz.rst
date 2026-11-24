@@ -31,8 +31,8 @@ type, or the QoS the publisher uses).
 
 On the PC, the displays are in a panel on the right, like in RViz: *Global Options* (fixed frame and
 background), *Global Status* and each display with its checkbox and its properties, edited in place.
-Right click a display for *Duplicate*, *Rename* and *Remove* (also at the bottom of the panel, next to
-*Add*). Drag the panel's left edge to make it wider; the button at the top right hides it. In a narrow
+Right click a display for *Enable*/*Disable*, *Duplicate*, *Rename* and *Remove* (also at the bottom
+of the panel, next to *Add*). Drag the panel's left edge to make it wider; the button at the top right hides it. In a narrow
 window or a dashboard widget the chips are shown instead: click to turn a display on or off, right
 click to edit it.
 
@@ -53,7 +53,8 @@ ready for a robot that is not running. Until it appears in TF the automatic one 
    * - TF
      - Show names, axes and arrows; marker scale, name size, frame timeout. The TF topics
        (``/tf, /tf_static`` or a robot's own, such as ``/robot1/tf``) and which frames to hide: a
-       checkbox per frame, or patterns such as ``*wheel*``.
+       checkbox per frame, or patterns such as ``*wheel*``. Frame names that would cover each other
+       (a small robot seen from afar) are stacked one above the other so they can all be read.
    * - Axes
      - Frame, length, radius, alpha.
    * - RobotModel
@@ -117,7 +118,7 @@ ready for a robot that is not running. Until it appears in TF the automatic one 
    * - NavMap
      - `EasyNavigation's NavMap <https://github.com/EasyNavigation/NavMap>`_ (``/navmap``): a navigable
        surface of triangles, on one floor or several (ramps, stairs, multi-storey car parks), colored
-       by one of its layers (cost, elevation, occupancy…) with *viridis*, *heat* or *rainbow*,
+       by one of its layers (cost, elevation, occupancy…) with *viridis*, *heat*, *rainbow* or a *flat* color,
        blended across cells or cell by cell; unknown cells in translucent gray. The links between
        floors (stairs, elevators, doors) as arcs colored by type, and the layer updates of
        ``/navmap_layers`` (whole or only the cells that change). Its RViz plugin's settings are
@@ -156,7 +157,8 @@ Tap the ground and drag to set the heading. The pose is sent in the fixed frame 
    :poster: rviz
    :caption: Select: tap a point of the laser to see where it is.
 
-On the phone, the ruler button holds the other tools; on the PC, they are all in the toolbar:
+On the phone, the ruler button holds the other tools; on the PC, they are all in the toolbar (there
+*Publish Point* is **Point** and *MoveIt goal* is **MoveIt**):
 
 * **Publish Point** sends the point of the ground you tap (``geometry_msgs/PointStamped``) to
   ``/clicked_point``, like RViz. You can drag before lifting your finger to adjust it.

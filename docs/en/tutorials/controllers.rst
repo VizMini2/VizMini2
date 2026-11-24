@@ -31,7 +31,7 @@ ros2_control with mock hardware) or any robot with a ``controller_manager``.
 6. Controllers declared in the manager's parameters but not loaded appear under *Declared but not
    loaded*, with **Load**; an inactive one can be **Unload**\ ed.
 
-The message version of ``controller_manager_msgs`` (Foxy, Humble, Jazzy, Kilted) is detected by
+The message version of ``controller_manager_msgs`` (Foxy, Humble, Jazzy, Kilted / Lyrical) is detected by
 itself. More in :doc:`../tabs/controllers`.
 
 .. warning::

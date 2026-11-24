@@ -94,4 +94,4 @@ or *Remember robots* switch: to check the network from a terminal, see
 
 The first time it starts, the PC app takes ``ROS_DOMAIN_ID``, ``ROS_STATIC_PEERS`` and
 ``ROS_DISCOVERY_SERVER`` from its environment (for example, the terminal where you run
-``ros2 run vizmini2 vizmini2``). After that, the settings saved in Configuration are used.
+``ros2 run vizmini2 vizmini2``, or on Windows your user's environment variables). After that, the settings saved in Configuration are used.

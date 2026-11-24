@@ -6,9 +6,9 @@ Teleop (2 joysticks)
 Two joysticks, for holonomic robots and drones. It works like :doc:`teleop` (same message types,
 speeds and safety stops) with presets for two sticks:
 
-* **Forward / turn:** one stick drives, the other turns (the default).
-* **Holonomic + turn:** one stick moves in any direction, the other turns.
-* **Drone (mode 2):** up/down and yaw on the left stick, forward and sideways on the right, like an
+* **Two joysticks: forward / turn:** one stick drives, the other turns (the default).
+* **Two joysticks: holonomic + turn:** one stick moves in any direction, the other turns.
+* **Two joysticks: drone (mode 2):** up/down and yaw on the left stick, forward and sideways on the right, like an
   RC transmitter in mode 2 (``linear.z`` and ``angular.z`` on the left, ``linear.x`` and
   ``linear.y`` on the right).
 * **Custom:** map each axis of each stick to any linear or angular axis.

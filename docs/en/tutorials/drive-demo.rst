@@ -1,14 +1,14 @@
 Drive the demo robot
 ====================
 
-Five minutes, no robot needed. The demo runs on the phone (the PC app has no demo mode).
+Five minutes, no robot needed. The demo runs on the phone or on the PC.
 
 1. Start the demo (:doc:`../getting-started/demo`).
 2. Open **Demo RViz**: the robot drives around the room by itself, with its laser, map and planned
    path.
 3. Open **Drive** and push the joystick: the robot follows you and stops when you let go. Tap
    **STOP** at any time.
-4. Back in **Demo RViz**, try the views from the menu (*TopDownOrtho* is great for maps) and the
+4. Back in **Demo RViz**, try the views from the menu (on the PC, the view button in the toolbar; *TopDownOrtho* is great for maps) and the
    gestures: one finger rotates, two fingers pan, pinch zooms.
 5. Open **Camera** to see what the robot sees.
 6. Open **Buttons** and tap **Return home**: the robot jumps back to its dock. **Fibonacci 10**

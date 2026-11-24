@@ -31,8 +31,8 @@ switch_controllers`` y mover sus articulaciones a mano. Con la demo del Panda de
 6. Los controladores declarados en los parámetros del manager pero sin cargar aparecen en
    *Declarados pero sin cargar*, con **Cargar**; uno inactivo se puede **Descargar**.
 
-La versión de los mensajes de ``controller_manager_msgs`` (Foxy, Humble, Jazzy, Kilted) se detecta
-sola. Más en :doc:`../tabs/controllers`.
+La versión de los mensajes de ``controller_manager_msgs`` (Foxy, Humble, Jazzy, Kilted / Lyrical)
+se detecta sola. Más en :doc:`../tabs/controllers`.
 
 .. warning::
    En un robot real, **Enviar** mueve las articulaciones de verdad: empieza con poca distancia y

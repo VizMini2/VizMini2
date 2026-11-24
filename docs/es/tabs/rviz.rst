@@ -30,11 +30,12 @@ display no recibe nada, su diálogo dice por qué y, si puede, propone un arregl
 topic del mismo tipo, o la QoS que usa el publicador).
 
 En el PC, los displays están en un panel a la derecha, como en RViz: *Global Options* (fixed frame y
-fondo), *Global Status* y cada display con su casilla y sus propiedades, que se editan ahí mismo. Con
-el botón derecho sobre un display tienes *Duplicate*, *Rename* y *Remove* (también abajo del panel,
-junto a *Add*). Arrastra el borde izquierdo del panel para ensancharlo; el botón de arriba a la
-derecha lo oculta. En una ventana estrecha o en un widget de dashboard se ven los chips en su lugar:
-clic para activar o desactivar un display, botón derecho para editarlo.
+fondo), *Global Status* y cada display con su casilla y sus propiedades, que se editan ahí mismo.
+Con el botón derecho sobre un display tienes *Activar*/*Desactivar*, *Duplicar*, *Renombrar* y
+*Quitar* (también abajo del panel, junto a *Añadir*). Arrastra el borde izquierdo del panel para
+ensancharlo; el botón de arriba a la derecha lo oculta. En una ventana estrecha o en un widget de
+dashboard se ven los chips en su lugar: clic para activar o desactivar un display, botón derecho
+para editarlo.
 
 El **fixed frame** se elige entre los frames de TF o se escribe a mano (en el móvil, *Escribir un
 frame…* en su diálogo; en el PC, escribiéndolo en *Fixed Frame*), aunque todavía no exista: para dejar
@@ -53,7 +54,9 @@ automático, y en el PC lo dice *Global Status*.
    * - TF
      - Mostrar nombres, ejes y flechas; escala, tamaño del nombre, tiempo hasta dar un frame por
        perdido. Los topics de TF (``/tf, /tf_static`` o los de un robot, como ``/robot1/tf``) y qué
-       frames ocultar: una casilla por frame, o patrones como ``*wheel*``.
+       frames ocultar: una casilla por frame, o patrones como ``*wheel*``. Los nombres de frames que
+       se taparían entre sí (un robot pequeño visto de lejos) se apilan uno encima de otro para que
+       se puedan leer todos.
    * - Axes
      - Frame, longitud, radio, transparencia.
    * - RobotModel
@@ -120,17 +123,17 @@ automático, y en el PC lo dice *Global Status*.
      - El `NavMap de EasyNavigation <https://github.com/EasyNavigation/NavMap>`_ (``/navmap``): una
        superficie navegable de triángulos, en una planta o en varias (rampas, escaleras, parkings de
        varias alturas), coloreada por una de sus capas (coste, elevación, ocupación…) con *viridis*,
-       *heat* o *rainbow*, mezclando los colores entre celdas o celda a celda; las celdas desconocidas,
-       en gris translúcido. Los enlaces entre plantas (escaleras, ascensores, puertas) como arcos de
-       color según su tipo, y las actualizaciones de capas de ``/navmap_layers`` (enteras o solo las
-       celdas que cambian). Los ajustes de su plugin de RViz se importan de los ficheros ``.rviz``.
+       *heat*, *rainbow* o un color *plano*, mezclando los colores entre celdas o celda a celda; las
+       celdas desconocidas, en gris translúcido. Los enlaces entre plantas (escaleras, ascensores,
+       puertas) como arcos de color según su tipo, y las actualizaciones de capas de
+       ``/navmap_layers`` (enteras o solo las celdas que cambian). Los ajustes de su plugin de RViz se importan de los ficheros ``.rviz``.
    * - InteractiveMarkers
      - Los controles de un servidor de interactive markers (``<namespace>/update``): sus markers o,
        si un control no trae ninguno, las flechas y anillos de RViz. Se mueven con la herramienta
        **Interactuar**.
 
 Cada mensaje se coloca con la TF del instante de su stamp, con los últimos 10 s de historial. Si el
-reloj de las TF va hacia atrás (una bag en bucle o una simulación que se reinicia con ``/clock``), el
+reloj de las TF va hacia atrás (un bag en bucle o una simulación que se reinicia con ``/clock``), el
 historial se vacía, igual que en RViz, y también se borran los puntos acumulados por la persistencia,
 la estela de *Odometry* y los puntos de *PointStamped*.
 
@@ -160,7 +163,8 @@ Toca el suelo y arrastra para elegir la orientación. La pose se envía en el fi
    :poster: rviz
    :caption: Elegir: toca un punto del láser para ver dónde está.
 
-En el móvil, el botón de la regla tiene el resto de herramientas; en el PC están todas en la barra:
+En el móvil, el botón de la regla tiene el resto de herramientas; en el PC están todas en la barra
+(ahí *Publicar punto* es **Punto** y *Objetivo de MoveIt* es **MoveIt**):
 
 * **Publicar punto** envía el punto del suelo que toques (``geometry_msgs/PointStamped``) a
   ``/clicked_point``, como RViz. Puedes arrastrar antes de levantar el dedo para ajustarlo.
@@ -199,7 +203,7 @@ Volver atrás
 ------------
 
 El botón **Volver atrás** (el reloj con una flecha) repite el último minuto de esta vista (los topics
-de sus displays y la TF) sin haber grabado una bag: solo en este dispositivo, en bucle, con la barra
+de sus displays y la TF) sin haber grabado un bag: solo en este dispositivo, en bucle, con la barra
 de tiempo de siempre para pausar, cambiar la velocidad o saltar. Al cerrar la barra se vuelve al
 robot en directo. En el PC la vista guarda ese minuto desde el principio; en el móvil se activa con
 el primer toque (o con *Guardar el último minuto* en el menú), porque gasta memoria.

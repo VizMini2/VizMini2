@@ -8,13 +8,14 @@ Tus propios botones, cada uno para una sola cosa:
 * **Publicar** un mensaje en un topic.
 * **Llamar** a un servicio y mostrar la respuesta, con lo que ha tardado.
 * **Enviar** un goal a una acción, mostrar su feedback y su resultado, y cancelarlo mientras se
-  ejecuta (pulsando otra vez el botón).
+  ejecuta (pulsa otra vez el botón y confirma con **Cancelar goal**).
 
 Pulsa **Añadir botón**, elige el tipo y usa **Explorar** para escoger un topic, servicio o acción de
 la red (o escribe su nombre), y después elige su tipo. Rellena el mensaje: hay un campo por cada
 campo del mensaje, los arrays se escriben separados por comas y los arrays de mensajes en JSON. Los
 campos de tiempo (como ``header.stamp``) tienen una casilla *hora actual al enviar*. Toca la línea
-de debajo de un botón para ver entera la respuesta, el feedback o el error.
+de debajo de un botón para ver entera la respuesta, el feedback o el error; ahí, una lista larga
+muestra sus primeros valores y cuántos hay, por ejemplo ``[0, 1, 1, 2, 3, 5, ...] (11)``.
 
 Los botones de servicio y de acción funcionan con los mismos middlewares que la pestaña
 :doc:`services`.

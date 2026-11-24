@@ -8,8 +8,8 @@ para Nav2, gráficas, alertas, parámetros de nodos, nodos lifecycle, bags y muc
 directamente con tus robots por tu red (DDS), sin puentes ni servidores en el robot (también
 funciona con Zenoh y con foxglove_bridge).
 
-No necesitas cuenta. ¿Aún no lo tienes claro? **Prueba la demo** en el móvil: un robot simulado que
-funciona solo dentro de él, con todo funcionando.
+No necesitas cuenta. ¿Aún no lo tienes claro? **Prueba la demo**: un robot simulado que funciona
+solo dentro del móvil o del PC, con todo funcionando.
 
 .. clip:: dashboard
    :align: center
@@ -26,7 +26,7 @@ compartir o diálogo de ficheros), cada página lo dice.
 
    <div class="vm-grid">
      <div class="vm-card vm-entry"><b>En el móvil (Android 8.0+)</b>Instala el APK, prueba el robot de demo y conéctate al tuyo. <a href="getting-started/install.html">Instalar en Android</a></div>
-     <div class="vm-card vm-entry"><b>En el PC (Ubuntu 20.04+)</b>Un <code>.deb</code> o <code>ros2 run vizmini2 vizmini2</code>: una ventana con barra lateral, atajos de teclado y arrastrar y soltar. <a href="getting-started/desktop.html">La app de PC</a></div>
+     <div class="vm-card vm-entry"><b>En el PC (Ubuntu 20.04+ o Windows 10/11)</b>Un <code>.deb</code>, un <code>.msi</code> o <code>ros2 run vizmini2 vizmini2</code>: una ventana con barra lateral, atajos de teclado y arrastrar y soltar. <a href="getting-started/desktop.html">La app de PC</a></div>
    </div>
 
 Qué puede hacer

@@ -9,8 +9,8 @@ lectura; tócalo para ver su descripción y cambiarlo (los arrays se escriben co
 filtro deja solo los parámetros cuyo nombre contiene lo que escribes, y se recuerda.
 
 Es el mismo editor que el del inspector de nodos (:doc:`nodes`), pero siempre abierto en el mismo
-nodo: ponlo en un :doc:`dashboard` junto a una :doc:`plot` para ajustar un controlador mientras lo
-ves. **Actualizar** vuelve a leer los valores, y los cambios que haga cualquier otro
+nodo: ponlo en un :doc:`dashboard` junto a una pestaña :doc:`plot` para ajustar un controlador
+mientras lo ves. **Actualizar** vuelve a leer los valores, y los cambios que haga cualquier otro
 (``ros2 param set``, el propio nodo, otra app) aparecen al momento, por ``/parameter_events``.
 
 Funciona con nodos en Fast DDS o Cyclone DDS, por Zenoh y a través de foxglove_bridge (mira

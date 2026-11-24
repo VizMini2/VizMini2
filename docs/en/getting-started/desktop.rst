@@ -21,17 +21,22 @@ works (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 
   .. code-block:: bash
 
-     sudo apt install ./vizmini2_1.0.0_amd64.deb
+     sudo apt install ./vizmini2_*_amd64.deb
 
   Then open *VizMini2* from the applications menu, or run ``/opt/vizmini2/bin/vizmini2``. Upgrade
   by installing the new ``.deb`` the same way; ``sudo apt remove vizmini2`` removes it (your
   settings stay in your home folder).
 
-* **As a ROS 2 package**, built from the source code (it needs a JDK 17 or newer to build):
+* **The .tar.gz**: the same app without installing it. Unpack it anywhere and run
+  ``vizmini2/bin/vizmini2``.
+
+* **As a ROS 2 package** (Linux), built from the source code. It needs a JDK 17 or newer (21
+  recommended), and the first build needs internet: Gradle downloads its dependencies and the
+  prebuilt native libraries.
 
   .. code-block:: bash
 
-     cd ~/ros2_ws/src && git clone <repository> vizmini2_src
+     cd ~/ros2_ws/src && git clone https://github.com/VizMini2/VizMini2.git vizmini2_src
      cd ~/ros2_ws && colcon build --packages-select vizmini2 && source install/setup.bash
      ros2 run vizmini2 vizmini2
 
@@ -56,7 +61,8 @@ It runs on **Windows 10 or 11** (64-bit). As on Linux, ROS 2 is not needed on th
   PC" or a security warning): choose *More info* → *Run anyway*, or *Run*. To upgrade, install the
   new ``.msi`` the same way; uninstall it from *Settings* → *Apps*. Neither touches your settings,
   bags or videos.
-* **The .zip**: the same app without installing it. Unzip it anywhere and run *VizMini2.exe*.
+* **The .zip**: the same app without installing it. Unzip it anywhere and run
+  *VizMini2\\VizMini2.exe*.
 
 The first time it connects, Windows Firewall asks whether VizMini2 may use the network: allow it.
 If your network is marked as **Public** in Windows, robots on it may not show up; mark it as
@@ -102,7 +108,8 @@ Without a robot: the demo
 laser, camera (also as H.264 video, with ``ffmpeg``), odometry, diagnostics, services, an action, a
 lifecycle node and a ros2_control controller manager, with tabs and a dashboard to try everything.
 Drive it from *Drive*. While it runs, **Exit demo** stays at the top of the sidebar; leaving it
-puts your tabs and connection back. ``vizmini2 --demo`` starts straight in it.
+puts your tabs and connection back. ``vizmini2 --demo`` (``VizMini2.exe --demo`` on Windows)
+starts straight in it; closing the app in demo mode reopens it in demo mode.
 
 Mouse and keyboard
 ------------------
@@ -121,15 +128,18 @@ Recording the window
 --------------------
 
 **Record video** in the sidebar (or :kbd:`Ctrl+Shift+R`) records the whole window, 3D view
-included, to an MP4 in *~/Videos/VizMini2*; while it records, the item shows the time and stops it.
-It needs ``ffmpeg``. To show someone what the robot did, this is usually quicker than a bag.
+included, to an MP4 in *~/Videos/VizMini2* (*Videos\\VizMini2* on Windows); while it records, the
+item shows the time and stops it. When the video is saved, a notification says where (on Windows,
+clicking it shows the video in Explorer). It needs ``ffmpeg``. To show someone what the robot did,
+this is usually quicker than a bag.
 
 Notifications
 -------------
 
 The PC shows the :doc:`alerts <../tabs/alerts>` (your topic rules, lost contact with the robot and
-diagnostics in ERROR) as desktop notifications while VizMini2 is open. The three switches are at
-the top of the Alerts tab; they are on by default.
+diagnostics in ERROR) as desktop notifications while VizMini2 is open: with ``notify-send`` on
+Linux, and from VizMini2's icon in the system tray on Windows (or on a Linux desktop without
+``notify-send``). The three switches are at the top of the Alerts tab; they are on by default.
 
 .. clip:: pc_alerts
    :align: wide
@@ -156,13 +166,14 @@ Phone and PC: what changes
      - Mouse, keyboard
    * - Files (bags, maps, exports)
      - Share sheet
-     - File dialog; bags in *~/.local/share/vizmini2/bags*
+     - File dialog; bags in *~/.local/share/vizmini2/bags* (Windows:
+       *%LOCALAPPDATA%\\VizMini2 Data\\bags*)
    * - Rename or duplicate a tab
      - Long press
      - Right-click
    * - Screen recording
      - *Movies/VizMini2*
-     - *~/Videos/VizMini2* (needs ffmpeg)
+     - *~/Videos/VizMini2* (Windows: *Videos\\VizMini2*), needs ffmpeg
    * - Alerts in the background
      - Yes, with the background connection
      - While the window is open
@@ -175,7 +186,7 @@ Where it keeps things
 
 * Settings, tabs and profiles: *~/.config/vizmini2*
 * Bags: *~/.local/share/vizmini2/bags*
-* GPS map tiles: *~/.cache/vizmini2*
+* Caches (3D view, native libraries, GPS map tiles): *~/.cache/vizmini2*
 * Screen videos: *~/Videos/VizMini2*
 
 Removing *~/.config/vizmini2* starts from scratch.
@@ -184,10 +195,11 @@ On Windows:
 
 * Settings, tabs and profiles: *%APPDATA%\\VizMini2*
 * Bags: *%LOCALAPPDATA%\\VizMini2 Data\\bags*
-* Cache (3D view and GPS map tiles): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
+* Caches (3D view, native libraries, GPS map tiles): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
 * Screen videos: *Videos\\VizMini2*
 
-Uninstalling VizMini2 does not delete any of these folders.
+Removing *%APPDATA%\\VizMini2* starts from scratch. Uninstalling VizMini2 does not delete any of
+these folders.
 
 Command line
 ------------
@@ -203,26 +215,36 @@ troubleshooting:
      - What it does
    * - ``--domain N``
      - Starts on ROS domain *N* (it is also saved).
-   * - ``--tab TYPE``
-     - Opens the first tab of that type (``RVIZ``, ``CAMERA``, ``PLOT``, ``MAPS``…), creating it if
-       there is none.
-   * - ``--check --domain N``
-     - Without a window: connects, lists what it sees on the network and exits. Useful to test
-       the network from a terminal.
+   * - ``--tab TAB``
+     - Opens that tab: its name, or the first tab of a type (``RVIZ``, ``CAMERA``, ``PLOT``,
+       ``MAPS``…, created if there is none); ``CONFIG`` opens Configuration.
+   * - ``--check [--domain N]``
+     - Without a window: connects, waits a few seconds, lists what it sees on the network and
+       exits (code 0 if it saw another node, 1 if not). Useful to test the network from a
+       terminal.
    * - ``--scan-domains``
      - Without a window: which ROS domains have nodes on the network.
-   * - ``--record out.mp4 --seconds N``
-     - Records the window for *N* seconds and exits.
+   * - ``--record out.mp4 [--seconds N]``
+     - Opens the window, waits a few seconds, records it for *N* seconds (5 by default) and
+       exits. Needs ffmpeg.
    * - ``--shot out.png [--size WxH] [--millis N]``
-     - Saves a screenshot of a tab without opening a window (also with ``--tab`` and
-       ``--domain``), for reports or a CI.
+     - Saves a screenshot of a tab without opening a window (1200×800 after 4 s by default; also
+       with ``--tab``, ``--domain``, ``--demo``, ``--import``, ``--set`` and ``--play``), for
+       reports or a CI.
    * - ``--demo``
      - Starts in demo mode, with the simulated robot.
+   * - ``--set key=value``
+     - Changes a setting of the ``--tab`` tab (``key=@file`` reads the value from a file); it can
+       be repeated. For scripts and screenshots.
+   * - ``--play FILE.mcap``
+     - Plays that bag to the network in a loop as soon as it connects, like *Play* in the Bags
+       tab.
    * - ``--import FILE``
      - Adds a VizMini2 tab file, an RViz 2 file or a panel or plot layout, opens it, and
        prints what was not carried over.
    * - ``--showcase``
-     - Adds the *Showcase* dashboard (almost every widget; try it with the demo).
+     - Adds the *Showcase* dashboard (almost every widget; try it with the demo) and exits: open
+       the app afterwards.
 
 On Windows the program is *VizMini2.exe*. It is a windowed program, so a terminal doesn't show
 what it prints: redirect it to a file, for example in PowerShell:

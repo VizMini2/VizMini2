@@ -33,7 +33,7 @@ rango y al paso y se publica una vez. El menú ⋮ de cada slider tiene además 
 *Mover antes*, *Mover después* y *Eliminar*. En el PC, el slider se arrastra con el ratón.
 
 La pestaña nunca publica mientras está oculta, y los sliders también se pueden añadir a un
-:doc:`dashboard`. En el móvil, el modo demo trae una pestaña *Sliders* que mueve el robot simulado
+:doc:`dashboard`. El modo demo trae una pestaña *Sliders* que mueve el robot simulado
 con *Avanzar* y *Girar*.
 
 Tipos de mensaje

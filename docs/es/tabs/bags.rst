@@ -9,7 +9,8 @@ Grabar
 ------
 
 Pulsa **Grabar**, elige los topics (o **Todos**) y pulsa **Grabar**. Mientras graba ves el tiempo,
-los mensajes y el tamaño, topic a topic. Pulsa **Detener** al terminar. La grabación y la
+los mensajes y el tamaño, topic a topic (y cuántos se han descartado, si hay alguno), actualizados en
+directo. Pulsa **Detener** al terminar. La grabación y la
 reproducción siguen aunque cambies a otra pestaña.
 
 Los ficheros se guardan como ``vizmini2_<fecha>_<hora>.mcap`` (sin comprimir, perfil de ROS 2) y se
@@ -20,7 +21,8 @@ Reproducir
 ----------
 
 Pulsa **Reproducir** en una grabación para volver a publicar sus mensajes a 0,5×, 1× o 2×, con
-bucle y pausa. Arrastra la barra de progreso para saltar a cualquier instante, también en pausa. Al
+bucle y pausa. La tarjeta muestra la posición y la duración mientras se reproduce. Arrastra la barra
+de progreso para saltar a cualquier instante, también en pausa. Al
 saltar hacia delante se vuelve a publicar el último mensaje de los topics «latched»
 (``/tf_static``, ``/map``, ``/robot_description``…) para que la vista 3D conserve el mapa y el
 robot. Los topics cuyo tipo no conoce la app se omiten.
@@ -41,10 +43,11 @@ Importar y compartir
 --------------------
 
 **Importar** abre ficheros ``.mcap``, sin comprimir o comprimidos con lz4 o zstd (el de por defecto
-en muchas instalaciones de ROS 2). Las bags ``.db3`` (SQLite) no son compatibles. **Compartir**
+en muchas instalaciones de ROS 2). Los bags ``.db3`` (SQLite) no son compatibles. **Compartir**
 envía una grabación a otra app (correo, Drive…) y **Eliminar** la borra.
 
-En el PC las grabaciones están en ``~/.local/share/vizmini2/bags``: **Importar** abre un diálogo
+En el PC las grabaciones están en ``~/.local/share/vizmini2/bags`` (Linux) o
+``%LOCALAPPDATA%\VizMini2 Data\bags`` (Windows): **Importar** abre un diálogo
 para elegir el fichero y **Compartir** enseña dónde está. La opción *Reproducir solo en este móvil*
 funciona igual allí, y la barra de reproducción se queda debajo de la pestaña que tengas abierta.
 

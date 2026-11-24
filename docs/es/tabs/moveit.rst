@@ -15,7 +15,7 @@ Planifica y mueve un brazo robótico con MoveIt (``move_group``), desde el móvi
 * *Añadir obstáculo* pone un obstáculo entre la pinza y el objetivo para que el plan lo esquive.
 * En las opciones se elige el planificador (OMPL, Pilz, CHOMP... lo que ofrezca ``move_group``), el
   tiempo de planificación, el namespace de ``move_group`` y la versión de los mensajes de MoveIt
-  (Humble, Jazzy, Lyrical: se detecta sola).
+  (Humble, Jazzy, Kilted / Lyrical: se detecta sola).
 
 Añade un display *Trajectory* a una pestaña RViz para ver el movimiento planificado con un robot
 fantasma, y un display *Planning scene* para ver los objetos de colisión.

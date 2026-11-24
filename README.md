@@ -33,10 +33,10 @@ RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools.
 
 | Platform | How |
 | --- | --- |
-| **Android** 8.0 or newer | The `.apk` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest) (`universal` fits every phone). Google Play is coming soon. |
+| **Android** 8.0 or newer | The `.apk` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest) (`universal` fits every phone). On Google Play it is in closed testing, not public yet. |
 | **Windows** 10 or 11 | The `.msi` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest): installed for your user, no administrator needed. Or the `.zip`, without installing. |
 | **Ubuntu** 20.04 or newer | The `.deb` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest): `sudo apt install ./vizmini2_*_amd64.deb`. Or the `.tar.gz`, without installing. |
-| **As a ROS 2 package** | Built from this repository: see [Build your own version](#build-your-own-version). |
+| **As a ROS 2 package** (Linux) | Built from this repository: see [Build your own version](#build-your-own-version). |
 
 For H.264/H.265 video topics and recording the window on the desktop, install `ffmpeg` (`sudo apt install ffmpeg`,
 or `winget install ffmpeg` on Windows). The [installation guide](https://vizmini2.github.io/getting-started/install.html)
@@ -56,7 +56,9 @@ The [user manual](https://vizmini2.github.io) (English and Spanish) explains eve
 ## Build your own version
 
 You need **JDK 21** and the **Android SDK** (Android Studio brings both; set `sdk.dir` in `local.properties` or
-`ANDROID_HOME`). No sudo or Docker is needed for any script.
+`ANDROID_HOME`). No sudo or Docker is needed for any script. The first build also downloads the prebuilt native
+libraries (Fast DDS, Filament: about 37 MB) from the repository's
+[`prebuilt` release](https://github.com/VizMini2/VizMini2/releases/tag/prebuilt) (see [tools/prebuilt](tools/prebuilt/README.md)).
 
 ```bash
 git clone https://github.com/VizMini2/VizMini2.git
@@ -79,7 +81,7 @@ that one first):
 ./gradlew :desktopApp:packageMsi    # the .msi (on Windows, with a JDK 21 that has jpackage)
 ```
 
-**As a ROS 2 package** (it builds the desktop app with Gradle and installs it in the workspace):
+**As a ROS 2 package** (Linux; it builds the desktop app with Gradle and installs it in the workspace):
 
 ```bash
 mkdir -p ~/vizmini2_ws/src && cd ~/vizmini2_ws/src
@@ -102,8 +104,8 @@ tools/compat/try-desktop.sh 22.04 [vizmini2_1.0.0_amd64.deb]       # the app (or
 ```
 
 `tools/e2e/run.sh` needs ROS 2 on the PC: it starts a fake robot, Nav2, MoveIt, ros2_control and more, runs the tests
-and stops them. `python3 tools/fake_robot.py` alone is handy to try the app by hand. The CI runs all of this (but the
-phone) on every push.
+and stops them. `python3 tools/fake_robot.py` alone is handy to try the app by hand. The CI runs all of this, except
+`tools/pc_tests.sh` (it needs a real phone), on pushes to `main` and on pull requests.
 
 ## Documentation
 
@@ -129,12 +131,14 @@ The website, [vizmini2.github.io](https://vizmini2.github.io), is updated on its
 | `desktopApp/` | The desktop app (Compose for Desktop) and its end-to-end tests |
 | `ros/vizmini2/` | The ROS 2 package that builds and starts the desktop app |
 | `tools/` | Test servers (fake robot, fake Nav2, MoveIt with the Panda...), CI scripts and build helpers |
+| `tools/prebuilt/` | The list of the prebuilt native libraries the build downloads, and the scripts to publish rebuilt ones |
 | `docs/` | User manual |
 
 ## Releases
 
-A `v*` tag builds, installs and starts every file of the release (APKs, `.aab`, `.deb`, `.tar.gz`, `.msi`, `.zip`,
-manual) on GitHub Actions and leaves a draft release to publish by hand. The steps, the version checks and the signing
+A `v*` tag builds every file of the release on GitHub Actions (APKs, `.deb`, `.tar.gz`, `.msi`, `.zip`, manual; the
+`.deb` and the `.msi` are also installed and started) and leaves a draft release to publish by hand. The Google Play
+`.aab` is kept as a workflow artifact. The steps, the version checks and the signing
 keys are in [Releases and CI/CD](https://vizmini2.github.io/developers/releases.html).
 
 ## Contributing

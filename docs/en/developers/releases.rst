@@ -4,11 +4,18 @@ Releases and CI/CD
 Continuous integration
 ----------------------
 
-Every push and pull request runs ``.github/workflows/ci.yml``: the license and comment checks,
+Pushes to ``main`` and ``develop`` and every pull request run ``.github/workflows/ci.yml`` (not
+when they only touch ``*.md`` files, ``LICENSE``, ``NOTICE`` or the GitHub templates): the license
+and comment checks,
 the unit tests and lint, the Android and desktop builds, the natives' glibc check, the desktop
 app started on clean Ubuntu 20.04, 22.04 and 24.04, this manual, the desktop end-to-end tests
 against ROS 2 servers of Humble, Jazzy and Lyrical (each on its own Ubuntu), and the device tests
 on an Android emulator.
+
+Pull requests also run ``desktop-windows.yml`` (it can be started by hand too): the desktop tests
+on Windows, the ``.msi``, and the app started (``--check``, and the 3D view with Mesa's software
+OpenGL, as the runners have no GPU). ``windows-natives.yml`` builds the Windows natives (Filament's
+JNI and Fast DDS, with MSVC) when their scripts change, or by hand.
 
 Making a release
 ----------------
@@ -18,8 +25,11 @@ Making a release
 2. Add its entry to both changelogs (``app/src/main/assets/CHANGELOG.md`` and
    ``CHANGELOG.es.md``): the app shows them under *Changelog* and this manual in
    :doc:`../changelog`.
-3. ``python3 tools/release/version.py check v1.2.3`` checks that everything agrees.
-4. Tag and push: ``git tag v1.2.3 && git push origin v1.2.3``.
+3. ``python3 tools/release/version.py check v1.2.3`` checks that everything agrees. Set the date
+   of the changelog entries to the release day too (it is not checked).
+4. If you rebuilt native libraries, publish them first (``tools/prebuilt/publish.sh``) and commit
+   ``tools/prebuilt/prebuilt.txt``: the release is built with the files it lists.
+5. Tag and push: ``git tag v1.2.3 && git push origin v1.2.3``.
 
 ``.github/workflows/release.yml`` then builds every file, checks it and leaves a **draft**
 GitHub release to review and publish by hand:
@@ -28,7 +38,9 @@ GitHub release to review and publish by hand:
   the release key from the repository secrets ``ANDROID_KEYSTORE_BASE64``,
   ``ANDROID_KEYSTORE_PASSWORD``, ``ANDROID_KEY_ALIAS`` and ``ANDROID_KEY_PASSWORD``;
 * the ``.deb`` and a ``.tar.gz`` of the desktop app, after installing the ``.deb`` with apt on clean
-  Ubuntu 20.04 and 24.04 and starting it;
+  Ubuntu 20.04, 22.04 and 24.04 and starting it (``--check`` and a 3D screenshot);
+* the Windows ``.msi`` and ``.zip``, built on Windows; the ``.msi`` is installed for the current
+  user, started (``--check``, and the 3D view with Mesa's software OpenGL) and uninstalled;
 * this manual and the API reference as zips, ``SHA256SUMS``, and the changelog entry as release
   notes.
 
@@ -41,7 +53,8 @@ try it (unsigned keys produce ``-debugsigned`` files).
 The website
 -----------
 
-When you publish that release, ``.github/workflows/site.yml`` builds this manual and the API
+When you publish that release (a ``v*`` tag: publishing the *prebuilt* release of the native
+binaries deploys nothing), ``.github/workflows/site.yml`` builds this manual and the API
 reference from its tag and pushes them to the
 `VizMini2/VizMini2.github.io <https://github.com/VizMini2/VizMini2.github.io>`_ repository, which
 GitHub Pages serves at https://vizmini2.github.io (the manual at the root, Spanish in ``es/``, the

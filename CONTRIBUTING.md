@@ -20,8 +20,11 @@ Thanks for helping! Bug reports, ideas and pull requests are welcome.
 
 - `core/`: shared logic (ROS connection, messages, models), plain JVM, tested with JUnit.
 - `ui/` and `rviz3d/`: shared Compose screens and the Filament 3D view, compiled by both apps.
-- `app/`: the Android app. `desktopApp/`: the desktop app (Linux; `ros2 run vizmini2 vizmini2` in `ros/vizmini2/`).
-- `tools/`: test servers (fake robot, Nav2, MoveIt...) and build helpers.
+- `app/`: the Android app. `desktopApp/`: the desktop app (Linux and Windows; on Linux also
+  `ros2 run vizmini2 vizmini2` from `ros/vizmini2/`).
+- `tools/`: test servers (fake robot, Nav2, MoveIt...) and build helpers. The native libraries (Fast DDS, Filament) are
+  not in git: the build downloads them from the `prebuilt` release, and rebuilt ones are published with
+  `tools/prebuilt/publish.sh` (see `tools/prebuilt/README.md`).
 
 ## Tests
 

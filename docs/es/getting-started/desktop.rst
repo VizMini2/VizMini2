@@ -2,7 +2,7 @@ La app de PC
 ============
 
 VizMini2 también funciona en un PC con Linux o Windows, con las mismas pestañas que el móvil en una ventana
-redimensionable: cómoda junto al terminal del robot, en una pantalla grande del laboratorio o con
+redimensionable: cómoda junto a la terminal del robot, en una pantalla grande del laboratorio o con
 ratón y teclado para sesiones largas. Tus pestañas, dashboards y perfiles pasan del móvil al PC y al
 revés (expórtalos, o vincula una :doc:`cuenta <account>`).
 
@@ -21,22 +21,26 @@ en la red (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 
   .. code-block:: bash
 
-     sudo apt install ./vizmini2_1.0.0_amd64.deb
+     sudo apt install ./vizmini2_*_amd64.deb
 
   Luego abre *VizMini2* desde el menú de aplicaciones, o ejecuta ``/opt/vizmini2/bin/vizmini2``.
   Para actualizar, instala el ``.deb`` nuevo igual; ``sudo apt remove vizmini2`` la desinstala (tus
   ajustes se quedan en tu carpeta personal).
 
-* **Como paquete de ROS 2**, compilado desde el código fuente (para compilarlo hace falta un JDK 17
-  o posterior):
+* **El .tar.gz**: la misma app sin instalarla. Descomprímelo donde quieras y ejecuta
+  ``vizmini2/bin/vizmini2``.
+
+* **Como paquete de ROS 2** (Linux), compilado desde el código fuente. Hace falta un JDK 17 o
+  posterior (se recomienda el 21), y la primera compilación necesita internet: Gradle descarga sus
+  dependencias y las librerías nativas precompiladas.
 
   .. code-block:: bash
 
-     cd ~/ros2_ws/src && git clone <repositorio> vizmini2_src
+     cd ~/ros2_ws/src && git clone https://github.com/VizMini2/VizMini2.git vizmini2_src
      cd ~/ros2_ws && colcon build --packages-select vizmini2 && source install/setup.bash
      ros2 run vizmini2 vizmini2
 
-  La primera vez toma el ``ROS_DOMAIN_ID`` del terminal.
+  La primera vez toma el ``ROS_DOMAIN_ID`` de la terminal.
 
 Extras recomendados: ``ffmpeg`` (topics de vídeo H.264/H.265 y grabar la ventana) y
 ``libnotify-bin`` (notificaciones de escritorio de las :doc:`alertas <../tabs/alerts>`):
@@ -57,7 +61,8 @@ Funciona en **Windows 10 u 11** (64 bits). Como en Linux, no hace falta ROS 2 en
   protegió su PC" o una advertencia de seguridad): elige *Más información* → *Ejecutar de todas
   formas*, o *Ejecutar*. Para actualizar, instala el ``.msi`` nuevo igual; se desinstala desde
   *Configuración* → *Aplicaciones*. Ninguna de las dos cosas toca tus ajustes, bags ni vídeos.
-* **El .zip**: la misma app sin instalarla. Descomprímelo donde quieras y abre *VizMini2.exe*.
+* **El .zip**: la misma app sin instalarla. Descomprímelo donde quieras y abre
+  *VizMini2\\VizMini2.exe*.
 
 La primera vez que se conecta, el Firewall de Windows pregunta si VizMini2 puede usar la red:
 permítelo. Si tu red está marcada como **Pública** en Windows, puede que no aparezcan los robots;
@@ -107,7 +112,8 @@ sala con mapa, láser, cámara (también como vídeo H.264, con ``ffmpeg``), odo
 servicios, una acción, un nodo lifecycle y un controller manager de ros2_control, con pestañas y un
 dashboard para probarlo todo. Condúcelo desde *Conducir*. Mientras está en marcha, **Salir de la
 demo** se queda arriba en la barra lateral; al salir vuelven tus pestañas y tu conexión.
-``vizmini2 --demo`` arranca directamente en ella.
+``vizmini2 --demo`` (``VizMini2.exe --demo`` en Windows) arranca directamente en ella; si cierras la
+app en modo demo, vuelve a abrirse en modo demo.
 
 Ratón y teclado
 ---------------
@@ -127,16 +133,19 @@ Grabar la ventana
 -----------------
 
 **Grabar vídeo** en la barra lateral (o :kbd:`Ctrl+Mayús+R`) graba toda la ventana, vista 3D
-incluida, en un MP4 en *~/Vídeos/VizMini2* (o *~/Videos/VizMini2*); mientras graba, el botón muestra
-el tiempo y sirve para parar. Necesita ``ffmpeg``. Para enseñar a alguien qué hizo el robot, suele
-ser más rápido que una bag.
+incluida, en un MP4 en *~/Vídeos/VizMini2* (*Vídeos\\VizMini2* en Windows); mientras graba, el
+botón muestra el tiempo y sirve para parar. Cuando se guarda el vídeo, una notificación dice dónde
+(en Windows, al hacer clic en ella se muestra el vídeo en el Explorador de archivos). Necesita
+``ffmpeg``. Para enseñar a alguien qué hizo el robot, suele ser más rápido que un bag.
 
 Notificaciones
 --------------
 
 El PC muestra las :doc:`alertas <../tabs/alerts>` (tus reglas de topics, la pérdida de contacto con
 el robot y los diagnósticos en ERROR) como notificaciones de escritorio mientras VizMini2 está
-abierta. Los tres interruptores están arriba en la pestaña Alertas; vienen activados.
+abierta: con ``notify-send`` en Linux, y desde el icono de VizMini2 en el área de notificaciones en
+Windows (o en un escritorio Linux sin ``notify-send``). Los tres interruptores están arriba en la
+pestaña Alertas; vienen activados.
 
 .. clip:: pc_alerts
    :align: wide
@@ -163,13 +172,14 @@ Móvil y PC: qué cambia
      - Ratón, teclado
    * - Ficheros (bags, mapas, exportaciones)
      - Menú de compartir
-     - Diálogo de ficheros; bags en *~/.local/share/vizmini2/bags*
+     - Diálogo de ficheros; bags en *~/.local/share/vizmini2/bags* (Windows:
+       *%LOCALAPPDATA%\\VizMini2 Data\\bags*)
    * - Renombrar o duplicar una pestaña
      - Pulsación larga
      - Clic derecho
    * - Grabar la pantalla
      - *Movies/VizMini2*
-     - *~/Vídeos/VizMini2* (necesita ffmpeg)
+     - *~/Vídeos/VizMini2* (Windows: *Vídeos\\VizMini2*), necesita ffmpeg
    * - Alertas en segundo plano
      - Sí, con la conexión en segundo plano
      - Mientras la ventana está abierta
@@ -182,7 +192,7 @@ Dónde guarda las cosas
 
 * Ajustes, pestañas y perfiles: *~/.config/vizmini2*
 * Bags: *~/.local/share/vizmini2/bags*
-* Teselas del mapa GPS: *~/.cache/vizmini2*
+* Cachés (vista 3D, librerías nativas, teselas del mapa GPS): *~/.cache/vizmini2*
 * Vídeos de la pantalla: *~/Vídeos/VizMini2*
 
 Borrar *~/.config/vizmini2* empieza de cero.
@@ -191,10 +201,11 @@ En Windows:
 
 * Ajustes, pestañas y perfiles: *%APPDATA%\\VizMini2*
 * Bags: *%LOCALAPPDATA%\\VizMini2 Data\\bags*
-* Caché (vista 3D y teselas del mapa GPS): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
+* Cachés (vista 3D, librerías nativas, teselas del mapa GPS): *%LOCALAPPDATA%\\VizMini2 Data\\Cache*
 * Vídeos de la pantalla: *Vídeos\\VizMini2*
 
-Desinstalar VizMini2 no borra ninguna de estas carpetas.
+Borrar *%APPDATA%\\VizMini2* empieza de cero. Desinstalar VizMini2 no borra ninguna de estas
+carpetas.
 
 Línea de comandos
 -----------------
@@ -210,26 +221,35 @@ para diagnosticar problemas:
      - Qué hace
    * - ``--domain N``
      - Arranca en el dominio de ROS *N* (y lo guarda).
-   * - ``--tab TIPO``
-     - Abre la primera pestaña de ese tipo (``RVIZ``, ``CAMERA``, ``PLOT``, ``MAPS``…), y la crea si
-       no hay ninguna.
-   * - ``--check --domain N``
-     - Sin ventana: se conecta, lista lo que ve en la red y sale. Útil para probar la red desde un
-       terminal.
+   * - ``--tab PESTAÑA``
+     - Abre esa pestaña: su nombre, o la primera pestaña de un tipo (``RVIZ``, ``CAMERA``, ``PLOT``,
+       ``MAPS``…, que se crea si no hay ninguna); ``CONFIG`` abre Configuración.
+   * - ``--check [--domain N]``
+     - Sin ventana: se conecta, espera unos segundos, lista lo que ve en la red y sale (código 0 si
+       ha visto otro nodo, 1 si no). Útil para probar la red desde una terminal.
    * - ``--scan-domains``
      - Sin ventana: qué dominios de ROS tienen nodos en la red.
-   * - ``--record salida.mp4 --seconds N``
-     - Graba la ventana durante *N* segundos y sale.
+   * - ``--record salida.mp4 [--seconds N]``
+     - Abre la ventana, espera unos segundos, la graba durante *N* segundos (5 por defecto) y sale.
+       Necesita ffmpeg.
    * - ``--shot salida.png [--size AxH] [--millis N]``
-     - Guarda una captura de una pestaña sin abrir ventana (también con ``--tab`` y ``--domain``),
-       para informes o para una CI.
+     - Guarda una captura de una pestaña sin abrir ventana (1200×800 tras 4 s por defecto; también
+       con ``--tab``, ``--domain``, ``--demo``, ``--import``, ``--set`` y ``--play``), para informes
+       o para una CI.
    * - ``--demo``
      - Arranca en modo demo, con el robot simulado.
+   * - ``--set clave=valor``
+     - Cambia un ajuste de la pestaña de ``--tab`` (``clave=@fichero`` lee el valor de un fichero);
+       se puede repetir. Para scripts y capturas.
+   * - ``--play FICHERO.mcap``
+     - Reproduce ese bag en la red en bucle en cuanto se conecta, como *Reproducir* en la pestaña
+       Bags.
    * - ``--import FICHERO``
      - Añade un fichero de pestaña de VizMini2, un fichero de RViz 2 o un layout de paneles o de
        gráficas, lo abre, e imprime lo que no se ha podido pasar.
    * - ``--showcase``
-     - Añade el dashboard *Showcase* (casi todos los widgets; pruébalo con la demo).
+     - Añade el dashboard *Showcase* (casi todos los widgets; pruébalo con la demo) y sale: abre la
+       app después.
 
 En Windows el programa es *VizMini2.exe*. Es un programa de ventanas, así que una terminal no
 muestra lo que imprime: redirígelo a un fichero, por ejemplo en PowerShell:

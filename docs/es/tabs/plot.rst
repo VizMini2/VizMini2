@@ -63,10 +63,10 @@ Los scripts tienen ``math``, ``string`` y ``table``, sin acceso a archivos ni al
 Paneles
 -------
 
-Toca una serie para editarla o quitarla. Desde el menú ⋮ del panel, **Ver como XY** enseña la
-primera serie (x) frente a la segunda (y), por ejemplo la trayectoria de ``/odom``. Con **Misma
-escala en x e y** la trayectoria no se deforma. **Ver en el tiempo** lo devuelve a un panel normal
-y **Quitar panel** lo borra.
+Toca una serie para editarla o quitarla. Desde el menú ⋮ del panel, **Ver como XY (x frente a y)**
+enseña la primera serie (x) frente a la segunda (y) (un panel XY lleva esas dos series), por ejemplo
+la trayectoria de ``/odom``. Con **Misma escala en x e y** la trayectoria no se deforma. **Ver en el
+tiempo** lo devuelve a un panel normal y **Quitar panel** lo borra.
 
 **Ver como transiciones de estado** dibuja cada
 serie como una franja que cambia de color cada vez que cambia su valor, con el valor escrito encima:
@@ -148,5 +148,5 @@ gráficas (gráficas, gráficas XY y series Lua personalizadas) se importan como
 una pestaña de gráficas se exporta como layout de gráficas. Mira :doc:`../config/import-export`.
 
 La pestaña también se puede añadir a un :doc:`dashboard`; soltar un topic o un campo sobre un widget
-de gráficas añade una serie. En el móvil, el modo demo trae una con las velocidades y la trayectoria
+de gráficas añade una serie. El modo demo trae una con las velocidades y la trayectoria
 del robot simulado.

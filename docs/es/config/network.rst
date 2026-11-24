@@ -31,7 +31,7 @@ foxglove_bridge (opcional)
    el bridge. Arráncalo en el robot con ``ros2 launch foxglove_bridge foxglove_bridge_launch.xml``.
    Los topics, la TF, la vista 3D, las cámaras, las gráficas y los indicadores funcionan igual, y el
    teleop, los botones y los sliders publican a través de él. Los servicios y los parámetros
-   también se llaman a través de él (las pestañas Servicios y Parámetros, los botones de servicio).
+   también se llaman a través de él (las pestañas Services y Parámetros, los botones de servicio).
    Las acciones funcionan si el bridge se arranca con ``include_hidden:=true``, porque usan topics y
    servicios ocultos. La lista de nodos, el grafo de nodos y lifecycle salen del grafo de conexiones
    del bridge. La barra de arriba pone *Bridge* en vez del dominio.
@@ -97,4 +97,5 @@ una terminal, mira :doc:`../help/troubleshooting`.
 
 La primera vez que arranca, la app del PC toma ``ROS_DOMAIN_ID``, ``ROS_STATIC_PEERS`` y
 ``ROS_DISCOVERY_SERVER`` de su entorno (por ejemplo, la terminal donde ejecutas
-``ros2 run vizmini2 vizmini2``). Después se usan los ajustes guardados en Configuración.
+``ros2 run vizmini2 vizmini2``, o en Windows las variables de entorno de tu usuario). Después se
+usan los ajustes guardados en Configuración.

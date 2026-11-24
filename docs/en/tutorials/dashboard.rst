@@ -10,9 +10,9 @@ Goal: one screen with the 3D view, a camera and a joystick.
 5. Optional: add **Buttons** with your most used commands, or **Diagnostics** in *Log* mode.
 6. Tap **Done** and drive while you watch.
 
-Widgets snap to a grid and push each other aside instead of overlapping, so you can rearrange them
-freely. A widget can also **Float on top of the others**, like a joystick over the 3D view. Save the
-result in a robot profile (:doc:`../config/profiles`) to get it on another device.
+Widgets stay exactly where you drop them and can overlap: the one you moved last is on top, so you
+can put a joystick over the 3D view or a small camera in a corner. **Undo** reverts the last move.
+Save the result in a robot profile (:doc:`../config/profiles`) to get it on another device.
 
 In a hurry? The **+** catalog also has **Ready-made dashboards** (*Navigation*, *Camera robot*,
 *Monitoring*, *Manipulation (MoveIt)*…) that use the topics found on the network.

@@ -33,7 +33,7 @@ and the step and published once. Each slider's ⋮ menu also has *Edit*, *Duplic
 *Move later* and *Delete*. On the PC, drag the slider with the mouse.
 
 The tab never publishes while it is hidden, and sliders can also be added to a :doc:`dashboard`.
-On the phone, demo mode includes a *Sliders* tab that drives the simulated robot with *Forward* and
+Demo mode includes a *Sliders* tab that drives the simulated robot with *Forward* and
 *Turn*.
 
 Message types

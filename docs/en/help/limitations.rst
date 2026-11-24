@@ -19,4 +19,10 @@ Known limitations
 * **ROS 2 Lyrical:** point clouds and images can stop arriving after ``ros2 topic echo`` or
   ``ros2 topic hz`` on the robot (a bug in Lyrical's ``rmw_fastrtps_cpp``): see
   :doc:`troubleshooting`.
-* **PC:** no demo mode and no gamepad (drive with the keyboard); H.264/H.265 video needs ``ffmpeg``.
+* **PC:** no gamepad (drive with the keyboard or the mouse); H.264/H.265 video and recording the
+  window need ``ffmpeg``. Only x86-64 PCs with Linux or Windows: no ARM boards (Raspberry Pi,
+  Jetson…) and no macOS.
+* **Services served by the app** (those of the demo robot): they answer ROS 2 clients on Fast DDS
+  (``rmw_fastrtps_cpp``), pairing each reply with its request as rmw_fastrtps does; clients on
+  Cyclone DDS (``rmw_cyclonedds_cpp``) get no reply. Calling a robot's services from the app works
+  with both.

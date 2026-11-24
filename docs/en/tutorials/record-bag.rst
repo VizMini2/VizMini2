@@ -22,5 +22,6 @@ Only topics whose type the app knows are recorded. **Import** adds MCAP bags rec
 On the PC
 ---------
 
-The same steps work. Bags are saved in ``~/.local/share/vizmini2/bags``; **Share** shows where the
+The same steps work. Bags are saved in ``~/.local/share/vizmini2/bags`` on Linux and
+``%LOCALAPPDATA%\VizMini2 Data\bags`` on Windows; **Share** shows where the
 file is, so you can open it right there with ``ros2 bag``.

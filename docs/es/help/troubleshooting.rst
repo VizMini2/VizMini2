@@ -24,16 +24,24 @@ marcha, y una pestaña **Nodos** o **Topics** muestra lo que ve.
 
 1. **¿Mismo dominio?** Configuración → Red → Domain ID tiene que coincidir con el
    ``ROS_DOMAIN_ID`` del robot, o usa **Buscar robots**. La primera vez, la app toma
-   ``ROS_DOMAIN_ID``, ``ROS_STATIC_PEERS`` y ``ROS_DISCOVERY_SERVER`` de la terminal desde la que
-   se arranca; después solo cuenta lo que pongas en Configuración.
-2. **¿Cortafuegos?** DDS usa multicast UDP y puertos a partir del 7400. Si tienes ``ufw`` u otro
-   cortafuegos activo, permite la red del robot o añade la IP del robot en **Discovery peers**.
+   ``ROS_DOMAIN_ID``, ``ROS_STATIC_PEERS`` y ``ROS_DISCOVERY_SERVER`` de su entorno (la terminal
+   desde la que se arranca o, en Windows, las variables de entorno de tu usuario); después solo
+   cuenta lo que pongas en Configuración.
+2. **¿Cortafuegos?** DDS usa multicast UDP y puertos a partir del 7400. En Linux, si tienes ``ufw``
+   u otro cortafuegos activo, permite la red del robot. En Windows, permite VizMini2 cuando el
+   Firewall de Windows lo pregunte; si lo cerraste, abre *Seguridad de Windows* → *Firewall y
+   protección de red* → *Permitir una aplicación a través del firewall* y marca *VizMini2* para las
+   redes *Privadas*. Si tu Wi-Fi está marcada como **Pública**, márcala como **Privada**
+   (*Configuración* → *Red e Internet*). También puedes añadir la IP del robot en **Discovery
+   peers**.
 3. **¿Varias tarjetas de red** (Docker, VPN…)? Escribe la IP o la interfaz correcta en
    **Interfaces de red permitidas**.
 4. Compruébalo desde una terminal, sin ventana: ``vizmini2 --check --domain N``. Con el paquete de
    ROS 2 es ``ros2 run vizmini2 vizmini2 --check --domain N``; con el ``.deb``,
    ``/opt/vizmini2/bin/vizmini2 --check --domain N``. Se conecta unos segundos y escribe su estado,
-   los nodos y los topics que ve.
+   los nodos y los topics que ve. En Windows, ``VizMini2.exe --check`` no escribe nada en la
+   terminal: redirígelo a un fichero como se explica en :doc:`../getting-started/desktop` (*Línea
+   de comandos*).
 
 Aparecen los topics pero no llegan datos
 ----------------------------------------
@@ -46,13 +54,14 @@ Aparecen los topics pero no llegan datos
 * **Mensajes grandes por Wi-Fi:** las nubes de puntos y las imágenes sin comprimir pesan mucho.
   Mejor imágenes comprimidas y nubes reducidas.
 * **Topics de vídeo en el PC** (H.264/H.265, como ``foxglove_msgs/CompressedVideo``): necesitan
-  ``ffmpeg``: ``sudo apt install ffmpeg``. Sin él, la cámara lo dice.
+  ``ffmpeg``: ``sudo apt install ffmpeg`` en Linux, ``winget install ffmpeg`` en Windows. Sin él,
+  la cámara lo dice.
 * **Las nubes o las imágenes se paran después de usar** ``ros2 topic echo`` **o** ``ros2 topic hz``
   **en el robot (ROS 2 Lyrical):** un fallo del ``rmw_fastrtps_cpp`` de Lyrical hace que un
   publicador deje de enviar los topics con arrays de bytes (``sensor_msgs/PointCloud2``, ``Image``,
   ``CompressedImage``…) a los lectores que no son de ROS, como la app (en el móvil y en el PC), en
   cuanto se cierra otro suscriptor de ROS de ese topic. Reinicia el nodo que publica el topic y
-  vuelven los datos. Mientras tanto, evita ``echo``/``hz`` sobre esos topics mientras usas la app.
+  vuelven los datos. Hasta entonces, evita ``echo``/``hz`` sobre esos topics mientras usas la app.
 
 Los servicios o las acciones no responden
 -----------------------------------------
@@ -81,19 +90,25 @@ un tiempo límite de velocidad (casi todos los controladores lo tienen).
 Solo en el PC
 -------------
 
-El dock muestra un icono genérico o un nombre de Java
+El dock muestra un icono genérico o un nombre de Java (Linux)
    El ``.deb`` añade *VizMini2* al menú de aplicaciones con su icono. Con ``ros2 run``, la app añade
    esa entrada del menú (en ``~/.local/share/applications``) la primera vez que arranca; si el dock
    sigue mostrando el icono genérico, cierra la app y vuelve a abrirla.
 
-Wayland
+Wayland (Linux)
    La app funciona a través de XWayland, que Ubuntu trae por defecto. Si la ventana no se abre en
    una sesión Wayland, comprueba que XWayland está instalado o entra con una sesión X11 (Xorg).
 
+Windows dice "Windows protegió su PC" al instalar
+   El ``.msi`` no está firmado: elige *Más información* → *Ejecutar de todas formas*.
+
 No llegan notificaciones
-   Las alertas usan ``notify-send``: instálalo con ``sudo apt install libnotify-bin``. Comprueba
-   también que **Notificaciones en este PC** está activado en la pestaña Alertas
-   (:doc:`../tabs/alerts`).
+   En Linux, las alertas usan ``notify-send``: instálalo con ``sudo apt install libnotify-bin``. En
+   Windows salen del icono de VizMini2 en el área de notificaciones: comprueba que las
+   notificaciones de Windows están activadas para él. Comprueba también que **Notificaciones en
+   este PC** está activado en la pestaña Alertas (:doc:`../tabs/alerts`).
 
 Grabar vídeo no funciona
-   Grabar la ventana necesita ``ffmpeg`` (``sudo apt install ffmpeg``).
+   Grabar la ventana necesita ``ffmpeg``: ``sudo apt install ffmpeg`` en Linux, ``winget install
+   ffmpeg`` en Windows (la app también encuentra el que instala winget aunque ya estuviera abierta).
+   O pon en la variable de entorno ``VIZMINI2_FFMPEG`` la ruta del programa ``ffmpeg``.

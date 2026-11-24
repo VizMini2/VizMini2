@@ -397,7 +397,7 @@
     <string name="tab_catalog_dashboard_summary">Tu propia pantalla: combina vistas 3D, cámaras, joysticks, botones y más.</string>
     <string name="tab_catalog_dashboard_detail1">Añade cualquier pestaña como widget: RViz, varias cámaras, un joystick, botones, diagnósticos, nodos lifecycle…</string>
     <string name="tab_catalog_dashboard_detail2">Pulsa Editar para mover los widgets arrastrándolos, cambiarles el tamaño desde la esquina o quitarlos.</string>
-    <string name="tab_catalog_dashboard_detail3">Los widgets se ajustan a una cuadrícula y se recolocan solos para que nada se solape, o flotan encima de los demás, como un joystick sobre la vista 3D.</string>
+    <string name="tab_catalog_dashboard_detail3">Los widgets se quedan donde los sueltas y pueden solaparse (el último que has movido queda encima), como un joystick sobre la vista 3D.</string>
     <string name="add_tab_widget_title">Añadir widget</string>
     <string name="dashboard_edit">Editar</string>
     <string name="dashboard_done">Hecho</string>

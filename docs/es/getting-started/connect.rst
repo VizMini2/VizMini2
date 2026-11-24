@@ -52,12 +52,12 @@ Después pulsa **Aplicar y reconectar**. Los detalles están en :doc:`../config/
 En el PC
 --------
 
-Los mismos ajustes están en **Configuración** (el último elemento de la barra lateral) → **Red**.
-La primera vez, la app toma ``ROS_DOMAIN_ID`` (y ``ROS_STATIC_PEERS`` o ``ROS_DISCOVERY_SERVER``)
-de la terminal desde la que la arrancas. No hay Inicio: arriba en la barra lateral pone
-*Dominio N* cuando el nodo está en marcha, y una pestaña **Topics** o **Nodos** (**Añadir** en la
-barra lateral) muestra lo que hay en la red. Si no aparece nada, revisa también el cortafuegos:
-:doc:`../help/troubleshooting`.
+Los mismos ajustes están en **Configuración** (el último elemento de la barra lateral) → **Red**. La
+primera vez, la app toma ``ROS_DOMAIN_ID`` (y ``ROS_STATIC_PEERS`` o ``ROS_DISCOVERY_SERVER``) de su
+entorno: la terminal desde la que la arrancas o, en Windows, las variables de entorno de tu usuario.
+No hay Inicio: arriba en la barra lateral pone *Dominio N* cuando el nodo está en marcha, y una
+pestaña **Topics** o **Nodos** (**Añadir** en la barra lateral) muestra lo que hay en la red. Si no
+aparece nada, revisa también el cortafuegos: :doc:`../help/troubleshooting`.
 
 Guárdalo
 --------

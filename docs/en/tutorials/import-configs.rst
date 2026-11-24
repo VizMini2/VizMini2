@@ -11,7 +11,8 @@ From RViz 2
 -----------
 
 1. Copy your ``.rviz`` file to the phone (or keep it on the PC).
-2. **+** (*Add* on the PC) → *Import a tab, an RViz file or a layout…* and pick it.
+2. **+** → *Import a tab, an RViz file or a layout…* (on the PC, **Add** → *Import a VizMini2 file,
+   an RViz file or a layout*) and pick it.
 3. A new RViz tab appears with the same displays, topics, fixed frame, background and view. To
    replace an existing tab's displays instead, use *Import .rviz file…* in that RViz tab's menu.
 

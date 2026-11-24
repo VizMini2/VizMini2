@@ -8,7 +8,8 @@ VizMini2 runs on **Android phones and tablets** (Android 8.0 or newer) and on **
 On the phone
 ------------
 
-VizMini2 is not on Google Play yet: you install it from an APK file.
+VizMini2 is in closed testing on Google Play and not public there yet: install it from an APK
+file.
 
 1. Open the project's `releases page`_ on the phone and download
    ``VizMini2-<version>-universal.apk`` (it works on every phone; the ``arm64-v8a`` one is smaller
@@ -36,14 +37,15 @@ and, each time you record the screen, Android's screen capture prompt.
 On the PC
 ---------
 
-The desktop app has the same tabs: the |deb| from the same `releases page`_
-(``sudo apt install ./vizmini2_*_amd64.deb``) or ``ros2 run vizmini2 vizmini2`` from source. All
-the details are in :doc:`desktop`.
+The desktop app has the same tabs. From the same `releases page`_: on Ubuntu the |deb|
+(``sudo apt install ./vizmini2_*_amd64.deb``) or the ``.tar.gz``; on Windows the ``.msi`` (for your
+user, no administrator needed) or the ``.zip``. On Linux it can also be built from source and run
+with ``ros2 run vizmini2 vizmini2``. All the details are in :doc:`desktop`.
 
 Updating
 --------
 
-Download the newer APK (or ``.deb``) and install it over the one you have: your tabs, profiles and
-settings are kept. The :doc:`../changelog` lists what changed in each version.
+Download the newer APK (or ``.deb`` or ``.msi``) and install it over the one you have: your tabs,
+profiles and settings are kept. With the ``.tar.gz`` or the ``.zip``, replace the folder. The :doc:`../changelog` lists what changed in each version.
 
 Next: :doc:`demo` or :doc:`connect`. An :doc:`account <account>` is optional.

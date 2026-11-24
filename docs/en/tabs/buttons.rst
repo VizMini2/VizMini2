@@ -8,13 +8,14 @@ Your own buttons, each one doing a single thing:
 * **Publish** a message on a topic.
 * **Call** a service and show the response, with the time it took.
 * **Send** an action goal, show its feedback and result, and cancel it while it runs (tap the
-  button again).
+  button again and confirm with **Cancel goal**).
 
 Tap **Add button**, choose the kind and use **Browse** to pick a topic, service or action from the
 network (or type its name), then choose its type. Fill in the message: there is one field per
 message field, arrays are written as comma-separated values and arrays of messages as JSON. Time
 fields (such as ``header.stamp``) have a *current time when sent* box. Tap the line under a button
-to see the whole response, feedback or error.
+to see the whole response, feedback or error; there, a long list shows its first values and how
+many there are, for example ``[0, 1, 1, 2, 3, 5, ...] (11)``.
 
 Service and action buttons work with the same middlewares as the :doc:`services` tab.
 

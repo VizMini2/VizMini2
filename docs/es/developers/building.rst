@@ -2,7 +2,8 @@ Compilar y probar
 =================
 
 Necesitas un JDK 21, el SDK de Android (para la app Android) y, para los tests contra ROS, una
-instalación de ROS 2 en el PC. Ningún script necesita sudo ni Docker.
+instalación de ROS 2 en el PC. La primera compilación necesita internet: Gradle descarga sus
+dependencias y las librerías nativas precompiladas. Ningún script necesita sudo ni Docker.
 
 Compilar
 --------
@@ -15,16 +16,31 @@ Compilar
    ./gradlew dokkaGenerate                  # referencia de la API en build/dokka/html
    docs/build.sh                            # este manual en docs/_build/site
 
+En Windows (JDK 21), ``./gradlew :desktopApp:run`` y ``./gradlew :desktopApp:packageMsi`` (el
+``.msi`` en ``desktopApp/build/compose/binaries/main/msi``, que termina
+``tools/desktop-installer/msi-postprocess.ps1``). Cada paquete solo se puede compilar en su propio
+sistema, y lleva solo las librerías nativas de ese sistema.
+
 La app Android tiene dos variantes: *direct* (ficheros APK) y *play* (Google Play). Las
 compilaciones release necesitan una clave de firma en ``keystore.properties`` (mira
 ``keystore.properties.example``).
 
 Las librerías nativas (Fast DDS para Android y escritorio, Filament para escritorio) vienen ya
 compiladas: no están en git, y la primera compilación las descarga de la release *prebuilt* del
-repositorio (``tools/prebuilt/prebuilt.txt`` las lista con su SHA-256). Para recompilarlas (tras
-cambiar Fast DDS o Filament), ``tools/compat/build-desktop-natives.sh`` lo hace dentro de un
-Ubuntu 20.04, y ``tools/compat/check-glibc.sh`` comprueba que siguen funcionando en 20.04; después,
-``tools/prebuilt/publish.sh`` las sube y actualiza ``prebuilt.txt``, que es lo que se sube a git.
+repositorio (``tools/prebuilt/prebuilt.txt`` las lista con su SHA-256). Para recompilarlas:
+
+* las de Linux (tras cambiar Fast DDS o Filament): ``tools/compat/build-desktop-natives.sh`` las
+  compila dentro de un Ubuntu 20.04, y ``tools/compat/check-glibc.sh`` comprueba que siguen
+  funcionando en 20.04;
+* las de Windows: las compila el workflow *Windows natives*
+  (``.github/workflows/windows-natives.yml``), y ``tools/desktop-natives/add-windows.sh`` las mete
+  en los mismos jars;
+* jros2 para Android: ``tools/jros2-16k/build.sh``.
+
+Un fichero recompilado en local se conserva (la compilación avisa de que es distinto). Después,
+``tools/prebuilt/publish.sh`` sube los ficheros que han cambiado a la release *prebuilt* y actualiza
+``prebuilt.txt``, que es lo que se sube a git. No borres nunca ficheros antiguos de esa release:
+los commits anteriores los necesitan. Mira ``tools/prebuilt/README.md``.
 
 Tests
 -----
@@ -48,7 +64,7 @@ Tests
        móvil.
    * - ``tools/compat/try-desktop.sh 22.04 [fichero.deb]``
      - La app (o instalar el ``.deb``) en otra versión de Ubuntu.
-   * - ``python3 tools/license_headers.py`` y ``python3 tools/check_english_comments.py``
+   * - ``python3 tools/license_headers.py --check`` y ``python3 tools/check_english_comments.py``
      - Que cada fichero tiene la cabecera de licencia y comentarios en inglés.
 
 Los servidores de prueba de ``tools/`` también vienen bien a mano: ``python3 tools/fake_robot.py``

@@ -49,8 +49,8 @@ The **+** screen has *Ready-made dashboards* that add a dashboard with its widge
 configured, using the topics found on the network when there are any: **Navigation** (3D with map,
 laser, plan and footprint, joystick, speed and diagnostics), **Camera robot**, **Monitoring**
 (diagnostics, plots, indicators, node graph and TF tree), **Manipulation (MoveIt)** and
-**Showcase** (almost everything the app can do, made for ``tools/fake_robot.py``). On the phone, demo
-mode also includes a *Demo dashboard*.
+**Showcase** (almost everything the app can do, made for ``tools/fake_robot.py``). Demo mode also
+includes a *Demo dashboard*.
 
 Panel layouts (``.json``) can be imported as a dashboard, and a dashboard can be exported as a panel
 layout: see :doc:`../config/import-export`.

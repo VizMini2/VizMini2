@@ -14,6 +14,9 @@ Preguntas frecuentes
    Sí, para Linux (Ubuntu 20.04 o posterior) y Windows (10 u 11), con las mismas pestañas:
    :doc:`../getting-started/desktop`.
 
+¿Hay versión para Mac?
+   Todavía no: solo Linux y Windows, en PCs x86-64.
+
 ¿Funciona por 4G o VPN?
    Sí, con un **Discovery Server** al que lleguen el móvil y el robot, con Discovery peers a
    través de la VPN, o con un router de Zenoh o un foxglove_bridge al que llegue el móvil.
@@ -31,7 +34,8 @@ Preguntas frecuentes
    las flechas izquierda y derecha para girar, y :kbd:`Espacio` para parar.
 
 ¿La demo toca mi red?
-   No: usa su propio dominio y solo la red interna del móvil. La demo solo está en el móvil.
+   No: usa su propio dominio (231) y solo la red interna del dispositivo (loopback), tanto en el
+   móvil como en el PC.
 
 ¿Necesito una cuenta?
    No. Todo funciona sin ella. La cuenta es opcional y solo sincroniza tus perfiles de robot entre

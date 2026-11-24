@@ -14,13 +14,15 @@ teclado en el PC.
 * **Ajustes** (botón del engranaje, no mientras conduces): el topic, la velocidad lineal máxima
   (hasta 3 m/s, 0,5 por defecto), la velocidad angular máxima (hasta 6 rad/s, 1,0 por defecto), el
   modo de control y la parada por pérdida de conexión.
-* **Modos:** *Diferencial* (avanzar + girar), *Holonómico* (avanzar + desplazarse de lado) o
+* **Modos:** *Diferencial* (avanzar + girar), *Holonómico* (avanzar + lateral) o
   *Personalizado*, donde cada eje del joystick puede mover cualquier eje lineal o angular, invertido
   si quieres.
 * **Mando** (móvil): los joysticks conducen y el botón **B** es STOP.
 
 En el PC, arrastra el joystick con el ratón o usa el teclado: :kbd:`W`/:kbd:`S` o :kbd:`↑`/:kbd:`↓`
 y :kbd:`A`/:kbd:`D` o :kbd:`←`/:kbd:`→` mueven el joystick (el izquierdo), y :kbd:`Espacio` es STOP.
+Si las teclas dejan de funcionar después de hacer clic en la barra lateral o en un diálogo, haz clic
+en cualquier parte de la pestaña: vuelve a tomar el teclado.
 
 Seguridad
 ---------

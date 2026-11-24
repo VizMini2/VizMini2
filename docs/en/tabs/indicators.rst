@@ -51,5 +51,5 @@ The cards fill as many columns as the width allows; texts and tables take a whol
 indicator's ⋮ menu has *Edit*, *Duplicate*, *Move earlier*, *Move later* and *Delete*.
 
 Indicators work great as :doc:`dashboard` widgets: in edit mode on the phone, the widget's **+** adds
-another one, and an empty widget adds one when you tap it. On the phone, demo mode includes an
+another one, and an empty widget adds one when you tap it. Demo mode includes an
 *Indicators* tab with the simulated robot's battery, speed and position.

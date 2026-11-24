@@ -9,7 +9,8 @@ Live images from camera topics, up to four at once.
   ``compressedDepth`` for topics whose name contains *depth*, and with **H.264 / H.265 video**:
   ``foxglove_msgs/CompressedVideo`` (``.../foxglove``) and ``ffmpeg_image_transport_msgs/FFMPEGPacket``
   (``.../ffmpeg``), which take a fraction of the WiFi a JPEG camera needs. The phone decodes them in
-  hardware; the PC with ``ffmpeg`` (``sudo apt install ffmpeg``). The RViz *Image* and *Camera*
+  hardware; the PC with ``ffmpeg`` (Linux: ``sudo apt install ffmpeg``; Windows: ``winget install
+  ffmpeg``), and without it the image says how to get it. The RViz *Image* and *Camera*
   displays take them too.
 * Raw encodings: ``rgb8``, ``bgr8``, ``rgba8``, ``bgra8``, ``mono8``, ``mono16``, ``8UC1/3/4``,
   ``16UC1``, ``32FC1``, ``yuv422`` (``uyvy``) and ``yuyv``.

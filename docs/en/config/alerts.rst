@@ -19,7 +19,9 @@ Your own rules on any topic (a value crossing a threshold, a topic that stops) a
 On the PC
 ---------
 
-Alerts are desktop notifications (with ``notify-send``) while VizMini2 is open. Their switches are
+Alerts are desktop notifications while VizMini2 is open: with ``notify-send`` on Linux (package
+``libnotify-bin``), and from VizMini2's icon in the system tray on Windows (or on a Linux desktop
+without ``notify-send``). Their switches are
 at the top of the Alerts tab: **Notifications on this PC**, **When contact with the robot is lost**
 and **When a diagnostic turns ERROR**, all on by default. Your topic rules work the same as on the
 phone.

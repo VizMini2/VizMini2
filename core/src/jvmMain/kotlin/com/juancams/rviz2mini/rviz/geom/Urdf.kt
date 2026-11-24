@@ -237,7 +237,7 @@ object MeshUris {
             uri.startsWith("package://") -> {
                 val rest = uri.removePrefix("package://")
                 val pkg = rest.substringBefore('/'); val path = rest.substringAfter('/', "")
-                val prefixes = System.getenv("AMENT_PREFIX_PATH").orEmpty().split(':').filter { it.isNotBlank() } +
+                val prefixes = System.getenv("AMENT_PREFIX_PATH").orEmpty().split(java.io.File.pathSeparatorChar).filter { it.isNotBlank() } +
                     (java.io.File("/opt/ros").listFiles()?.map { it.path } ?: emptyList())
                 prefixes.asSequence().map { java.io.File(it, "share/$pkg/$path") }.firstOrNull { it.isFile }
             }

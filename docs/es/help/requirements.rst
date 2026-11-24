@@ -15,13 +15,14 @@ PC
 * **Ubuntu 20.04 o posterior**, x86-64 (glibc 2.31 o posterior), con un driver OpenGL para la vista
   3D. En Wayland funciona a través de XWayland.
 * Instalada desde el ``.deb`` (trae todo lo que necesita; no hace falta tener ROS 2 instalado en el
-  PC) o compilada como paquete de ROS 2 con ``colcon build`` (:doc:`../getting-started/install`).
+  PC), desde el ``.tar.gz``, o compilada como paquete de ROS 2 con ``colcon build``
+  (:doc:`../getting-started/desktop`).
 * Recomendado: ``ffmpeg`` (``sudo apt install ffmpeg``) para los topics de vídeo H.264/H.265 y para
   grabar la ventana, y ``notify-send`` (paquete ``libnotify-bin``, ya incluido en casi todos los
   escritorios) para las notificaciones de las alertas.
-* O **Windows 10 u 11**, 64 bits, instalada desde el ``.msi`` para tu usuario (sin administrador) o
-  descomprimida del ``.zip``. También ahí se recomienda ``ffmpeg`` (``winget install ffmpeg``).
-  Mira :doc:`../getting-started/desktop`.
+* O **Windows 10 u 11**, 64 bits (x86-64), con un driver OpenGL para la vista 3D, instalada desde el
+  ``.msi`` para tu usuario (sin administrador) o descomprimida del ``.zip``. También ahí se
+  recomienda ``ffmpeg`` (``winget install ffmpeg``). Mira :doc:`../getting-started/desktop`.
 
 Robot
 -----
@@ -38,7 +39,7 @@ Robot
   ``actionlib_msgs``, ``builtin_interfaces``, ``control_msgs``, ``controller_manager_msgs``,
   ``diagnostic_msgs``, ``example_interfaces``, ``ffmpeg_image_transport_msgs``, ``foxglove_msgs``,
   ``geographic_msgs``, ``geometry_msgs``, ``lifecycle_msgs``, ``moveit_msgs``, ``nav2_msgs``,
-  ``nav_msgs``, ``object_recognition_msgs``, ``octomap_msgs``, ``rcl_interfaces``,
+  ``nav_msgs``, ``navmap_ros_interfaces``, ``object_recognition_msgs``, ``octomap_msgs``, ``rcl_interfaces``,
   ``rosgraph_msgs``, ``sensor_msgs``, ``service_msgs``, ``shape_msgs``, ``slam_toolbox``,
   ``std_msgs``, ``std_srvs``, ``tf2_msgs``, ``trajectory_msgs``, ``turtlesim``,
   ``unique_identifier_msgs`` y ``visualization_msgs``. Cuando los mensajes de MoveIt

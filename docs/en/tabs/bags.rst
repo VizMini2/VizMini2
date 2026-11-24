@@ -9,7 +9,8 @@ Record
 ------
 
 Tap **Record**, choose the topics (or **All**) and tap **Record**. While it records you see the
-time, the messages and the size, topic by topic. Tap **Stop** when you're done. Recording and
+time, the messages and the size, topic by topic (and how many were dropped, if any), updated live.
+Tap **Stop** when you're done. Recording and
 playback go on if you switch to another tab.
 
 Files are saved as ``vizmini2_<date>_<time>.mcap`` (uncompressed, ROS 2 profile) and open in
@@ -20,7 +21,8 @@ Play
 ----
 
 Tap **Play** on a recording to publish its messages again at 0.5×, 1× or 2×, with loop and pause.
-Drag the progress bar to jump to any instant, also while paused. Jumping forward republishes the
+The card shows the position and the length as it plays. Drag the progress bar to jump to any
+instant, also while paused. Jumping forward republishes the
 last message of latched topics (``/tf_static``, ``/map``, ``/robot_description``…) so the 3D view
 keeps the map and the robot. Topics whose type the app doesn't know are skipped.
 
@@ -43,7 +45,8 @@ Import and share
 ROS 2 setups). ``.db3`` (SQLite) bags are not supported. **Share** sends a recording to another app
 (email, Drive…), and **Delete** removes it.
 
-On the PC the recordings are in ``~/.local/share/vizmini2/bags``: **Import** opens a file dialog and
+On the PC the recordings are in ``~/.local/share/vizmini2/bags`` (Linux) or
+``%LOCALAPPDATA%\VizMini2 Data\bags`` (Windows): **Import** opens a file dialog and
 **Share** shows where the file is. The *Play only on this phone* option works the same there, and the
 playback bar stays under whichever tab is open.
 

@@ -14,6 +14,9 @@ Is there a PC version?
    Yes, for Linux (Ubuntu 20.04 or newer) and Windows (10 or 11), with the same tabs:
    :doc:`../getting-started/desktop`.
 
+Is there a Mac version?
+   Not yet: Linux and Windows only, on x86-64 PCs.
+
 Does it work over 4G or a VPN?
    Yes, with a **Discovery Server** that both the phone and the robot can reach, with Discovery
    peers through the VPN, or with a Zenoh router or foxglove_bridge the phone can reach.
@@ -30,7 +33,8 @@ Can I use a gamepad?
    the left and right arrows to turn, :kbd:`Space` to stop.
 
 Does the demo touch my network?
-   No: it uses its own domain and only the phone's internal network. The demo is only on the phone.
+   No: it uses its own domain (231) and only the device's internal (loopback) network, on the
+   phone and on the PC alike.
 
 Do I need an account?
    No. Everything works without one. An account is optional and only syncs your robot profiles

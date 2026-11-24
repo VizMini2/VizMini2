@@ -19,7 +19,9 @@ en la :doc:`pestaña Alertas <../tabs/alerts>`, que además guarda el historial 
 En el PC
 --------
 
-Las alertas son notificaciones del escritorio (con ``notify-send``) mientras VizMini2 está abierta.
-Sus interruptores están arriba en la pestaña Alertas: **Notificaciones en este PC**, **Al perder el
-contacto con el robot** y **Cuando un diagnóstico pasa a ERROR**, todos activados por defecto. Tus
-reglas sobre topics funcionan igual que en el móvil.
+Las alertas son notificaciones del escritorio mientras VizMini2 está abierta: con ``notify-send`` en
+Linux (paquete ``libnotify-bin``), y desde el icono de VizMini2 en el área de notificaciones en
+Windows (o en un escritorio Linux sin ``notify-send``). Sus interruptores están arriba en la pestaña
+Alertas: **Notificaciones en este PC**, **Al perder el contacto con el robot** y **Cuando un
+diagnóstico pasa a ERROR**, todos activados por defecto. Tus reglas sobre topics funcionan igual que
+en el móvil.

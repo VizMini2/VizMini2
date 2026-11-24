@@ -22,20 +22,34 @@ The format follows Keep a Changelog, and the project uses semantic versioning.
 - **Fixed frame written by hand:** in the RViz tab, type any frame, even one that is not in TF yet, to leave a view ready; the automatic one is used until it appears.
 - **Robots on rmw_zenoh_cpp** (Zenoh router in Config › Network), and services, actions, parameters and lifecycle of nodes on rmw_cyclonedds_cpp.
 - **Through foxglove_bridge:** topics, services, parameters, actions and the node graph.
+- **Find robots** (Config › Network) lists the ROS domains with nodes on the network; tap one to connect.
+- **Topic variables:** write `${name}` in any topic and set its value once in Config, to switch every tab to another robot at once.
 - **Bags:** direct playback with a shared timeline for every tab.
-- **Tabs:** duplicate them, share them as a file and import them (on the PC, right-click a tab to rename, duplicate, delete or export it). Dashboard widgets can float above the others, and the camera and joystick widgets are more compact.
+- **Tabs:** duplicate them, share them as a file and import them (on the PC, right-click a tab to rename, duplicate, delete or export it). Dashboard widgets stay where you drop them and can overlap (a joystick over the 3D view), and the camera and joystick widgets are more compact.
 - **Message types the app doesn't bring:** paste their definition (what `ros2 interface show` prints) right where you need them, from the Topics, Message, Services and Actions tabs or from any type list, and use them straight away.
 - The Camera tab shows up to four cameras, with their annotations.
 - The Nodes tab shows the DDS each node runs on.
 - The demo robot has a ros2_control controller manager (deactivating its diff_drive_controller stops it) and its camera also as H.264 video.
 
 ### Changed
+- **No account needed:** the app opens straight on Home and connects to your robots without one; an account (Google, Microsoft or GitHub) only syncs your robot profiles between devices.
 - VizMini2 is free software under the GNU GPL version 3.
+- New app icon and logo, on the phone and on the PC.
 - The app targets Android 16 (API 36).
 - Buttons: a long list in a result shows its first values and how many there are (`[0, 1, 1, 2, 3, 5, …] (11)`) instead of just `[11]`.
-- The teleop control presets are translated.
+- Bags: the recording statistics and the playback position update while they run.
+- PC: the sidebar's tabs get shorter to fit a small window, and a scrollbar appears when there are more.
+- PC: Record video and Ctrl+Shift+R say when ffmpeg is missing and how to install it, and ffmpeg is also found where winget and the usual installs leave it.
+- PC: the open and save dialogs have a title and only list the right kind of file, and the extension is added when you type a name without one.
+- PC: the installers are about 40 MB smaller (each one only carries its own system's native libraries).
+- PC command line: `--tab` also takes a tab's name, and `--import` opens the imported tab.
+- The teleop control presets and the buttons of the PC's RViz displays panel (Add, Duplicate, Remove, Rename, Background Color) are translated.
 
 ### Fixed
+- Services: several calls at once to the same service (also action results) each get their own response, even when the server answers out of order; and ROS 2 clients on Fast DDS, such as `ros2 service call`, can use the services the app serves (the demo robot's).
+- PC: any click in a Teleop tab (such as the demo's Drive) gives it the keyboard back after the sidebar or a dialog took it.
+- PC: on Windows, the robot's meshes are also found in the local ROS 2 install (`AMENT_PREFIX_PATH`).
+- PC: the app no longer creates an `.ihmc` folder in your home folder.
 - Crashes at startup on Android 12 and 13, on Android 8 and 9, and when turning the phone to landscape in RViz or Camera.
 - With a bag playing in a loop or a restarted simulation, the 3D view stayed frozen: the TF history is cleared when the time jumps back, as in RViz.
 - Bags: changing the playback speed made messages arrive in bursts or stall, and some files could make the reader hang.

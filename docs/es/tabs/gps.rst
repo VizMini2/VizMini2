@@ -24,5 +24,5 @@ rastro.
 En el PC, arrastra el mapa con el ratón y haz zoom con la rueda o con doble clic.
 
 Las teselas del mapa se descargan de OpenStreetMap (hace falta Internet) y se guardan en caché una
-semana para no volver a pedirlas. En el móvil, el modo demo trae una pestaña con el robot simulado
+semana para no volver a pedirlas. El modo demo trae una pestaña con el robot simulado
 paseando por la Puerta del Sol de Madrid.
