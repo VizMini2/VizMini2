@@ -16,9 +16,7 @@ on:
       - tools/filament-desktop/**
       - tools/jros2-16k/**
       - tools/desktop-natives/**
-      # Not the jars they go into (those change with add-windows.sh, after this has run).
-      - "!tools/filament-desktop/*.jar"
-      - "!tools/jros2-16k/desktop/*.jar"
+      # Not the jars they go into (they change with add-windows.sh, after this has run; tools/prebuilt).
       - "!tools/jros2-16k/classes/*.jar"
   workflow_dispatch:
 

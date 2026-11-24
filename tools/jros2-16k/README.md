@@ -58,3 +58,9 @@ Cuando IHMC publique una versión ya alineada a 16 KB, basta con cambiar la depe
 The Linux x86-64 libraries in `desktop/jros2-desktop.jar` are built inside Ubuntu 20.04 (so they run on 20.04 and
 newer), with GCC 9's libstdc++ linked in statically: `tools/compat/build-desktop-natives.sh fastdds`. Do not
 replace them with ones built on a newer system (`tools/compat/check-glibc.sh` and the CI check it).
+
+## Where the built files go
+
+`repo/.../jros2-android-*.aar` and `desktop/jros2-desktop.jar` are not kept in git: the build downloads them from the
+repository's "prebuilt" release (`tools/prebuilt/prebuilt.txt`). After rebuilding them, `tools/prebuilt/publish.sh`
+uploads them and updates `prebuilt.txt`; commit that file. `classes/jros2-classes.jar` (small) stays in git.

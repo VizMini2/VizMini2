@@ -7,6 +7,8 @@
 # The classes load the natives with NativeLoader (from -Dfilament.natives.dir or from inside the jar), not with loadLibrary.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
+# The current jar (its Windows natives are kept).
+"$HERE/../prebuilt/fetch.sh"
 B="${FILAMENT_WORK:-$HOME/.cache/vizmini2-filament}"
 export PATH="$B/tools/bin:$PATH"
 export LD_LIBRARY_PATH="$B/tools/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"

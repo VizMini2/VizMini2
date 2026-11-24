@@ -18,9 +18,12 @@ Building
 The Android app has two flavors: *direct* (APK files) and *play* (Google Play). Release builds
 need a signing key in ``keystore.properties`` (see ``keystore.properties.example``).
 
-The desktop natives are prebuilt in the repository. To rebuild them (after changing Fast DDS or
-Filament), ``tools/compat/build-desktop-natives.sh`` does it inside an Ubuntu 20.04 root, and
-``tools/compat/check-glibc.sh`` checks they still run on 20.04.
+The native libraries (Fast DDS for Android and the desktop, Filament for the desktop) come prebuilt:
+they are not in git, and the first build downloads them from the repository's *prebuilt* release
+(``tools/prebuilt/prebuilt.txt`` lists them with their SHA-256). To rebuild them (after changing
+Fast DDS or Filament), ``tools/compat/build-desktop-natives.sh`` does it inside an Ubuntu 20.04
+root, and ``tools/compat/check-glibc.sh`` checks they still run on 20.04; then
+``tools/prebuilt/publish.sh`` uploads them and updates ``prebuilt.txt``, which is what you commit.
 
 Tests
 -----

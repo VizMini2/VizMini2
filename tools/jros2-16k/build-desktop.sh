@@ -9,6 +9,8 @@
 # Output: tools/jros2-16k/desktop/jros2-desktop.jar (used by desktopApp) and classes/jros2-classes.jar (core and ui).
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
+# The current jar (its Windows natives are kept) and the AAR (its classes).
+"$HERE/../prebuilt/fetch.sh"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 FORK="${1:-}"

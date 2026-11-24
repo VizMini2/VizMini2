@@ -1,0 +1,9 @@
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+#
+# Binaries built by this project's own scripts (see tools/prebuilt/README.md) that are not kept in git: each one is
+# downloaded from the "prebuilt" GitHub release to its path (Gradle does it on its own, scripts call fetch.sh).
+# One line each: path sha256 url. tools/prebuilt/publish.sh uploads a rebuilt one and updates its line.
+tools/jros2-16k/repo/us/ihmc/jros2-android/1.5.1-16k-graph/jros2-android-1.5.1-16k-graph.aar 7579e19285c836da4a780b3aa99c52a0246499222a41ba531ae5878d1531a797 https://github.com/VizMini2/VizMini2/releases/download/prebuilt/jros2-android-1.5.1-16k-graph-7579e192.aar
+tools/jros2-16k/desktop/jros2-desktop.jar 63879d99313b90507ce82403cc0a3754d756eb7a856be958d456ba468c4247df https://github.com/VizMini2/VizMini2/releases/download/prebuilt/jros2-desktop-63879d99.jar
+tools/filament-desktop/filament-desktop.jar 823c0847b026c3b278206759207495a2dedc6c11ef1b9ca7f551e05cce5d2909 https://github.com/VizMini2/VizMini2/releases/download/prebuilt/filament-desktop-823c0847.jar

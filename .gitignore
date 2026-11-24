@@ -43,3 +43,10 @@ tools/bt_groot/bt_groot_server
 # Python
 __pycache__/
 *.pyc
+
+# Binaries downloaded from the "prebuilt" release (tools/prebuilt/prebuilt.txt), and what was last downloaded
+/tools/jros2-16k/repo/us/ihmc/jros2-android/1.5.1-16k-graph/jros2-android-1.5.1-16k-graph.aar
+/tools/jros2-16k/desktop/jros2-desktop.jar
+/tools/filament-desktop/filament-desktop.jar
+/tools/prebuilt/.state/
+/tools/**/*.part

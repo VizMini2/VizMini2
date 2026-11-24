@@ -13,6 +13,8 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
+# The current jars (the Windows natives go into them).
+tools/prebuilt/fetch.sh
 WORKFLOW="Windows natives"
 RUN="${1:-$(gh run list --workflow "$WORKFLOW" --branch "$(git branch --show-current)" --status success --limit 1 \
   --json databaseId --jq '.[0].databaseId // empty')}"

@@ -19,9 +19,12 @@ La app Android tiene dos variantes: *direct* (ficheros APK) y *play* (Google Pla
 compilaciones release necesitan una clave de firma en ``keystore.properties`` (mira
 ``keystore.properties.example``).
 
-Las librerías nativas de escritorio vienen ya compiladas en el repositorio. Para recompilarlas
-(tras cambiar Fast DDS o Filament), ``tools/compat/build-desktop-natives.sh`` lo hace dentro de un
-Ubuntu 20.04, y ``tools/compat/check-glibc.sh`` comprueba que siguen funcionando en 20.04.
+Las librerías nativas (Fast DDS para Android y escritorio, Filament para escritorio) vienen ya
+compiladas: no están en git, y la primera compilación las descarga de la release *prebuilt* del
+repositorio (``tools/prebuilt/prebuilt.txt`` las lista con su SHA-256). Para recompilarlas (tras
+cambiar Fast DDS o Filament), ``tools/compat/build-desktop-natives.sh`` lo hace dentro de un
+Ubuntu 20.04, y ``tools/compat/check-glibc.sh`` comprueba que siguen funcionando en 20.04; después,
+``tools/prebuilt/publish.sh`` las sube y actualiza ``prebuilt.txt``, que es lo que se sube a git.
 
 Tests
 -----

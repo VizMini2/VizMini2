@@ -5,6 +5,7 @@
 # (GLIBC_2.31, GLIBCXX_3.4.28). Used by the CI and by tools/compat/build-desktop-natives.sh.
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
+"$REPO/tools/prebuilt/fetch.sh"
 MAX_GLIBC=2.31; MAX_CXX=3.4.28
 T="$(mktemp -d)"; trap 'rm -rf "$T"' EXIT
 for j in tools/jros2-16k/desktop/jros2-desktop.jar tools/filament-desktop/filament-desktop.jar; do
