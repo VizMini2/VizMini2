@@ -41,6 +41,8 @@ env:
 
 jobs:
   website:
+    # Only VizMini2's releases (v*), not the "prebuilt" one of tools/prebuilt.
+    if: github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
