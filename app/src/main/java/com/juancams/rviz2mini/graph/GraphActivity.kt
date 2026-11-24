@@ -7,12 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -38,13 +39,14 @@ import com.juancams.rviz2mini.ui.theme.VizTheme
 /** Node graph and TF tree in full screen (from Home): the shared screens, with tabs to switch. */
 class GraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val startTf = intent.getBooleanExtra(EXTRA_TF, false)
         setContent {
             VizTheme {
                 Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.surface) {
                     var tf by remember { mutableStateOf(startTf) }
-                    Column(Modifier.fillMaxSize().statusBarsPadding()) {
+                    Column(Modifier.fillMaxSize().systemBarsPadding()) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             IconButton(onClick = { finish() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, tr("graph_back")) }
                             Text(tr("graph_title"), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(start = 4.dp))
