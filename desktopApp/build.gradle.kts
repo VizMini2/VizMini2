@@ -44,7 +44,7 @@ kotlin {
             implementation("org.json:json:20240303")
             implementation("com.github.luben:zstd-jni:1.5.7-28")
             // Windows' current open and save dialogs (WindowsFileDialogs.kt).
-            implementation("net.java.dev.jna:jna:5.18.1")
+            implementation("net.java.dev.jna:jna:5.19.1")
         }
         // End-to-end tests against real ROS 2 servers (skipped unless VIZMINI2_E2E=1; see tools/e2e/run.sh).
         jvmTest.dependencies {
