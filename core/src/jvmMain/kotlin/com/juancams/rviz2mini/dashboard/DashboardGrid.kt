@@ -134,6 +134,7 @@ object DashboardGrid {
         com.juancams.rviz2mini.tabs.TabType.MOVEIT, com.juancams.rviz2mini.tabs.TabType.CONTROLLERS -> 6 to 10
         com.juancams.rviz2mini.tabs.TabType.MAPS -> 12 to 10
         com.juancams.rviz2mini.tabs.TabType.ALERTS -> 6 to 8
+        com.juancams.rviz2mini.tabs.TabType.PLANSYS2 -> 12 to 10
         com.juancams.rviz2mini.tabs.TabType.NODE_GRAPH, com.juancams.rviz2mini.tabs.TabType.TF_TREE -> 12 to 8
         else -> 6 to 7
     }

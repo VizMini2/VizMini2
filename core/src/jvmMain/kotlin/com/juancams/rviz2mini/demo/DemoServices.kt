@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap
  * - /camera_driver: lifecycle node; the camera only publishes while it is active.
  * - /controller_manager: a ros2_control controller manager (see [DemoControllers]); with diff_drive_controller
  *   inactive the robot does not move.
+ * - /executor, /problem_expert and the performers: a PlanSys2 for the PlanSys2 tab (see [DemoPlanSys2]).
  * - "ros_discovery_info": announces those nodes and the app's with their endpoints, as rmw would, so
  *   that they show up in Nodes and in the graph with their name.
  *
@@ -36,6 +37,7 @@ class DemoServices internal constructor(private val registry: InterfaceRegistry,
     private val servers = ArrayList<DynServiceServer>()
     private val pubs = ArrayList<DynRos.Publisher>()
     @Volatile private var closed = false
+    private var planSys2: DemoPlanSys2? = null
 
     fun start() {
         try {
@@ -44,6 +46,7 @@ class DemoServices internal constructor(private val registry: InterfaceRegistry,
             startFibonacci()
             startCameraLifecycle()
             DemoControllers(robot) { name, type, handler -> serve(name, type, handler) }.start()
+            planSys2 = DemoPlanSys2(registry, robot).also { it.start() }
             graphInfo = DynRos.rawPublisher("ros_discovery_info", registry.msg(DISCOVERY_TYPE), latchedQos()).also { pubs += it }
             announceLoop()
         } catch (e: Exception) {
@@ -55,6 +58,7 @@ class DemoServices internal constructor(private val registry: InterfaceRegistry,
         closed = true
         for (s in servers) s.close()
         for (p in pubs) p.close()
+        planSys2?.close()
     }
 
     private fun serve(name: String, type: String, handler: (MsgValue, (MsgValue) -> Unit) -> Unit) {
@@ -301,6 +305,8 @@ class DemoServices internal constructor(private val registry: InterfaceRegistry,
         val app = RosConnection.config.nodeName
         val nodes = linkedMapOf(ROBOT to (ArrayList<String>() to ArrayList<String>()), CAMERA to (ArrayList<String>() to ArrayList()),
             DemoControllers.MANAGER to (ArrayList<String>() to ArrayList()),
+            DemoPlanSys2.EXECUTOR to (ArrayList<String>() to ArrayList()), DemoPlanSys2.PROBLEM_EXPERT to (ArrayList<String>() to ArrayList()),
+            "/${DemoPlanSys2.MOVE_NODE}" to (ArrayList<String>() to ArrayList()),
             "/$app" to (ArrayList<String>() to ArrayList()))
         for (e in g.endpoints) {
             if (!e.guid.startsWith(own)) continue
@@ -336,6 +342,7 @@ class DemoServices internal constructor(private val registry: InterfaceRegistry,
             e.isWriter && (topic == "/camera/image_raw" || topic == DemoRobot.VIDEO_TOPIC || topic == "$CAMERA/transition_event") -> CAMERA
             e.isWriter && (topic in ROBOT_TOPICS || topic.startsWith("$FIBONACCI/")) -> ROBOT
             !e.isWriter && topic == "/cmd_vel" -> ROBOT
+            e.isWriter -> DemoPlanSys2.owner(topic)
             else -> null
         }
     }

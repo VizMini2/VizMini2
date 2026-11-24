@@ -76,7 +76,7 @@ object TabCatalogInfo {
         TabType.DASHBOARD to Group.VISUALIZE, TabType.RVIZ to Group.VISUALIZE, TabType.CAMERA to Group.VISUALIZE,
         TabType.TELEOP to Group.CONTROL, TabType.TELEOP_DUAL to Group.CONTROL, TabType.BUTTONS to Group.CONTROL,
         TabType.SLIDERS to Group.CONTROL, TabType.INDICATORS to Group.VISUALIZE, TabType.PLOT to Group.VISUALIZE,
-        TabType.GPS to Group.VISUALIZE, TabType.BEHAVIOR_TREE to Group.VISUALIZE, TabType.MESSAGE to Group.INSPECT,
+        TabType.GPS to Group.VISUALIZE, TabType.BEHAVIOR_TREE to Group.VISUALIZE, TabType.PLANSYS2 to Group.VISUALIZE, TabType.MESSAGE to Group.INSPECT,
         TabType.PARAMETERS to Group.CONTROL, TabType.DIAGNOSTICS to Group.INSPECT, TabType.LIFECYCLE to Group.CONTROL,
         TabType.NODE_GRAPH to Group.INSPECT, TabType.TF_TREE to Group.INSPECT, TabType.NODES to Group.INSPECT,
         TabType.TOPICS to Group.INSPECT, TabType.SERVICES to Group.INSPECT, TabType.ACTIONS to Group.INSPECT,

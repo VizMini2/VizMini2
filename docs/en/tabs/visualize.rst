@@ -13,4 +13,5 @@ they differ (mouse, keyboard, file dialogs), each page says so.
    plot
    gps
    behavior_tree
+   plansys2
    dashboard

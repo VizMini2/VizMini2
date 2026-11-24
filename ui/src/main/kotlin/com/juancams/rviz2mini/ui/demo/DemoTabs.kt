@@ -75,6 +75,8 @@ object DemoTabs {
             TabSpec.create(TabType.PLOT, TabType.PLOT.label())
                 .withSetting(PLOT_KEY_LAYOUT, plot().toJson()),
             TabSpec.create(TabType.LIFECYCLE, TabType.LIFECYCLE.label()).withSetting(LIFECYCLE_KEY_NODES, DemoServices.CAMERA),
+            // The demo's PlanSys2 (DemoPlanSys2): a cleaning robot, one plan after another.
+            TabSpec.create(TabType.PLANSYS2, TabType.PLANSYS2.label()),
             dashboard,
         ) + widgets
     }

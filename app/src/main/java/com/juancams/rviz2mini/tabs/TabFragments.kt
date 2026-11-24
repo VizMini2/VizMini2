@@ -31,6 +31,7 @@ object TabFragments {
             TabType.CONTROLLERS -> com.juancams.rviz2mini.control.ControllersFragment()
             TabType.MAPS -> com.juancams.rviz2mini.control.SharedScreenFragment.of(TabType.MAPS)
             TabType.ALERTS -> com.juancams.rviz2mini.control.SharedScreenFragment.of(TabType.ALERTS)
+            TabType.PLANSYS2 -> com.juancams.rviz2mini.control.SharedScreenFragment.of(TabType.PLANSYS2)
         }
         return TabFragment.withTabId(fragment, spec.id)
     }
@@ -61,5 +62,6 @@ object TabFragments {
         TabType.CONTROLLERS -> R.drawable.ic_developer_board
         TabType.MAPS -> R.drawable.ic_layers
         TabType.ALERTS -> R.drawable.ic_notifications_active
+        TabType.PLANSYS2 -> R.drawable.ic_checklist
     }
 }

@@ -23,7 +23,7 @@ abstract class DynMessage<T : DynMessage<T>> : ROS2Message<T> {
 
     override fun serialize(buffer: CDRBuffer) = DynCodec.write(spec, value, buffer)
 
-    override fun deserialize(buffer: CDRBuffer) { value = DynCodec.read(spec, buffer) }
+    override fun deserialize(buffer: CDRBuffer) { value = DynTypes.decoderFor(spec.ddsName)?.decode(buffer) ?: DynCodec.read(spec, buffer) }
 
     override fun toString() = "${spec.name} ${DynCodec.format(spec, value)}"
 }
@@ -33,6 +33,18 @@ abstract class DynMessage<T : DynMessage<T>> : ROS2Message<T> {
  * (jros2 registers the type by its name and may have live readers/writers with it).
  */
 object DynTypes {
+
+    /**
+     * Reads a type whose CDR comes in more than one shape: a package that changed a message keeps its DDS name, so the
+     * same topic can bring the old or the new one depending on who publishes it (PlanSys2's, see
+     * plansys2/PlanSys2Messages). It returns the value in the shape of the app's definition.
+     */
+    fun interface Decoder { fun decode(buffer: CDRBuffer): MsgValue }
+
+    private val decoders = java.util.concurrent.ConcurrentHashMap<String, Decoder>()
+
+    fun setDecoder(ddsName: String, decoder: Decoder) { decoders[ddsName] = decoder }
+    fun decoderFor(ddsName: String): Decoder? = decoders[ddsName]
 
     private val byDdsName = HashMap<String, Class<*>>()
     private val specs = HashMap<Class<*>, MsgSpec>()

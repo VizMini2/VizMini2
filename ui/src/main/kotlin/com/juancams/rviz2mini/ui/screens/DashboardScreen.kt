@@ -28,6 +28,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Undo
 import androidx.compose.material.icons.filled.AccountTree
+import androidx.compose.material.icons.filled.Checklist
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Autorenew
 import androidx.compose.material.icons.filled.Dashboard
@@ -135,6 +136,7 @@ fun tabIcon(type: TabType): ImageVector = when (type) {
     TabType.CONTROLLERS -> Icons.Default.DeveloperBoard
     TabType.MAPS -> Icons.Default.Layers
     TabType.ALERTS -> Icons.Default.NotificationsActive
+    TabType.PLANSYS2 -> Icons.Default.Checklist
 }
 
 /**

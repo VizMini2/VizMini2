@@ -38,7 +38,8 @@ enum class TabType(val displayName: String, val labelKey: String) {
     MOVEIT("MoveIt", "tab_type_moveit"),
     CONTROLLERS("Controllers", "tab_type_controllers"),
     MAPS("Maps", "tab_type_maps"),
-    ALERTS("Alerts", "tab_type_alerts");
+    ALERTS("Alerts", "tab_type_alerts"),
+    PLANSYS2("PlanSys2", "tab_type_plansys2");
 
     /** Type name in the app's language. */
     fun label(): String = tr(labelKey)

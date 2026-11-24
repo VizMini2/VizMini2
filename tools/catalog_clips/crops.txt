@@ -28,3 +28,4 @@ moveit 240 12.5
 controllers 130 9.5
 maps 130 7.5
 alerts 130 7.5
+plansys2 130 8.5

@@ -253,6 +253,14 @@ class CatalogClips {
                     runCatching { Ui.click("+") }; SystemClock.sleep(1800)
                     runCatching { Ui.click(str(scenario, R.string.maps_fit)) }; SystemClock.sleep(2500)
                 }
+                // PlanSys2 (the demo's cleaning robot): the four boxes, then the plan and the plan log on their own.
+                open(TabType.PLANSYS2, 4000)
+                clip("plansys2", 9) {
+                    SystemClock.sleep(3000)
+                    runCatching { Ui.click(str(scenario, R.string.ps2_plan)) }; SystemClock.sleep(2800)
+                    runCatching { Ui.click(str(scenario, R.string.ps2_log)) }; SystemClock.sleep(2500)
+                }
+                runCatching { Ui.click(str(scenario, R.string.ps2_overview)) }
                 val savedRules = com.juancams.rviz2mini.alerts.TopicRules.load()
                 val savedAlerts = com.juancams.rviz2mini.alerts.AlertSettings.load(context)
                 com.juancams.rviz2mini.alerts.AlertMonitor.apply(context, savedAlerts.copy(enabled = true))

@@ -56,7 +56,7 @@ class CatalogShots {
                 val byType = TabStore.get().all.filter { !it.isWidget }.associateBy { it.type }
                 for ((type, wait) in listOf(TabType.DASHBOARD to 10000L, TabType.RVIZ to 8000L, TabType.CAMERA to 4000L, TabType.TELEOP to 2500L, TabType.TELEOP_DUAL to 2500L,
                     TabType.DIAGNOSTICS to 4000L, TabType.BUTTONS to 4000L, TabType.SLIDERS to 2500L, TabType.INDICATORS to 4000L, TabType.PLOT to 12000L, TabType.GPS to 8000L, TabType.TOPICS to 3500L, TabType.BAGS to 2500L, TabType.TF_TREE to 4000L,
-                    TabType.MESSAGE to 4000L, TabType.PARAMETERS to 5000L)) {
+                    TabType.MESSAGE to 4000L, TabType.PARAMETERS to 5000L, TabType.PLANSYS2 to 9000L)) {
                     val t = byType[type] ?: continue
                     scenario.onActivity { it.openTab(t.id) }
                     SystemClock.sleep(wait)

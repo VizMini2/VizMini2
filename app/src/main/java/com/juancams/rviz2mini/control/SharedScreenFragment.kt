@@ -15,7 +15,7 @@ import com.juancams.rviz2mini.ui.screens.AlertsScreen
 import com.juancams.rviz2mini.ui.screens.MapsScreen
 import com.juancams.rviz2mini.ui.theme.VizTheme
 
-/** A tab whose screen is the one shared with the PC (Maps, Alerts): only hosts it. */
+/** A tab whose screen is the one shared with the PC (Maps, Alerts, PlanSys2): only hosts it. */
 class SharedScreenFragment : TabFragment() {
     /** The tab's own type (withTabId replaces the arguments). */
     private val type get() = spec()?.type ?: TabType.MAPS
@@ -27,6 +27,7 @@ class SharedScreenFragment : TabFragment() {
                 VizTheme {
                     when (type) {
                         TabType.ALERTS -> AlertsScreen(tabId)
+                        TabType.PLANSYS2 -> com.juancams.rviz2mini.ui.screens.PlanSys2Screen(tabId)
                         else -> MapsScreen(tabId)
                     }
                 }

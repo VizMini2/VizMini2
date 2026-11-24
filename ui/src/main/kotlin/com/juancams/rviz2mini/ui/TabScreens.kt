@@ -35,7 +35,7 @@ import com.juancams.rviz2mini.ui.screens.TopicEchoScreen
 /** Tab types that already have a shared (Compose) screen: the same on Android and on desktop. */
 val SHARED_TAB_TYPES = setOf(
     TabType.TOPICS, TabType.NODES, TabType.SERVICES, TabType.ACTIONS,
-    TabType.TELEOP, TabType.TELEOP_DUAL, TabType.LIFECYCLE, TabType.PARAMETERS, TabType.MESSAGE, TabType.CAMERA, TabType.NODE_GRAPH, TabType.TF_TREE, TabType.BUTTONS, TabType.SLIDERS, TabType.INDICATORS, TabType.DIAGNOSTICS, TabType.DASHBOARD, TabType.PLOT, TabType.BEHAVIOR_TREE, TabType.GPS, TabType.BAGS, TabType.MOVEIT, TabType.CONTROLLERS, TabType.MAPS, TabType.ALERTS,
+    TabType.TELEOP, TabType.TELEOP_DUAL, TabType.LIFECYCLE, TabType.PARAMETERS, TabType.MESSAGE, TabType.CAMERA, TabType.NODE_GRAPH, TabType.TF_TREE, TabType.BUTTONS, TabType.SLIDERS, TabType.INDICATORS, TabType.DIAGNOSTICS, TabType.DASHBOARD, TabType.PLOT, TabType.BEHAVIOR_TREE, TabType.GPS, TabType.BAGS, TabType.MOVEIT, TabType.CONTROLLERS, TabType.MAPS, TabType.ALERTS, TabType.PLANSYS2,
 )
 
 /** The screen of a tab. Those not yet moved to Compose say so (on Android the usual ones are still used). */
@@ -82,6 +82,7 @@ fun TabScreen(spec: TabSpec, modifier: Modifier = Modifier) {
         TabType.CONTROLLERS -> com.juancams.rviz2mini.ui.screens.ControllersScreen(spec.id, modifier)
         TabType.MAPS -> com.juancams.rviz2mini.ui.screens.MapsScreen(spec.id, modifier)
         TabType.ALERTS -> com.juancams.rviz2mini.ui.screens.AlertsScreen(spec.id, modifier)
+        TabType.PLANSYS2 -> com.juancams.rviz2mini.ui.screens.PlanSys2Screen(spec.id, modifier)
         else -> Box(modifier.fillMaxSize().padding(24.dp), contentAlignment = Alignment.Center) {
             Text(tr("desktop_tab_not_yet", spec.type.label()), style = MaterialTheme.typography.bodyLarge)
         }

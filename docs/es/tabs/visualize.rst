@@ -13,4 +13,5 @@ Pestañas para ver tu robot y lo que percibe. Funcionan igual en el móvil y en 
    plot
    gps
    behavior_tree
+   plansys2
    dashboard
