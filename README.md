@@ -19,15 +19,105 @@ model, maps, laser, point clouds, cameras, markers, interactive markers, Nav2 wa
 dashboards, plots, teleop, topics, parameters, lifecycle, ros2_control controllers, map tools for Nav2 (saving, SLAM
 Toolbox, costmaps, keepout and speed zones), alerts on any topic, H.264/H.265 video topics, screen recording, bags
 and more. It talks DDS directly (Fast DDS through jros2), and also Zenoh and foxglove_bridge. It imports and exports
-RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools (`ui/.../interop/ConfigInterop.kt`).
+RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools.
 
-- **Android**: the app on Google Play, or a debug build with `./gradlew installDirectDebug`.
-- **Desktop on Windows (10 or 11)**: the `.msi` (installed for the current user, no administrator) or the `.zip`
-  from the releases, or `./gradlew :desktopApp:packageMsi` on Windows with a JDK 21 that has jpackage.
-- **Desktop (Linux, Ubuntu 20.04 or newer)**: `./gradlew :desktopApp:run`, the `.deb` from
-  `./gradlew :desktopApp:packageDeb`, or as a ROS 2 package: `colcon build` in a workspace with `ros/vizmini2`, then
-  `ros2 run vizmini2 vizmini2`. `ffmpeg` is used for H.264/H.265 video and for recording the window.
-- **User manual**: `docs/` (Sphinx, English and Spanish): `docs/build.sh`.
+<p align="center">
+  <img src="docs/readme/desktop.gif" alt="VizMini2 on the desktop: a dashboard with the 3D view, a camera, gauges and the teleop joystick" width="720">
+</p>
+
+| 3D view | MoveIt | Dashboard | Map tools |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/readme/phone_rviz.gif" alt="The 3D view on a phone: the robot driving on a map with its laser" width="200"> | <img src="docs/readme/phone_moveit.gif" alt="Planning and executing a motion of the Panda arm with MoveIt" width="200"> | <img src="docs/readme/phone_dashboard.gif" alt="A dashboard with the 3D view, a camera and the teleop joystick" width="200"> | <img src="docs/readme/phone_maps.gif" alt="Drawing keepout and speed zones on a map for Nav2" width="200"> |
+
+## Install
+
+| Platform | How |
+| --- | --- |
+| **Android** 8.0 or newer | The `.apk` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest) (`universal` fits every phone). Google Play is coming soon. |
+| **Windows** 10 or 11 | The `.msi` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest): installed for your user, no administrator needed. Or the `.zip`, without installing. |
+| **Ubuntu** 20.04 or newer | The `.deb` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest): `sudo apt install ./vizmini2_*_amd64.deb`. Or the `.tar.gz`, without installing. |
+| **As a ROS 2 package** | Built from this repository: see [Build your own version](#build-your-own-version). |
+
+For H.264/H.265 video topics and recording the window on the desktop, install `ffmpeg` (`sudo apt install ffmpeg`,
+or `winget install ffmpeg` on Windows). The [installation guide](https://vizmini2.github.io/getting-started/install.html)
+has every step.
+
+## First steps
+
+- **No robot at hand?** Turn on the [demo mode](https://vizmini2.github.io/getting-started/demo.html): a simulated
+  robot inside the app, with a laser, a map, a camera and services to try every tab.
+- **Your robot**: the phone or the PC on the same network as the robot and the same `ROS_DOMAIN_ID`, and its topics
+  show up. If they do not, see [connecting to a robot](https://vizmini2.github.io/getting-started/connect.html) and
+  [troubleshooting](https://vizmini2.github.io/help/troubleshooting.html).
+- **Coming from RViz?** Import your `.rviz` file and keep your displays.
+
+The [user manual](https://vizmini2.github.io) (English and Spanish) explains every tab.
+
+## Build your own version
+
+You need **JDK 21** and the **Android SDK** (Android Studio brings both; set `sdk.dir` in `local.properties` or
+`ANDROID_HOME`). No sudo or Docker is needed for any script.
+
+```bash
+git clone https://github.com/VizMini2/VizMini2.git
+cd VizMini2
+```
+
+**Android** (a debug build: it has the same package name as the released app but another signature, so uninstall
+that one first):
+
+```bash
+./gradlew installDirectDebug        # build and install it on the connected phone (USB debugging on)
+./gradlew assembleDirectDebug       # or just the APKs, in app/build/outputs/apk/direct/debug/
+```
+
+**Desktop** (Linux or Windows):
+
+```bash
+./gradlew :desktopApp:run           # run it from the sources
+./gradlew :desktopApp:packageDeb    # the .deb (on Linux), in desktopApp/build/compose/binaries/main/deb/
+./gradlew :desktopApp:packageMsi    # the .msi (on Windows, with a JDK 21 that has jpackage)
+```
+
+**As a ROS 2 package** (it builds the desktop app with Gradle and installs it in the workspace):
+
+```bash
+mkdir -p ~/vizmini2_ws/src && cd ~/vizmini2_ws/src
+git clone https://github.com/VizMini2/VizMini2.git
+cd .. && colcon build --packages-select vizmini2
+source install/setup.bash
+ros2 run vizmini2 vizmini2
+```
+
+More in [Building and testing](https://vizmini2.github.io/developers/building.html).
+
+## Testing
+
+```bash
+./gradlew :core:jvmTest testDirectDebugUnitTest lintDirectDebug   # unit tests and lint
+tools/e2e/run.sh                                                   # the desktop app against real ROS 2 servers
+tools/e2e/android_device_tests.sh                                  # on a phone or emulator, with the demo robot
+tools/pc_tests.sh -b                                               # a phone against servers on this PC
+tools/compat/try-desktop.sh 22.04 [vizmini2_1.0.0_amd64.deb]       # the app (or the .deb) on another Ubuntu
+```
+
+`tools/e2e/run.sh` needs ROS 2 on the PC: it starts a fake robot, Nav2, MoveIt, ros2_control and more, runs the tests
+and stops them. `python3 tools/fake_robot.py` alone is handy to try the app by hand. The CI runs all of this (but the
+phone) on every push.
+
+## Documentation
+
+The user manual is in `docs/` (Sphinx, English in `docs/en/`, Spanish in `docs/es/`), and the API reference comes
+from the code (Dokka). To build them and look at them before pushing:
+
+```bash
+python3 -m pip install sphinx sphinx-rtd-theme myst-parser
+docs/build.sh                                         # the manual in docs/_build/site
+python3 -m http.server -d docs/_build/site 8000       # open http://localhost:8000 (Spanish: /es/)
+./gradlew dokkaGenerate                               # the API reference in build/dokka/html/index.html
+```
+
+The website, [vizmini2.github.io](https://vizmini2.github.io), is updated on its own when a release is published.
 
 ## Repository
 
@@ -41,43 +131,15 @@ RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools (`ui/..
 | `tools/` | Test servers (fake robot, fake Nav2, MoveIt with the Panda...), CI scripts and build helpers |
 | `docs/` | User manual |
 
-## Building and testing
-
-```bash
-./gradlew :core:jvmTest testDirectDebugUnitTest lintDirectDebug   # unit tests and lint
-./gradlew dokkaGenerate                                            # API reference: build/dokka/html/index.html
-tools/e2e/run.sh                                                   # desktop end-to-end tests against ROS 2 servers
-tools/e2e/android_device_tests.sh                                  # device tests on a phone or emulator (demo robot)
-tools/pc_tests.sh -b                                               # phone tests against servers on this PC
-tools/compat/build-desktop-natives.sh                              # rebuild the desktop natives inside Ubuntu 20.04
-tools/compat/try-desktop.sh 22.04 [vizmini2_1.0.0_amd64.deb]       # run the app (or install the .deb) on another Ubuntu
-```
-
-The desktop app's own native libraries (Fast DDS, Filament, an X11 helper) are built inside Ubuntu 20.04 so they run
-on 20.04 and every newer release; `tools/compat/check-glibc.sh` checks it. The scripts need neither sudo nor Docker.
-
-The CI (`.github/workflows/ci.yml`) runs the checks, unit tests, lint, the builds, the documentation, the desktop app
-on clean Ubuntu 20.04, 22.04 and 24.04, the desktop end-to-end tests against ROS 2 servers of Humble, Jazzy and
-Lyrical (on each one's Ubuntu), and the device tests on an Android emulator.
-
 ## Releases
 
-`.github/workflows/release.yml` builds every file of a release on each `v*` tag (or by hand from the Actions tab, to
-try it): the signed APKs (one per architecture and the universal one), the `.deb` and a
-`.tar.gz` of the desktop app, its Windows `.msi` and `.zip`, the manual and the API reference, all checked (the `.deb`
-is installed and started on Ubuntu 20.04 and 24.04, and the `.msi` on Windows), and leaves them in a **draft** GitHub
-release with `SHA256SUMS` and the CHANGELOG entry as
-notes. The Google Play bundle (`.aab`) is only a workflow artifact, to upload by hand; nothing goes to Google Play
-or Firebase. When you publish that release, `.github/workflows/site.yml` builds the
-manual and the API reference from its tag and pushes them to
-[VizMini2/VizMini2.github.io](https://github.com/VizMini2/VizMini2.github.io), the website at https://vizmini2.github.io
-(secret `SITE_DEPLOY_KEY`: a deploy key with write access on that repository; see the top of the workflow).
+A `v*` tag builds, installs and starts every file of the release (APKs, `.aab`, `.deb`, `.tar.gz`, `.msi`, `.zip`,
+manual) on GitHub Actions and leaves a draft release to publish by hand. The steps, the version checks and the signing
+keys are in [Releases and CI/CD](https://vizmini2.github.io/developers/releases.html).
 
-To release: the same version in `app/build.gradle.kts` (`versionName`, and a higher `versionCode`), `gradle.properties`
-(`vizmini2.version`) and `ros/vizmini2/package.xml`, its entry in both CHANGELOGs (`python3 tools/release/version.py
-check v1.2.3` checks all of it), then `git tag v1.2.3 && git push origin v1.2.3`. The signing key goes in the repository
-secrets `ANDROID_KEYSTORE_BASE64` (`base64 -w0 release.jks`), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` and
-`ANDROID_KEY_PASSWORD`; the R8 mappings for Crashlytics are kept as a workflow artifact.
+## Contributing
+
+Bug reports, ideas and pull requests are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md) and [CLA.md](CLA.md).
 
 ## License
 
