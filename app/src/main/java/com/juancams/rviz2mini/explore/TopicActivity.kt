@@ -6,6 +6,7 @@ package com.juancams.rviz2mini.explore
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.juancams.rviz2mini.params.NodeInspectorActivity
 import com.juancams.rviz2mini.ui.screens.TopicEchoScreen
@@ -17,6 +18,7 @@ import com.juancams.rviz2mini.ui.screens.TopicEchoScreen
 class TopicActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val topic = intent.getStringExtra(EXTRA_NAME) ?: run { finish(); return }
         val type = intent.getStringExtra(EXTRA_TYPE).orEmpty()

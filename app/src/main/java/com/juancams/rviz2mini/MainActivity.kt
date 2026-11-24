@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         // Repackaged copy signed with another key: we do not continue.
         if (!com.juancams.rviz2mini.account.Integrity.enforce(this)) return

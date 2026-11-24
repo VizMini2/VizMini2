@@ -32,7 +32,7 @@
 
     <style name="Theme.VizMini2" parent="Base.Theme.VizMini2" />
 
-    <!-- Pantallas de acceso: siempre oscuras sobre el degradado, con barras transparentes -->
+    <!-- Welcome screen: always dark on the gradient (transparent bars: enableEdgeToEdge in OnboardingActivity) -->
     <style name="Theme.VizMini2.Auth" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">#5CD3DD</item>
         <item name="colorOnPrimary">#00363B</item>
@@ -42,8 +42,6 @@
         <item name="colorOnSecondary">#1C3437</item>
         <item name="colorSecondaryContainer">#334B4E</item>
         <item name="colorOnSecondaryContainer">#CCE8EB</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

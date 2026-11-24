@@ -6,12 +6,14 @@ package com.juancams.rviz2mini.explore
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.juancams.rviz2mini.ui.screens.ServiceCallScreen
 
 /** Call a service (like `ros2 service call`): the screen shared with the desktop. */
 class ServiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val name = intent.getStringExtra(EXTRA_NAME) ?: run { finish(); return }
         val type = intent.getStringExtra(EXTRA_TYPE).orEmpty()

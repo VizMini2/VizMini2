@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
@@ -46,6 +47,7 @@ class AddTabDetailActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val type = TabType.fromName(intent.getStringExtra(EXTRA_TYPE).orEmpty()) ?: run { finish(); return }
         val entry = TabCatalog.of(type)

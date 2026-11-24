@@ -6,6 +6,7 @@ package com.juancams.rviz2mini.params
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.juancams.rviz2mini.explore.TopicActivity
 import com.juancams.rviz2mini.explore.showSharedScreen
@@ -18,6 +19,7 @@ import com.juancams.rviz2mini.ui.screens.NodeInspectorScreen
 class NodeInspectorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val node = intent.getStringExtra(EXTRA_NODE) ?: run { finish(); return }
         showSharedScreen { NodeInspectorScreen(node, onOpenTopic = { t, type -> TopicActivity.open(this, t, type) }) }

@@ -118,6 +118,13 @@
             android:name=".record.ScreenRecordService"
             android:exported="false"
             android:foregroundServiceType="mediaProjection" />
+
+        <!-- ML Kit's QR scanner: an invisible activity that ML Kit locks to portrait. Android 16 ignores that on
+             tablets and foldables and Google Play asks for it not to be there. -->
+        <activity
+            android:name="com.google.mlkit.vision.codescanner.internal.GmsBarcodeScanningDelegateActivity"
+            android:screenOrientation="unspecified"
+            tools:replace="android:screenOrientation" />
     </application>
 
 </manifest>

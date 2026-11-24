@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -22,6 +23,7 @@ class PrivacyActivity : AppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val web = WebView(this)
         // Only the page's own JavaScript (language selection); nothing from the network.

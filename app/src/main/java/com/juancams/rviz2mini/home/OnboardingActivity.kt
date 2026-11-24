@@ -14,6 +14,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -52,6 +53,11 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_VizMini2_Auth)
+        // Always dark, like its theme: light icons on the gradient.
+        enableEdgeToEdge(
+            androidx.activity.SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
+            androidx.activity.SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
+        )
         super.onCreate(savedInstanceState)
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL

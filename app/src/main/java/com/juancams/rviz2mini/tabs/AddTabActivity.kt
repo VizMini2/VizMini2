@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.card.MaterialCardView
@@ -53,6 +54,7 @@ class AddTabActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val c = Screens.setup(this, getString(com.juancams.rviz2mini.R.string.common_new_tab), getString(com.juancams.rviz2mini.R.string.add_tab_subtitle)).content
         // For a dashboard widget, another dashboard is not offered.
