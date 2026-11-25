@@ -195,6 +195,7 @@ jobs:
           docker run --rm --network e2e -e VIZMINI2_E2E=1 -e VIZMINI2_E2E_DOMAIN=77 -v "$PWD":/ws -w /ws ros:${{ matrix.servers }}-ros-base bash -c '
             apt-get update -qq && apt-get install -y -qq openjdk-17-jdk-headless openjdk-21-jdk-headless ffmpeg libgl1 libfontconfig1 > /dev/null &&
             until grep -q "servers ready" build/e2e/servers.log 2>/dev/null; do sleep 2; done &&
+            { for i in 1 2 3; do ./gradlew --no-daemon -q :desktopApp:jvmTestClasses && break; echo "Gradle setup failed ($i), retrying"; sleep 20; done; } &&
             ./gradlew --no-daemon :desktopApp:jvmTest'
       - name: Server logs
         if: always()
