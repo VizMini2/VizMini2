@@ -8,6 +8,9 @@ VizMini2 runs on **Android phones and tablets** (Android 8.0 or newer) and on **
 On the phone
 ------------
 
+.. shot:: phone_home
+   :caption: Home, here with the demo robot.
+
 The same app, two ways to get it:
 
 * **From Google Play** (the easiest): install VizMini2 from `Google Play`_. It updates by itself.
@@ -23,9 +26,6 @@ Pick one of the two and keep it: each one updates from where it came from (see *
 
 Open **VizMini2**. It opens on Home, with no account needed; the first time, a quick tour shows you
 the basics.
-
-.. shot:: phone_home
-   :caption: Home, here with the demo robot.
 
 .. note::
    Your phone and your robot must be on the **same network** (or reachable through a VPN or a

@@ -8,6 +8,9 @@ VizMini2 funciona en **móviles y tablets Android** (Android 8.0 o superior) y e
 En el móvil
 -----------
 
+.. shot:: phone_home
+   :caption: Inicio, aquí con el robot de demo.
+
 La misma app, de dos formas:
 
 * **Desde Google Play** (lo más fácil): instala VizMini2 desde `Google Play`_. Se actualiza sola.
@@ -24,9 +27,6 @@ más abajo).
 
 Abre **VizMini2**. Se abre en Inicio, sin necesidad de cuenta; la primera vez, un recorrido rápido
 te enseña lo básico.
-
-.. shot:: phone_home
-   :caption: Inicio, aquí con el robot de demo.
 
 .. note::
    El móvil y el robot tienen que estar en la **misma red** (o alcanzarse por una VPN o un
