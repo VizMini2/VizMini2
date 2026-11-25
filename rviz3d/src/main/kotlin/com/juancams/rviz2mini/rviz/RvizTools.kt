@@ -376,7 +376,7 @@ class RvizTools(private val scene: RvizScene, private val pxPerDp: Float = 1f, p
         val msg = geometry_msgs.PointStamped()
         msg.header.setFrameId(frame)
         msg.point.x = x; msg.point.y = y; msg.point.z = z
-        publishSoon { pub.publish(msg) }
+        publishSoon(pub) { pub.publish(msg) }
         lastToolPoint = doubleArrayOf(x, y, z)
         onMessage(String.format(Locale.ROOT, tr("rviz_tool_point_sent"), x, y, z, frame, pointTopic))
     }
@@ -392,7 +392,7 @@ class RvizTools(private val scene: RvizScene, private val pxPerDp: Float = 1f, p
                 msg.header.setFrameId(frame)
                 msg.pose.position.x = x; msg.pose.position.y = y
                 msg.pose.orientation.z = qz; msg.pose.orientation.w = qw
-                publishSoon { pub.publish(msg) }
+                publishSoon(pub) { pub.publish(msg) }
             }
             RvizTool.POSE_ESTIMATE -> {
                 val pub = posePublisher ?: RosConnection.createPublisher(poseTopic, geometry_msgs.PoseWithCovarianceStamped::class.java).also { posePublisher = it }
@@ -402,7 +402,7 @@ class RvizTools(private val scene: RvizScene, private val pxPerDp: Float = 1f, p
                 msg.pose.pose.orientation.z = qz; msg.pose.pose.orientation.w = qw
                 // RViz default covariance: 0.25 m² in x/y and (π/12)² in yaw.
                 msg.pose.covariance[0] = 0.25; msg.pose.covariance[7] = 0.25; msg.pose.covariance[35] = 0.06853891945200942
-                publishSoon { pub.publish(msg) }
+                publishSoon(pub) { pub.publish(msg) }
             }
             else -> return
         }
@@ -412,15 +412,15 @@ class RvizTools(private val scene: RvizScene, private val pxPerDp: Float = 1f, p
     }
 
     /**
-     * A freshly created publisher takes a moment to match with subscribers; it retries a few times (without
-     * blocking the UI) and publishes only once as soon as someone is listening.
+     * A freshly created publisher takes a moment to match with subscribers: it waits (without blocking the UI, up to
+     * 5 s) until `pub` itself has someone listening, and publishes once. Only `pub` counts: another tool's publisher
+     * may already be matched while this one is not yet, and the message would be lost.
      */
-    private fun publishSoon(send: () -> Boolean) {
+    private fun publishSoon(pub: RosConnection.ManagedPublisher<*>, send: () -> Boolean) {
         val t = Thread {
             var tries = 0
-            while (tries++ < 30) {
-                val matched = (goalPublisher?.matchedSubscribers() ?: 0) + (posePublisher?.matchedSubscribers() ?: 0) + (pointPublisher?.matchedSubscribers() ?: 0)
-                if (matched > 0 && send()) return@Thread
+            while (tries++ < 50) {
+                if (pub.matchedSubscribers() > 0 && send()) return@Thread
                 Thread.sleep(100)
             }
             send()
