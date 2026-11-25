@@ -136,8 +136,9 @@ The website, [vizmini2.github.io](https://vizmini2.github.io), is updated on its
 
 ## Releases
 
-A `v*` tag builds every file of the release on GitHub Actions (APKs, `.deb`, `.tar.gz`, `.msi`, `.zip`, manual; the
-`.deb` and the `.msi` are also installed and started) and leaves a draft release to publish by hand. The Google Play
+`tools/release/start.sh 1.2.3` creates the draft release in your name and pushes the `v1.2.3` tag, which builds
+every file of the release on GitHub Actions (APKs, `.deb`, `.tar.gz`, `.msi`, `.zip`, manual; the
+`.deb` and the `.msi` are also installed and started) and uploads them to that draft, to publish by hand. The Google Play
 `.aab` is kept as a workflow artifact. The steps, the version checks and the signing
 keys are in [Releases and CI/CD](https://vizmini2.github.io/developers/releases.html).
 

@@ -29,10 +29,15 @@ Publicar una versión
    fecha de las entradas del historial el día de la versión (eso no se comprueba).
 4. Si has recompilado librerías nativas, publícalas antes (``tools/prebuilt/publish.sh``) y sube a
    git ``tools/prebuilt/prebuilt.txt``: la versión se compila con los ficheros que lista.
-5. Etiqueta y sube: ``git tag v1.2.3 && git push origin v1.2.3``.
+5. Arráncala con ``tools/release/start.sh 1.2.3`` (desde ``main``, al día y sin nada sin
+   commit): vuelve a comprobar las versiones, crea el **borrador** de versión en GitHub a tu nombre
+   (título y notas de los changelogs) y crea y sube la etiqueta ``v1.2.3``. Un simple
+   ``git tag v1.2.3 && git push origin v1.2.3`` también vale, pero entonces el workflow crea el
+   borrador por su cuenta y la versión aparece como de *github-actions*, no tuya (ni en el feed de
+   quien te sigue).
 
-``.github/workflows/release.yml`` compila entonces todos los ficheros, los comprueba y deja un
-**borrador** de versión en GitHub para revisarlo y publicarlo a mano:
+``.github/workflows/release.yml`` compila entonces todos los ficheros, los comprueba y los sube a
+ese **borrador** de versión en GitHub, para revisarlo y publicarlo a mano:
 
 * los APK (uno por arquitectura y el universal), firmados con la clave
   de los secretos del repositorio ``ANDROID_KEYSTORE_BASE64``, ``ANDROID_KEYSTORE_PASSWORD``,

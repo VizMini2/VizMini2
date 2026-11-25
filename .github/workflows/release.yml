@@ -327,6 +327,8 @@ jobs:
         run: |
           (cd dist && sha256sum * > SHA256SUMS && cat SHA256SUMS)
           python3 tools/release/version.py notes "$V" > notes.md
+          # The draft that tools/release/start.sh created in its author's name (uploading keeps the author);
+          # without one, the workflow creates it (then it is github-actions').
           if gh release view "$TAG" > /dev/null 2>&1; then
             gh release upload "$TAG" dist/* --clobber
           else

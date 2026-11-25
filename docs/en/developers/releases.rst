@@ -29,10 +29,14 @@ Making a release
    of the changelog entries to the release day too (it is not checked).
 4. If you rebuilt native libraries, publish them first (``tools/prebuilt/publish.sh``) and commit
    ``tools/prebuilt/prebuilt.txt``: the release is built with the files it lists.
-5. Tag and push: ``git tag v1.2.3 && git push origin v1.2.3``.
+5. Start it with ``tools/release/start.sh 1.2.3`` (from ``main``, up to date and with nothing
+   uncommitted): it checks the versions again, creates the **draft** GitHub release in your name
+   (title and notes from the changelogs), and tags and pushes ``v1.2.3``. A plain
+   ``git tag v1.2.3 && git push origin v1.2.3`` works too, but then the workflow creates the draft
+   itself and the release shows as *github-actions*', not yours (nor in your followers' feed).
 
-``.github/workflows/release.yml`` then builds every file, checks it and leaves a **draft**
-GitHub release to review and publish by hand:
+``.github/workflows/release.yml`` then builds every file, checks it and uploads it to that **draft**
+GitHub release, to review and publish by hand:
 
 * the APKs (one per architecture and the universal one), signed with
   the release key from the repository secrets ``ANDROID_KEYSTORE_BASE64``,
