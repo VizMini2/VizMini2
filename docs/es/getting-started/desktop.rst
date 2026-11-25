@@ -17,7 +17,7 @@ Funciona en **Ubuntu 20.04 o posterior** (x86-64, o cualquier Linux con glibc 2.
 OpenGL. **No** hace falta ROS 2 en el PC: la app trae su propio DDS. Sirve cualquier distro de ROS 2
 en la red (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 
-* **El .deb** (de las versiones publicadas del proyecto):
+* **El .deb** (de la `página de versiones <releases page_>`_):
 
   .. code-block:: bash
 
@@ -54,7 +54,7 @@ En Windows
 
 Funciona en **Windows 10 u 11** (64 bits). Como en Linux, no hace falta ROS 2 en el PC.
 
-* **El .msi** (de las versiones publicadas del proyecto): ábrelo y sigue los pasos. Se instala para
+* **El .msi** (de la `página de versiones <releases page_>`_): ábrelo y sigue los pasos. Se instala para
   tu usuario, sin pedir administrador, en *%LOCALAPPDATA%\\VizMini2* (en el segundo paso puedes
   elegir otra carpeta), con un acceso directo en el escritorio y una carpeta *VizMini2* en el menú
   Inicio. El instalador no está firmado, así que Windows puede avisar antes de abrirlo ("Windows

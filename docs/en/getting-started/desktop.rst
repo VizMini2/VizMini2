@@ -17,7 +17,7 @@ It runs on **Ubuntu 20.04 or newer** (x86-64, or any Linux with glibc 2.31 or ne
 ROS 2 is **not** needed on the PC: the app brings its own DDS. Any ROS 2 distro on the network
 works (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 
-* **The .deb** (from the project's releases):
+* **The .deb** (from the `releases page`_):
 
   .. code-block:: bash
 
@@ -54,7 +54,7 @@ On Windows
 
 It runs on **Windows 10 or 11** (64-bit). As on Linux, ROS 2 is not needed on the PC.
 
-* **The .msi** (from the project's releases): open it and follow the steps. It installs for your
+* **The .msi** (from the `releases page`_): open it and follow the steps. It installs for your
   user, without asking for an administrator, in *%LOCALAPPDATA%\\VizMini2* (the second step lets
   you pick another folder), with a shortcut on the desktop and a *VizMini2* folder in the Start
   menu. The installer isn't signed, so Windows may warn before opening it ("Windows protected your
