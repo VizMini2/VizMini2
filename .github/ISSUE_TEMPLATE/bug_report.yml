@@ -21,7 +21,8 @@ body:
       multiple: true
       options:
         - Android app
-        - Desktop app (.deb or .tar.gz)
+        - Desktop app on Linux (.deb or .tar.gz)
+        - Desktop app on Windows (.msi or .zip)
         - Desktop app as a ROS 2 package (ros2 run vizmini2 vizmini2)
         - User manual / website
     validations:
@@ -60,7 +61,7 @@ body:
     id: device
     attributes:
       label: Device and OS
-      placeholder: "Pixel 8, Android 16  /  Ubuntu 24.04, NVIDIA driver 570"
+      placeholder: "Pixel 8, Android 16  /  Ubuntu 24.04, NVIDIA driver 570  /  Windows 11 24H2"
     validations:
       required: true
 
@@ -82,6 +83,7 @@ body:
         - Nodes, parameters, lifecycle
         - Bags (record / play)
         - Alerts
+        - PlanSys2
         - Screen recording
         - Import / export (.rviz files, layouts)
         - Account, sign-in, profiles
@@ -136,7 +138,8 @@ body:
       label: Logs
       description: |
         For connection problems, the output of **Network check** (Config → Network). On the desktop, the terminal
-        output (`vizmini2 --check` checks the connection).
+        output (`vizmini2 --check` checks the connection; on Windows, redirect it to a file as shown in
+        [The PC app](https://vizmini2.github.io/getting-started/desktop.html), Command line).
       render: shell
 
   - type: textarea
