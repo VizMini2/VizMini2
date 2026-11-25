@@ -53,8 +53,7 @@ ready for a robot that is not running. Until it appears in TF the automatic one 
    * - TF
      - Show names, axes and arrows; marker scale, name size, frame timeout. The TF topics
        (``/tf, /tf_static`` or a robot's own, such as ``/robot1/tf``) and which frames to hide: a
-       checkbox per frame, or patterns such as ``*wheel*``. Frame names that would cover each other
-       (a small robot seen from afar) are stacked one above the other so they can all be read.
+       checkbox per frame, or patterns such as ``*wheel*``.
    * - Axes
      - Frame, length, radius, alpha.
    * - RobotModel

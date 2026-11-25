@@ -394,7 +394,7 @@ class RvizScene(
 
         fun end() {
             val e = entity ?: TextEntity(engine, scene, FilamentHub.matText, FilamentHub.textAtlas).also { entity = it }
-            e.update(declutter(items))
+            e.update(ArrayList(items))
             val tm = engine.transformManager
             val inst = tm.getInstance(e.entity)
             if (inst != 0) tm.setTransform(inst, identity)
@@ -402,51 +402,6 @@ class RvizScene(
 
         val count: Int get() = items.size
         fun destroy() { entity?.destroy(); entity = null }
-
-        private val viewMatrix = DoubleArray(16)
-        private val projMatrix = DoubleArray(16)
-
-        /**
-         * Labels of a constant size on screen (TF names) that would cover each other, such as the frames of a small
-         * robot seen from afar, go up one line each until they fit, in the order they came: they read as a list next
-         * to the point instead of a blot. Texts sized in meters (markers) are left as they are.
-         */
-        private fun declutter(all: List<TextItem>): List<TextItem> {
-            if (all.count { it.screenPx } < 2) return ArrayList(all)
-            camera.getViewMatrix(viewMatrix)
-            camera.getProjectionMatrix(projMatrix)
-            val vp = view.viewport
-            if (vp.width <= 0 || vp.height <= 0) return ArrayList(all)
-            val atlas = FilamentHub.textAtlas
-            val placed = ArrayList<FloatArray>() // left, top, right, bottom in pixels, y down
-            return all.map { t ->
-                if (!t.screenPx) return@map t
-                // Fixed frame -> view -> clip (column-major matrices).
-                val vx = viewMatrix[0] * t.x + viewMatrix[4] * t.y + viewMatrix[8] * t.z + viewMatrix[12]
-                val vy = viewMatrix[1] * t.x + viewMatrix[5] * t.y + viewMatrix[9] * t.z + viewMatrix[13]
-                val vz = viewMatrix[2] * t.x + viewMatrix[6] * t.y + viewMatrix[10] * t.z + viewMatrix[14]
-                val cx = projMatrix[0] * vx + projMatrix[4] * vy + projMatrix[8] * vz + projMatrix[12]
-                val cy = projMatrix[1] * vx + projMatrix[5] * vy + projMatrix[9] * vz + projMatrix[13]
-                val cw = projMatrix[3] * vx + projMatrix[7] * vy + projMatrix[11] * vz + projMatrix[15]
-                if (cw <= 1e-6) return@map t // behind the camera
-                val sx = ((cx / cw + 1) / 2 * vp.width).toFloat()
-                val sy = ((1 - cy / cw) / 2 * vp.height).toFloat()
-                val h = t.height
-                val lines = t.text.split('\n')
-                val width = lines.maxOf { line -> line.sumOf { atlas.glyph(it).advance.toDouble() } }.toFloat() * h
-                val tall = lines.size * h * 1.15f
-                var lift = 0f
-                var rect = FloatArray(4)
-                for (step in 0 until 12) {
-                    val bottom = sy - h * 0.4f - lift
-                    rect = floatArrayOf(sx - width / 2, bottom - tall, sx + width / 2, bottom)
-                    if (placed.none { o -> rect[0] < o[2] && o[0] < rect[2] && rect[1] < o[3] && o[1] < rect[3] }) break
-                    lift += h * 1.15f
-                }
-                placed += rect
-                if (lift == 0f) t else t.copy(lift = lift)
-            }
-        }
     }
 
     companion object {

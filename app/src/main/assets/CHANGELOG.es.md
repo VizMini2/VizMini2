@@ -3,7 +3,7 @@
 Aquí se documentan todos los cambios relevantes de VizMini2.
 El formato sigue Keep a Changelog y el proyecto usa versionado semántico.
 
-## [1.0.0] - 2026-11-12
+## [1.0.0] - 2026-11-25
 
 ### Añadido
 - **VizMini2 para el PC (Linux y Windows):** las mismas pestañas que en el móvil, en una ventana. En Linux, instala el `.deb` en Ubuntu 20.04 o posterior, o compílalo como paquete de ROS 2 y arráncalo con `ros2 run vizmini2 vizmini2` (la primera vez toma el dominio y los peers de la terminal). También tiene el robot de demo (Configuración › Iniciar demo, o `vizmini2 --demo`), solo en ese ordenador.
@@ -18,7 +18,7 @@ El formato sigue Keep a Changelog y el proyecto usa versionado semántico.
 - **Importa y exporta** ficheros de RViz 2, layouts de paneles (`.json`) y layouts de gráficas (`.xml`), desde + y desde el menú de cada pestaña. Los paneles Publish pasan a ser botones, y cada pestaña de un layout llega como un dashboard propio.
 - **Pestaña Gráficas:** series en el tiempo, XY, transiciones de estado, espectro e histograma, con fórmulas y scripts en Lua, desde topics, bags, ficheros CSV, UDP, MQTT y ZeroMQ.
 - Pestañas **Indicadores, Mapa GPS, Árbol de comportamiento** (Groot2 con el blackboard, la grabación y los puntos de parada, y el log de Nav2), **Mensaje** y **Parámetros**.
-- **Vista 3D:** displays Camera, DepthCloud, Effort, Image con anotaciones, Trajectory (la trayectoria planificada como robot fantasma) y Planning scene, marcadores de malla, marcadores interactivos, las herramientas Elegir, Medir y Publicar punto, y una herramienta de MoveIt para arrastrar el objetivo del brazo. Los paneles de imagen y de cámara se pueden mover y redimensionar. Los nombres de los frames de TF que se taparían entre sí, como los de un robot pequeño visto de lejos, se apilan para que se lean todos.
+- **Vista 3D:** displays Camera, DepthCloud, Effort, Image con anotaciones, Trajectory (la trayectoria planificada como robot fantasma) y Planning scene, marcadores de malla, marcadores interactivos, las herramientas Elegir, Medir y Publicar punto, y una herramienta de MoveIt para arrastrar el objetivo del brazo. Los paneles de imagen y de cámara se pueden mover y redimensionar.
 - **Display NavMap:** los mapas NavMap de EasyNavigation (`navmap_ros_interfaces/NavMap`) en la vista 3D: superficies navegables en una o varias plantas, coloreadas por cualquiera de sus capas (coste, elevación, ocupación…), con los enlaces entre plantas (escaleras, ascensores, puertas) y las actualizaciones de capas en directo. Los ficheros de RViz con su plugin se importan y se exportan.
 - **Fixed frame escrito a mano:** en la pestaña RViz, escribe cualquier frame, aunque aún no esté en TF, para dejar una vista preparada; mientras no aparezca se usa el automático.
 - **Robots con rmw_zenoh_cpp** (router de Zenoh en Ajustes › Red), y servicios, acciones, parámetros y lifecycle de nodos con rmw_cyclonedds_cpp.

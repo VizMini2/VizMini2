@@ -54,9 +54,7 @@ automático, y en el PC lo dice *Global Status*.
    * - TF
      - Mostrar nombres, ejes y flechas; escala, tamaño del nombre, tiempo hasta dar un frame por
        perdido. Los topics de TF (``/tf, /tf_static`` o los de un robot, como ``/robot1/tf``) y qué
-       frames ocultar: una casilla por frame, o patrones como ``*wheel*``. Los nombres de frames que
-       se taparían entre sí (un robot pequeño visto de lejos) se apilan uno encima de otro para que
-       se puedan leer todos.
+       frames ocultar: una casilla por frame, o patrones como ``*wheel*``.
    * - Axes
      - Frame, longitud, radio, transparencia.
    * - RobotModel
