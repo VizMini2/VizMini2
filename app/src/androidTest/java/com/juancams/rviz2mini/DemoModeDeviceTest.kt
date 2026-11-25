@@ -75,6 +75,17 @@ class DemoModeDeviceTest {
             for (t in TabStore.get().all.filter { it.type != TabType.RVIZ && !it.isWidget && it.type != TabType.DASHBOARD }) {
                 scenario.onActivity { it.openTab(t.id) }
                 SystemClock.sleep(3500)
+                // PlanSys2: the demo's plan is on screen (each row says its action and its state to accessibility).
+                if (t.type == TabType.PLANSYS2) {
+                    val planDeadline = SystemClock.uptimeMillis() + 20_000
+                    var onScreen = screenTexts()
+                    while (onScreen.none { it.startsWith("plan (move demo_bot dock kitchen)") } && SystemClock.uptimeMillis() < planDeadline) {
+                        SystemClock.sleep(500)
+                        onScreen = screenTexts()
+                    }
+                    Log.i(TAG, "PLANSYS2 on screen: $onScreen")
+                    assertTrue("the demo's plan in the PlanSys2 tab: $onScreen", onScreen.any { it.startsWith("plan (move demo_bot dock kitchen)") })
+                }
                 shot("2_" + t.name.replace(' ', '_'))
             }
 
@@ -83,6 +94,18 @@ class DemoModeDeviceTest {
             assertEquals(configBefore, RosConnection.config)
             assertEquals(tabsBefore.size, TabStore.get().all.size)
         }
+    }
+
+    /** The texts and descriptions on screen, as accessibility sees them (Compose's included). */
+    private fun screenTexts(): List<String> {
+        val texts = ArrayList<String>()
+        fun walk(n: android.view.accessibility.AccessibilityNodeInfo?) {
+            if (n == null) return
+            listOfNotNull(n.text?.toString(), n.contentDescription?.toString()).filter { it.isNotBlank() }.forEach { texts += it }
+            for (i in 0 until n.childCount) walk(n.getChild(i))
+        }
+        walk(instrumentation.uiAutomation.rootInActiveWindow)
+        return texts
     }
 
     private fun shot(name: String) {

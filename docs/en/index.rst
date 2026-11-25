@@ -40,7 +40,7 @@ What it can do
      <div class="vm-card"><b>Act</b>Buttons and sliders that publish, call services or send action goals. <a href="tabs/buttons.html">Buttons</a></div>
      <div class="vm-card"><b>Maps</b>Save maps, drive SLAM Toolbox, clear costmaps and draw keepout and speed zones for Nav2. <a href="tabs/maps.html">Maps</a></div>
      <div class="vm-card"><b>Plot and watch</b>Plots with formulas and Lua, gauges, and alerts when a value crosses a limit or a topic goes silent. <a href="tabs/plot.html">Plot</a> · <a href="tabs/alerts.html">Alerts</a></div>
-     <div class="vm-card"><b>Inspect</b>Nodes and parameters, topics with echo and rate, services, actions and lifecycle nodes. <a href="tabs/nodes.html">Nodes</a></div>
+     <div class="vm-card"><b>Inspect</b>Nodes and parameters, topics with echo and rate, services, actions and lifecycle nodes, and PlanSys2 plans as they run. <a href="tabs/nodes.html">Nodes</a> · <a href="tabs/plansys2.html">PlanSys2</a></div>
      <div class="vm-card"><b>Record</b>MCAP bags compatible with ros2 bag, and screen videos to show what happened. <a href="tabs/bags.html">Bags</a></div>
      <div class="vm-card"><b>Share and migrate</b>Profiles as files or QR codes; tabs to and from RViz 2 files and layouts of other tools. <a href="config/import-export.html">Import and export</a></div>
    </div>

@@ -23,9 +23,14 @@ terminal (``plansys2_tui``), en el móvil o en el PC.
   última línea; *Borrar* lo vacía.
 
 Solo escucha topics, así que no cambia nada en el robot. Si los nodos de PlanSys2 están en un
-namespace, escríbelo en *Namespace*. Entiende los mensajes de PlanSys2 rolling y los de las
-versiones publicadas (Humble, Jazzy); el registro del plan necesita un PlanSys2 que publique la traza
-de ejecución.
+namespace, escríbelo en *Namespace*. Entiende los mensajes de PlanSys2 4.0.0 y posteriores (los
+paquetes de Jazzy, rolling) y los de las versiones anteriores (3.x y antes); el registro del plan
+necesita un PlanSys2 que publique la traza de ejecución (4.0.0 o posterior). La pestaña también se
+puede añadir a un :doc:`dashboard`.
+
+Para probarla con un PlanSys2 de verdad, ``tools/plansys2`` en el repositorio ejecuta su ejemplo
+sencillo en un contenedor. Si PlanSys2 corre en Docker en el mismo PC, mira
+:doc:`../help/troubleshooting` (no llegan datos).
 
 El robot de la demo tiene su propio PlanSys2: un robot de limpieza que limpia habitaciones y vuelve a
 cargar, un plan tras otro.

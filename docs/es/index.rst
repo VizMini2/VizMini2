@@ -41,7 +41,7 @@ Qué puede hacer
      <div class="vm-card"><b>Actuar</b>Botones y sliders que publican, llaman a servicios o envían goals. <a href="tabs/buttons.html">Botones</a></div>
      <div class="vm-card"><b>Mapas</b>Guarda mapas, maneja SLAM Toolbox, limpia costmaps y dibuja zonas prohibidas y de velocidad para Nav2. <a href="tabs/maps.html">Mapas</a></div>
      <div class="vm-card"><b>Graficar y vigilar</b>Gráficas con fórmulas y Lua, indicadores y alertas cuando un valor cruza un límite o un topic se calla. <a href="tabs/plot.html">Gráficas</a> · <a href="tabs/alerts.html">Alertas</a></div>
-     <div class="vm-card"><b>Inspeccionar</b>Nodos y parámetros, topics con eco y frecuencia, servicios, acciones y nodos lifecycle. <a href="tabs/nodes.html">Nodos</a></div>
+     <div class="vm-card"><b>Inspeccionar</b>Nodos y parámetros, topics con eco y frecuencia, servicios, acciones y nodos lifecycle, y los planes de PlanSys2 mientras se ejecutan. <a href="tabs/nodes.html">Nodos</a> · <a href="tabs/plansys2.html">PlanSys2</a></div>
      <div class="vm-card"><b>Grabar</b>Bags MCAP compatibles con ros2 bag, y vídeos de la pantalla para enseñar qué pasó. <a href="tabs/bags.html">Bags</a></div>
      <div class="vm-card"><b>Compartir y migrar</b>Perfiles como ficheros o códigos QR; pestañas desde y hacia ficheros de RViz 2 y layouts de otras herramientas. <a href="config/import-export.html">Importar y exportar</a></div>
    </div>

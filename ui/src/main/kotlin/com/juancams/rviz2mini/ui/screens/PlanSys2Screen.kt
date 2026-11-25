@@ -189,9 +189,11 @@ private fun Overview(c: PlanSys2Controller, s: PlanSys2State) {
                 }
             }
         } else {
-            // On a phone: the plan first, each box with the height it can be read at.
+            // On a phone: the plan first and taller (it is what is followed), then the other three.
             Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                for ((_, box) in listOf(boxes[1], boxes[0], boxes[2], boxes[3])) Box(Modifier.weight(1f).fillMaxWidth()) { box() }
+                for ((i, entry) in listOf(boxes[1], boxes[0], boxes[2], boxes[3]).withIndex()) {
+                    Box(Modifier.weight(if (i == 0) 1.7f else 1f).fillMaxWidth()) { entry.second() }
+                }
             }
         }
     }
@@ -313,7 +315,7 @@ private fun hubColor(type: Int) = when (type) {
 @Composable
 private fun ActionsList(s: PlanSys2State) {
     // As the terminal monitor: by performer; the ones running with their action.
-    val running = s.active.values.filter { it.nodeId.isNotEmpty() }.sortedBy { it.nodeId }
+    val running = s.running
     if (running.isEmpty()) return Waiting(if (s.performers.isEmpty()) "ps2_waiting_performers" else "ps2_no_actions")
     LazyColumn(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         items(running, key = { it.nodeId }) { m ->

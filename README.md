@@ -16,9 +16,9 @@
 
 ROS 2 visualization and control on Android and on the desktop, from one code base: a 3D view like RViz (TF, robot
 model, maps, laser, point clouds, cameras, markers, interactive markers, Nav2 waypoints, MoveIt planning...),
-dashboards, plots, teleop, topics, parameters, lifecycle, ros2_control controllers, map tools for Nav2 (saving, SLAM
-Toolbox, costmaps, keepout and speed zones), alerts on any topic, H.264/H.265 video topics, screen recording, bags
-and more. It talks DDS directly (Fast DDS through jros2), and also Zenoh and foxglove_bridge. It imports and exports
+dashboards, plots, teleop, topics, parameters, lifecycle, ros2_control controllers, PlanSys2 plans as they run, map
+tools for Nav2 (saving, SLAM Toolbox, costmaps, keepout and speed zones), alerts on any topic, H.264/H.265 video
+topics, screen recording, bags and more. It talks DDS directly (Fast DDS through jros2), and also Zenoh and foxglove_bridge. It imports and exports
 RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools.
 
 <p align="center">

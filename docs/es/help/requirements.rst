@@ -39,7 +39,7 @@ Robot
   ``actionlib_msgs``, ``builtin_interfaces``, ``control_msgs``, ``controller_manager_msgs``,
   ``diagnostic_msgs``, ``example_interfaces``, ``ffmpeg_image_transport_msgs``, ``foxglove_msgs``,
   ``geographic_msgs``, ``geometry_msgs``, ``lifecycle_msgs``, ``moveit_msgs``, ``nav2_msgs``,
-  ``nav_msgs``, ``navmap_ros_interfaces``, ``object_recognition_msgs``, ``octomap_msgs``, ``rcl_interfaces``,
+  ``nav_msgs``, ``navmap_ros_interfaces``, ``object_recognition_msgs``, ``octomap_msgs``, ``plansys2_msgs``, ``rcl_interfaces``,
   ``rosgraph_msgs``, ``sensor_msgs``, ``service_msgs``, ``shape_msgs``, ``slam_toolbox``,
   ``std_msgs``, ``std_srvs``, ``tf2_msgs``, ``trajectory_msgs``, ``turtlesim``,
   ``unique_identifier_msgs`` y ``visualization_msgs``. Cuando los mensajes de MoveIt

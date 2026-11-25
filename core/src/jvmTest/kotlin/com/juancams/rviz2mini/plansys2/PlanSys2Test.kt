@@ -144,6 +144,22 @@ class PlanSys2Test {
     }
 
     @Test
+    fun onlyRunningPerformersShowTheirAction() {
+        val m = PlanSys2Monitor("")
+        // The executor asks for the action (its REQUEST is never finished under its own name) and the performer does it.
+        m.onHub(HubMessage(HubMessage.REQUEST, "executor", "move", listOf("leia", "a", "b"), false, 0.0, ""))
+        m.onHub(HubMessage(HubMessage.FEEDBACK, "move_action_node", "move", listOf("leia", "a", "b"), false, 0.5, ""))
+        // Before any performer status, everything that came.
+        assertEquals(listOf("executor", "move_action_node"), m.state.running.map { it.nodeId })
+        m.onPerformer(Performer("move_action_node", Performer.RUNNING, "move", listOf("leia", "a", "b")))
+        assertEquals(listOf("move_action_node"), m.state.running.map { it.nodeId })
+        // Done: the performer is ready again and nothing is under way, although the executor's request is still the last one.
+        m.onHub(HubMessage(HubMessage.FINISH, "move_action_node", "move", listOf("leia", "a", "b"), true, 1.0, ""))
+        m.onPerformer(Performer("move_action_node", Performer.READY, "move", emptyList()))
+        assertTrue(m.state.running.isEmpty())
+    }
+
+    @Test
     fun traceOnceEachAndAtMostTheExecutorsLimit() {
         val m = PlanSys2Monitor("")
         fun e(seq: Long) = ExecutionEvent(ExecutionEvent.START, seq, 1000L + seq, 1.0, "(move r1 a b):0", 0.0, 0.0, "")

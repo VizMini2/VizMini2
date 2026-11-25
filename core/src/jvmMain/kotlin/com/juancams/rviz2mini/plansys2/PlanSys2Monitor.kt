@@ -97,6 +97,15 @@ data class PlanSys2State(
     val trace: List<ExecutionEvent> = emptyList(),
 ) {
     val rows: List<PlanRow> get() = plan?.items.orEmpty().map { PlanRow(it, PlanSys2.infoFor(it, info)) }
+
+    /**
+     * The actions under way, as the terminal monitor shows them: the last message of each performer that is RUNNING
+     * (the executor's own requests are never finished under its name, so they would stay forever). Without any
+     * performer status yet, every last message.
+     */
+    val running: List<HubMessage> get() = active.values
+        .filter { it.nodeId.isNotEmpty() && (performers.isEmpty() || performers[it.nodeId]?.state == Performer.RUNNING) }
+        .sortedBy { it.nodeId }
     val anything: Boolean get() = plan != null || info.isNotEmpty() || performers.isNotEmpty() || knowledge != null || trace.isNotEmpty()
 }
 

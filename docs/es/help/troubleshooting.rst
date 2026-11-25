@@ -53,6 +53,10 @@ Aparecen los topics pero no llegan datos
   tuyas en la pestaña Botones (:doc:`../tabs/buttons`).
 * **Mensajes grandes por Wi-Fi:** las nubes de puntos y las imágenes sin comprimir pesan mucho.
   Mejor imágenes comprimidas y nubes reducidas.
+* **ROS 2 en un contenedor Docker en el mismo PC** (Kilted o posterior, ejecutado como *root*,
+  como es habitual): los topics aparecen pero no llegan datos, porque Fast DDS los manda por memoria
+  compartida y la app, que se ejecuta con tu usuario, no puede abrirla. Arranca el contenedor con
+  ``-e FASTDDS_BUILTIN_TRANSPORTS=UDPv4`` (o con tu usuario: ``--user $(id -u):$(id -g)``).
 * **Topics de vídeo en el PC** (H.264/H.265, como ``foxglove_msgs/CompressedVideo``): necesitan
   ``ffmpeg``: ``sudo apt install ffmpeg`` en Linux, ``winget install ffmpeg`` en Windows. Sin él,
   la cámara lo dice.

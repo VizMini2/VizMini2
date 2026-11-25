@@ -12,8 +12,9 @@ import us.ihmc.fastddsjava.cdr.CDRBuffer
 
 /**
  * PlanSys2's messages in their two shapes. The app has those of rolling (October 2026: plans with float64 times, the
- * moments the effects were applied, the request of each action, the metric and constraints of the problem...), but the
- * PlanSys2 installed from the distros (up to 4.0.0) publishes the earlier ones under the same DDS names. Without the
+ * moments the effects were applied, the request of each action, the metric and constraints of the problem...), those of
+ * PlanSys2 4.0.0 (the Jazzy packages) and newer; the earlier releases (3.x and older) publish the earlier ones under the
+ * same DDS names. Without the
  * size of the sample, which jros2 does not give, the shape is found by reading: the current one if its values make
  * sense, if not the earlier one, which is then filled out to the current shape (its new fields with their defaults).
  */
@@ -26,7 +27,7 @@ object PlanSys2Messages {
     const val KNOWLEDGE = "plansys2_msgs/msg/Knowledge"
     const val EXECUTION_EVENT = "plansys2_msgs/msg/ExecutionEvent"
 
-    /** The earlier shapes (plansys2_msgs up to 4.0.0). */
+    /** The earlier shapes (plansys2_msgs 3.x and older). */
     internal val LEGACY = InterfaceRegistry().apply {
         define("builtin_interfaces/msg/Time", "int32 sec\nuint32 nanosec")
         define("builtin_interfaces/msg/Duration", "int32 sec\nuint32 nanosec")

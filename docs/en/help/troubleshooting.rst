@@ -52,6 +52,10 @@ Topics appear but no data arrives
   own in the Buttons tab (:doc:`../tabs/buttons`).
 * **Big messages over Wi-Fi:** point clouds and raw images are heavy. Prefer compressed images
   and downsampled clouds.
+* **ROS 2 in a Docker container on the same PC** (Kilted or newer, run as *root* as usual): the
+  topics show up but no data arrives, because Fast DDS sends it through shared memory that the app,
+  running as your user, can't open. Start the container with
+  ``-e FASTDDS_BUILTIN_TRANSPORTS=UDPv4`` (or as your user: ``--user $(id -u):$(id -g)``).
 * **Video topics on the PC** (H.264/H.265, such as ``foxglove_msgs/CompressedVideo``) need
   ``ffmpeg``: ``sudo apt install ffmpeg`` on Linux, ``winget install ffmpeg`` on Windows. Without
   it the camera says so.

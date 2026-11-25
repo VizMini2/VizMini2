@@ -22,8 +22,14 @@ Follow a `PlanSys2 <https://plansys2.github.io/>`_ plan while it runs, as its te
   shifting, failures and replans. *Follow* keeps the newest line in sight; *Clear* empties it.
 
 It only listens to topics, so it does not change anything on the robot. If the PlanSys2 nodes run in
-a namespace, type it in *Namespace*. It understands the messages of PlanSys2 rolling and those of the
-released versions (Humble, Jazzy); the plan log needs a PlanSys2 that publishes the execution trace.
+a namespace, type it in *Namespace*. It understands the messages of PlanSys2 4.0.0 and newer (the
+Jazzy packages, rolling) and those of the earlier versions (3.x and older); the plan log needs a
+PlanSys2 that publishes the execution trace (4.0.0 or newer). The tab can also be added to a
+:doc:`dashboard`.
+
+To try it with a real PlanSys2, ``tools/plansys2`` in the repository runs its simple example in a
+container. If PlanSys2 runs in Docker on the same PC, see :doc:`../help/troubleshooting` (no data
+arrives).
 
 The demo robot has a PlanSys2 of its own: a cleaning robot that cleans rooms and goes back to charge,
 one plan after another.
