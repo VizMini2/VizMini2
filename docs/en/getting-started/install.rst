@@ -8,16 +8,21 @@ VizMini2 runs on **Android phones and tablets** (Android 8.0 or newer) and on **
 On the phone
 ------------
 
-VizMini2 is in closed testing on Google Play and not public there yet: install it from an APK
-file.
+The same app, two ways to get it:
 
-1. Open the project's `releases page`_ on the phone and download
-   ``VizMini2-<version>-universal.apk`` (it works on every phone; the ``arm64-v8a`` one is smaller
-   and fits almost all recent phones).
-2. Open it. If Android asks, allow installing apps from that source (your browser or file
-   manager).
-3. Open **VizMini2**. It opens on Home, with no account needed; the first time, a quick tour shows
-   you the basics.
+* **From Google Play** (the easiest): install VizMini2 from `Google Play`_. It updates by itself.
+* **As an APK**, from the project's `releases page`_: for phones without Google Play, or to get a
+  version before it reaches the store.
+
+  1. On the phone, download ``VizMini2-<version>-universal.apk`` (it works on every phone; the
+     ``arm64-v8a`` one is smaller and fits almost all recent phones).
+  2. Open it. If Android asks, allow installing apps from that source (your browser or file
+     manager).
+
+Pick one of the two and keep it: each one updates from where it came from (see *Updating* below).
+
+Open **VizMini2**. It opens on Home, with no account needed; the first time, a quick tour shows you
+the basics.
 
 .. shot:: phone_home
    :caption: Home, here with the demo robot.
@@ -47,5 +52,11 @@ Updating
 
 Download the newer APK (or ``.deb`` or ``.msi``) and install it over the one you have: your tabs,
 profiles and settings are kept. With the ``.tar.gz`` or the ``.zip``, replace the folder. The :doc:`../changelog` lists what changed in each version.
+
+.. note::
+   If you installed it from **Google Play**, update it there: Google Play signs the app with its
+   own key, so an APK from the releases page can't be installed over it (nor the other way
+   round). To switch from one to the other, uninstall first; export your tabs or save a
+   :doc:`profile <../config/profiles>` to take them along.
 
 Next: :doc:`demo` or :doc:`connect`. An :doc:`account <account>` is optional.

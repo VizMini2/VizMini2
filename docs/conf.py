@@ -35,8 +35,11 @@ release = version = _app_version()
 
 # Where the APKs and the .deb are published (the draft releases of .github/workflows/release.yml, once published).
 RELEASES_URL = 'https://github.com/VizMini2/VizMini2/releases'
+# The app on Google Play (the package name never changes).
+PLAY_URL = 'https://play.google.com/store/apps/details?id=com.juancams.vizmini2'
 rst_epilog = f'''
 .. _releases page: {RELEASES_URL}/latest
+.. _Google Play: {PLAY_URL}
 .. |deb| replace:: ``vizmini2_{release}_amd64.deb``
 '''
 

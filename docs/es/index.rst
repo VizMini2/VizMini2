@@ -25,7 +25,7 @@ compartir o diálogo de ficheros), cada página lo dice.
 .. raw:: html
 
    <div class="vm-grid">
-     <div class="vm-card vm-entry"><b>En el móvil (Android 8.0+)</b>Instala el APK, prueba el robot de demo y conéctate al tuyo. <a href="getting-started/install.html">Instalar en Android</a></div>
+     <div class="vm-card vm-entry"><b>En el móvil (Android 8.0+)</b>Instálala desde Google Play o como APK, prueba el robot de demo y conéctate al tuyo. <a href="getting-started/install.html">Instalar en Android</a></div>
      <div class="vm-card vm-entry"><b>En el PC (Ubuntu 20.04+ o Windows 10/11)</b>Un <code>.deb</code>, un <code>.msi</code> o <code>ros2 run vizmini2 vizmini2</code>: una ventana con barra lateral, atajos de teclado y arrastrar y soltar. <a href="getting-started/desktop.html">La app de PC</a></div>
    </div>
 

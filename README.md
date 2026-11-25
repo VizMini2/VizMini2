@@ -33,7 +33,7 @@ RViz 2 files (`.rviz`) and the panel and plot layouts of other ROS tools.
 
 | Platform | How |
 | --- | --- |
-| **Android** 8.0 or newer | The `.apk` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest) (`universal` fits every phone). On Google Play it is in closed testing, not public yet. |
+| **Android** 8.0 or newer | From [Google Play](https://play.google.com/store/apps/details?id=com.juancams.vizmini2), or the `.apk` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest) (`universal` fits every phone). Each one updates from where it came from. |
 | **Windows** 10 or 11 | The `.msi` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest): installed for your user, no administrator needed. Or the `.zip`, without installing. |
 | **Ubuntu** 20.04 or newer | The `.deb` from the [latest release](https://github.com/VizMini2/VizMini2/releases/latest): `sudo apt install ./vizmini2_*_amd64.deb`. Or the `.tar.gz`, without installing. |
 | **As a ROS 2 package** (Linux) | Built from this repository: see [Build your own version](#build-your-own-version). |

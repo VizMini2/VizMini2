@@ -24,7 +24,7 @@ or file dialog), each page says so.
 .. raw:: html
 
    <div class="vm-grid">
-     <div class="vm-card vm-entry"><b>On the phone (Android 8.0+)</b>Install the APK, try the demo robot and connect to yours. <a href="getting-started/install.html">Install on Android</a></div>
+     <div class="vm-card vm-entry"><b>On the phone (Android 8.0+)</b>Install it from Google Play or as an APK, try the demo robot and connect to yours. <a href="getting-started/install.html">Install on Android</a></div>
      <div class="vm-card vm-entry"><b>On the PC (Ubuntu 20.04+ or Windows 10/11)</b>A <code>.deb</code>, an <code>.msi</code> or <code>ros2 run vizmini2 vizmini2</code>: a window with a sidebar, keyboard shortcuts and drag and drop. <a href="getting-started/desktop.html">The PC app</a></div>
    </div>
 
