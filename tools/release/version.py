@@ -70,10 +70,16 @@ def notes(version):
     print(en)
     if es:
         print("\n---\n\n**Español**\n\n" + es)
-    print("\n---\n\nFiles: `VizMini2-%s-*.apk` (Android 8+, the arm64-v8a one fits almost every phone; universal: all), "
-          "`vizmini2_%s_amd64.deb` (Ubuntu 20.04 or newer: `sudo apt install ./vizmini2_%s_amd64.deb`), "
-          "`vizmini2-%s-linux-x86_64.tar.gz` (the same app without installing: `vizmini2/bin/vizmini2`), "
-          "the manual, and `SHA256SUMS`." % (version, version, version, version))
+    v = version
+    print("\n---\n\nFiles:\n"
+          f"- Android 8+: `VizMini2-{v}-universal.apk` (every phone) or the one for your phone's architecture "
+          f"(`arm64-v8a` fits almost every recent phone). Also on Google Play.\n"
+          f"- Ubuntu 20.04 or newer: `vizmini2_{v}_amd64.deb` (`sudo apt install ./vizmini2_{v}_amd64.deb`), or "
+          f"`vizmini2-{v}-linux-x86_64.tar.gz` without installing (`vizmini2/bin/vizmini2`).\n"
+          f"- Windows 10 or 11: `vizmini2-{v}-windows-x86_64.msi` (for your user, no administrator needed), or "
+          f"`vizmini2-{v}-windows-x86_64.zip` without installing (`VizMini2\\VizMini2.exe`).\n"
+          f"- `vizmini2-{v}-manual.zip` (English and Spanish), `vizmini2-{v}-api.zip` (API reference) and `SHA256SUMS`.\n"
+          "\nThe installers are not signed: Windows may warn before running the `.msi` (*More info* → *Run anyway*).")
 
 
 if __name__ == "__main__":
