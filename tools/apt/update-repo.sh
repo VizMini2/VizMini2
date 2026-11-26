@@ -52,7 +52,8 @@ gzip -9 -k -n Packages
 apt-ftparchive -o APT::FTPArchive::Release::Origin=VizMini2 -o APT::FTPArchive::Release::Label=VizMini2 \
   -o APT::FTPArchive::Release::Suite=stable -o APT::FTPArchive::Release::Codename=vizmini2 \
   -o APT::FTPArchive::Release::Architectures=amd64 \
-  -o "APT::FTPArchive::Release::Description=VizMini2, ROS 2 visualization and control" release . > Release
+  -o "APT::FTPArchive::Release::Description=VizMini2, ROS 2 visualization and control" release . > "$W/Release"
+mv "$W/Release" Release  # written outside, or it would list itself
 gpg --batch --yes "${KEY[@]}" --clearsign -o InRelease Release
 gpg --batch --yes "${KEY[@]}" --armor --detach-sign -o Release.gpg Release
 if [ -n "${APT_KEY_ID:-}" ]; then gpg --export "$APT_KEY_ID"; else gpg --export; fi > vizmini2-archive-keyring.gpg
