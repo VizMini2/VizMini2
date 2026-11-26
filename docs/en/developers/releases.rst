@@ -54,6 +54,18 @@ same key) is not in the release, as nobody can install it: download it from the 
 ``android-mapping`` artifact (90 days). The workflow can also be started by hand from the *Actions* tab to
 try it (unsigned keys produce ``-debugsigned`` files).
 
+The apt repository
+------------------
+
+When you publish a ``v*`` release, ``.github/workflows/apt.yml`` adds its ``.deb`` to VizMini2's apt
+repository and signs it again (``tools/apt/update-repo.sh``). The repository is the *apt* GitHub
+release (a pre-release, never the latest): its files are the ``.deb`` files, the ``Packages`` index,
+the signed ``InRelease`` and the public key. It needs the secret ``APT_SIGNING_KEY``, the private
+signing key (``gpg --armor --export-secret-keys <id>``, without a passphrase); its public half is
+``desktopApp/packaging/linux/vizmini2-archive-keyring.gpg``, which the ``.deb`` brings along to add
+the repository on its first install. By hand from the *Actions* tab, it adds the ``.deb`` of the tag
+you give.
+
 The website
 -----------
 

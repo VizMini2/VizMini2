@@ -56,6 +56,18 @@ misma clave) no va en la versión, porque nadie puede instalarlo: descárgalo de
 artefacto ``android-mapping`` (90 días). El workflow también se puede lanzar a mano desde la pestaña
 *Actions* para probarlo (sin claves genera ficheros ``-debugsigned``).
 
+El repositorio apt
+------------------
+
+Cuando publicas una versión ``v*``, ``.github/workflows/apt.yml`` añade su ``.deb`` al repositorio
+apt de VizMini2 y lo vuelve a firmar (``tools/apt/update-repo.sh``). El repositorio es la release
+*apt* de GitHub (una prerelease, nunca la última): sus ficheros son los ``.deb``, el índice
+``Packages``, el ``InRelease`` firmado y la clave pública. Necesita el secreto ``APT_SIGNING_KEY``,
+la clave privada de firma (``gpg --armor --export-secret-keys <id>``, sin contraseña); su mitad
+pública es ``desktopApp/packaging/linux/vizmini2-archive-keyring.gpg``, que lleva el ``.deb`` para
+añadir el repositorio la primera vez que se instala. A mano desde la pestaña *Actions*, añade el
+``.deb`` de la etiqueta que le digas.
+
 La web
 ------
 

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.nio.file.Files
+import java.nio.file.attribute.PosixFilePermissions
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
@@ -245,9 +247,18 @@ val versionResource by tasks.registering {
 // - Its install and remove scripts fail (and so does the installation) where xdg-desktop-menu finds no menu
 //   (/etc/xdg/menus), as on a robot's computer without a desktop: then the entry is copied to
 //   /usr/share/applications by hand (and removed the same way).
+// - VizMini2's apt repository (tools/apt): the package brings the repository's key and, the first time it is
+//   configured, adds the repository to apt's sources unless they already have it, so that `apt upgrade` brings the
+//   new versions also to whoever installed the .deb by hand (as Chrome or VS Code do). Removing vizmini2.list later is
+//   respected; purging the package removes it. Only when the key (packaging/linux/vizmini2-archive-keyring.gpg) exists;
+//   -Pvizmini2.aptUrl and -Pvizmini2.aptKeyring change the repository and the key (to try it locally).
 val fixDebDesktopEntry by tasks.registering {
     val entrySrc = "/opt/vizmini2/lib/vizmini2-vizmini2.desktop"
     val debDir = layout.buildDirectory.dir("compose/binaries/main/deb")
+    val aptUrl = providers.gradleProperty("vizmini2.aptUrl").getOrElse("https://github.com/VizMini2/VizMini2/releases/download/apt")
+    val aptKeyring = providers.gradleProperty("vizmini2.aptKeyring").map { file(it) }
+        .getOrElse(project.file("packaging/linux/vizmini2-archive-keyring.gpg"))
+    inputs.property("aptUrl", aptUrl)
     doLast {
         val deb = debDir.get().asFile.listFiles { f -> f.name.endsWith(".deb") }?.maxByOrNull { it.lastModified() } ?: return@doLast
         val work = temporaryDir.resolve("deb").apply { deleteRecursively(); mkdirs() }
@@ -272,6 +283,35 @@ val fixDebDesktopEntry by tasks.registering {
                     else -> line
                 }
             } + "\n")
+        }
+        // (Not twice: when packageDeb is up to date, this runs again on the .deb it already changed.)
+        if (aptKeyring.isFile && !work.resolve("DEBIAN/postinst").readText().contains("/etc/apt/sources.list.d/vizmini2.list")) {
+            val keyringName = "vizmini2-archive-keyring.gpg"
+            val keyringFile = work.resolve("usr/share/keyrings/$keyringName").apply { parentFile.mkdirs() }
+            aptKeyring.copyTo(keyringFile, overwrite = true)
+            Files.setPosixFilePermissions(keyringFile.toPath(), PosixFilePermissions.fromString("rw-r--r--"))
+            val source = "deb [arch=amd64 signed-by=/usr/share/keyrings/$keyringName] $aptUrl ./"
+            val added = "/var/lib/vizmini2/apt-source-added"
+            val postinst = work.resolve("DEBIAN/postinst")
+            postinst.writeText(postinst.readText().replaceFirst("    configure)\n", """    configure)
+# VizMini2's apt repository, so that apt upgrade brings the new versions: added once (removing it later is respected),
+# and not if apt already has it.
+if [ ! -e $added ]; then
+    if ! grep -rqsF '$aptUrl' /etc/apt/sources.list /etc/apt/sources.list.d/; then
+        echo '$source' > /etc/apt/sources.list.d/vizmini2.list || true
+    fi
+    mkdir -p ${added.substringBeforeLast('/')} && touch $added || true
+fi
+""".trimStart('\n')))
+            val postrm = work.resolve("DEBIAN/postrm")
+            postrm.writeText(postrm.readText().replaceFirst("case \"\$1\" in\n", """if [ "${'$'}1" = purge ]; then
+    rm -f /etc/apt/sources.list.d/vizmini2.list
+    rm -rf ${added.substringBeforeLast('/')}
+fi
+
+case "${'$'}1" in
+"""))
+            check(postinst.readText().contains(source) && postrm.readText().contains("vizmini2.list")) { "the apt repository did not get into the .deb's scripts" }
         }
         val entry = work.walkTopDown().firstOrNull { it.name.endsWith(".desktop") && it.parentFile.name == "lib" } ?: return@doLast
         val lines = entry.readLines().filter { !it.startsWith("StartupWMClass=") && !it.startsWith("Keywords=") }

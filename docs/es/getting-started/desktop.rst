@@ -17,15 +17,28 @@ Funciona en **Ubuntu 20.04 o posterior** (x86-64, o cualquier Linux con glibc 2.
 OpenGL. **No** hace falta ROS 2 en el PC: la app trae su propio DDS. Sirve cualquier distro de ROS 2
 en la red (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 
+* **Con apt** (recomendado): añade una vez el repositorio de VizMini2 y ``sudo apt upgrade`` trae
+  cada versión nueva como cualquier otro paquete:
+
+  .. code-block:: bash
+
+     wget -qO- https://github.com/VizMini2/VizMini2/releases/download/apt/vizmini2-archive-keyring.gpg | sudo tee /usr/share/keyrings/vizmini2-archive-keyring.gpg > /dev/null
+     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/vizmini2-archive-keyring.gpg] https://github.com/VizMini2/VizMini2/releases/download/apt ./" | sudo tee /etc/apt/sources.list.d/vizmini2.list
+     sudo apt update && sudo apt install vizmini2
+
 * **El .deb** (de la `página de versiones <releases page_>`_):
 
   .. code-block:: bash
 
      sudo apt install ./vizmini2_*_amd64.deb
 
+  Al instalarlo también se añade el repositorio de VizMini2 (la primera vez, salvo que apt ya lo
+  tenga), así que a partir de entonces ``sudo apt upgrade`` trae las versiones nuevas. Si no lo
+  quieres, borra ``/etc/apt/sources.list.d/vizmini2.list``: no se vuelve a añadir.
+
   Luego abre *VizMini2* desde el menú de aplicaciones, o ejecuta ``/opt/vizmini2/bin/vizmini2``.
-  Para actualizar, instala el ``.deb`` nuevo igual; ``sudo apt remove vizmini2`` la desinstala (tus
-  ajustes se quedan en tu carpeta personal).
+  ``sudo apt remove vizmini2`` la desinstala (tus ajustes se quedan en tu carpeta personal) y
+  ``sudo apt purge vizmini2`` quita también el repositorio.
 
 * **El .tar.gz**: la misma app sin instalarla. Descomprímelo donde quieras y ejecuta
   ``vizmini2/bin/vizmini2``.
