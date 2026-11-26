@@ -190,16 +190,29 @@ jobs:
           docker network create e2e
           docker run -d --name servers --network e2e -e ROS_DOMAIN_ID=77 -v "$PWD":/ws -w /ws ros:${{ matrix.servers }}-ros-base \
             bash tools/e2e/servers.sh
+      # The CI's Gradle cache (plugins, dependencies, the wrapper's Gradle), lent to the container below: without it
+      # the container downloaded everything again, and plugins.gradle.org sometimes failed it several times in a row.
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Gradle's plugins and settings
+        run: for i in 1 2 3; do ./gradlew --no-daemon -q help && break; echo "Gradle failed ($i), retrying"; sleep 20; done
       - name: End-to-end tests (app on ${{ matrix.servers }}'s Ubuntu)
         run: |
-          docker run --rm --network e2e -e VIZMINI2_E2E=1 -e VIZMINI2_E2E_DOMAIN=77 -v "$PWD":/ws -w /ws ros:${{ matrix.servers }}-ros-base bash -c '
+          docker run --rm --network e2e -e VIZMINI2_E2E=1 -e VIZMINI2_E2E_DOMAIN=77 -v "$PWD":/ws -w /ws \
+            -v "$HOME/.gradle":/root/.gradle ros:${{ matrix.servers }}-ros-base bash -c '
             { for i in 1 2 3; do apt-get update -qq && apt-get install -y -qq openjdk-17-jdk-headless openjdk-21-jdk-headless ffmpeg libgl1 libfontconfig1 > /dev/null && break; echo "apt failed ($i), retrying"; [ $i -lt 3 ] || exit 1; sleep 30; done; } &&
             until grep -q "servers ready" build/e2e/servers.log 2>/dev/null; do sleep 2; done &&
             { for i in 1 2 3; do ./gradlew --no-daemon -q :desktopApp:jvmTestClasses && break; echo "Gradle setup failed ($i), retrying"; sleep 20; done; } &&
             ./gradlew --no-daemon :desktopApp:jvmTest'
       - name: Server logs
         if: always()
-        run: docker logs servers > build-e2e-servers.log 2>&1 || true
+        run: |
+          docker logs servers > build-e2e-servers.log 2>&1 || true
+          # The containers wrote as root: back to the runner's user, so that the Gradle cache can be saved.
+          sudo chown -R "$(id -u):$(id -g)" "$HOME/.gradle" build . || true
       - uses: actions/upload-artifact@v7
         if: always()
         with:
