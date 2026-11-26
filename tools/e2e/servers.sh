@@ -13,11 +13,16 @@ source "/opt/ros/$ROS_DISTRO/setup.bash"
 mkdir -p build/e2e
 LOG=build/e2e/servers.log
 : > "$LOG"
-apt-get update -qq
-apt-get install -y -qq "ros-$ROS_DISTRO-nav2-msgs" "ros-$ROS_DISTRO-control-msgs" "ros-$ROS_DISTRO-tf2-ros" \
-  "ros-$ROS_DISTRO-moveit" "ros-$ROS_DISTRO-moveit-resources-panda-moveit-config" "ros-$ROS_DISTRO-robot-state-publisher" \
-  "ros-$ROS_DISTRO-ros2-control" "ros-$ROS_DISTRO-ros2-controllers" "ros-$ROS_DISTRO-xacro" \
-  ffmpeg python3-colcon-common-extensions > /dev/null
+# Up to three tries: a mirror being updated can list a package it does not have yet (404) for a while.
+for i in 1 2 3; do
+  apt-get update -qq && apt-get install -y -qq "ros-$ROS_DISTRO-nav2-msgs" "ros-$ROS_DISTRO-control-msgs" \
+    "ros-$ROS_DISTRO-tf2-ros" "ros-$ROS_DISTRO-moveit" "ros-$ROS_DISTRO-moveit-resources-panda-moveit-config" \
+    "ros-$ROS_DISTRO-robot-state-publisher" "ros-$ROS_DISTRO-ros2-control" "ros-$ROS_DISTRO-ros2-controllers" \
+    "ros-$ROS_DISTRO-xacro" ffmpeg python3-colcon-common-extensions > /dev/null && break
+  echo "apt failed ($i), retrying" | tee -a "$LOG"
+  [ "$i" -lt 3 ] || exit 1
+  sleep 30
+done
 # Released on some distros only: where they are missing, tools/e2e/build_msgs.sh builds stand-ins.
 for p in foxglove-msgs ffmpeg-image-transport-msgs; do apt-get install -y -qq "ros-$ROS_DISTRO-$p" > /dev/null 2>&1 || true; done
 MSGS="$(tools/e2e/build_msgs.sh)"
