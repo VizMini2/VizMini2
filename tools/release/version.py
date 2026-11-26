@@ -6,9 +6,10 @@
     python3 tools/release/version.py check [v1.0.0]   # prints the version; exit 1 if the sources disagree
     python3 tools/release/version.py check --lenient  # the same, but only warns (test builds by hand): the desktop's
     python3 tools/release/version.py notes 1.0.0      # that version's CHANGELOG entry (English, then Spanish)
+    python3 tools/release/version.py rst > CHANGELOG.rst  # the ROS 2 package's changelog (bloom), from CHANGELOG.md
 
 `check` compares the Android versionName (app/build.gradle.kts), the desktop one (vizmini2.version in
-gradle.properties), the ROS package's (ros/vizmini2/package.xml) and, if given, the tag; with a tag it also needs
+gradle.properties), the ROS package's (package.xml, at the repository's root) and, if given, the tag; with a tag it also needs
 the version's entry in both CHANGELOGs (app/src/main/assets/CHANGELOG.md and CHANGELOG.es.md).
 """
 import os
@@ -29,8 +30,8 @@ def versions():
     out["Android (app/build.gradle.kts versionName)"] = m.group(1) if m else None
     m = re.search(r"^vizmini2\.version=(\S+)", read("gradle.properties"), re.M)
     out["desktop (gradle.properties vizmini2.version)"] = m.group(1) if m else None
-    m = re.search(r"<version>([^<]+)</version>", read("ros/vizmini2/package.xml"))
-    out["ROS package (ros/vizmini2/package.xml)"] = m.group(1) if m else None
+    m = re.search(r"<version>([^<]+)</version>", read("package.xml"))
+    out["ROS package (package.xml)"] = m.group(1) if m else None
     return out
 
 
@@ -38,6 +39,27 @@ def changelog_entry(version, spanish=False):
     text = read("app/src/main/assets/CHANGELOG%s.md" % (".es" if spanish else ""))
     m = re.search(r"^## \[%s\][^\n]*\n(.*?)(?=^## \[|\Z)" % re.escape(version), text, re.M | re.S)
     return m.group(1).strip() if m else None
+
+
+def rst():
+    """CHANGELOG.md in the format of ROS packages' CHANGELOG.rst (bloom takes each version's entry from it)."""
+    text = read("app/src/main/assets/CHANGELOG.md")
+    title = "Changelog for package vizmini2"
+    out = ["^" * len(title), title, "^" * len(title), ""]
+    for m in re.finditer(r"^## \[([^\]]+)\] - (\S+)\n(.*?)(?=^## \[|\Z)", text, re.M | re.S):
+        head = f"{m.group(1)} ({m.group(2)})"
+        out += [head, "-" * len(head)]
+        section = ""
+        for line in m.group(3).splitlines():
+            line = line.rstrip()
+            if line.startswith("### "):
+                section = line[4:].strip()
+            elif line.startswith("- "):
+                out.append(f"* {section}: {line[2:].replace('**', '')}" if section else f"* {line[2:].replace('**', '')}")
+            elif line.startswith("  ") and out and out[-1].startswith("* "):
+                out[-1] += " " + line.strip().replace("**", "")
+        out.append("")
+    return "\n".join(out)
 
 
 def check(tag, lenient=False):
@@ -54,6 +76,12 @@ def check(tag, lenient=False):
         for es in (False, True):
             if not changelog_entry(wanted, es):
                 problems.append(f"no [{wanted}] entry in CHANGELOG{'.es' if es else ''}.md")
+        try:
+            current = read("CHANGELOG.rst")
+        except OSError:
+            current = ""
+        if current != rst():
+            problems.append("CHANGELOG.rst is not up to date: python3 tools/release/version.py rst > CHANGELOG.rst")
     if problems:
         for p in problems:
             print(("warning: " if lenient else "") + "version: " + p, file=sys.stderr)
@@ -88,5 +116,7 @@ if __name__ == "__main__":
         check(None if arg == "--lenient" else arg, lenient=arg == "--lenient")
     elif len(sys.argv) == 3 and sys.argv[1] == "notes":
         notes(sys.argv[2])
+    elif len(sys.argv) == 2 and sys.argv[1] == "rst":
+        sys.stdout.write(rst())
     else:
         sys.exit(__doc__)

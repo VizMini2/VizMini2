@@ -10,7 +10,10 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    // 17, or with -Pvizmini2.jdk=current the JDK Gradle runs on (the ROS 2 package's build: the system's, no other
+    // one downloaded; the app then needs that Java or newer to run).
+    jvmToolchain(providers.gradleProperty("vizmini2.jdk").orNull
+        ?.let { if (it == "current") JavaVersion.current().majorVersion.toInt() else it.toInt() } ?: 17)
     jvm()
     sourceSets {
         jvmMain.dependencies {

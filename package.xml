@@ -5,7 +5,11 @@
 <package format="3">
   <name>vizmini2</name>
   <version>1.0.0</version>
-  <description>VizMini2 for the desktop: 3D view, topics, teleop, parameters, lifecycle and more for ROS 2, the same app as on Android. Start it with `ros2 run vizmini2 vizmini2`.</description>
+  <description>
+    VizMini2 for the desktop: ROS 2 visualization and control with a 3D view like RViz, dashboards, plots, teleop,
+    topics, parameters, lifecycle, ros2_control, Nav2 and MoveIt tools, bags and more, the same app as on Android.
+    It talks DDS directly (no bridge on the robot). Start it with `ros2 run vizmini2 vizmini2`.
+  </description>
   <maintainer email="jc.manzanares.serrano@gmail.com">Juan Carlos Manzanares Serrano</maintainer>
   <author email="jc.manzanares.serrano@gmail.com">Juan Carlos Manzanares Serrano</author>
   <license>Apache-2.0</license>
@@ -14,8 +18,11 @@
   <url type="bugtracker">https://github.com/VizMini2/VizMini2/issues</url>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <!-- Gradle descarga sus dependencias y su JDK (ver CMakeLists.txt); el programa lleva su propio Java dentro. -->
-  <build_depend>curl</build_depend>
+  <!-- Gradle compiles the app with the system's JDK (17 or newer; rosdep's java key is default-jdk). Gradle itself and
+       the app's libraries come from Maven repositories during the build, as with rosjava's packages. -->
+  <build_depend>java</build_depend>
+  <!-- The app runs on the system's Java: the package has no Java of its own. -->
+  <exec_depend>java</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

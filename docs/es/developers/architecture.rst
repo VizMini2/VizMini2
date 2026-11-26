@@ -28,9 +28,10 @@ Un solo código, dos apps: casi todo lo que ve el usuario se comparte entre Andr
        ficheros, la decodificación de vídeo y la grabación con ffmpeg, las notificaciones de
        escritorio (``notify-send`` o el área de notificaciones), el ``.deb`` y el ``.msi``, y los
        tests de extremo a extremo.
-   * - ``ros/vizmini2/``
-     - El paquete de ROS 2: ``colcon build`` ejecuta Gradle y ``ros2 run vizmini2 vizmini2``
-       arranca la app.
+   * - ``package.xml``, ``CMakeLists.txt``, ``scripts/``
+     - El repositorio también es un paquete de ROS 2: ``colcon build`` ejecuta Gradle (con el JDK
+       del sistema) e instala los jar de la app, y ``ros2 run vizmini2 vizmini2`` los arranca con la
+       Java del sistema.
    * - ``tools/``
      - Servidores de prueba (robot falso, Nav2, MoveIt con el Panda, ros2_control, vídeo,
        mapas…), scripts de la CI y de las versiones, la compilación en Ubuntu 20.04 de las

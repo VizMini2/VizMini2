@@ -22,9 +22,11 @@ Publicar una versión
 --------------------
 
 1. Pon la misma versión en ``app/build.gradle.kts`` (``versionName``, y un ``versionCode`` mayor),
-   ``gradle.properties`` (``vizmini2.version``) y ``ros/vizmini2/package.xml``.
+   ``gradle.properties`` (``vizmini2.version``) y ``package.xml``.
 2. Añade su entrada a los dos historiales de cambios (``app/src/main/assets/CHANGELOG.md`` y
    ``CHANGELOG.es.md``): la app los enseña en *Historial de cambios* y este manual en :doc:`../changelog`.
+   Después, ``python3 tools/release/version.py rst > CHANGELOG.rst``: el historial del paquete de
+   ROS 2, hecho a partir del inglés.
 3. ``python3 tools/release/version.py check v1.2.3`` comprueba que todo cuadra. Pon también como
    fecha de las entradas del historial el día de la versión (eso no se comprueba).
 4. Si has recompilado librerías nativas, publícalas antes (``tools/prebuilt/publish.sh``) y sube a

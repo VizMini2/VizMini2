@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.net.URI
+import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.attribute.PosixFilePermissions
 import java.util.zip.ZipEntry
@@ -17,7 +19,10 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    // 17, or with -Pvizmini2.jdk=current the JDK Gradle runs on (the ROS 2 package's build: the system's, no other
+    // one downloaded; the app then needs that Java or newer to run).
+    jvmToolchain(providers.gradleProperty("vizmini2.jdk").orNull
+        ?.let { if (it == "current") JavaVersion.current().majorVersion.toInt() else it.toInt() } ?: 17)
     jvm()
     sourceSets {
         // The shared screens (ui/src/main/kotlin): the same sources the Android app compiles.
@@ -170,7 +175,7 @@ compose.desktop {
                 menuGroup = "Development"
                 appCategory = "Development"
                 shortcut = true
-                // The same maintainer as ros/vizmini2/package.xml.
+                // The same maintainer as package.xml (the ROS 2 package).
                 debMaintainer = "jc.manzanares.serrano@gmail.com"
                 // tools/make_icons.sh (the logo, as on Android).
                 iconFile.set(project.file("icons/vizmini2.png"))
@@ -321,6 +326,97 @@ case "${'$'}1" in
     }
 }
 tasks.matching { it.name == "packageDeb" }.configureEach { finalizedBy(fixDebDesktopEntry) }
+
+// The ROS 2 package's app (package.xml and CMakeLists.txt at the repository's root): the app's jars and its libraries
+// (each with only this system's natives) in build/ros/java, without a Java of its own (it runs on the system's,
+// scripts/vizmini2); java-version says the Java it needs at least. ProGuard drops the classes nothing uses (most of
+// Compose's, Kotlin's and the Material icons'), jar by jar and only that: no obfuscation and no optimization. The
+// app's own jars and the libraries with natives or reflection stay whole.
+val proguard: Configuration by configurations.creating
+dependencies { proguard("com.guardsquare:proguard-base:7.10.0") }
+
+val rosLibs by tasks.registering(Sync::class) {
+    from(tasks.named("jvmJar"))
+    from(configurations.named("jvmRuntimeClasspath"))
+    into(layout.buildDirectory.dir("ros/libs"))
+}
+
+val rosJars by tasks.registering(JavaExec::class) {
+    val libs = layout.buildDirectory.dir("ros/libs")
+    val out = layout.buildDirectory.dir("ros/java")
+    val work = layout.buildDirectory.dir("ros/proguard")
+    val composeRules = tasks.named("unpackDefaultComposeDesktopJvmApplicationResources")
+    val composeRulesFiles = files(composeRules)
+    dependsOn(rosLibs)
+    inputs.dir(libs)
+    inputs.files(composeRulesFiles)
+    outputs.dir(out)
+    val javaVersion = providers.gradleProperty("vizmini2.jdk").orNull
+        ?.let { if (it == "current") JavaVersion.current().majorVersion else it } ?: "17"
+    inputs.property("javaVersion", javaVersion)
+    classpath = proguard
+    mainClass.set("proguard.ProGuard")
+    val wholeJars = Regex("""^(desktopApp|core|jros2|filament|zenoh|skiko|zstd|jna|luaj|jbr-api|okhttp|okio).*\.jar$""")
+    val rulesFile = work.map { it.file("vizmini2.pro") }
+    val javaHome = javaLauncher.map { it.metadata.installationPath.asFile.absolutePath }
+    args("@" + rulesFile.get().asFile.absolutePath)
+    doFirst {
+        val outDir = out.get().asFile.apply { deleteRecursively(); mkdirs() }
+        val workDir = work.get().asFile.apply { deleteRecursively(); mkdirs() }
+        val jars = libs.get().asFile.listFiles { f -> f.name.endsWith(".jar") }!!.sortedBy { it.name }
+        // The Java the app is compiled for, as ProGuard's library: the classes of its runtime image (jrt:/).
+        val jdkJar = File(workDir, "jdk.jar")
+        FileSystems.newFileSystem(URI.create("jrt:/"), mapOf<String, Any>("java.home" to javaHome.get())).use { jrt ->
+            ZipOutputStream(jdkJar.outputStream().buffered()).use { zos ->
+                Files.newDirectoryStream(jrt.getPath("/modules")).use { modules ->
+                    for (module in modules) Files.walk(module).use { paths ->
+                        paths.filter { it.toString().endsWith(".class") && !it.toString().endsWith("module-info.class") }.forEach {
+                            zos.putNextEntry(ZipEntry(module.relativize(it).toString()))
+                            zos.write(Files.readAllBytes(it))
+                            zos.closeEntry()
+                        }
+                    }
+                }
+            }
+        }
+        // The packages of the jars kept whole, and the classes other code finds by name (META-INF/services).
+        val keepPackages = sortedSetOf<String>()
+        val services = sortedSetOf<String>()
+        for (jar in jars) ZipFile(jar).use { z ->
+            for (e in z.entries()) {
+                if (wholeJars.matches(jar.name) && e.name.endsWith(".class") && !e.name.startsWith("META-INF/") && e.name != "module-info.class")
+                    // A package's classes, or a class of the default package by its name ("-keep class *" is all).
+                    keepPackages += if ('/' in e.name) e.name.substringBeforeLast('/').replace('/', '.') + ".*" else e.name.removeSuffix(".class")
+                if (e.name.startsWith("META-INF/services/") && !e.isDirectory)
+                    services += z.getInputStream(e).bufferedReader().readLines().map { it.substringBefore('#').trim() }.filter { it.isNotEmpty() }
+            }
+        }
+        val composePro = composeRulesFiles.asFileTree.matching { include("**/default-compose-desktop-rules.pro") }.singleFile
+        val rules = buildString {
+            for (jar in jars) {
+                appendLine("-injars '${jar.absolutePath}'(!META-INF/versions/**,!module-info.class)")
+                appendLine("-outjars '${File(outDir, jar.name).absolutePath}'")
+            }
+            appendLine("-libraryjars '${jdkJar.absolutePath}'")
+            appendLine("-include '${composePro.absolutePath}'")
+            appendLine("-dontobfuscate")
+            appendLine("-dontoptimize")
+            appendLine("-keepattributes")
+            appendLine("-dontwarn **")
+            appendLine("-dontnote **")
+            appendLine("-keep class com.juancams.rviz2mini.desktop.MainKt { public static void main(java.lang.String[]); }")
+            for (p in keepPackages) appendLine("-keep class $p { *; }")
+            for (c in services) appendLine("-keep class $c { <init>(); }")
+        }
+        rulesFile.get().asFile.writeText(rules)
+    }
+    doLast {
+        File(out.get().asFile, "java-version").writeText("$javaVersion\n")
+        val before = libs.get().asFile.listFiles()!!.sumOf { it.length() }
+        val after = out.get().asFile.listFiles()!!.sumOf { it.length() }
+        println("ProGuard: ${before / 1_000_000} MB of jars -> ${after / 1_000_000} MB")
+    }
+}
 
 // app/src/main/assets -> build/generated/assets/assets/ (without duplicating them in the repo).
 val copyAssets by tasks.registering(Sync::class) {

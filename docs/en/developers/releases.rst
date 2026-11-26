@@ -21,10 +21,11 @@ Making a release
 ----------------
 
 1. Set the same version in ``app/build.gradle.kts`` (``versionName``, and a higher
-   ``versionCode``), ``gradle.properties`` (``vizmini2.version``) and ``ros/vizmini2/package.xml``.
+   ``versionCode``), ``gradle.properties`` (``vizmini2.version``) and ``package.xml``.
 2. Add its entry to both changelogs (``app/src/main/assets/CHANGELOG.md`` and
    ``CHANGELOG.es.md``): the app shows them under *Changelog* and this manual in
-   :doc:`../changelog`.
+   :doc:`../changelog`. Then ``python3 tools/release/version.py rst > CHANGELOG.rst``: the ROS 2
+   package's changelog, made from the English one.
 3. ``python3 tools/release/version.py check v1.2.3`` checks that everything agrees. Set the date
    of the changelog entries to the release day too (it is not checked).
 4. If you rebuilt native libraries, publish them first (``tools/prebuilt/publish.sh``) and commit

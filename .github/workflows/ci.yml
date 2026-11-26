@@ -11,7 +11,9 @@
 # - e2e-desktop: the desktop app's end-to-end tests against real ROS 2 servers (fake robot, Nav2, MoveIt, ros2_control,
 #   H.264/H.265 video, map services) in a container of each ROS distro (Humble, Jazzy, Lyrical), with the app in that
 #   same container, so both each distro's message versions and its Ubuntu are tested;
-# - e2e-android: the device-only instrumented tests (with the in-app demo robot) on an Android emulator.
+# - e2e-android: the device-only instrumented tests (with the in-app demo robot) on an Android emulator;
+# - ros-package: the ROS 2 package's Debian package (ros-<distro>-vizmini2) built as ROS's buildfarm does (rosdep,
+#   bloom, no Java of its own), installed and started, on Jazzy and Lyrical (tools/ros/build-deb.sh).
 # Only "direct" debug variants: the "play" release tasks upload the mapping to Crashlytics and need the real keys.
 # The release files (signed APKs, Play bundle, .deb, .tar.gz, manual) come from release.yml, on each "v*" tag.
 name: CI
@@ -221,6 +223,32 @@ jobs:
             build-e2e-servers.log
             build/e2e/
             desktopApp/build/reports/tests/
+          retention-days: 7
+
+  ros-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [jazzy, lyrical]
+    steps:
+      - uses: actions/checkout@v7
+      - name: ros-${{ matrix.distro }}-vizmini2, as the buildfarm builds it
+        # From scratch, as the buildfarm (Gradle downloads everything): once more if the network fails it.
+        run: |
+          mkdir -p out
+          for i in 1 2; do
+            docker run --rm -v "$PWD":/src:ro -v "$PWD/out":/out ros:${{ matrix.distro }}-ros-base \
+              bash /src/tools/ros/build-deb.sh && exit 0
+            echo "attempt $i failed"
+          done
+          exit 1
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ros-package-${{ matrix.distro }}
+          path: out/
           retention-days: 7
 
   e2e-android:

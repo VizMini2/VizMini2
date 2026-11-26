@@ -43,9 +43,9 @@ works (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 * **The .tar.gz**: the same app without installing it. Unpack it anywhere and run
   ``vizmini2/bin/vizmini2``.
 
-* **As a ROS 2 package** (Linux), built from the source code. It needs a JDK 17 or newer (21
-  recommended), and the first build needs internet: Gradle downloads its dependencies and the
-  prebuilt native libraries.
+* **As a ROS 2 package** (Linux), built from the source code. It is built and runs with the
+  system's Java (17 or newer; ``rosdep install`` brings ``default-jdk``), and the first build
+  needs internet: Gradle downloads its dependencies and the prebuilt native libraries.
 
   .. code-block:: bash
 

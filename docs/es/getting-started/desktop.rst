@@ -43,9 +43,10 @@ en la red (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 * **El .tar.gz**: la misma app sin instalarla. Descomprímelo donde quieras y ejecuta
   ``vizmini2/bin/vizmini2``.
 
-* **Como paquete de ROS 2** (Linux), compilado desde el código fuente. Hace falta un JDK 17 o
-  posterior (se recomienda el 21), y la primera compilación necesita internet: Gradle descarga sus
-  dependencias y las librerías nativas precompiladas.
+* **Como paquete de ROS 2** (Linux), compilado desde el código fuente. Se compila y funciona con la
+  Java del sistema (17 o posterior; ``rosdep install`` instala ``default-jdk``), y la primera
+  compilación necesita internet: Gradle descarga sus dependencias y las librerías nativas
+  precompiladas.
 
   .. code-block:: bash
 

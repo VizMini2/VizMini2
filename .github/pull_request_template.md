@@ -17,7 +17,7 @@ Thanks for contributing to VizMini2! The pull request title follows the commit s
 ## Where
 
 - [ ] Android app (`app/`)
-- [ ] Desktop app (`desktopApp/`, `ros/vizmini2/`)
+- [ ] Desktop app (`desktopApp/`, the ROS 2 package: `package.xml`, `CMakeLists.txt`, `scripts/`)
 - [ ] Shared code (`core/`, `ui/`, `rviz3d/`)
 
 ## How it was tested
