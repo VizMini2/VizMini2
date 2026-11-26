@@ -42,7 +42,8 @@ and, each time you record the screen, Android's screen capture prompt.
 On the PC
 ---------
 
-The desktop app has the same tabs. From the same `releases page`_: on Ubuntu the |deb|
+The desktop app has the same tabs. On Ubuntu, with apt from VizMini2's repository (three
+commands, in :doc:`desktop`), or from the same `releases page`_ the |deb|
 (``sudo apt install ./vizmini2_*_amd64.deb``) or the ``.tar.gz``; on Windows the ``.msi`` (for your
 user, no administrator needed) or the ``.zip``. On Linux it can also be built from source and run
 with ``ros2 run vizmini2 vizmini2``. All the details are in :doc:`desktop`.
@@ -51,7 +52,8 @@ Updating
 --------
 
 Download the newer APK (or ``.deb`` or ``.msi``) and install it over the one you have: your tabs,
-profiles and settings are kept. With the ``.tar.gz`` or the ``.zip``, replace the folder. The :doc:`../changelog` lists what changed in each version.
+profiles and settings are kept. On Ubuntu with VizMini2's apt repository, ``sudo apt upgrade`` does
+it. With the ``.tar.gz`` or the ``.zip``, replace the folder. The :doc:`../changelog` lists what changed in each version.
 
 .. note::
    If you installed it from **Google Play**, update it there: Google Play signs the app with its

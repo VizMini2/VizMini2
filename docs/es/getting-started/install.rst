@@ -43,9 +43,9 @@ cada vez que grabas la pantalla, el aviso de captura de pantalla de Android.
 En el PC
 --------
 
-La app de escritorio tiene las mismas pestañas. De la misma
-`página de versiones <releases page_>`_: en Ubuntu el |deb| (``sudo apt install ./vizmini2_*_amd64.deb``)
-o el ``.tar.gz``; en Windows el ``.msi`` (para tu usuario, sin necesidad de administrador) o el
+La app de escritorio tiene las mismas pestañas. En Ubuntu, con apt desde el repositorio de VizMini2
+(tres comandos, en :doc:`desktop`), o de la misma `página de versiones <releases page_>`_ el |deb|
+(``sudo apt install ./vizmini2_*_amd64.deb``) o el ``.tar.gz``; en Windows el ``.msi`` (para tu usuario, sin necesidad de administrador) o el
 ``.zip``. En Linux también se puede compilar desde el código fuente y ejecutar con
 ``ros2 run vizmini2 vizmini2``. Todos los detalles están en :doc:`desktop`.
 
@@ -53,7 +53,8 @@ Actualizar
 ----------
 
 Descarga el APK (o el ``.deb`` o el ``.msi``) más reciente e instálalo encima del que tienes: se
-conservan tus pestañas, tus perfiles y tus ajustes. Con el ``.tar.gz`` o el ``.zip``, sustituye la
+conservan tus pestañas, tus perfiles y tus ajustes. En Ubuntu con el repositorio apt de VizMini2,
+lo hace ``sudo apt upgrade``. Con el ``.tar.gz`` o el ``.zip``, sustituye la
 carpeta. El :doc:`../changelog` recoge qué cambia en cada versión.
 
 .. note::

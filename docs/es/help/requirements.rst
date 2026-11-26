@@ -14,8 +14,8 @@ PC
 
 * **Ubuntu 20.04 o posterior**, x86-64 (glibc 2.31 o posterior), con un driver OpenGL para la vista
   3D. En Wayland funciona a través de XWayland.
-* Instalada desde el ``.deb`` (trae todo lo que necesita; no hace falta tener ROS 2 instalado en el
-  PC), desde el ``.tar.gz``, o compilada como paquete de ROS 2 con ``colcon build``
+* Instalada con apt desde el repositorio de VizMini2 o desde el ``.deb`` (trae todo lo que necesita;
+  no hace falta tener ROS 2 instalado en el PC), desde el ``.tar.gz``, o compilada como paquete de ROS 2 con ``colcon build``
   (:doc:`../getting-started/desktop`).
 * Recomendado: ``ffmpeg`` (``sudo apt install ffmpeg``) para los topics de vídeo H.264/H.265 y para
   grabar la ventana, y ``notify-send`` (paquete ``libnotify-bin``, ya incluido en casi todos los
