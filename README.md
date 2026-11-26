@@ -14,6 +14,20 @@
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%2B-E95420?logo=ubuntu&logoColor=white)](https://vizmini2.github.io/getting-started/desktop.html)
 [![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6)](https://vizmini2.github.io/getting-started/desktop.html#on-windows)
 
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.juancams.vizmini2"><img src="https://img.shields.io/badge/Google_Play-Android-34A853?style=for-the-badge&logo=googleplay&logoColor=white" alt="Get it on Google Play"></a>
+  <a href="https://github.com/VizMini2/VizMini2/releases/latest"><img src="https://img.shields.io/badge/Linux-Ubuntu_.deb-E95420?style=for-the-badge&logo=ubuntu&logoColor=white" alt="Linux: the .deb"></a>
+  <a href="https://github.com/VizMini2/VizMini2/releases/latest"><img src="https://img.shields.io/badge/Windows-.msi-0078D6?style=for-the-badge" alt="Windows: the .msi"></a>
+  <a href="https://vizmini2.github.io/"><img src="https://img.shields.io/badge/Docs-vizmini2.github.io-5C6BC0?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Documentation"></a>
+</p>
+
+<p align="center">
+  <a href="https://vizmini2.github.io/getting-started/demo.html">Try the demo</a> ·
+  <a href="https://vizmini2.github.io/getting-started/install.html">Install guide</a> ·
+  <a href="https://vizmini2.github.io/changelog.html">Changelog</a> ·
+  <a href="https://github.com/sponsors/Juancams">Sponsor</a>
+</p>
+
 ROS 2 visualization and control on Android and on the desktop, from one code base: a 3D view like RViz (TF, robot
 model, maps, laser, point clouds, cameras, markers, interactive markers, Nav2 waypoints, MoveIt planning...),
 dashboards, plots, teleop, topics, parameters, lifecycle, ros2_control controllers, PlanSys2 plans as they run, map
