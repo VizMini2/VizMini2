@@ -325,6 +325,11 @@ jobs:
           merge-multiple: true
       - name: Draft release
         run: |
+          # Copies with a name that never changes, for links that always download the latest version
+          # (https://github.com/VizMini2/VizMini2/releases/latest/download/vizmini2-windows-x86_64.msi, the README's
+          # buttons). The apt repository takes only *_amd64.deb, so not this copy twice.
+          cp dist/vizmini2_${V}_amd64.deb dist/vizmini2-linux-amd64.deb
+          cp dist/vizmini2-${V}-windows-x86_64.msi dist/vizmini2-windows-x86_64.msi
           (cd dist && sha256sum * > SHA256SUMS && cat SHA256SUMS)
           python3 tools/release/version.py notes "$V" > notes.md
           # The draft that tools/release/start.sh created in its author's name (uploading keeps the author);
