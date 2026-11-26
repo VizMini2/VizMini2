@@ -43,14 +43,17 @@ en la red (Foxy, Humble, Jazzy, Kilted, Lyrical...).
 * **El .tar.gz**: la misma app sin instalarla. Descomprímelo donde quieras y ejecuta
   ``vizmini2/bin/vizmini2``.
 
-* **Como paquete de ROS 2** (Linux), compilado desde el código fuente. Hace falta un JDK 17 o
-  posterior (se recomienda el 21), y la primera compilación necesita internet: Gradle descarga sus
-  dependencias y las librerías nativas precompiladas.
+* **Como paquete de ROS 2** (Linux, Jazzy o posterior), compilado desde el código fuente. Se
+  compila y funciona con el Java del sistema (17 o posterior; ``rosdep install`` instala
+  ``default-jdk``), y la primera compilación necesita internet: Gradle descarga sus dependencias y
+  las librerías nativas precompiladas. En Humble, el Java de Ubuntu 22.04 (11) es demasiado
+  antiguo: usa allí el ``.deb``, que se conecta igual a robots con Humble.
 
   .. code-block:: bash
 
      cd ~/ros2_ws/src && git clone https://github.com/VizMini2/VizMini2.git vizmini2_src
-     cd ~/ros2_ws && colcon build --packages-select vizmini2 && source install/setup.bash
+     cd ~/ros2_ws && rosdep install --from-paths src --ignore-src -y
+     colcon build --packages-select vizmini2 && source install/setup.bash
      ros2 run vizmini2 vizmini2
 
   La primera vez toma el ``ROS_DOMAIN_ID`` de la terminal.

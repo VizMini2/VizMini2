@@ -1,8 +1,0 @@
-#!/bin/sh
-# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
-# SPDX-License-Identifier: Apache-2.0
-# Launcher of `ros2 run vizmini2 vizmini2`: the app image installed in share/vizmini2/app.
-# If ROS_DOMAIN_ID is set and the app has no settings yet, it starts on that domain.
-HERE="$(cd "$(dirname "$0")" && pwd)"
-APP="$HERE/../../share/vizmini2/app"
-exec "$APP/bin/vizmini2" "$@"

@@ -1,0 +1,24 @@
+#!/bin/sh
+# Copyright (C) 2025-2026 Juan Carlos Manzanares Serrano <jc.manzanares.serrano@gmail.com>
+# SPDX-License-Identifier: Apache-2.0
+# Launcher of the ROS 2 package (`ros2 run vizmini2 vizmini2`): the app's jars in share/vizmini2/java, run with the
+# system's Java (JAVA_HOME, or java in the PATH), at least the version they were built with (java-version, next to them).
+# If ROS_DOMAIN_ID is set and the app has no settings yet, it starts on that domain.
+SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+JARS="$(cd "$(dirname "$0")/../../share/vizmini2/java" && pwd)"
+NEED="$(cat "$JARS/java-version" 2> /dev/null || echo 17)"
+JAVA="${JAVA_HOME:+$JAVA_HOME/bin/java}"
+[ -x "$JAVA" ] || JAVA="$(command -v java)"
+if [ -z "$JAVA" ]; then
+  echo "VizMini2 needs Java $NEED or newer: sudo apt install default-jre" >&2
+  exit 1
+fi
+HAVE="$("$JAVA" -XshowSettings:properties -version 2>&1 | sed -n 's/^ *java\.specification\.version = //p' | sed 's/^1\.//')"
+if [ "${HAVE%%.*}" -lt "$NEED" ] 2> /dev/null; then
+  echo "VizMini2 needs Java $NEED or newer, and $JAVA is Java $HAVE (set JAVA_HOME to a newer one)." >&2
+  exit 1
+fi
+# The same options as the .deb's launcher (desktopApp/build.gradle.kts); jpackage.app-path is how the app writes its
+# menu entry (LinuxDesktopEntry) pointing to this launcher.
+exec "$JAVA" --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED -Dcompose.application.configure.swing.globals=true \
+  -Djpackage.app-path="$SELF" -cp "$JARS/*" com.juancams.rviz2mini.desktop.MainKt "$@"

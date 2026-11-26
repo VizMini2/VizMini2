@@ -96,12 +96,15 @@ that one first):
 ./gradlew :desktopApp:packageMsi    # the .msi (on Windows, with a JDK 21 that has jpackage)
 ```
 
-**As a ROS 2 package** (Linux; it builds the desktop app with Gradle and installs it in the workspace):
+**As a ROS 2 package** (Linux, Jazzy or newer; the repository is the package: it builds the desktop app with Gradle
+and the system's JDK, 17 or newer, and runs it with the system's Java). On Humble, Ubuntu 22.04's Java is too old:
+use the `.deb` there, which talks to Humble robots just the same.
 
 ```bash
 mkdir -p ~/vizmini2_ws/src && cd ~/vizmini2_ws/src
 git clone https://github.com/VizMini2/VizMini2.git
-cd .. && colcon build --packages-select vizmini2
+cd .. && rosdep install --from-paths src --ignore-src -y
+colcon build --packages-select vizmini2
 source install/setup.bash
 ros2 run vizmini2 vizmini2
 ```
@@ -144,7 +147,7 @@ The website, [vizmini2.github.io](https://vizmini2.github.io), is updated on its
 | `ui/`, `rviz3d/` | Shared Compose screens and the Filament 3D view, compiled by both apps |
 | `app/` | The Android app |
 | `desktopApp/` | The desktop app (Compose for Desktop) and its end-to-end tests |
-| `ros/vizmini2/` | The ROS 2 package that builds and starts the desktop app |
+| `package.xml`, `CMakeLists.txt`, `scripts/` | The repository is also a ROS 2 package: it builds the desktop app and starts it with the system's Java |
 | `tools/` | Test servers (fake robot, fake Nav2, MoveIt with the Panda...), CI scripts and build helpers |
 | `tools/prebuilt/` | The list of the prebuilt native libraries the build downloads, and the scripts to publish rebuilt ones |
 | `docs/` | User manual |

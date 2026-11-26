@@ -26,9 +26,10 @@ desktop.
      - The desktop app (Compose for Desktop): the window and sidebar, file dialogs, ffmpeg video
        decoding and recording, desktop notifications (``notify-send`` or the system tray), the
        ``.deb`` and the ``.msi``, and the end-to-end tests.
-   * - ``ros/vizmini2/``
-     - The ROS 2 package: ``colcon build`` runs Gradle and ``ros2 run vizmini2 vizmini2`` starts
-       the app.
+   * - ``package.xml``, ``CMakeLists.txt``, ``scripts/``
+     - The repository is also a ROS 2 package: ``colcon build`` runs Gradle (with the system's JDK)
+       and installs the app's jars, and ``ros2 run vizmini2 vizmini2`` starts them with the system's
+       Java.
    * - ``tools/``
      - Test servers (fake robot, Nav2, MoveIt with the Panda, ros2_control, video, maps…), CI and
        release scripts, the Ubuntu 20.04 build of the desktop natives, the Windows natives
