@@ -32,7 +32,7 @@ def header_for(path):
     name = os.path.basename(path)
     if name.endswith(SLASH):
         return f"// {OWNER}\n// {SPDX}\n"
-    if name.endswith(HASH) or name == "CMakeLists.txt" or ("/scripts/" in path and path.startswith("ros/") and "." not in name):
+    if name.endswith(HASH) or name == "CMakeLists.txt" or (path.startswith("scripts/") and "." not in name):
         return f"# {OWNER}\n# {SPDX}\n"
     if name.endswith(".xml") and ("/res/layout" in path or "/res/xml" in path or "/res/values" in path or name in ("AndroidManifest.xml", "package.xml")):
         return f"<!-- {OWNER}\n     {SPDX} -->\n"
