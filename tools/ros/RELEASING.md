@@ -21,7 +21,8 @@ for x86-64 only.
 1. A release repository in ros2-gbp: ask for `vizmini2-release` with an issue in
    https://github.com/ros2-gbp/ros2-gbp-github-org (the template asks for the repository name and the maintainers'
    GitHub accounts).
-2. The first release with bloom, for each distro (Jazzy, Kilted, Rolling; Lyrical once it is out):
+2. The first release with bloom, for each distro (Jazzy, Kilted, Rolling; Lyrical once it is out). Not Humble: Ubuntu
+   22.04's `default-jdk` is Java 11, and Gradle and the app need 17 or newer (the `.deb` covers Humble's users):
 
    ```bash
    bloom-release --new-track --rosdistro jazzy --track jazzy vizmini2

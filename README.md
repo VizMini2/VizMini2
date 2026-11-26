@@ -96,13 +96,15 @@ that one first):
 ./gradlew :desktopApp:packageMsi    # the .msi (on Windows, with a JDK 21 that has jpackage)
 ```
 
-**As a ROS 2 package** (Linux; the repository is the package: it builds the desktop app with Gradle and the system's
-JDK, 17 or newer, and runs it with the system's Java):
+**As a ROS 2 package** (Linux, Jazzy or newer; the repository is the package: it builds the desktop app with Gradle
+and the system's JDK, 17 or newer, and runs it with the system's Java). On Humble, Ubuntu 22.04's Java is too old:
+use the `.deb` there, which talks to Humble robots just the same.
 
 ```bash
 mkdir -p ~/vizmini2_ws/src && cd ~/vizmini2_ws/src
 git clone https://github.com/VizMini2/VizMini2.git
-cd .. && colcon build --packages-select vizmini2
+cd .. && rosdep install --from-paths src --ignore-src -y
+colcon build --packages-select vizmini2
 source install/setup.bash
 ros2 run vizmini2 vizmini2
 ```

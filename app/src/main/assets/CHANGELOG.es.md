@@ -7,7 +7,7 @@ El formato sigue Keep a Changelog y el proyecto usa versionado semántico.
 
 ### Añadido
 - **Actualizaciones con apt en Ubuntu:** VizMini2 tiene su propio repositorio de apt. Al instalar el `.deb` se añade una vez, así que `sudo apt upgrade` trae cada versión nueva; o añádelo a mano e instala con `sudo apt install vizmini2` (mira la instalación en Linux del manual).
-- **El paquete de ROS 2 está listo para los repositorios de ROS** (`ros-<distro>-vizmini2`): el repositorio es el paquete, se compila como lo hace la buildfarm de ROS y se prueba en Jazzy y Lyrical en el CI. Funciona con el Java del sistema (17 o posterior) y ocupa menos: unos 55 MB, sin Java propio y sin el código de librerías que la app no usa.
+- **El paquete de ROS 2 está listo para los repositorios de ROS** (`ros-<distro>-vizmini2`): el repositorio es el paquete, se compila como lo hace la buildfarm de ROS y se prueba en Jazzy y Lyrical en el CI (Jazzy o posterior: en Humble, el `.deb` es el camino). Funciona con el Java del sistema (17 o posterior) y ocupa menos: unos 55 MB, sin Java propio y sin el código de librerías que la app no usa.
 
 ### Cambiado
 - **Descargas directas:** los botones del README y de la web descargan directamente el `.deb` y el `.msi` de la última versión (`vizmini2-linux-amd64.deb`, `vizmini2-windows-x86_64.msi`).

@@ -5,7 +5,7 @@ Changelog for package vizmini2
 1.1.0 (2026-11-26)
 ------------------
 * Added: Updates with apt on Ubuntu: VizMini2 has its own apt repository. Installing the `.deb` adds it once, so `sudo apt upgrade` brings each new version; or add it by hand and install with `sudo apt install vizmini2` (see the manual's Linux installation).
-* Added: The ROS 2 package is ready for ROS's own repositories (`ros-<distro>-vizmini2`): the repository is the package, built the way ROS's buildfarm builds them and tested on Jazzy and Lyrical in CI. It runs on the system's Java (17 or newer) and is smaller: about 55 MB, without a Java of its own and without the library code the app never uses.
+* Added: The ROS 2 package is ready for ROS's own repositories (`ros-<distro>-vizmini2`): the repository is the package, built the way ROS's buildfarm builds them and tested on Jazzy and Lyrical in CI (Jazzy or newer: on Humble, the `.deb` is the way). It runs on the system's Java (17 or newer) and is smaller: about 55 MB, without a Java of its own and without the library code the app never uses.
 * Changed: Direct downloads: the README's and the website's buttons download the `.deb` and the `.msi` of the latest release straight away (`vizmini2-linux-amd64.deb`, `vizmini2-windows-x86_64.msi`).
 * Changed: Building the ROS 2 package: clone the repository into your workspace's `src` and run `colcon build` (`rosdep install` brings Java); `package.xml` is now at the repository's root instead of `ros/vizmini2`.
 
