@@ -49,11 +49,12 @@ for x86-64 only.
    (`https://github.com/VizMini2/VizMini2.git`), the version (`:{auto}`) and the tag (`v:{version}`), then opens the
    rosdistro PR that adds the `release` entry.
 4. Only for Ubuntu on x86-64: a PR to https://github.com/ros2/ros_buildfarm_config adding it, for each distro, to
-   `package_blacklist` in `<distro>/release-ubuntu-arm64-build.yaml` and to `package_ignore_list` in
-   `<distro>/release-rhel-build.yaml` (RHEL's `java` key is not a JDK 17 or newer):
+   `package_blacklist` in `<distro>/release-ubuntu-arm64-build.yaml`, `release-rhel-build.yaml` and (where there is
+   one) `release-fedora-build.yaml`, in alphabetical order:
 
    ```yaml
    - vizmini2  # its JNI libraries (Fast DDS, Filament) are only built for x86-64
+   - vizmini2  # rosdep's java key is a JRE here (Gradle needs a JDK 17 or newer); only built and tested on Ubuntu
    ```
 
 Later releases: `bloom-release --rosdistro jazzy vizmini2` (and the same for the other distros).
