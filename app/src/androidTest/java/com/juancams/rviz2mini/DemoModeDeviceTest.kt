@@ -36,60 +36,67 @@ class DemoModeDeviceTest {
 
     @Test
     fun demoRunsOnThePhoneAndRestoresEverything() {
-        val tabsBefore = TabStore.get().all.map { it.id }
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             SystemClock.sleep(1500)
+            // A run that stopped half way (a crash) may have left demo mode on: start from the user's setup.
+            scenario.onActivity { a -> DemoMode.exit(a) { a.replaceTabs(it) } }
+            val tabsBefore = TabStore.get().all.map { it.id }
             val configBefore = RosConnection.config
             scenario.onActivity { a -> DemoMode.enter(a) { a.replaceTabs(it) } }
-            assertTrue(DemoMode.isActive(context))
-            assertEquals(DemoMode.CONFIG, RosConnection.config)
+            try {
+                assertTrue(DemoMode.isActive(context))
+                assertEquals(DemoMode.CONFIG, RosConnection.config)
 
-            // The simulated robot appears in the graph.
-            val deadline = SystemClock.uptimeMillis() + 20_000
-            var topics: List<String> = emptyList()
-            while (SystemClock.uptimeMillis() < deadline) {
-                topics = RosConnection.graph()?.topics()?.map { it.name }.orEmpty()
-                if (listOf("/scan", "/map", "/odom", "/camera/image_raw", "/diagnostics").all { it in topics }) break
-                SystemClock.sleep(300)
-            }
-            Log.i(TAG, "DEMO topics=$topics")
-            assertTrue(topics.toString(), listOf("/scan", "/map", "/odom", "/camera/image_raw", "/diagnostics").all { it in topics })
-            val tfDeadline = SystemClock.uptimeMillis() + 10_000
-            while (!RosConnection.tfTree.contains("base_link") && SystemClock.uptimeMillis() < tfDeadline) SystemClock.sleep(200)
-            assertTrue("TF del robot", RosConnection.tfTree.contains("base_link"))
-
-            // Demo RViz: the displays must be OK.
-            val rvizTab = TabStore.get().all.first { it.type == TabType.RVIZ && !it.isWidget }
-            scenario.onActivity { it.openTab(rvizTab.id) }
-            SystemClock.sleep(8000)
-            var statuses = ""
-            scenario.onActivity { a ->
-                val f = a.supportFragmentManager.findFragmentByTag(rvizTab.id) as RvizFragment
-                statuses = f.displayConfigs().joinToString("\n") { d -> "${d.name}: ${f.displayStatus(d.id)?.level} ${f.displayStatus(d.id)?.message}" }
-            }
-            Log.i(TAG, "DEMO RViz\n$statuses")
-            shot("1_rviz")
-            assertFalse(statuses, statuses.contains("ERROR"))
-            assertTrue(statuses, statuses.lines().count { it.contains(" OK ") || it.endsWith(" OK") } >= 5)
-
-            for (t in TabStore.get().all.filter { it.type != TabType.RVIZ && !it.isWidget && it.type != TabType.DASHBOARD }) {
-                scenario.onActivity { it.openTab(t.id) }
-                SystemClock.sleep(3500)
-                // PlanSys2: the demo's plan is on screen (each row says its action and its state to accessibility).
-                if (t.type == TabType.PLANSYS2) {
-                    val planDeadline = SystemClock.uptimeMillis() + 20_000
-                    var onScreen = screenTexts()
-                    while (onScreen.none { it.startsWith("plan (move demo_bot dock kitchen)") } && SystemClock.uptimeMillis() < planDeadline) {
-                        SystemClock.sleep(500)
-                        onScreen = screenTexts()
-                    }
-                    Log.i(TAG, "PLANSYS2 on screen: $onScreen")
-                    assertTrue("the demo's plan in the PlanSys2 tab: $onScreen", onScreen.any { it.startsWith("plan (move demo_bot dock kitchen)") })
+                // The simulated robot appears in the graph.
+                val deadline = SystemClock.uptimeMillis() + 20_000
+                var topics: List<String> = emptyList()
+                while (SystemClock.uptimeMillis() < deadline) {
+                    topics = RosConnection.graph()?.topics()?.map { it.name }.orEmpty()
+                    if (listOf("/scan", "/map", "/odom", "/camera/image_raw", "/diagnostics").all { it in topics }) break
+                    SystemClock.sleep(300)
                 }
-                shot("2_" + t.name.replace(' ', '_'))
-            }
+                Log.i(TAG, "DEMO topics=$topics")
+                assertTrue(topics.toString(), listOf("/scan", "/map", "/odom", "/camera/image_raw", "/diagnostics").all { it in topics })
+                val tfDeadline = SystemClock.uptimeMillis() + 10_000
+                while (!RosConnection.tfTree.contains("base_link") && SystemClock.uptimeMillis() < tfDeadline) SystemClock.sleep(200)
+                assertTrue("TF del robot", RosConnection.tfTree.contains("base_link"))
 
-            scenario.onActivity { a -> DemoMode.exit(a) { a.replaceTabs(it) } }
+                // Demo RViz: the displays must be OK.
+                val rvizTab = TabStore.get().all.first { it.type == TabType.RVIZ && !it.isWidget }
+                scenario.onActivity { it.openTab(rvizTab.id) }
+                SystemClock.sleep(8000)
+                var statuses = ""
+                scenario.onActivity { a ->
+                    val f = a.supportFragmentManager.findFragmentByTag(rvizTab.id) as RvizFragment
+                    statuses = f.displayConfigs().joinToString("\n") { d -> "${d.name}: ${f.displayStatus(d.id)?.level} ${f.displayStatus(d.id)?.message}" }
+                }
+                Log.i(TAG, "DEMO RViz\n$statuses")
+                shot("1_rviz")
+                assertFalse(statuses, statuses.contains("ERROR"))
+                assertTrue(statuses, statuses.lines().count { it.contains(" OK ") || it.endsWith(" OK") } >= 5)
+
+                for (t in TabStore.get().all.filter { it.type != TabType.RVIZ && !it.isWidget && it.type != TabType.DASHBOARD }) {
+                    scenario.onActivity { it.openTab(t.id) }
+                    SystemClock.sleep(3500)
+                    // PlanSys2: the demo's plan is on screen (each row says its action and its state to accessibility).
+                    // Its plans take turns (kitchen and bedroom, then living room): on a slow emulator the first one
+                    // may be over already.
+                    if (t.type == TabType.PLANSYS2) {
+                        val planDeadline = SystemClock.uptimeMillis() + 20_000
+                        var onScreen = screenTexts()
+                        while (onScreen.none { it.startsWith("plan (move demo_bot dock ") } && SystemClock.uptimeMillis() < planDeadline) {
+                            SystemClock.sleep(500)
+                            onScreen = screenTexts()
+                        }
+                        Log.i(TAG, "PLANSYS2 on screen: $onScreen")
+                        assertTrue("the demo's plan in the PlanSys2 tab: $onScreen", onScreen.any { it.startsWith("plan (move demo_bot dock ") })
+                    }
+                    shot("2_" + t.name.replace(' ', '_'))
+                }
+            } finally {
+                // Also when a check fails: the retry and the next classes find the user's setup, not the demo's.
+                scenario.onActivity { a -> DemoMode.exit(a) { a.replaceTabs(it) } }
+            }
             assertFalse(DemoMode.isActive(context))
             assertEquals(configBefore, RosConnection.config)
             assertEquals(tabsBefore.size, TabStore.get().all.size)
