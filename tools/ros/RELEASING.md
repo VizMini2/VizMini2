@@ -16,13 +16,30 @@ for x86-64 only.
   docker run --rm -v "$PWD":/src:ro -v /tmp/out:/out ros:jazzy-ros-base bash /src/tools/ros/build-deb.sh
   ```
 
-## Once: the release repository and rosdistro
+## Once: rosdistro, the release repository and the first release
 
-1. A release repository in ros2-gbp: ask for `vizmini2-release` with an issue in
-   https://github.com/ros2-gbp/ros2-gbp-github-org (the template asks for the repository name and the maintainers'
-   GitHub accounts).
-2. The first release with bloom, for each distro (Jazzy, Kilted, Rolling; Lyrical once it is out). Not Humble: Ubuntu
-   22.04's `default-jdk` is Java 11, and Gradle and the app need 17 or newer (the `.deb` covers Humble's users):
+1. A PR to https://github.com/ros/rosdistro adding the `doc` and `source` entries, for naming review, to
+   `<distro>/distribution.yaml` of each distro (Jazzy, Kilted, Lyrical, Rolling), in alphabetical order. Not Humble:
+   Ubuntu 22.04's `default-jdk` is Java 11, and Gradle and the app need 17 or newer (the `.deb` covers Humble's users).
+
+   ```yaml
+     vizmini2:
+       doc:
+         type: git
+         url: https://github.com/VizMini2/VizMini2.git
+         version: main
+       source:
+         type: git
+         url: https://github.com/VizMini2/VizMini2.git
+         version: main
+       status: developed
+   ```
+
+   Its description: see below.
+2. Once it is merged, a release repository in ros2-gbp: an issue in https://github.com/ros2-gbp/ros2-gbp-github-org
+   with the *New release team* template (team `vizmini2`, repository `vizmini2` with the link to its `source` entry
+   in rosdistro, and the maintainers' GitHub accounts linked to the `<maintainer>` of `package.xml`).
+3. Once `https://github.com/ros2-gbp/vizmini2-release` exists, the first release with bloom, for each distro:
 
    ```bash
    bloom-release --new-track --rosdistro jazzy --track jazzy vizmini2
@@ -30,8 +47,7 @@ for x86-64 only.
 
    It asks for the release repository (`https://github.com/ros2-gbp/vizmini2-release.git`), the upstream repository
    (`https://github.com/VizMini2/VizMini2.git`), the version (`:{auto}`) and the tag (`v:{version}`), then opens the
-   rosdistro PR.
-3. The PR's description: see below. The `doc` and `source` entries can go in the same PR.
+   rosdistro PR that adds the `release` entry.
 4. Only for Ubuntu on x86-64: a PR to https://github.com/ros2/ros_buildfarm_config adding it, for each distro, to
    `package_blacklist` in `<distro>/release-ubuntu-arm64-build.yaml` and to `package_ignore_list` in
    `<distro>/release-rhel-build.yaml` (RHEL's `java` key is not a JDK 17 or newer):
